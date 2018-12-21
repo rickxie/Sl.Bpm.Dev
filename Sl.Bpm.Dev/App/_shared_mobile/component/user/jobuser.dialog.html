@@ -1,0 +1,130 @@
+﻿<modal size="lg">
+    <modal-header>
+        <div class="form-group">
+            <h4 class="text-center">请选择人员</h4>
+        </div>
+        <div class="input-group">
+            <input type="text" class="form-control" ng-model="vm.selectTxt" ng-blur="vm.search(0)" placeholder="Search for...">
+            <span class="input-group-btn">
+                <button  class="btn btn-default" ng-click="vm.search(0)" style="font-size:1.3rem;position:relative;left:0;top:0">Go</button>
+            </span>
+        </div>
+    </modal-header>
+    <modal-body style="padding:0">
+        <style>
+            .actived {
+                background: antiquewhite;
+            }
+            .item {
+                height: 7rem;
+                align-items: center;
+                text-align: center;
+            }
+            .avatar {
+                padding: 0;
+                margin: 0;
+                left: -0.3rem;
+                top: 1.3rem;
+                position: relative;
+            }
+        </style>
+        <div class="row">
+            <div class="pre-scrollable list-group">
+                <div class="list-group-item" ng-class="{true:'actived',false:''}[vm.isCheck(user)]" ng-click="vm.trCheck(user);" ng-repeat="user in vm.allEnterpriseUser">
+                    <div class="col-xs-12 item">
+                        <div class="col-xs-2 avatar">
+                            <img class="img-circle" src="/Content/Images/AppTitle.png" alt="头像">
+                        </div>
+                        <div class="col-xs-5">
+                            <h4 class="text-field">{{user.jobUsers}}</h4>
+                            <h5 class="control-label">{{vm.groupArray[0].text}}</h5>
+                        </div>
+                        <div class="col-xs-5">
+                            <h4 class="text-field">{{user.jobName}}</h4>
+                            <h5 class="control-label">{{user.groupName}}</h5>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row" ng-if="vm.selectDatas.length>1">
+                <div class="col-xs-12" ng-if="vm.ismulti" style="text-align: left;">
+                    已选择：<div ng-repeat="user in vm.selectDatas" style="display:inline-block;cursor:pointer;"><a ng-click="vm.trCheck(user)" id="{{user.id}}">{{user.text}}</a>、</div>
+                </div>
+            </div>
+            <div class="container">
+                <div class="row">
+                    <div class="col-xs-12">
+                        <nav class="text-center">
+                            <ul class="pager">
+                                <li ng-click="vm.previous()" ng-disabled="vm.currentPage<1" ng-class="{true:'disabled',false:''}[vm.currentPage<1]"><a href="#">上一页</a></li>
+                                <li ng-click="vm.next()"><a href="#" ng-class="{true:'disabled',false:''}[vm.pageInfo.currentPage>=vm.allUsers.length||vm.allEnterpriseUser.length<vm.pageSize]">下一页</a></li>
+                            </ul>
+                        </nav>
+                    </div>
+                    <div class="col-xs-12">
+                        <button class="btn btn-block btn-primary" ng-click="vm.save()" ng-disabled="vm.selectDatas.length<1" ng-class="{true:'disabled',false:''}[vm.selectDatas.lenghth<1]">确定</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </modal-body>
+</modal>
+
+<div class="modal" size="lg" ng-if="false">
+    <div class="modal-header navbar navbar-fixed-top">
+        <div class="form-group">
+            <h4 class="text-center">请选择人员</h4>
+        </div>
+
+        <div class="input-group">
+            <input type="text" class="form-control" ng-model="vm.selectTxt" ng-blur="vm.search(0)" placeholder="Search for...">
+            <span class="input-group-btn">
+                <button type="button" class="btn btn-default" ng-click="vm.search(0)">Go</button>
+            </span>
+        </div>
+    </div>
+    <div class="modal-body container">
+        <div class="pre-scrollable">
+            <div class="list-group">
+                <div class="list-group-item" ng-click="vm.trCheck(user);" ng-repeat="user in vm.allEnterpriseUser" style="margin-bottom: 5px;padding:0;border:none;">
+                    <div class="row bg" ng-class="{true:'actived',false:''}[vm.isCheck(user)]">
+                        <div class="col-xs-12">
+                            <div class="col-xs-3">
+                                <img class="img-circle" src="/Content/Images/AppTitle.png" alt="头像">
+                            </div>
+                            <div class="col-xs-4">
+                                <h4 class="text-field">{{user.jobUsers}}</h4>
+                                <h5 class="control-label">{{vm.groupArray[0].text}}</h5>
+                            </div>
+                            <div class="col-xs-5">
+                                <h4 class="control-label">{{user.jobName}}</h4>
+                                <h5 class="control-label">{{user.groupName}}</h5>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row" ng-if="vm.selectDatas.length>1">
+            <div class="col-xs-12" ng-if="vm.ismulti" style="text-align: left;">
+                已选择：<div ng-repeat="user in vm.selectDatas" style="display:inline-block;cursor:pointer;"><a ng-click="vm.trCheck(user)" id="{{user.id}}">{{user.text}}</a>、</div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12">
+                <nav>
+                    <ul class="pager pull-left">
+                        <li ng-click="vm.save()" ng-disabled="vm.selectDatas.length<1" ng-class="{true:'disabled',false:''}[vm.selectDatas.lenghth<1]"><a href="#">确定</a></li>
+                    </ul>
+                    <ul class="pager pull-right">
+                        <li ng-click="vm.previous()" ng-disabled="vm.currentPage<1" ng-class="{true:'disabled',false:''}[vm.currentPage<1]"><a href="#">上一页</a></li>
+                        <li ng-click="vm.next()"><a href="#" ng-class="{true:'disabled',false:''}[vm.pageInfo.currentPage>=vm.allUsers.length||vm.allEnterpriseUser.length<vm.pageSize]">下一页</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </div>
+    <!--<div class="navbar navbar-fixed-bottom">
+
+    </div>-->
+</div>

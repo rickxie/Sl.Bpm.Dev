@@ -1,0 +1,105 @@
+﻿#Div_Main {
+    width: 80%;
+    background-color: white;
+    border-bottom: 1px solid #d9d9d9;
+    -webkit-box-shadow: 0px 1px 6px #ccc;
+    -moz-box-shadow: 0px 1px 6px #ccc;
+    -ms-box-shadow: 0px 1px 6px #ccc;
+    -o-box-shadow: 0px 1px 6px #ccc;
+    box-shadow: 0px 1px 6px #ccc;
+    border-radius: 4px;
+}
+
+#Div_ControlProperty .div_PropertyPanel {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.ToolItem {
+    width: 100%;
+    padding-left: 15px;
+    line-height: 40px;
+    height: 40px;
+    display: block;
+    position: relative;
+    clear: left;
+}
+
+html {
+    font-family: 'Microsoft Yahei','Helvetica Neue',Helvetica,Arial,sans-serif;
+    background-color: rgb(238, 238, 238);
+}
+
+body {
+    font-family: 'Microsoft Yahei','Helvetica Neue',Helvetica,Arial,sans-serif;
+    background-color: rgb(238, 238, 238);
+    color: #34495e;
+}
+
+.UL_Tool[category]:before {
+    content: attr(category);
+    color: #e26a6a;
+    font-weight: bold;
+    display: block;
+    position: relative;
+    margin-right: 20px;
+    margin-left: 0px;
+    padding-left: 10px;
+    height: 30px;
+    line-height: 30px;
+    font-size: 14px;
+    border-bottom: 1px solid #eee;
+    font-size: 15px;
+}
+
+.UL_Tool[category]:after {
+    display: none;
+}
+
+.fa.ControlIcon:before {
+    color: #34495e;
+}
+
+.Text_Singer {
+    display: block;
+    width: 100%;
+    margin-left: 5px;
+    margin-right: 5px;
+    height: 32px;
+    padding: 0px 10px;
+    font-size: 13px;
+    line-height: 1.53846154;
+    color: #34495e;
+    vertical-align: middle;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+    box-sizing: border-box;
+    font-size: 15px;
+}
+
+    .Text_Singer:disabled {
+        box-shadow: none;
+        border-radius: 0px;
+        border-bottom: 1px dashed #34495e;
+        ;
+    }
+
+    .Text_Singer:hover:not(:disabled) {
+        background-color: #fff;
+    }
+
+    .Text_Singer:focus {
+        background-color: #fff;
+        box-shadow: 0px 0px 6px #74B9EF;
+    }
+
+.Span_RedStar {
+    color: red;
+    font-family: 'Microsoft YaHei';
+    font-size: 14px;
+    font-weight: bold;
+    line-height: 100%;
+    vertical-align: middle;
+}

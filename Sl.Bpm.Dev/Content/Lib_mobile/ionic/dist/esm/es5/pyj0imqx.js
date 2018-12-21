@@ -1,0 +1,5 @@
+/*!
+ * (C) Ionic http://ionicframework.com - MIT License
+ * Built with http://stenciljs.com
+ */
+import{a as createOverlay,b as dismissOverlay,c as getOverlay}from"./chunk-20186de4.js";var AlertController=function(){function e(){}return e.prototype.create=function(e){return createOverlay(this.doc.createElement("ion-alert"),e)},e.prototype.dismiss=function(e,t,r){return dismissOverlay(this.doc,e,t,"ion-alert",r)},e.prototype.getTop=function(){return getOverlay(this.doc,"ion-alert")},Object.defineProperty(e,"is",{get:function(){return"ion-alert-controller"},enumerable:!0,configurable:!0}),Object.defineProperty(e,"properties",{get:function(){return{create:{method:!0},dismiss:{method:!0},doc:{context:"document"},getTop:{method:!0}}},enumerable:!0,configurable:!0}),e}();export{AlertController as IonAlertController};

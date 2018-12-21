@@ -1,0 +1,50 @@
+﻿<modal size="xlg" class="entire-block content-on-load">
+    <div class="page_content">
+        <modal-body>
+            <button type="button" class="close" ng-click="base.close()">×</button>
+            <div class="container form-container fm-form-block" style="background-color: white; padding: 20px; border-radius: 6px;"
+                  page-state="{{base.pageState}}" page-language="{{base.language}}">
+                <div class="form-horizontal">
+                    <div class="fm-content print-page-simple">
+                        <!--此处会加载表单内容-->
+                    </div>
+                    <!--审批中时显示, 退回到发起人时显示, 不为自动发起的第一个节点时显示-->
+                    <div ng-if="(base.pageState == 2 || (!!base.taskId && base.pageState != 3)) && !base.isFromAutoPost">
+                            <fm-Group-Head title="审批意见"></fm-Group-Head>
+                            <div class="form-group">
+                                <div class="col-xs-12">
+                                    <fm-textarea fm-model="base.memo" normal i-clear ismulti placeholder="请填写审批意见">
+                                    </fm-textarea>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group">
+                                <div class="col-xs-12 form-error-list">
+                                    <ul>
+                                        <li class="col-lg-12" ng-repeat="e in form.$errors"><span class="form-error-list-text">{{e.msg}}</span>&nbsp;<a title="跳转至" ng-click="base.showErrorControl(e)"><i class="icon-share-alt"></i></a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group form-buttons">
+                                <!--ng-hide="base.pageState == 1 && btn.type == 'event_Delete' && !base.taskId"-->
+                                <div class="col-xs-12" style="text-align: center;">
+                                    <button id="{{btn.id}}"
+                                            ng-repeat="btn in base.actionButtons"
+                                            class="btn btn-info"
+                                            ng-click="base.submit(btn)"
+                                            ng-bind="btn.name"></button>
+                                    <input type="button" class="btn btn-default" value="{{ 'Close' | translate}}" ng-click="base.close()" />
+                                </div>
+                            </div>
+                        </div>
+                        <fm-Group-Head title="{{ 'ApprovalRecord' | translate }}" ng-if="base.pageState!=1 || !!base.taskId"></fm-Group-Head>
+                        <fm-approve-history isall="base.isApproveAll" task-id="base.taskId" ng-if="base.pageState!=1 || !!base.taskId"></fm-approve-history>
+                    </div>
+            </div>
+        </modal-body>
+        <div class="page_footer"></div>
+    </div>
+</modal>

@@ -1,0 +1,37 @@
+﻿
+
+
+<div ng-controller="syspages.views.system.chart.wfninfo as vm">
+    <div class="row">
+        
+        <div class="col-md-12 col-sm-12">
+            <div class="portlet light">
+                <div class="portlet-title">
+                    <div class="col-md-3">
+                        <fm-select items="vm.wfs" fm-model="vm.wfId" callback-func="vm.selectWfn(selectItem)"></fm-select>
+                    </div>
+                </div>
+                <div class="portlet-body">
+                    <div class="col-md-6">
+                        <table class="table table-striped table-hover table-condensed">
+                            <thead>
+                                <tr>
+                                    <th>节点名称</th>
+                                    <th>平均处理时间（Hr）</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="item in vm.models">
+                                    <td>{{item.wfnName}}</td>
+                                    <td>{{item.avgHours}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+

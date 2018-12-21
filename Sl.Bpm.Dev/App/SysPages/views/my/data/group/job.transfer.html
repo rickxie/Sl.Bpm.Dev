@@ -1,0 +1,30 @@
+﻿<modal size="lg">
+    <modal-header>{{ 'TransferJob' | translate}} {{vm.name}} {{ 'To' | translate}} {{ vm.selectedJobs[0].jobName}}</modal-header>
+    <ma-form name="jobTransfer">
+        <modal-body>
+            <div class="form-group">
+                <div class=" col-lg-4">
+                    <span ng-repeat="g in vm.allGroups" ng-if="vm.allGroups">
+                        <group-tree ng-model="g" selected-id="vm.selectedGroupId" />
+                    </span>
+                </div>
+                <div class="col-lg-8">
+                    <table selected-items="vm.selectedJobs" tr-ng-grid items="vm.jobs" page-items="8" fields="['jobName','jobUsers']" selection-mode="SingleRow">
+                        <thead>
+                            <tr>
+                                <th field-name="jobName" display-name="{{ 'Job' | translate}}" enable-sorting="false" width="100px" enable-filtering="false"></th>
+                                <th field-name="jobUsers" display-name="{{ 'JobUser' | translate}}" enable-sorting="false" enable-filtering="false"></th>
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
+            </div>
+        </modal-body>
+        <modal-footer>
+            <button class="btn btn-primary" type="submit" id="jobTransfer" ma-form-submit="vm.save()">{{ 'Confirm' | translate}}
+            </button>
+            <button type="button" class="btn btn-default" ng-click="$close()">{{ 'Cancel' | translate}}</button>
+        </modal-footer>
+    </ma-form>
+</modal>
+

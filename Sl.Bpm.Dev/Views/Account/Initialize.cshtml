@@ -1,0 +1,156 @@
+﻿@using System.Web.Optimization
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html ng-app="initialize">
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <link rel="icon" type="image/gif" href="../../Content/Images/AppTitle.png">
+    <title>沙鲁 - 流程设计平台 - 系统初始化</title>
+    @Styles.Render("~/SysPages/Css")
+</head>
+<body class="body-login" ng-controller="InitCtrl as vm" style="background-color: rgb(90,111,133)">
+    <script>
+        function ShowMessage(msg) {
+            alert(msg);
+        }
+    </script>
+    <ma-form name="init" class="form-horizontal">
+        <div class="container">
+            <div class="row login-title" style="height: 30px;">
+                <h1>系统初始化</h1>
+            </div>
+            <div class="row">
+                <div class="form-signin col-lg-8 col-lg-offset-2" style="padding-top: 40px;">
+                    <div class="form-group">
+                        <label class="col-md-3 control-label">服务器地址</label>
+                        <div class="col-md-8">
+                            <input type="text" name="serviceAddress" ng-model="vm.model.serviceAddress" required class="form-control" ng-disabled="vm.isValidate">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-3 control-label">企业密钥</label>
+                        <div class="col-md-8">
+                            <input type="text" name="enterpriseAccessId" ng-model="vm.model.enterpriseAccessId" required class="form-control" ng-disabled="vm.isValidate">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-3 control-label">用户密钥</label>
+                        <div class="col-md-8">
+                            <input type="text" name="userAccessId" ng-model="vm.model.userAccessId" class="form-control" ng-disabled="vm.isValidate">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-3 control-label"></label>
+                        <div class="col-md-2">
+                            <button class="btn btn-default btn-block" type="button" ng-click="vm.validateAccessId()">验证</button>
+                        </div>
+                        <div class="col-md-3" ng-if="vm.isValidate">
+                            <i class="icon icon-check"></i>
+                            <label class="control-label">验证已通过</label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-3 control-label"></label>
+                        <span class="col-md-8 label-badge" ng-if="vm.validateMsg" ng-bind="vm.validateMsg"></span>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-3 control-label">超级管理员账号</label>
+                        <div class="col-md-8">
+                            <input type="text" name="Account" class="form-control" ng-model="vm.model.usernameOrEmailAddress" disabled>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-3 control-label">密码</label>
+                        <div class="col-md-8">
+                            <input type="password" name="pwd" ng-model="vm.model.password" class="form-control" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-3 control-label">重复密码</label>
+                        <div class="col-md-8">
+                            <input type="password" name="confirmPwd" ng-model="vm.model.passwordConfirm" class="form-control" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-3 control-label"></label>
+                        <div class="col-md-3">
+                            <button class="btn btn-primary btn-block" type="submit" ma-form-submit="vm.save()" id="initializeData">初始化数据</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /container -->
+    </ma-form>
+    @Scripts.Render("~/SysPages/Js")
+
+    <script type="text/javascript">
+        angular.module('initialize', ['mabp']).controller('InitCtrl', [
+                    '$scope', '$http', 'mabp.app.enterpriseInfoSync', function ($scope, $http, service) {
+                        var vm = this;
+                        vm.model = {};
+                        vm.model.enterpriseId = "";
+                        vm.model.usernameOrEmailAddress = "superadmin";
+
+                        vm.validateAccessId = function () {
+                            vm.isValidate = false;
+                            service.initAccessIdValidate({
+                                EnterpriseAccessId: vm.model.enterpriseAccessId,
+                                UserAccessId: vm.model.userAccessId,
+                                SyncServiceAddress: vm.model.serviceAddress
+                            }).then(function (data) {
+                                if (!data.isSuccess) {
+                                    mabp.notify.error(data.errorMsg);
+                                    vm.validateMsg = data.errorMsg;
+                                }
+                                vm.model.enterpriseId = data.result;
+                                vm.isValidate = true;
+                            }, function () {
+                                //mabp.notify.error(data.result);
+                            });
+                        };
+
+                        vm.save = function () {
+                            if (vm.isValidate) {
+                                if (vm.model.password !== vm.model.passwordConfirm) {
+                                    mabp.notify.error("两次密码输入不一致");
+                                    return;
+                                }
+                                mabp.message.confirm("确定使用当前企业进行初始化？初始化后不能切换其他企业。", "确定", function (confirmed) {
+                                    if (confirmed) {
+                                        mabp.ui.setSaving('initializeData',
+                                        $http({
+                                            url: '/Account/Initialize',
+                                            method: "POST",
+                                            data: {
+                                                UsernameOrEmailAddress: vm.model.usernameOrEmailAddress,
+                                                Password: vm.model.password,
+                                                EnterpriseAccessId: vm.model.enterpriseAccessId,
+                                                UserAccessId: vm.model.userAccessId,
+                                                EnterpriseId: vm.model.enterpriseId,
+                                                SyncServiceAddress: vm.model.serviceAddress
+                                            }
+                                        }).success(function (result) {
+                                            if (!result.Success) {
+                                                mabp.notify.error(result.Error);
+                                            } else {
+                                                window.location.href = "/";
+                                            }
+                                        }));
+                                    }
+
+                                });
+
+                            }
+                        }
+                    }
+        ]);
+
+    </script>
+</body>
+</html>

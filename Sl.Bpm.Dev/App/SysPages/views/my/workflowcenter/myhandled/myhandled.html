@@ -1,0 +1,234 @@
+﻿<div ng-controller="syspages.views.my.workflowcenter.myhandled as vm">
+    <div class="row">
+        <div class="modal-user" style="position:relative;">
+            <div class="role_tree">
+                <div id="phMenu"><div class="page-menu"></div></div>
+            </div>
+            <div class="flow-table">
+                <div>
+                    <ul class="flow-list-tab clear">
+                        <li><label ng-click="vm.show()" class="{{vm.showSearch==true?'open':''}}"><i class="icon-search"></i> {{ 'FilterCondition' | translate}}</label></li>
+                        <li class="oper">
+                            <span ng-if="vm.models.length > 0 && !!vm.workflowId" ng-click="vm.exportExcel()"><i class="icon-upload-alt"></i>{{ "Export" | translate}}</span>
+                            <span style="display:none"><i class="icon-plus"></i>新建</span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="search-hide" ng-if="!!vm.showSearch">
+                    <div class="form-search-group clear">
+                        <div class="col-xs-4 row">
+                            <div class="col-xs-4 input-group-name">{{ 'Sn' | translate}}:</div>
+                            <div class="col-xs-8 input-group-value"><fm-text fm-model="vm.filter.sn" i-clear fm-placeholder="{{ 'Sn' | translate}}" keydown fm-blur="vm.selectS()"></fm-text></div>
+                        </div>
+                        <div class="col-xs-4 row">
+                            <div class="col-xs-4 input-group-name">{{ 'StartDate' | translate}}:</div>
+                            <div class="col-xs-8 input-group-value"><fm-datetime class="form-control input-sm" date fm-model="vm.filter.searchStartTime" fm-readonly fm-blur="vm.selectS()"></fm-datetime></div>
+                        </div>
+                        <div class="col-xs-4 row">
+                            <div class="col-xs-4 input-group-name">{{ 'EndDate' | translate}}:</div>
+                            <div class="col-xs-8 input-group-value"><fm-datetime class="form-control input-sm" date fm-model="vm.filter.searchEndTime" fm-readonly fm-blur="vm.selectS()"></fm-datetime></div>
+                        </div>
+                        <div class="col-xs-4 row">
+                            <div class="col-xs-4 input-group-name">{{ 'Creator' | translate}}:</div>
+                            <div class="col-xs-8 input-group-value"> <fm-text fm-model="vm.filter.creator" i-clear fm-placeholder="{{ 'Creator' | translate}}" keydown fm-blur="vm.selectS()"></fm-text></div>
+                        </div>
+                        <div class="col-xs-4 row">
+                            <div class="col-xs-4 input-group-name">{{ 'AreaCode' | translate}}:</div>
+                            <div class="col-xs-8 input-group-value"><fm-text fm-model="vm.filter.areaCode" i-clear fm-placeholder="{{ 'AreaCode' | translate}}" keydown fm-blur="vm.selectS()"></fm-text></div>
+                        </div>
+                        <div class="col-xs-4 row">
+                            <div class="col-xs-4 input-group-name">{{ 'CurrentStatus' | translate}}:</div>
+                            <div class="col-xs-8 input-group-value"><fm-select class="form-control input-sm" items="vm.taskStatus" fm-model="vm.filter.currentStatus" fm-blur="vm.selectS()"></fm-select></div>
+                        </div>
+                        <div class="col-xs-4 row" ng-repeat="col in vm.columnLists">
+                            <div class="col-xs-4 input-group-name">{{col.name}}:</div>
+                            <div class="col-xs-8 input-group-value"><fm-text fm-model="vm.filter[col.value]" i-clear fm-placeholder="{{col.name}}" keydown fm-blur="vm.selectS()"></fm-text></div>
+                        </div>
+                    </div>
+                    <div class="form-search-oper">
+                        <input type="button" value="{{:: 'Query' | translate}}" ng-click="vm.selectS()" class="btn btn-sm btn-primary" />
+                        <input type="button" value="{{:: 'Clear' | translate}}" ng-click="vm.clearS()" class="btn btn-sm btn-default" />
+                    </div>
+
+                    <!--选择流程
+                    <div class="selectTxt icon-search">
+                        <input type="text" value="" placeholder="{{ 'PleaseEnterTheQueryCondition '| translate }}" ng-model="vm.filterText" ng-blur="vm.select()" ng-keydown="vm.event_Keydown($event)" class="ng-pristine ng-untouched ng-valid">
+                    </div>-->
+                </div>
+                <div class=" table-bd" style="min-height: 330px; position: relative;">
+                    <div class="sp-table" ng-if="vm.models.length > 0 && vm.columnLists.length > 3">
+                        <div class="sp-tablecolumn">
+                            <div class="sp-tablecell">
+                                <table class="table-responsive">
+                                    <thead>
+                                        <tr>
+                                            <th>{{ 'Sn' | translate}}</th>
+                                            <th>{{ 'Creator' | translate}}</th>
+                                            <th ng-if="!vm.moduleIds">{{ 'WorkflowName' | translate}}</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr ng-repeat="task in vm.models track by $index">
+                                            <td>
+                                                <div class="txt-warp">
+                                                    <a class="ink-label ng-binding" ng-click="vm.edit(task)">
+                                                        {{task.sn}}
+                                                        <span ng-if="!!task.areaCode">({{task.areaCode}})</span>
+                                                    </a>
+                                                </div>
+                                                
+                                            </td>
+                                            <td>
+                                                <div class="txt-warp">
+                                                    <span class="taskcolumn" title="{{task.submitter}}">{{task.submitter}}</span>
+                                                </div>
+                                                
+                                            </td>
+                                            <td ng-if="!vm.moduleIds">
+                                                <div class="txt-warp">
+                                                    <span class="taskcolumn">{{task.workflowName}}</span>
+                                                </div>                                                
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <!-- -->
+                        <div class="sp-tablecolumn sp-scrolltable" ng-if="vm.columnLists.length > 0 && !!vm.moduleIds">
+                            <div class="sp-tablecell">
+                                <table class="table-responsive">
+                                    <thead>
+                                        <tr>
+                                            <th style="max-width: 300px;" ng-repeat="aa in vm.columnLists track by $index">{{aa.name}}</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr ng-repeat="task in vm.models track by $index">
+                                            <td style="max-width: 300px;" ng-repeat="cc in vm.columnLists track by $index" ng-if="vm.columnLists.length > 0">
+                                                <div class="txt-warp">
+                                                    <span class="taskcolumn" title="{{task[cc.value]}}">{{task[cc.value]}}</span>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <!--  -->
+                        <div class="sp-tablecolumn">
+                            <div class="sp-tablecell">
+                                <table class="table-responsive">
+                                    <thead>
+                                        <tr>
+                                            <th style="max-width: 300px;">{{ 'CurrentStatus' | translate}}</th>
+                                            <th>{{ 'CreationDate' | translate}}</th>
+                                            <th>{{ 'Operation' | translate}}</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr ng-repeat="task in vm.models track by $index">
+                                            <td style="max-width: 300px;">
+                                                <div class="txt-warp">
+                                                    <span class="taskcolumn" title="{{task.finishedTime | date:'yyyy-MM-dd HH:mm:ss'}}">{{task.taskTitle}}</span>
+                                                </div>
+                                                
+                                            </td>
+                                            <td>
+                                                <div class="txt-warp">
+                                                    <span class="taskcolumn" title="{{task.creationTime | date:'yyyy-MM-dd HH:mm:ss'}}">{{task.creationTime | date:'yyyy-MM-dd'}}</span>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="txt-warp">
+                                                    <i title="标记" class="fa-effect-boris cursor-pointer text-warning" ng-class="{true:'icon icon-star',false:'icon icon-star-empty',null:'icon icon-star-empty'}[task.isMarked]" ng-click="vm.mark(task)"></i>
+                                                    <i title="撤回" ng-if="!!task.nextProcId" class="fa-effect-boris icon icon-history text-danger cursor-pointer" ng-click="vm.recede(task)"></i>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="sp-table" ng-if="vm.models.length > 0 && (vm.columnLists||[]).length < 4">
+                        <div class="sp-tablecolumn">
+                            <div class="sp-tablecell">
+                                <table class="table-responsive">
+                                    <thead>
+                                        <tr>
+                                            <th>{{ 'Sn' | translate}}</th>
+                                            <th>{{ 'Creator' | translate}}</th>
+                                            <th ng-if="!vm.moduleIds">{{ 'WorkflowName' | translate}}</th>
+                                            <th ng-repeat="aa in vm.columnLists track by $index">{{aa.name}}</th>
+
+                                            <th style="max-width: 300px;">{{ 'CurrentStatus' | translate}}</th>
+                                            <th>{{ 'CreationDate' | translate}}</th>
+                                            <th>{{ 'Operation' | translate}}</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr ng-repeat="task in vm.models track by $index">
+                                            <td>
+                                                <div class="txt-warp">
+                                                    <a class="ink-label ng-binding" ng-click="vm.edit(task)">
+                                                        {{task.sn}}
+                                                        <span ng-if="!!task.areaCode">({{task.areaCode}})</span>
+                                                    </a>
+                                                </div>
+                                                
+                                            </td>
+                                            <td>
+                                                <div class="txt-warp">
+                                                    <span class="taskcolumn" title="{{task.submitter}}">{{task.submitter}}</span>
+                                                </div>
+                                            </td>
+                                            <td ng-if="!vm.moduleIds">
+                                                <div class="txt-warp">
+                                                    <span class="taskcolumn">{{task.workflowName}}</span>
+                                                </div>
+                                            </td>
+                                            <td ng-repeat="cc in vm.columnLists track by $index" ng-if="vm.columnLists.length > 0">
+                                                <div class="txt-warp">
+                                                    <span class="taskcolumn" title="{{task[cc.value]}}">{{task[cc.value]}}</span>
+                                                </div>
+                                            </td>
+
+                                            <td style="max-width: 300px;">
+                                                <div class="txt-warp">
+                                                    <span class="taskcolumn" title="{{task.finishedTime | date:'yyyy-MM-dd HH:mm:ss'}}">{{task.taskTitle}}</span>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="txt-warp">
+                                                    <span class="taskcolumn" title="{{task.creationTime | date:'yyyy-MM-dd HH:mm:ss'}}">{{task.creationTime | date:'yyyy-MM-dd'}}</span>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="txt-warp">
+                                                    <i title="标记" class="fa-effect-boris cursor-pointer text-warning" ng-class="{true:'icon icon-star',false:'icon icon-star-empty',null:'icon icon-star-empty'}[task.isMarked]" ng-click="vm.mark(task)"></i>
+                                                    <i title="撤回" ng-if="!!task.nextProcId" class="fa-effect-boris icon icon-history text-danger cursor-pointer" ng-click="vm.recede(task)"></i>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div ng-if="vm.paging.totalCount === 0" style="text-align: center;">
+                        <span class="span1 no-data">{{ 'Nohandled' | translate}}</span>
+                    </div>
+                    <div class="table-footer">
+                        <div class="table-footer-pager" ng-if="vm.paging.totalCount > 0">
+                            <rs-pager ng-if="vm.paging.totalCount > vm.paging.pageSize" current-page="vm.paging.currentPage" load="vm.load()" total-count="vm.paging.totalCount" page-size="vm.paging.pageSize"></rs-pager>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

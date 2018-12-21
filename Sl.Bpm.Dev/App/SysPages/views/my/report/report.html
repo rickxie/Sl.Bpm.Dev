@@ -1,0 +1,24 @@
+﻿<div class="container-ui" ng-controller="syspages.views.my.report as vm">
+
+
+        <div active-panel="vm.activeCategoryId" ma-tabs>
+            <div ng-repeat="cate in vm.categoryList" data-title="{{ cate.name }}" name="{{ cate.id }}" ma-panel>
+            </div>
+        </div>
+        <div class="row data_load">
+            <div class="col-md-3 col-sm-4 col-lg-2" ng-repeat="i in vm.categorys[vm.activeCategoryId]" title="{{i.name}}" ng-if="permissions[i.id]">
+                <div class="my-card" ng-click="vm.openModule(i)">
+                    <div class="card-body">
+                        <div class="card-content">
+                            <h2><!--<i class="icon-2x {{i.icon}}" ng-class="mainIcons[$index % 6].icon"></i>-->{{i.name}}</h2>
+                        </div>
+                        <div class="colorblock">
+                            <div ng-style="{'background-color':mainIcons[$index % 6].color}"></div>
+                        </div>
+                    </div>
+                    <i title="{{ 'CollectionWorkflow' | translate}}" class="fa collectiontask icon-star" ng-class="{'orangered':i.isFavourite}" ng-click="vm.setFavourite(i, $event);"></i>
+                </div>
+            </div>
+        </div>
+    <!--<div ui-view></div>-->
+</div>

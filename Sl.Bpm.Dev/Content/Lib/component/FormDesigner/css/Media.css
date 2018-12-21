@@ -1,0 +1,63 @@
+﻿/******************************************/
+/****************竖屏CSS样式****************/
+/******************************************/
+
+@media (orientation: portrait) {
+}
+
+/******************************************/
+/****************横屏CSS样式****************/
+/******************************************/
+
+@media (max-width:1499px) and (orientation: landscape) {
+
+    .modal {
+        min-width: 1366px;
+    }
+
+    .UL_Tool li {
+        width: calc(100% - 9px);
+    }
+
+        .UL_Tool li > span {
+            line-height: 30px;
+            height: 30px;
+        }
+
+    .Text_Singer {
+        height: 24px;
+        font-size: 12px;
+    }
+
+    .UL_Tool li:not(:first-child) {
+        margin-top: 0px;
+    }
+
+    .UL_Tool li:first-child > span {
+        border-bottom-left-radius: 0px;
+        border-bottom-right-radius: 0px;
+    }
+
+    .UL_Tool li:last-child > span {
+        border-top-left-radius: 0px;
+        border-top-right-radius: 0px;
+    }
+
+        .UL_Tool li:not(:first-child):not(:last-child) > span {
+            border-top: none;
+            border-radius: 0px;
+        }
+}
+
+/*1200+宽度*/
+@media (min-width:1500px) and (orientation: landscape) {
+    .UL_Tool li {
+        width: calc(50% - 9px);
+    }
+}
+/*1600+宽度*/
+@media (min-width:1700px) and (orientation: landscape) {
+    .UL_Tool li {
+        width: calc(33.33333% - 9px);
+    }
+}

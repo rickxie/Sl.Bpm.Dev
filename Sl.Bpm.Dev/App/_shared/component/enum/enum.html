@@ -1,0 +1,25 @@
+﻿<modal size="md">
+    <modal-header>设置 {{vm.enum}}</modal-header>
+    <ma-form name="enum">
+        <modal-body>
+            <div class="form-group">
+                <div class="col-lg-offset-1 col-sm-10">
+
+                    <table class="table table-hover">
+                        <thead><tr><th>名称</th><th>值</th></tr></thead>
+                        <tbody>
+                            <tr ng-repeat="item in vm.models | orderBy: 'value'"  ng-click="vm.choose(item)">
+                                <th ng-hide="item.$edit" width="25%" > {{item.name}}</th>
+                                <th ng-hide="item.$edit" width="25%">{{item.value}}</th>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </modal-body>
+        <modal-footer>
+            <div class="row text-center"><button class="btn btn-default" ng-click="$hide()">关闭</button></div>
+        </modal-footer>
+    </ma-form>
+</modal>
+

@@ -1,0 +1,46 @@
+﻿
+
+
+<div ng-controller="syspages.views.system.chart.standardptsetting as vm">
+    <div class="modal-user">
+        <ma-header>维护修改以下数据</ma-header>
+        <div class="panel">
+            <div class="panel-heading">
+                搜索
+                <div class="selectTxt icon-search">
+                    <input type="text" value="" placeholder="请输入查询条件" ng-model="vm.filterText" ng-blur="vm.select()" ng-keydown="vm.event_Keydown($event)" class="ng-pristine ng-untouched ng-valid">
+                </div>
+            </div>
+            <div class="panel-body" style="min-height: 330px; position: relative;">
+                <table class="table table-striped table-hover table-condensed">
+                    <thead>
+                        <tr></tr>
+                        <tr>
+                            <th class="checked" style="width: 30px;">
+                                <input type="checkbox" class="uniform" ng-checked="vm.allChecked" ng-model="vm.allChecked" ng-click="vm.checkAll(vm.allChecked,vm.models)" />
+                            </th>
+                            <th style="width: 70px;">流程名称</th>
+                            <th style="width: 50px;">标准时间</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="item in vm.list" ng-class="{ 'active': item.checked}">
+                            <td class="checked">
+                                <input class="uniform"
+                                       type="checkbox" ng-model="item.checked" />
+                            </td>
+                            <td>
+                                {{item.text}}
+                            </td>
+                            <td>
+                                <fm-number fm-model="item.standardTime" fm-blur="vm.save(item)"></fm-number>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+

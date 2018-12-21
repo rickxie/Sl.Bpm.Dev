@@ -1,0 +1,17 @@
+﻿<ma-form>
+    <div ng-controller="app.sysdesigner.views.dialogs.node.tabs.examination as vm">
+        <div class="form-group">
+            <label class="col-lg-2  control-label">{{ 'EnableCheck' | translate}}</label>
+            <div class="col-lg-10">
+                <ma-checkbox ng-model="vm.node.isExamineEnable" ng-change="vm.changeExamineEnable()"></ma-checkbox>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-lg-2 col-lg-offset-1 control-label">{{ 'StandardProcessingTime' | translate}}</div>
+            <div class="col-lg-1">
+                <input type="text" ng-disabled="!vm.node.isExamineEnable" class="form-control input-sm input-append" ng-model="vm.node.examineStandardTime" ng-blur="vm.changeExamineStandardTime()" />
+            </div>
+            <div class="col-lg-1">{{ 'Hour' | translate}}</div>
+        </div>
+    </div>
+</ma-form>

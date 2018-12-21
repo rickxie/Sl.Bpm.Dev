@@ -1,0 +1,18 @@
+[2018-12-11 17:40:43,188] [5] [DEBUG] [Sl.Bpm.Engine.Log.ReflectionLayout] [DESKTOP-IQ8Q4G6\T470P]
+ source:Sl.Bpm.Engine.Log.SlEngineLogger.Debug(:0)
+ operator:ReturnStart
+ actionType:ReturnStart
+ systemCode:(null)
+ message:insert into InstProc(nodetype,wfdworkflownodeid,procuser,ProcJobId,recvtime,status,formfile,
+                            TaskId,PROCOwner,ProcOwnerJobId,Id,ActionId,FromProcId,EnterpriseId)values(0,'d65970ce-2810-4ce7-9c78-2b86b574e625','ae961c8b-83b6-4935-bc0d-93c77cf1dfd1','25b151fc-2cbd-4cec-b122-7d0519e9bffa','2018-12-11 17:40:42.777',0,'2188cf0e-7592-413b-a506-4f220fb6df22','A9466072-D3BE-406E-8540-6F206656ADEC','ae961c8b-83b6-4935-bc0d-93c77cf1dfd1','25b151fc-2cbd-4cec-b122-7d0519e9bffa','269597C9-79E8-4B1B-9AC9-0502422C5E3D','','','1ae84034-cccc-41c0-85f8-1f5d09d59ea0')
+insert into instproclink(taskid,procidfrom,procidto) values('A9466072-D3BE-406E-8540-6F206656ADEC','367BA88F-C28B-48C5-8D41-F07669C6E2FD','269597C9-79E8-4B1B-9AC9-0502422C5E3D')
+update InstProc set actionid='a21fe81c-df81-4adb-b051-8a7f8fd57ae6', actionlangname='9F5999CD-8F55-4468-B8AE-3397A7B90418', proctime='2018-12-11 17:40:42.777',status=3,note=N'3' ,formfile='2188cf0e-7592-413b-a506-4f220fb6df22' where id='367BA88F-C28B-48C5-8D41-F07669C6E2FD'
+update InstProc set procuser='ae961c8b-83b6-4935-bc0d-93c77cf1dfd1', procjobid='25b151fc-2cbd-4cec-b122-7d0519e9bffa' where id='367BA88F-C28B-48C5-8D41-F07669C6E2FD' AND ProcUser <> ProcOwner
+delete from InstProc where taskid='A9466072-D3BE-406E-8540-6F206656ADEC' and  status='14'
+delete from instproclink where procidto in (select id from  InstProc where id<>'367BA88F-C28B-48C5-8D41-F07669C6E2FD' and wfdworkflownodeid='c4c15ca9-d1c3-4145-8a8a-d69b55ddb7cf' and status=0)
+delete from InstProc  where id<>'367BA88F-C28B-48C5-8D41-F07669C6E2FD' and nodetype<>0 and status=0 and taskid='A9466072-D3BE-406E-8540-6F206656ADEC'
+delete from InstDraft where procId ='367BA88F-C28B-48C5-8D41-F07669C6E2FD' AND type = 0
+ detailInfomation:(null)
+ exception:
+ 
+

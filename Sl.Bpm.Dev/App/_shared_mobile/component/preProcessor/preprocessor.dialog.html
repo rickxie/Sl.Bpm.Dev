@@ -1,0 +1,78 @@
+﻿<modal>
+    <modal-header>{{vm.model.title}} {{vm.currentStep + 1}} / {{vm.models.length}}</modal-header>
+    <modal-body>
+        <div class="modal-body">
+
+            <!--<div>
+                <table class="table table-striped table-hover" style="margin: 0px">
+                    <thead>
+                    <tr>
+                        <th width="80px">选择</th>
+                        <th width="120px">姓名</th>
+                        <th>岗位</th>
+                    </tr>
+                    </thead>
+                </table>
+            </div>-->
+            <!--处理全部类型-->
+            <div ng-if="vm.model.type == 1">
+                <div ng-if="!(vm.model.singleSelected && vm.selected.length == 1)">
+                    <button class="btn success pull-right" ng-click="vm.selectGroupUser(vm.model)">选择处理人</button>
+                </div>
+            </div>
+            <!--处理候选项类型-->
+            <div ng-if="vm.model.type == 0 || vm.model.processors.length > 0">
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-lg-4">
+                            <input type="text" class="form-control" placeholder="搜索" ng-model="vm.filterText" />
+                        </div>
+                    </div>
+                </div>
+
+                <div style="max-height: 350px; overflow: auto">
+                    <table class="table table-striped table-hover" style="margin: 0px">
+                        <thead>
+                            <tr>
+                                <th width="80px">选择</th>
+                                <th width="120px">姓名</th>
+                                <th>岗位</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="item in vm.model.processors | filter:vm.filterText" ng-if="!vm.model.singleSelected" ng-class="{ 'active': item.$checked}" ng-click="vm.checked(item)">
+                                <td width="80px">
+                                    <input type="checkbox" ng-model="item.$checked" />
+                                </td>
+                                <td width="120px">{{item.userName}}</td>
+                                <td>{{item.jobName}}</td>
+                            </tr>
+                            <tr ng-repeat="item in vm.model.processors | filter:vm.filterText" ng-if="vm.model.singleSelected" ng-class="{ 'active': item.$checked}" ng-click="vm.checked(item)">
+                                <td width="80px">
+                                    <input type="radio" name="fixType" value="{{item.id}}" ng-model="vm.model.$checkedId" />
+                                </td>
+                                <td width="120px">{{item.userName}}</td>
+                                <td>{{item.jobName}}</td>
+                            </tr>
+                        </tbody>
+
+                    </table>
+                </div>
+            </div>
+            <div>
+                <table class="table table-striped table-hover">
+                    <tfoot>
+                        <tr>
+                            <td colspan="3"><span style="margin-right: 5px" class="label label-default" ng-repeat="i in vm.selected">{{i.userName}} <i class="icon icon-times" ng-click="vm.removeSelectedUser(i)" title="删除"></i></span> </td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+    </modal-body>
+    <modal-footer>
+        <button type="button" ng-if="vm.currentStep > 0" ng-click="vm.currentStep = vm.currentStep-1" class="btn btn-primary default">上一步</button>
+        <button type="button" ng-if="vm.currentStep < vm.models.length - 1" ng-click="vm.currentStep = vm.currentStep+1" class="btn btn-primary default" ng-disabled="vm.currentDisabled()">下一步</button>
+        <button class="btn btn-success" ng-click="vm.finish()" ng-if="vm.currentStep == vm.models.length - 1" type="submit" ng-disabled="vm.currentDisabled()">完成</button>
+    </modal-footer>
+</modal>

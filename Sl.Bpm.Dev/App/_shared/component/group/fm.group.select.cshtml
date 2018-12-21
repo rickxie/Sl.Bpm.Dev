@@ -1,0 +1,130 @@
+﻿<style>
+    .tree {
+        width: 750px;
+        max-height: 350px;
+        min-height: 20px;
+        padding: 19px 0px;
+    }
+
+        .tree li {
+            list-style-type: none;
+            margin: 0;
+            padding: 10px 5px 0 5px;
+            position: relative;
+        }
+
+            .tree li::before, .tree li::after {
+                content: '';
+                left: -20px;
+                position: absolute;
+                right: auto;
+            }
+
+        .tree ul {
+            margin-left: 25px;
+        }
+
+        .tree li::before {
+            border-left: 1px solid #999;
+            bottom: 50px;
+            height: 100%;
+            top: 0;
+            width: 1px;
+        }
+
+        .tree li::after {
+            border-top: 1px solid #999;
+            height: 20px;
+            top: 25px;
+            width: 25px;
+        }
+
+        .tree li span {
+            /*-moz-border-radius:5px;
+    -webkit-border-radius:5px;*/
+            /*border:1px solid #999;*/
+            border-radius: 5px;
+            display: inline-block;
+            padding: 3px 8px;
+            text-decoration: none;
+        }
+
+        .tree li.parent_li > span {
+            cursor: pointer;
+        }
+
+        .tree > ul > li::before, .tree > ul > li::after {
+            border: 0;
+        }
+
+        .tree li:last-child::before {
+            height: 30px;
+        }
+
+        .tree li.parent_li > span:hover, .tree li.parent_li > span:hover + ul li span {
+            background: #eee;
+            border: 1px solid #94a0b4;
+            color: #000;
+        }
+
+    .angular-ui-tree-handle {
+        cursor: default;
+    } 
+
+    .selected {
+        background: #f5f5f5;
+    }
+
+    #wfd-organize {
+        overflow: scroll;
+        margin-bottom: 20px;
+        background-color: #fbfbfb;
+        border: 1px solid #999;
+        -webkit-border-radius: 4px;
+        -moz-border-radius: 4px;
+        border-radius: 4px;
+        -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.05);
+        -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.05);
+        box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.05);
+    }
+
+    #wfd-rootnode {
+        margin: 0px;
+    }
+</style>
+
+<script type="text/ng-template" id="treeNodes.html">
+    <div ui-tree-handle ng-class="{'selected': vm.selectedCode == o.code}">
+        <i class="fa fa-minus-square-o" ng-class="{'fa-plus-square-o': collapsed, 'fa-minus-square-o': !collapsed}" data-nodrag ng-click="toggle(this)"></i>  <span ng-click="vm.organizeClick(o)">{{ o.name}}</span>
+    </div>
+    <ul ui-tree-nodes="options" ng-model="o.organize" ng-class="{hidden: collapsed}">
+        <li ng-repeat="o in o.organize" ui-tree-node ng-include="'treeNodes.html'"> </li>
+    </ul>
+</script>
+
+<modal submit="vm.save()">
+    <modal-header>按组织查找</modal-header>
+    <modal-body>
+        <fieldset>
+            <div class="form-group">
+                <div class="col-lg-8">
+                    <label class="control-label">组织结构</label>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-lg-12" id="wfd-organize">
+                    <div class="tree" ui-tree data-drag-enabled="false">
+                        <ul ui-tree-nodes="" ng-model="vm.model.organize" id="wfd-rootnode">
+                            <li ng-repeat="o in vm.model.organize" ui-tree-node ng-include="'treeNodes.html'">
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+        </fieldset>
+    </modal-body>
+    <modal-footer>
+        <button class="btn btn-primary btn-block" type="submit">保存</button>
+    </modal-footer>
+</modal>

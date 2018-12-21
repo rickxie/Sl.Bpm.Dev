@@ -1,0 +1,83 @@
+﻿<!DOCTYPE html>
+
+<html lang="zh-cn" xmlns="http://www.w3.org/1999/xhtml" ng-app="app">
+<head>
+    <meta charset="utf-8" http-equiv="X-UA-Compatible" content="IE=Edge">
+    <title></title>
+    <link href="lib/zui/css/zui.min.css" rel="stylesheet" />
+    <link href="lib/zui/css/zui-theme.min.css" rel="stylesheet" />
+    <link href="css/common.css" rel="stylesheet" />
+    <link href="lib/zui/lib/datatable/zui.datatable.min.css" rel="stylesheet" />
+    <script src="lib/jquery-3.3.1.min.js"></script>
+    <script src="lib/angular.min.js"></script>
+    <script src="lib/zui/js/zui.min.js"></script>
+    <script src="js/index.js"></script>
+    <script src="lib/zui/lib/datatable/zui.datatable.min.js"></script>
+</head>
+<body>
+    <div ng-controller="ctrl" ng-cloak>
+        <div class="panel">
+            <div class="panel-body">
+                <div class="input-group">
+                    <span class="input-group-addon">注释<span style="color:red">*</span></span>
+                    <input type="text" class="form-control" ng-model="comment">
+                    <span class="input-group-btn">
+                        <button class="btn btn-default" type="button" ng-click="checkIn()"> 签入</button>
+                    </span>
+                </div>
+            </div>
+        </div>
+
+        <div class="panel">
+            <div class="panel-heading">
+                正在挂起的更改<i class="icon icon-check-sign text-warning" style="margin-left:15px;" ng-show="checkCount"><span style="padding-left:3px;">{{checkCount}}</span></i>
+                <label class="label pull-right label-danger" style="margin-right:15px;" ng-if="list.length"> {{list.length}}</label>
+                <i class="icon icon-undo  pull-right text-primary" ng-click="revertChecked()" tip title="撤销选中的更改" data-placement="left" style="margin-right:15px;cursor:pointer;" ng-show="checkCount>1"></i>
+            </div>
+            <div class="panel-body">
+                <table class="table datatable table-condensed table-hover">
+                    <thead>
+                        <tr>
+
+                            <th class="flex-col" style="width:50px">
+                                <i class="icon"
+                                   ng-class="{true:'icon-checked',false:'icon-check-empty'}[!!allChecked]"
+                                   ng-click="toogleChecke()"
+                                   style="cursor:pointer;"></i>
+                            </th>
+                            <th class="flex-col" style="width:100px">编号</th>
+                            <th class="flex-col">文件</th>
+                            <th class="flex-col" style="width:100px">状态</th>
+                            <th class="flex-col" style="width:100px">
+                                操作
+
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="item in list track by item.CodeItemId" style="color:#333;" ng-class="{active:item.Checked}">
+                            <td class="check-row check-btn">
+                                <i class="icon" ng-click="item.Checked=!item.Checked" ng-class="{true:'icon-checked',false:'icon-check-empty'}[!!item.Checked]" style="cursor:pointer;"></i>
+                            </td>
+                            <td ng-click="item.Checked=!item.Checked">
+                                <span>{{item.CodeItemId | shortId}}</span>
+                            </td>
+                            <td ng-click="item.Checked=!item.Checked">{{item.FileName}}</td>
+                            <td>
+                                <i class="icon" ng-show="!item.IsDeleted" ng-class="{true:'icon-warning-sign text-warning',false:'icon-check-sign text-success'}[!!item.IsConflict]"></i>
+                                <i class="icon icon-minus text-danger" ng-show="item.IsDeleted"></i>
+                            </td>
+                            <td>
+                                <i class="icon icon-paste" ng-click="openWin(item)" data-placement="left" style="cursor:pointer;" title="解决冲突" data-tip-class="tooltip-warning" tip ng-show="item.IsConflict"></i>
+                                <i class="icon icon-paste" ng-click="openWin(item)" data-placement="left" style="cursor:pointer;" title="比较" tip ng-show="!item.IsConflict&&!item.IsDeleted"></i>
+                                <i class="icon icon-undo" ng-click="revert(item)" style="cursor:pointer;" data-placement="right" title="撤销更改" tip></i>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

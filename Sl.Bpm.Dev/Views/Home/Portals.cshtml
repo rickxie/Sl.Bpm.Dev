@@ -1,0 +1,567 @@
+﻿
+@{
+
+    Layout = null;
+}
+<!DOCTYPE html>
+<html ng-app="syspages">
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width" />
+    <title ng-bind="$enterpriseName + ' BPM系统'"></title>
+    <link href="~/Content/Style/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Content/Style/bpm_2.0.css" rel="stylesheet" />
+    <link href="~/Content/Style/zui-icon.css" rel="stylesheet" />
+    <link href="~/Content/Lib/swiper-4.3.3/swiper-4.3.3.min.css" rel="stylesheet" />
+    <script src="~/Content/Lib/swiper-4.3.3/swiper-4.3.3.min.js"></script>
+</head>
+<body class="portals-body">
+
+    <div class="portals-main portals-head clear">
+        <span>
+            <img src="~/Content/Images/new/logoA.png" />
+        </span>
+        <div class="workbench-in">
+            <a href="/Home/Index"><i class="icon-desktop"></i>进入工作台</a>
+            <span class="s">
+                <i class="icon-user"></i>
+            </span>
+        </div>
+    </div>
+    <div class="portals-banner">
+        <img src="~/Content/Images/new/portals_banner.jpg" />
+    </div>
+    <div class="portals-main quick-link">
+        <div class="ql-left">
+            <h4>快速链接</h4>
+            <h5>Quick Link</h5>
+            <p><i class="ico-quick-link"></i></p>
+        </div>
+        <ul>
+            <li>
+                <h2><i class="ico-quick-link ql2"></i></h2>
+                <p>请假申请</p>
+            </li>
+            <li>
+                <h2><i class="ico-quick-link ql3"></i></h2>
+                <p>加班申请</p>
+            </li>
+            <li>
+                <h2><i class="ico-quick-link ql4"></i></h2>
+                <p>出差申请</p>
+            </li>
+            <li>
+                <h2><i class="ico-quick-link ql5"></i></h2>
+                <p>合同申请</p>
+            </li>
+            <li>
+                <h2><i class="ico-quick-link ql6"></i></h2>
+                <p>印章申请</p>
+            </li>
+            <li>
+                <h2><i class="ico-quick-link ql7"></i></h2>
+                <p>会议室申请</p>
+            </li>
+            <li>
+                <h2><i class="ico-quick-link ql8"></i></h2>
+                <p>报销申请</p>
+            </li>
+        </ul>
+        <dl>
+            <dt>
+                办事指南<i style="display:inline-block;width:8px;height:8px;border-radius:4px;background:#507ea9;float:right;margin-top: 7px;margin-left:5px"></i>
+                <i style="display:inline-block;width:8px;height:8px;border-radius:4px;background:#fff;float:right;margin-top: 7px;"></i>
+            </dt>
+            <dd>
+                <a>入职指南</a>
+                <a>离职流程</a>
+                <a>微创大学</a>
+                <a>财务制度</a>
+            </dd>
+        </dl>
+    </div>
+    <div class="portals-main portals-con clear">
+        <div class="pc-bd1">
+            <div class="swiper-container sc1">
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide">
+                        <img src="~/Content/Images/new/pc-bd1.jpg" />
+                        <p>庆祝微创年会</p>
+                    </div>
+                    <div class="swiper-slide">
+                        <img src="~/Content/Images/new/pc-bd1.jpg" />
+                        <p>庆祝微创年会2</p>
+                    </div>
+                </div>
+                <!-- Add Pagination -->
+                <div class="swiper-pagination sp1"></div>
+            </div>
+            <script>
+                var swiper = new Swiper('.sc1', {
+                    pagination: {
+                        el: '.sp1'
+                    },
+                    loop: true,
+                    autoplay: true,
+                });
+            </script>
+        </div>
+        <div class="pc-bd2">
+            <img src="~/Content/Images/new/pc-bd2.png" />
+            <table>
+                <tr>
+                    <td>Java 资深工程师</td>
+                    <td>20人</td>
+                </tr>
+                <tr>
+                    <td>交互设计师</td>
+                    <td>5人</td>
+                </tr>
+                <tr>
+                    <td>.net资深工程师</td>
+                    <td>20人</td>
+                </tr>
+                <tr>
+                    <td>资深框架设计师</td>
+                    <td>20人</td>
+                </tr>
+                <tr>
+                    <td>MySQL DBA</td>
+                    <td>2人</td>
+                </tr>
+            </table>
+        </div>
+        <div class="pc-bd3">
+            <dl class="new-dl">
+                <dt>企业新闻</dt>
+                <dd>
+                    <span><i class="icon-caret-right"></i>2018微创中国全球年会盛典隆重举行  </span>
+                    <p>2018-04-05</p>
+                </dd>
+                <dd>
+                    <span><i class="icon-caret-right"></i>2018微创中国全球年会盛典隆重举行  </span>
+                    <p>2018-04-05</p>
+                </dd>
+                <dd>
+                    <span><i class="icon-caret-right"></i>2018微创中国全球年会盛典隆重举行  </span>
+                    <p>2018-04-05</p>
+                </dd>
+                <dd>
+                    <span><i class="icon-caret-right"></i>微创未来领袖大会闪耀开启 </span>
+                    <p>2018-04-05</p>
+                </dd>
+                <dd>
+                    <span><i class="icon-caret-right"></i>2018微创中国全球年会盛典隆重举行</span>
+                    <p>2018-04-05</p>
+                </dd>
+                <dd>
+                    <span><i class="icon-caret-right"></i>欧洲微创盛大开业，筑梦全球步伐...</span>
+                    <p>2018-04-05</p>
+                </dd>
+                <dd>
+                    <span><i class="icon-caret-right"></i>全球同庆微创十五周年</span>
+                    <p>2018-04-05</p>
+                </dd>
+                <dd>
+                    <span><i class="icon-caret-right"></i>微创未来领袖大会闪耀开启 </span>
+                    <p>2018-04-05</p>
+                </dd>
+            </dl>
+        </div>
+        <div class="pc-bd4">
+            <dl class="new-dl">
+                <dt>公司公告</dt>
+                <dd>
+                    <span><i class="icon-caret-right"></i>2018微创中国全球年会盛典隆重举行  </span>
+                    <p>2018-04-05</p>
+                </dd>
+                <dd>
+                    <span><i class="icon-caret-right"></i>微创未来领袖大会闪耀开启 </span>
+                    <p>2018-04-05</p>
+                </dd>
+                <dd>
+                    <span><i class="icon-caret-right"></i>欧洲微创盛大开业，筑梦全球步伐...</span>
+                    <p>2018-04-05</p>
+                </dd>
+                <dd>
+                    <span><i class="icon-caret-right"></i>全球同庆微创十五周年</span>
+                    <p>2018-04-05</p>
+                </dd>
+                <dd>
+                    <span><i class="icon-caret-right"></i>微创未来领袖大会闪耀开启 </span>
+                    <p>2018-04-05</p>
+                </dd>
+            </dl>
+        </div>
+        <div class="pc-bd5">
+            <img src="~/Content/Images/new/pc-bd5.jpg" />
+            <div style="height:3px;box-shadow: 0 2px 7px #cccbcb;margin-top:3px"></div>
+            <marquee direction="up" height="600px" scrollamount="4" behavior="scroll" style="display:none">
+                <ul>
+                    <li>
+                        <span>
+                            <img src="~/Content/Images/new/user-face.jpg" />
+                        </span>
+                        <div>
+                            <h3>Helen2</h3>
+                            <p>复旦大学 计算机学士</p>
+                            <p>Java开发工程师</p>
+                        </div>
+                    </li>
+                    <li>
+                        <span>
+                            <img src="~/Content/Images/new/user-face.jpg" />
+                        </span>
+                        <div>
+                            <h3>Helen2</h3>
+                            <p>复旦大学 计算机学士</p>
+                            <p>Java开发工程师</p>
+                        </div>
+                    </li>
+                    <li>
+                        <span>
+                            <img src="~/Content/Images/new/user-face.jpg" />
+                        </span>
+                        <div>
+                            <h3>Helen2</h3>
+                            <p>复旦大学 计算机学士</p>
+                            <p>Java开发工程师</p>
+                        </div>
+                    </li>
+                    <li>
+                        <span>
+                            <img src="~/Content/Images/new/user-face.jpg" />
+                        </span>
+                        <div>
+                            <h3>Helen2</h3>
+                            <p>复旦大学 计算机学士</p>
+                            <p>Java开发工程师</p>
+                        </div>
+                    </li>
+                    <li>
+                        <span>
+                            <img src="~/Content/Images/new/user-face.jpg" />
+                        </span>
+                        <div>
+                            <h3>Helen2</h3>
+                            <p>复旦大学 计算机学士</p>
+                            <p>Java开发工程师</p>
+                        </div>
+                    </li>
+                    <li>
+                        <span>
+                            <img src="~/Content/Images/new/user-face.jpg" />
+                        </span>
+                        <div>
+                            <h3>Helen2</h3>
+                            <p>复旦大学 计算机学士</p>
+                            <p>Java开发工程师</p>
+                        </div>
+                    </li>
+                    <li>
+                        <span>
+                            <img src="~/Content/Images/new/user-face.jpg" />
+                        </span>
+                        <div>
+                            <h3>Helen2</h3>
+                            <p>复旦大学 计算机学士</p>
+                            <p>Java开发工程师</p>
+                        </div>
+                    </li>
+                    <li>
+                        <span>
+                            <img src="~/Content/Images/new/user-face.jpg" />
+                        </span>
+                        <div>
+                            <h3>Helen2</h3>
+                            <p>复旦大学 计算机学士</p>
+                            <p>Java开发工程师</p>
+                        </div>
+                    </li>
+                    <li>
+                        <span>
+                            <img src="~/Content/Images/new/user-face.jpg" />
+                        </span>
+                        <div>
+                            <h3>Helen2</h3>
+                            <p>复旦大学 计算机学士</p>
+                            <p>Java开发工程师</p>
+                        </div>
+                    </li>
+                    <li>
+                        <span>
+                            <img src="~/Content/Images/new/user-face.jpg" />
+                        </span>
+                        <div>
+                            <h3>Helen2</h3>
+                            <p>复旦大学 计算机学士</p>
+                            <p>Java开发工程师</p>
+                        </div>
+                    </li>
+                    <li>
+                        <span>
+                            <img src="~/Content/Images/new/user-face.jpg" />
+                        </span>
+                        <div>
+                            <h3>Helen2</h3>
+                            <p>复旦大学 计算机学士</p>
+                            <p>Java开发工程师</p>
+                        </div>
+                    </li>
+                    <li>
+                        <span>
+                            <img src="~/Content/Images/new/user-face.jpg" />
+                        </span>
+                        <div>
+                            <h3>Helen2</h3>
+                            <p>复旦大学 计算机学士</p>
+                            <p>Java开发工程师</p>
+                        </div>
+                    </li>
+                    <li>
+                        <span>
+                            <img src="~/Content/Images/new/user-face.jpg" />
+                        </span>
+                        <div>
+                            <h3>Helen2</h3>
+                            <p>复旦大学 计算机学士</p>
+                            <p>Java开发工程师</p>
+                        </div>
+                    </li>
+                    <li>
+                        <span>
+                            <img src="~/Content/Images/new/user-face.jpg" />
+                        </span>
+                        <div>
+                            <h3>Helen2</h3>
+                            <p>复旦大学 计算机学士</p>
+                            <p>Java开发工程师</p>
+                        </div>
+                    </li>
+                    <li>
+                        <span>
+                            <img src="~/Content/Images/new/user-face.jpg" />
+                        </span>
+                        <div>
+                            <h3>Helen2</h3>
+                            <p>复旦大学 计算机学士</p>
+                            <p>Java开发工程师</p>
+                        </div>
+                    </li>
+                    <li>
+                        <span>
+                            <img src="~/Content/Images/new/user-face.jpg" />
+                        </span>
+                        <div>
+                            <h3>Helen2</h3>
+                            <p>复旦大学 计算机学士</p>
+                            <p>Java开发工程师</p>
+                        </div>
+                    </li>
+                    <li>
+                        <span>
+                            <img src="~/Content/Images/new/user-face.jpg" />
+                        </span>
+                        <div>
+                            <h3>Helen2</h3>
+                            <p>复旦大学 计算机学士</p>
+                            <p>Java开发工程师</p>
+                        </div>
+                    </li>
+                    <li>
+                        <span>
+                            <img src="~/Content/Images/new/user-face.jpg" />
+                        </span>
+                        <div>
+                            <h3>Helen2</h3>
+                            <p>复旦大学 计算机学士</p>
+                            <p>Java开发工程师</p>
+                        </div>
+                    </li>
+                    <li>
+                        <span>
+                            <img src="~/Content/Images/new/user-face.jpg" />
+                        </span>
+                        <div>
+                            <h3>Helen2</h3>
+                            <p>复旦大学 计算机学士</p>
+                            <p>Java开发工程师</p>
+                        </div>
+                    </li>
+                </ul>
+            </marquee>
+            <!-- Swiper -->
+            <style>
+                .sc9 .swiper-slide { height: 120px }
+            </style>
+            <div class="swiper-container sc9" style="height:440px">
+
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide">
+                        <li>
+                            <span>
+                                <img src="~/Content/Images/new/user-face.jpg" />
+                            </span>
+                            <div>
+                                <h3>Helen1</h3>
+                                <p>复旦大学 计算机学士</p>
+                                <p>Java开发工程师</p>
+                            </div>
+                        </li>
+                    </div>
+                    <div class="swiper-slide">
+                        <li>
+                            <span>
+                                <img src="~/Content/Images/new/user-face.jpg" />
+                            </span>
+                            <div>
+                                <h3>Helen2</h3>
+                                <p>复旦大学 计算机学士</p>
+                                <p>Java开发工程师</p>
+                            </div>
+                        </li>
+                    </div>
+                    <div class="swiper-slide">
+                        <li>
+                            <span>
+                                <img src="~/Content/Images/new/user-face.jpg" />
+                            </span>
+                            <div>
+                                <h3>Helen3</h3>
+                                <p>复旦大学 计算机学士</p>
+                                <p>Java开发工程师</p>
+                            </div>
+                        </li>
+                    </div>
+                    <div class="swiper-slide">
+                        <li>
+                            <span>
+                                <img src="~/Content/Images/new/user-face.jpg" />
+                            </span>
+                            <div>
+                                <h3>Helen4</h3>
+                                <p>复旦大学 计算机学士</p>
+                                <p>Java开发工程师</p>
+                            </div>
+                        </li>
+                    </div>
+                    <div class="swiper-slide">
+                        <li>
+                            <span>
+                                <img src="~/Content/Images/new/user-face.jpg" />
+                            </span>
+                            <div>
+                                <h3>Helen5</h3>
+                                <p>复旦大学 计算机学士</p>
+                                <p>Java开发工程师</p>
+                            </div>
+                        </li>
+                    </div>
+                    <div class="swiper-slide">
+                        <li>
+                            <span>
+                                <img src="~/Content/Images/new/user-face.jpg" />
+                            </span>
+                            <div>
+                                <h3>Helen6</h3>
+                                <p>复旦大学 计算机学士</p>
+                                <p>Java开发工程师</p>
+                            </div>
+                        </li>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="pc-bd6">
+            <ul>
+                <li class="clear">
+                    <span>
+                        <img src="/Content/Images/new/pc-bd6_01.jpg">
+                    </span>
+                    <div>
+                        <h3>微创中国运动会</h3>
+                        <p>“努力到无能为力，拼搏到感动自己”2000余名微创员工燃爆一夏。...</p>
+                    </div>
+                </li>
+                <li class="clear">
+                    <span>
+                        <img src="/Content/Images/new/pc-bd6_02.jpg">
+                    </span>
+                    <div>
+                        <h3>微创中国年会</h3>
+                        <p>齐聚来自世界各地的数千名微创员工，回顾一年的成绩与发展，尽享...</p>
+                    </div>
+                </li>
+                <li class="clear">
+                    <span>
+                        <img src="/Content/Images/new/pc-bd6_03.jpg">
+                    </span>
+                    <div>
+                        <h3>FLC微创未来领袖大会</h3>
+                        <p>微创精英汇聚一堂，新锐激烈的观点碰撞，前瞻厚重的智慧激荡，为微...</p>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <div class="pc-bd7">
+            <dl class="new-dl">
+                <dd>
+                    <span><i class="icon-caret-right"></i>微创暖流公益行动</span>
+                    <p>2018-04-05</p>
+                </dd>
+                <dd>
+                    <span><i class="icon-caret-right"></i>“社区科技中心”公益项目 </span>
+                    <p>2018-04-05</p>
+                </dd>
+                <dd>
+                    <span><i class="icon-caret-right"></i>“小橘灯·阅读计划” 公益项目</span>
+                    <p>2018-04-05</p>
+                </dd>
+                <dd>
+                    <span><i class="icon-caret-right"></i>羽毛球社团招募 </span>
+                    <p>2018-04-05</p>
+                </dd>
+                <dd>
+                    <span><i class="icon-caret-right"></i>篮球社团招募</span>
+                    <p>2018-04-05</p>
+                </dd>
+                <dd>
+                    <span><i class="icon-caret-right"></i>欧洲微创盛大开业，筑梦全球步伐...</span>
+                    <p>2018-04-05</p>
+                </dd>
+                <dd>
+                    <span><i class="icon-caret-right"></i>全球同庆微创十五周年</span>
+                    <p>2018-04-05</p>
+                </dd>
+                <dd>
+                    <span><i class="icon-caret-right"></i>微创未来领袖大会闪耀开启 </span>
+                    <p>2018-04-05</p>
+                </dd>
+            </dl>
+        </div>
+    </div>
+    <div class="portals-foot">
+        <i class="icon-wechat"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <i class="icon-weibo"></i>
+    </div>
+</body>
+</html>
+<script src="~/Content/Lib/jquery-1.11.3/jquery-1.11.3.js"></script>
+<!-- Initialize Swiper -->
+<script>
+    var swiper9 = new Swiper('.sc9', {
+        direction: 'vertical',
+        slidesPerView: 4,
+        loop: true,
+        autoplay: true
+    });
+    $(".sc9").hover(function () {
+        swiper9.autoplay.stop();
+    }, function () {
+        swiper9.autoplay.start();
+    });
+</script>
+
+
+
+

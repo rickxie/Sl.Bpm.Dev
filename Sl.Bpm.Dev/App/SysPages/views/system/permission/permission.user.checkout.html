@@ -1,0 +1,35 @@
+﻿<modal size="md">
+    <modal-header> {{ vm.userAccount}} 用户权限查看</modal-header>
+    <ma-form name="enterpriseRoleEdit">
+        <modal-body>
+            <div class="form-group form-md-line-input">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th width="300px">配置项</th>
+                            <th width="100px">允许/拒绝</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="item in vm.permissions">
+                            <td>
+                                {{ item.text}}
+                            </td>
+                            <td>
+                                <span class="label-permission label label-default" ng-if="item.value == 2 || item.value == null">Not Set</span>
+                                <span class="label-permission label label-success" ng-if="item.value == 1">Allow</span>
+                                <span class="label-permission label label-danger" ng-if="item.value == 0">Deny</span>
+                            </td>
+                            <td></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </modal-body>
+        <modal-footer>
+            <button type="button" class="btn btn-default" ng-click="$close()">{{ 'Cancel' | translate}}</button>
+        </modal-footer>
+    </ma-form>
+</modal>
+

@@ -1,0 +1,51 @@
+﻿<modal>
+    <ma-form name="actoruserSelect">
+        <modal-header>{{ 'ChooseHandler' | translate}}</modal-header>
+        <modal-body>
+            <div class="form-group">
+                <div class="col-lg-12">
+                    <div class="md-checkbox">
+                        <label for="checkbox_isAc1" style="line-height: 30px;padding-right: 5px;vertical-align: top;">
+                            <span class="inc"></span>
+                            <span class="check"></span>
+                            <span class="box"></span>
+                            {{ 'EffectiveCondition' | translate}}
+                        </label>
+                        <ma-checkbox ng-model="vm.model.isActiveConditionEnable" style="display: inline-block;"></ma-checkbox>
+                    </div>
+                </div>
+                <div class="col-lg-12 text-right" style="margin-bottom: 5px">
+                    <span class="btn btn-sm" ng-class="{'btn-primary':vm.model.isActiveConditionEnable}" ng-click="vm.model.isActiveConditionEnable && vm.setVariable()">+变量</span>
+                    <span class="btn btn-sm" ng-class="{'btn-primary':vm.model.isActiveConditionEnable}" ng-click="vm.model.isActiveConditionEnable && vm.openColumn()">+字段</span>
+                    <span class="btn btn-sm" ng-class="{'btn-primary':vm.model.isActiveConditionEnable}" ng-click="vm.model.isActiveConditionEnable && vm.watch()">查看</span>
+                </div>
+                <div class="col-lg-12">
+                    <textarea ng-disabled="!vm.model.isActiveConditionEnable" rows="4" ng-model="vm.model.activeCondition" type="text" class="form-control input-sm" placeholder="{{ 'EffectiveCondition' | translate}}"></textarea>
+                </div>
+
+                <div class="col-lg-12">
+                    {{ vm.formatedData}}
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-lg-12">
+                    <ma-select display-member="text" value-member="value" items="vm.actorList" ng-model="vm.model.type" ng-change="vm.changeType(value)"></ma-select>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-lg-12">
+                    <ma-node-select title="{{ 'SourceType' | translate}}" items="vm.dataTypes" type="vm.model.dataType" value="vm.model.dataValue" valuetext="vm.model.dataValueName" placeholder="vm.dataTypePlaceholder" readonly="vm.dataValueReadOnly"></ma-node-select>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-lg-12">
+                    <ma-node-select title="{{ 'FilterIdentity' | translate}}" items="vm.baseTypes" type="vm.model.baseType" value="vm.model.baseValue" valuetext="vm.model.baseValueName" placeholder="vm.baseTypePlaceholder"></ma-node-select>
+                </div>
+            </div>
+        </modal-body>
+        <modal-footer>
+            <button class="btn btn-primary" type="submit" ma-form-submit="vm.save()">{{ 'Save' | translate}}</button>
+            <button type="button" data-dismiss="modal" ng-click="vm.cancel()" class="btn default">{{ 'Cancel' | translate}}</button>
+        </modal-footer>
+    </ma-form>
+</modal>

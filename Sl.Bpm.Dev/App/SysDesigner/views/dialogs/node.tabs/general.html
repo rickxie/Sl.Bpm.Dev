@@ -1,0 +1,34 @@
+﻿<div class="form-group" ng-controller="app.sysdesigner.views.dialogs.node.tabs.general as vm">
+    <div class="col-lg-12">
+        <ma-form>
+            <div class="form-group">
+                <div class="col-lg-2 control-label">{{ 'NodeCode' | translate}}：</div>
+                <div class="col-lg-8">
+                    <input ng-model="vm.node.code" type="text" ng-disabled="isDesignModel" class="form-control" placeholder="{{ 'PleaseInputNodeCode' | translate}}">
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-lg-2 control-label">{{ 'NodeName' | translate}}：</div>
+                <div class="col-lg-8">
+                    <ma-language name="langName" disabled ng-disabled="isDesignModel" ng-model="vm.model.langName" language-list="vm.model.langNameList"></ma-language>
+                    
+                    <!--<ma-lang ng-disabled="isDesignModel" ng-model="vm.node.langName" display="vm.node.name"></ma-lang>-->
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-lg-2 control-label">{{ 'NodeDescription' | translate}}：</div>
+                <div class="col-lg-8">
+                    <textarea ng-model="vm.node.memo" type="text" rows="3" ng-disabled="isDesignModel" class="form-control  input-sm" placeholder="{{ 'PleaseInputNodeDescription' | translate}}"></textarea>
+                    <div class="form-control-focus"></div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-lg-2 control-label">{{ 'AssociatePage' | translate}}：</div>
+                <div class="col-lg-8">
+                    <input type="text" ng-model="vm.page.name" class="form-control" readonly="readonly" />
+                    <div class="form-control-focus"></div>
+                </div>
+            </div>
+        </ma-form>
+    </div>
+</div>

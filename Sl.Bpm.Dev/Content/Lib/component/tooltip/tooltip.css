@@ -1,0 +1,123 @@
+﻿.ma-tips {
+    position: absolute;
+    padding: 2px 15px 2px 6px;
+    border: 1px solid #EEE;
+    border-radius: 5px;
+    box-shadow: 3px 3px rgba(102,102,102,.1);
+    background-color: #f1f1f1;
+    font-family: "microsoft yahei";
+    font-size: 12px;
+    color: #555;
+    max-width: 198px;
+    line-height: 1.53846154;
+}
+.ma-tips:focus {
+    transition: 0.2s;
+    opacity: 0.3;
+    outline: none;
+}
+
+    .ma-tips:before {
+        position: absolute;
+        content: "";
+        width: 0;
+        height: 0;
+        margin: 0 -10px 0 0;
+        border-style: solid;
+    }
+    .ma-tips.bottomLeft:before {
+        top: -20px;
+        left: 12px;
+        border-width: 14px 10px 8px 10px;
+        border-color: transparent transparent #f1f1f1 transparent;
+    }
+    .ma-tips.bottomRight:before {
+        top: -20px;
+        right: 15px;
+        border-width: 12px 10px 8px 10px;
+        border-color: transparent transparent #f1f1f1 transparent;
+    }
+
+    .ma-tips > .ma-tips-close {
+        position: absolute;
+        top: 2px;
+        right: 3px;
+        cursor: pointer;
+        display: block;
+    }
+
+        .ma-tips > .ma-tips-close:before {
+            color: #AAA;
+            font-size: 12px;
+        }
+
+    .ma-tips > .ma-tips-icon {
+        margin-right: 5px;
+    }
+    /*错误信息*/
+    .ma-tips.error {
+        background-color: #ffe5e0;
+        border-color: #ffe5e0;
+    }
+
+        .ma-tips.error > .ma-tips-title {
+            color: #e73d4a;
+        }
+
+        .ma-tips.error:before {
+            border-color: transparent transparent #ffe5e0 transparent;
+        }
+
+        .ma-tips.error > .ma-tips-icon:before {
+            color: #e73d4a;
+        }
+
+        .ma-tips.error > .ma-tips-text {
+        }
+    /*标准信息*/
+    .ma-tips.info {
+        background-color: #e0ebf9;
+        border-color: #e0ebf9;
+    }
+
+        .ma-tips.info > .ma-tips-title {
+            color: #03a2b6;
+        }
+
+        .ma-tips.info:before {
+            border-color: transparent transparent #e0ebf9 transparent;
+        }
+
+        .ma-tips.info > .ma-tips-icon:before {
+            color: #03a2b6;
+        }
+
+        .ma-tips.info > .ma-tips-text {
+        }
+    /*成功信息*/
+    .ma-tips.success {
+        background-color: #ddf4df;
+        border-color: #ddf4df;
+    }
+
+        .ma-tips.success:before {
+            border-color: transparent transparent #ddf4df transparent;
+        }
+
+        .ma-tips.success > .ma-tips-title {
+            color: #329d38;
+        }
+
+        .ma-tips.success > .ma-tips-icon:before {
+            color: #329d38;
+        }
+
+        .ma-tips.success > .ma-tips-text {
+        }
+
+    .ma-tips > .ma-tips-hr {
+        position: relative;
+        left: -5px;
+        width: calc(100% + 10px);
+        margin: 2px 2px;
+    }

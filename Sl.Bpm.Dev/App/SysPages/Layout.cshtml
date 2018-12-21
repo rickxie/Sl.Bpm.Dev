@@ -1,0 +1,102 @@
+﻿@using System.Web.Optimization
+@using MiniAbp.Runtime
+@using MiniAbp.Web
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html ng-app="syspages">
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width" />
+    @*<link rel="icon" type="image/gif" href="../../Content/Images/AppTitle.png">*@
+    <title ng-bind="$enterpriseName + ' BPM系统'"></title>
+    <base href="/" />
+    @Styles.Render("~/SysPages/Css")
+</head>
+<body ng-controller="layoutController as vm" class="page-on-load my-theme-deep">
+    <ng-spinner-bar></ng-spinner-bar>
+    @*<div style="position: absolute; left: 5px; bottom: 0px;">@System.Reflection.Assembly.GetAssembly(typeof(Sl.Bpm.DesignerModule)).GetName().Version</div>*@
+    <div class="my-theme container container-layout page-container">
+        <nav class="navbar navbar-fixed-top" ng-controller="headerController as vm" style="display:none">
+            <div class="container-fluid nav-main">
+                <div class="navbar-header">
+                    <a style="padding: 6px;" class="navbar-brand" href="#">
+                        <img rel="icon" height="40" class="navbar-header-logo" src="../../Content/Images/logo.png" />
+                    </a>
+                    @*<a style="padding-left: 5px;" class="navbar-brand" href="#">{{ 'SiteName' | translate}}</a>*@
+                </div>
+                <div class="collapse navbar-collapse">
+                    <ul class="nav navbar-nav">
+                        <li ng-class="{ active : vm.currentMainMenu == item.menu }" ng-repeat="item in vm.mainMenus" ng-if="permissions[item.permission] || isSuperAdmin">
+                            <a ui-sref="{{vm.goToState(item)}}">{{item.displayName|translate}}</a>
+                        </li>
+                    </ul>
+
+                    <ul class="nav navbar-nav navbar-right">
+                        <li class="dropdown">
+                            <a href="" class="dropdown-toggle" id="dropdownMenu1"
+                               data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                                <span ng-bind="currentUserName"></span>
+                                <span class="caret"></span>
+                            </a>
+                            <ul class="dropdown-menu my-supermenu" role="menu" aria-labelledby="dropdownMenu1">
+                                <li role="presentation" ng-if='permissions["Menu_My_Setting"]'>
+                                    <a role="menuitem" tabindex="-1" href="#/personalsetting">{{ 'PersonalSettings' | translate}}</a>
+                                </li>
+                                <li role="presentation" ng-if='permissions["Menu_My_Outing"]'>
+                                    <a role="menuitem" tabindex="-1" href="#/agent">{{ 'OutSettings' | translate}}</a>
+                                </li>
+                                <li class="divider" role="presentation"></li>
+                                <li role="presentation">
+                                    <a role="menuitem" tabindex="-1" href="/Account/Logout"><i class="icon-signout"></i>&nbsp;{{ 'Logout' | translate}}</a>
+                                </li>
+                            </ul>
+
+                        </li>
+                    </ul>
+                </div>
+
+            </div>
+            <div class="container-fluid nav-sub nav-sub-black">
+                <div class="collapse navbar-collapse bs-example-js-navbar-scrollspy">
+                    <ul class="nav navbar-nav">
+                        <li class="my-submenu" ng-class="{ subMenuActive : vm.currentSubMenu == item.menu }" ng-repeat="item in vm.subMenus" ng-if="permissions[item.permission] || isSuperAdmin">
+                            <a class="my-submenu-linkbutton" ui-sref="{{vm.goToState(item)}}" title="{{item}}">
+                                <i class="my-submenu-linkbutton-icon" ng-class="mainIcons[$index % 6].icon"></i>
+                                {{item.displayName|translate}}
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="" style="display: block; position: initial;">
+                <div class="main-select-text" id="h_search">
+                </div>
+                <ul class="nav navbar-nav navbar-right" style="float: right; margin-left: auto; margin-right: 0px; margin-right: 50px; line-height: 54px;">
+                    <li id="cmd">
+                    </li>
+                </ul>
+            </div>
+            @*<div class="" style="background: #eff3f8; display: block; position: initial; height: 32px;">
+                </div>*@
+            <!-- /.container -->
+        </nav>
+
+
+        <!-- /.navbar -->
+        <div></div>
+        <div class="container-main" style="margin-top:0">
+            <div class="contenter-box">
+                <div class="shuffle-animation" ng-route-change ui-view></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        var currentLanguage = '@Session.GetUserLanguage()' || 'zh-CN';
+    </script>
+    @Scripts.Render("~/SysPages/Js")
+    <script src="/Account/Permissions" type="text/javascript"></script>
+</body>
+</html>

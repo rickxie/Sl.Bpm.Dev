@@ -1,0 +1,121 @@
+﻿<div ng-controller="syspages.views.my.workflowcenter.myhandled as vm">
+    <ma-header>{{ 'MyHanldeWf' | translate}}</ma-header>
+
+
+    <div class="row">
+        <div class="modal-user">
+            <div class="">
+                <fm-category isall fm-model="vm.moduleIds" items="vm.moduleTypes" code-member="moduleCount" display-member="moduleName" value-member="moduleId" callback-func="vm.load()"></fm-category>
+            </div>
+            <div class="panel">
+                <div class="panel-heading">
+                    选择流程
+                    <div class="selectTxt icon-search">
+                        <input type="text" value="" placeholder="{{ 'PleaseEnterTheQueryCondition '| translate }}" ng-model="vm.filterText" ng-blur="vm.select()" ng-keydown="vm.event_Keydown($event)" class="ng-pristine ng-untouched ng-valid">
+                    </div>
+                </div>
+                <div class="panel-body" style="min-height: 330px; position: relative;">
+                    <div class="sp-table" ng-if="vm.models.length > 0">
+                        <div class="sp-tablecolumn">
+                            <div class="sp-tablecell">
+                                <table class="table table-striped table-hover table-condensed">
+                                    <thead>
+                                        <tr>
+                                            <th>{{ 'Sn' | translate}}</th>
+                                            <th>{{ 'Creator' | translate}}</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr ng-repeat="task in vm.models track by $index">
+                                            <td><a class="ink-label ng-binding" ng-click="vm.edit(task)">{{task.sn}}
+                                                    <span ng-if="!!task.areaCode">({{task.areaCode}})</span>
+                                                </a>
+                                            </td>
+                                            <td>
+                                                <span class="taskcolumn" title="{{task.submitter}}">{{task.submitter}}</span>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <!--
+                        -->
+                        <div class="sp-tablecolumn sp-scrolltable" ng-if="!vm.moduleIds || (vm.columnLists.length > 0 && !!vm.moduleIds)">
+                            <div class="sp-tablecell">
+                                <table class="table table-striped table-hover table-condensed">
+                                    <thead>
+                                        <tr ng-if="vm.columnLists.length > 0 && !!vm.moduleIds">
+                                            <th style="max-width: 300px;" ng-repeat="aa in vm.columnLists">{{aa.name}}</th>
+                                        </tr>
+                                        <tr ng-if="!vm.moduleIds">
+                                            <th>{{ 'WfBusinessData' | translate}}</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr ng-repeat="task in vm.models track by $index">
+                                            <td style="max-width: 300px;" ng-repeat="cc in vm.columnLists track by $index" ng-if="vm.columnLists.length > 0">
+                                                <span class="taskcolumn" title="{{task.tasks[cc.value]}}">{{task.tasks[cc.value]}}</span>
+                                            </td>
+                                            <td style="max-width: 300px;" ng-if="!vm.moduleIds">
+                                                <span class="taskcolumn" title="task.columnText">{{task.columnText}}</span>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <!--
+                        -->
+                        <div class="sp-tablecolumn">
+                            <div class="sp-tablecell">
+                                <table class="table table-striped table-hover table-condensed">
+                                    <thead>
+                                        <tr>
+                                            <th style="max-width: 300px;">{{ 'CurrentStatus' | translate}}</th>
+                                            <th>{{ 'Operation' | translate}}</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr ng-repeat="task in vm.models track by $index">
+                                            <td style="max-width: 300px;" ng-if="task.taskStatus == 1">
+                                                <span class="taskcolumn" title="{{task.finishedTime | date:'yyyy-MM-dd HH:mm:ss'}}">{{'TaskFinishStatus' | translate}}</span>
+                                            </td>
+                                            <td style="max-width: 300px;" ng-if="task.taskStatus == 7">
+                                                <span class="taskcolumn" title="{{task.finishedTime | date:'yyyy-MM-dd HH:mm:ss'}}">{{'TaskRejectStatus' | translate}}</span>
+                                            </td>
+                                            <td style="max-width: 300px;" ng-if="task.taskStatus == 9">
+                                                <span class="taskcolumn" title="{{task.finishedTime | date:'yyyy-MM-dd HH:mm:ss'}}">{{'TaskCanceled' | translate}}</span>
+                                            </td>
+                                            <td style="max-width: 300px;" ng-if="task.taskStatus == 0">
+                                                <span class="taskcolumn" title="{{task.procUserName}}">{{task.procUserName}}</span>
+                                            </td>
+                                            <td>
+                                                <i title="标记" class="fa-effect-boris cursor-pointer text-warning" ng-class="{true:'icon icon-star',false:'icon icon-star-empty'}[task.isMarked]" ng-click="vm.mark(task)"></i>
+                                                <i title="撤回" ng-if="!!task.nextProcId" class="fa-effect-boris icon icon-history text-danger cursor-pointer" ng-click="vm.recede(task)"></i>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div ng-if="vm.paging.totalCount === undefined">
+                        <div class="content-spinner-bar">
+                            <div class="bounce1"></div>
+                            <div class="bounce2"></div>
+                            <div class="bounce3"></div>
+                        </div>
+                    </div>
+                    <div ng-if="vm.paging.totalCount === 0" style="text-align: center;">
+                        <span class="span1" style="position: absolute; height: 100%; width: 100%; left: 0; top: calc(50% - 14px); font-size: 28px; color: #353535;">当前没有已处理的流程</span>
+                    </div>
+                    <div>
+                        <button ng-if="vm.models.length > 0 && !!vm.moduleIds" style="text-align: left;" class="btn btn-primary" ng-click="vm.exportExcel()">导出</button>
+                        <ma-pager ng-if="vm.paging.totalCount > vm.paging.pageSize" current-page="vm.paging.currentPage" load="vm.load()" total-count="vm.paging.totalCount" page-size="vm.paging.pageSize"></ma-pager>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

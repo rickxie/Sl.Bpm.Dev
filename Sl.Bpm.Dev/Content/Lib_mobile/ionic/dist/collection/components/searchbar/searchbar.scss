@@ -1,0 +1,103 @@
+@import "../../themes/ionic.globals";
+
+// Searchbar
+// --------------------------------------------------
+
+:host {
+  --placeholder-color: currentColor;
+  --placeholder-font-style: inherit;
+  --placeholder-font-weight: inherit;
+  --placeholder-opacity: .5;
+
+  @include font-smoothing();
+
+  display: flex;
+  position: relative;
+
+  align-items: center;
+
+  width: 100%;
+  box-sizing: border-box;
+
+  font-family: $font-family-base;
+}
+
+:host(.ion-color) {
+  --background: #{current-color(base)};
+  --color-button-clear: inherit;
+  --color-button-cancel: inherit;
+  --color-icon: inherit;
+
+  color: #{current-color(contrast)};
+}
+
+.searchbar-search-icon {
+  // Don't let them tap on the icon
+  color: var(--color-icon);
+
+  pointer-events: none;
+}
+
+.searchbar-input-container {
+  display: block;
+  position: relative;
+
+  flex-shrink: 1;
+
+  width: 100%;
+}
+
+.searchbar-input {
+  @include text-inherit();
+
+  box-sizing: border-box;
+
+  display: block;
+
+  width: 100%;
+
+  border: 0;
+
+  outline: none;
+
+  background: var(--background);
+
+  font-family: inherit;
+  appearance: none;
+
+  &::placeholder {
+    color: var(--placeholder-color);
+
+    font-family: inherit;
+    font-style: var(--placeholder-font-style);
+    font-weight: var(--placeholder-font-weight);
+
+    opacity: var(--placeholder-opacity);
+  }
+
+  &::-webkit-search-cancel-button {
+    display: none;
+  }
+}
+
+.searchbar-cancel-button {
+  color: var(--color-button-cancel);
+}
+
+.searchbar-clear-button {
+  @include margin(0);
+  @include padding(0);
+
+  display: none;
+
+  min-height: 0;
+
+  outline: none;
+
+  color: var(--button-color-clear);
+  appearance: none;
+}
+
+:host(.searchbar-has-value.searchbar-has-focus) .searchbar-clear-button {
+  display: block;
+}

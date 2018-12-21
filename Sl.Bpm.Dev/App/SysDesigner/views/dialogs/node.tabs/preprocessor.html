@@ -1,0 +1,55 @@
+﻿<div class="form-group" ng-controller="app.sysdesigner.views.dialogs.node.tabs.preprocessor as vm">
+    <div class="col-lg-12">
+        <div class="row form-horizontal">
+            <div class="form-group">
+                <div class="col-lg-12">
+                    <button class="btn btn-sm btn-success pull-right" ng-click="vm.add()">新增</button>
+                </div>
+            </div>
+            <div class="form-group" ng-repeat="item in vm.preprocessor" style="border-top: #CCC dashed 2px; padding: 5px;">
+                <div class="form-group">
+                    <div class="col-lg-12">
+                        <button class="btn btn-sm btn-danger pull-right" message="{{ 'PleaseConfirmTheDeletionAgain' | translate}}" confirm-click="vm.remove(item)">删除</button>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-lg-12">
+                        <div class="col-lg-2 control-label">{{ 'Action' | translate}}</div>
+                        <div class="col-lg-4">
+                            <ma-select items="vm.actions" select-item="item.$action" ng-model="item.actionId" display-member="name" value-member="id" ng-change="vm.change(item)"></ma-select>
+                        </div>
+                        <div class="col-lg-2 control-label">{{ 'FixedOptions' | translate}}</div>
+                        <div class="col-lg-4">
+                            <label class="radio-inline"><input type="radio" name="fixType_{{$index}}" value="1" ng-model="item.fixType" ng-change="vm.change(item)">{{ 'SingleSelect' | translate}}</label>
+                            <label class="radio-inline"><input type="radio" name="fixType_{{$index}}" value="2" ng-model="item.fixType" ng-change="vm.change(item)">{{ 'MultiSelect' | translate}}</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-lg-2 control-label">标题</div>
+                    <div class="col-lg-8">
+                        <input name="informTemplateId" ng-model="item.title" ng-blur="vm.change(item)" type="text" class="form-control" />
+                    </div>
+                </div>
+
+                <div class="form-group" ng-if="item.$action == null || item.$action.type != 'event_AdditionalSigner'">
+                    <div class="col-lg-2 control-label">{{ 'VariableName' | translate}}</div>
+                    <div class="col-lg-4">
+                        <div class="input-group">
+                            <input name="informTemplateId" ng-readonly="true" ng-model="item.variableName" type="text" class="form-control input-sm" />
+                            <span class="input-group-addon input-sm" ng-click="vm.setVariable(item)">+</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-lg-2 control-label">{{ 'TheRecipient' | translate}}</div>
+                    <div class="col-lg-10">
+                        <ma-preprocessor processor-linked-id="item.processorLinkId" processor-node="vm.node"></ma-preprocessor>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,49 @@
+﻿@using System.Web.Optimization
+@{
+    Layout = null;
+    var path = Request.Path.ToLower();
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <link href="~/Content/Style/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Content/Style/bpm_2.0.css" rel="stylesheet" />
+    <link href="~/Content/Style/zui-icon.css" rel="stylesheet" />
+    <script src="/Account/Permissions" type="text/javascript"></script>
+    <script src="~/Content/Lib/jquery-1.10.2/jquery-1.10.2.min.js"></script>
+    <script src="~/Content/Lib/jquery-1.10.2/jquery.cookie.js"></script>
+</head>
+<body class="@Html.Raw(ViewBag.hasSubMenu!=null&&ViewBag.hasSubMenu==true?"with-submenu":"no-submenu")">
+    <div class="menu-fold">
+        <label>
+            <i class="icon-angle-left"></i>
+            <i class="icon-angle-right"></i>
+        </label>
+    </div>
+    <ul class="user-down">
+        @*<li><a href="/Home/personaldata"><i class="icon icon-user"></i>个人中心</a></li>
+        <li><a href="/Portals/Index"><i class="icon icon-home"></i>公司门户</a></li>*@
+        <li><a href="/Home/SetUp"><i class="icon icon-cog"></i>设置</a></li>
+        <li><a href="/Account/Logout"><i class="icon icon-signout"></i>退出</a></li>
+        <li>
+            <div class="skin-change-bt">
+                <span class="s-blue" data-class="skin-blue"></span>
+                <span class="s-yellow" data-class="skin-yellow"></span>
+            </div>
+        </li>
+        <li>
+            @Html.Action("RenderLang", "Shared")
+        </li>
+    </ul>
+    <div class="left-menu">
+        @Html.Action("RenderMenu", "Shared")
+    </div>
+    <div class="page-main">
+        @RenderBody()
+    </div>
+    <script src="~/Content/Scripts/menu.js"></script>
+</body>
+</html>
+

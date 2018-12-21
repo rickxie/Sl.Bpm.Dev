@@ -1,0 +1,19 @@
+﻿<div class="container-ui" ng-controller="syspages.views.my.data as vm">
+    <div class="row data_load">
+        <div class="col-md-3 col-sm-4 col-lg-2" ng-repeat="i in vm.pages" title="{{i.name}}">
+            <div class="my-card" ng-click="vm.openModule(i)">
+                <div class="card-body">
+                    <div class="card-content">
+                        <div>{{i.fileName}}</div>
+                        <div style="font-size:1.4em">{{i.name}}</div>
+                    </div>
+                    <div class="colorblock">
+                        <div ng-style="{'background-color':mainIcons[$index % 6].color}"></div>
+                    </div>
+                </div>
+                <i title="{{ 'CollectionWorkflow' | translate}}" class="fa collectiontask icon-star" ng-class="{'orangered':i.isFavourite}" ng-click="vm.setFavourite(i, $event);"></i>
+            </div>
+        </div>
+    </div> 
+    <!--<div ui-view></div>-->
+</div>

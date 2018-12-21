@@ -1,0 +1,40 @@
+﻿<modal>
+    <modal-header><span ng-if="vm.model.id == null" translate="Create"></span><span ng-if="vm.model.id != null" translate="Edit"></span>数据集 {{vm.model.name}}</modal-header>
+    <ma-tabs>
+        <ma-panel name="basic" data-title="{{ 'Basic' | translate}}">
+            <ma-form name="dataTypeEdit">
+                <modal-body>
+                    <div class="form-group form-md-line-input">
+                        <div class="col-lg-4 control-label">{{ 'Name' | translate}}:</div>
+                        <div class="col-lg-6">
+                            <ma-language name="langName" ma-required ng-model="vm.model.langName" language-list="vm.model.langNameList"></ma-language>
+                        </div>
+                    </div>
+                    <div class="form-group form-md-line-input">
+                        <div class="col-lg-4 control-label">值:</div>
+                        <div class="col-lg-6">
+                            <input class="form-control" name="value" required ng-maxlength="50" ng-model="vm.model.value" type="text" placeholder="Code" />
+                        </div>
+                    </div>
+                </modal-body>
+                <modal-footer>
+                    <button class="btn btn-primary" type="submit" id="dataTypeEdit" ma-form-submit="vm.save()">{{ 'Save' | translate}}</button>
+                    <button type="button" class="btn btn-default" ng-click="$close()">{{ 'Cancel' | translate}}</button>
+                </modal-footer>
+            </ma-form>
+        </ma-panel>
+        <ma-panel data-title="{{ 'Advance' | translate}}" name="advance">
+            <br />
+            <div class="form-group form-md-line-input">
+                <div class="col-lg-12 control-label">
+                    数据集内没有数据配置，才可删除
+                </div>
+            </div>
+            <modal-footer>
+                <button class="btn btn-danger" type="button" confirm-click="vm.delete()">{{ 'Delete' | translate}}</button>
+                <button type="button" class="btn btn-default" ng-click="$close()">{{ 'Cancel' | translate}}</button>
+            </modal-footer>
+        </ma-panel>
+    </ma-tabs>
+
+</modal>

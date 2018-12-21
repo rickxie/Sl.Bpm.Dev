@@ -1,0 +1,72 @@
+﻿<modal>
+    <modal-header><span ng-if="vm.model.id == null" translate="Create"></span><span ng-if="vm.model.id != null" translate="Edit"></span>&nbsp;{{ 'ChildGroup' | translate}} {{vm.model.job.name}}</modal-header>
+    <ma-tabs>
+        <ma-panel data-title="{{ 'Basic' | translate}}" name="basic">
+            <ma-form name="orgBasic">
+                <modal-body>
+                    <div class="form-group form-md-line-input">
+                        <div class="col-lg-4 control-label">{{ 'GroupName' | translate}}:</div>
+                        <div class="col-lg-6">
+                            <ma-language name="jobName" ng-model="vm.model.job.langName" language-list="vm.model.job.langNameList"></ma-language>
+                        </div>
+                    </div>
+
+                    <div class="form-group form-md-line-input">
+                        <div class="col-lg-4 control-label">{{ 'GroupCode' | translate}}:</div>
+                        <div class="col-lg-6">
+                            <input ng-model="vm.model.job.code" type="text" maxlength="50" name="jobCode" class="form-control" placeholder="{{ 'GroupCode' | translate}}">
+                            <div class="form-control-focus"></div>
+                        </div>
+                    </div>
+
+                    <div class="form-group form-md-line-input">
+                        <div class="col-lg-4 control-label">{{ 'GroupLevel' | translate}}:</div>
+                        <div class="col-lg-6">
+                            <ma-enum enum="GroupLevel" ng-model="vm.model.job.enumGroupLevel" />
+                        </div>
+                    </div>
+                    <div class="form-group form-md-line-input">
+                        <div class="col-lg-4 control-label">{{ 'GroupType' | translate}}:</div>
+                        <div class="col-lg-6">
+                            <ma-enum enum="GroupType" ng-model="vm.model.job.enumGroupType" />
+                        </div>
+                    </div>
+                    <div class="form-group form-md-line-input">
+                        <div class="col-lg-4 control-label">{{ 'DisplayOrder' | translate}}:</div>
+                        <div class="col-lg-6">
+                            <input type="number" ng-model="vm.model.job.displayOrder" class="form-control" />
+                        </div>
+                    </div>
+                    <div class="form-group form-md-line-input">
+                        <div class="col-lg-4 control-label">{{ 'AreaCode' | translate}}:</div>
+                        <div class="col-lg-6">
+                            <fm-select view="Sys_GetAllCompany"
+                                       fm-model="vm.model.job.areaCode"
+                                       required></fm-select>
+                        </div>
+                    </div>
+                </modal-body>
+                <modal-footer>
+                    <button class="btn btn-primary" type="submit" id="groupBasic" ma-form-submit="vm.save()">{{ 'Save' | translate}}</button>
+                    <button type="button" class="btn btn-default" ng-click="$close()">{{ 'Cancel' | translate}}</button>
+                </modal-footer>
+            </ma-form>
+        </ma-panel>
+        <ma-panel ng-if="vm.model.job.id != null && vm.model.job.parentJobId != null" data-title="{{ 'Advance' | translate}}" name="advance">
+            <br />
+            <div class="form-group form-md-line-input">
+
+                <div class="col-lg-12 control-label">
+                    {{ 'CancelGroupAndTransforToJob' | translate}}<button class="btn btn-primary" confirm-click="vm.convertJob()" title="{{ 'TransforToJob' | translate}}" message="{{ 'TransforToJobGroupWillBeDeletedJobKeep' | translate}}">{{ 'TransforToJob' | translate}}</button>
+                </div>
+            </div>
+            <div class="form-group form-md-line-input">
+                <div class="col-lg-12 control-label">
+                    {{ 'DeleteThisJobAndGroupWillBeDeleted' | translate}}<br />{{ 'IfWannaRemovingBindBetweenGroupAndJobGoToGroupChart' | translate}} <i class="glyphicon glyphicon-log-out" title="{{ 'UnBind' | translate}}"></i> {{ 'UnBindFunction' | translate}}
+                    <button class="btn btn-danger" type="button" message="{{ 'PleaseConfirmTheDeletionAgain' | translate}}" confirm-click="vm.delete()">{{ 'Delete' | translate}}</button>
+                </div>
+            </div>
+        </ma-panel>
+    </ma-tabs>
+</modal>
+

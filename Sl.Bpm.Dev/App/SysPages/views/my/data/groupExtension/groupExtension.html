@@ -1,0 +1,81 @@
+﻿<div ng-controller="syspages.views.my.data.groupExtension as vm">
+    <div class="row on-load modal-user">
+        <h3>
+            <i class="icon-list-ul icon-border-circle"></i> <span class="content-title ng-binding ng-scope" translate="公司信息 {{vm.paging.totalCount}}"></span>
+        </h3>
+        <div class="panel" style="background-color: rgba(0,0,0,0)">
+            <button class="btn btn-info btn-sm" ng-click="vm.show()">{{ 'FilterCondition' | translate}}</button>
+            <div class="panel-heading" ng-if="!!vm.showSearch" style="background-color: rgba(0,0,0,0)">
+                <div class="row search-condition">
+                    <div class="col-xs-3">
+                        <div class="input-group wf-search">
+                            <span class="input-group-addon input-sm">{{ 'GroupExtensionCompany' | translate}}</span>
+                            <fm-text fm-model="vm.filter.name" i-clear fm-placeholder="{{ 'GroupExtensionCompany' | translate}}" keydown fm-blur="vm.selectS()"></fm-text>
+                        </div>
+                    </div>
+                    <div class="col-xs-3">
+                        <div class="input-group wf-search">
+                            <span class="input-group-addon input-sm">{{ 'AreaCode' | translate}}</span>
+                            <fm-text fm-model="vm.filter.areaCode" i-clear fm-placeholder="{{ 'AreaCode' | translate}}" keydown fm-blur="vm.selectS()"></fm-text>
+                        </div>
+                    </div>
+                    <div class="col-xs-3">
+                        <div class="input-group wf-search">
+                            <span class="input-group-addon input-sm">{{ 'Fax' | translate}}</span>
+                            <fm-text fm-model="vm.filter.fax" i-clear fm-placeholder="{{ 'Fax' | translate}}" keydown fm-blur="vm.selectS()"></fm-text>
+                        </div>
+                    </div>
+                    <div class="col-xs-3">
+                        <div class="input-group wf-search">
+                            <span class="input-group-addon input-sm">{{ 'Address' | translate}}</span>
+                            <fm-text fm-model="vm.filter.address" i-clear fm-placeholder="{{ 'Address' | translate}}" keydown fm-blur="vm.selectS()"></fm-text>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12" style="text-align: center;">
+                            <button class="btn btn-info btn-xs" ng-click="vm.selectS()">{{:: 'Query' | translate}}</button>
+                            <button class="btn btn-default btn-xs" ng-click="vm.clearS()">{{:: 'Clear' | translate}}</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="panel-body" style="background-color: #ffffff;">
+                <table class=" table datatable">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>{{ 'Company' | translate}}</th>
+                            <th>{{ 'AreaCode' | translate}}</th>
+                            <th>{{ 'Fax' | translate}}</th>
+                            <th>{{ 'Address' | translate}}</th>
+                            <th style="width: 50px;">
+                                <input class="btn btn-sm btn-success" type="button" value="{{ 'AddCreate' | translate}}" ng-click="vm.edit()" />
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="item in vm.models">
+                            <td>{{$index + 1}}</td>
+                            <td>
+                                {{item.name}}
+                            </td>
+                            <td>
+                                {{item.areaCode}}
+                            </td>
+                            <td>
+                                {{item.fax}}
+                            </td>
+                            <td>
+                                {{item.address}}
+                            </td>
+                            <td>
+                                <input class="btn btn-sm btn-primary" type="button" value="{{ 'Edit' | translate}}" ng-click="vm.edit(item)" />
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <ma-pager ng-if="vm.paging.totalCount > vm.paging.pageSize" current-page="vm.paging.currentPage" load="vm.load()" total-count="vm.paging.totalCount" page-size="vm.paging.pageSize"></ma-pager>
+        </div>
+    </div>
+</div>

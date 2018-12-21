@@ -1,0 +1,295 @@
+﻿<div ng-controller="syspages.views.user.personalsetting as vm">
+    <style>
+        .container-body {
+            background: #eff3f8;
+        }
+
+        .form-signin {
+            background: white;
+        }
+    </style>
+    <div class="row login_content">
+        <div class="col-md-3" style="width:250px;height:232px;background:white;float:left;display:none;"></div>
+        <div class="col-md-12">
+            <div class="form-signin">
+                <ma-tabs class="portlet light">
+                    <ma-panel data-title="{{ 'BasicSettings' | translate}}">
+                        <div role="tabpanel" class="tab-pane" id="basic">
+                            <div class="btn-group" data-toggle="buttons"></div>
+                            <ma-form name="userInfo">
+                                <div class="form-group form-md-line-input">
+                                    <div class="col-lg-1 control-label">{{ 'RealName' | translate}}</div>
+                                    <div class="col-lg-4">
+                                        <ma-language name="langName" ma-required ng-model="vm.user.langName" language-list="vm.user.langNameList"></ma-language>
+                                    </div>
+                                </div>
+                                <!--<div class="form-group form-md-line-input">
+                                    <div class="col-lg-1 control-label">{{ 'NickName' | translate}}</div>
+                                    <div class="col-lg-4">
+                                        <input type="text" placeholder="{{ 'NickName' | translate}}" class="form-control"
+                                               name="nickname"
+                                               required
+                                               ng-model="vm.user.nickName">
+                                    </div>
+                                </div>-->
+                                <div class="form-group form-md-line-input">
+                                    <div class="col-lg-1 control-label">{{ 'Cellphone' | translate}}</div>
+                                    <div class="col-lg-4">
+                                        <input type="text" placeholder="{{ 'Cellphone' | translate}}" class="form-control"
+                                               name="telephone"
+                                               required
+                                               ng-model="vm.user.telephone">
+                                    </div>
+                                </div>
+                                <div class="form-group form-md-line-input">
+                                    <div class="col-lg-1 control-label">{{ 'JobNumber' | translate}}</div>
+                                    <div class="col-lg-4">
+                                        <input type="text" placeholder="{{ 'JobNumber' | translate}}" class="form-control"
+                                               name="employeeNumber"
+                                               required
+                                               ng-model="vm.user.employeeNumber">
+                                    </div>
+                                </div>
+                                <div class="form-group form-md-line-input">
+                                    <div class="col-lg-1 control-label">{{ 'Address' | translate}}</div>
+                                    <div class="col-lg-4">
+                                        <input type="text" placeholder="{{ 'Address' | translate}}" class="form-control" ng-model="vm.user.location">
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <div class="col-lg-1 control-label">{{ 'Language' | translate}}</div>
+                                    <div class="col-lg-4">
+                                        <div class="btn-group">
+                                            <button ng-repeat="l in vm.languages" type="button" ng-class="{'btn-primary': l.name == vm.activeLanguage, 'btn-default': l.name != vm.activeLanguage}" class="btn" ng-click="vm.switchLang(l, $index)">{{l.displayName}}</button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="margin-top-10 col-lg-offset-1 btngroup-left">
+                                    <button class="btn btn-primary" type="submit" id="saveUser" ma-form-submit="vm.saveUser()">{{ 'Save' | translate}}</button>
+                                </div>
+                            </ma-form>
+                        </div>
+                    </ma-panel>
+                    <ma-panel data-title="{{ 'ModifyPassword' | translate}}">
+                        <div role="tabpanel" class="tab-pane" id="safety">
+                            <div class="btn-group" data-toggle="buttons">
+                            </div>
+                            <ma-form name="changepwd">
+                                <div class="form-group form-md-line-input">
+                                    <div class="col-lg-1 control-label">{{ 'OrignalPassword' | translate}}</div>
+                                    <div class="col-lg-4">
+                                        <input type="password" class="form-control"
+                                               ng-model="vm.pwd.password"
+                                               autocomplete="off"
+                                               required name="OldPassword">
+                                    </div>
+                                </div>
+                                <div class="form-group form-md-line-input">
+                                    <div class="col-lg-1 control-label">{{ 'NewPassword' | translate}}</div>
+                                    <div class="col-lg-4">
+                                        <input type="password" class="form-control" ng-model="vm.pwd.newPassword"
+                                               required
+                                               autocomplete="off"
+                                               ng-pattern="/^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,}$/"
+                                               name="password">
+                                    </div>
+                                </div>
+                                <div class="form-group form-md-line-input">
+                                    <div class="col-lg-1 control-label">{{ 'RepeatPassword' | translate}}</div>
+                                    <div class="col-lg-4">
+                                        <input type="password" class="form-control" ng-model="vm.pwd.newPwd2" required ma-repeat="password" name="NewRePassword">
+                                    </div>
+                                </div>
+                                <div class="margin-top-10 col-lg-offset-1 btngroup-left">
+                                    <button class="btn btn-primary" type="submit" ma-form-submit="vm.changePwd()">{{ 'Save' | translate}}</button>
+                                </div>
+                            </ma-form>
+                        </div>
+                    </ma-panel>
+                    <ma-panel data-title="{{ 'LoginAccount' | translate}}">
+                        <div class="col-lg-12">
+                            <div role="tabpanel" class="tab-pane" id="safety">
+                                <p>{{ 'UnbindAtLeastHaveOne' | translate}}</p>
+                                <ma-form name="changepwd">
+                                    <!--手机相关-->
+                                    <div class="form-group form-md-line-input">
+                                        <div class="col-lg-1">
+                                            <div class="control-label">{{ 'CurrentCellphone' | translate}}</div>
+                                        </div>
+                                        <div class="col-lg-9">
+                                            <div class="col-lg-2">
+                                                <label class="control-label" ng-if="vm.user.cellPhone">{{vm.user.cellPhone}}</label>
+                                                <label class="control-label" ng-if="!vm.user.cellPhone">{{ 'NotBind' | translate}}</label>
+                                                &nbsp;
+                                            </div>
+                                            <div class="col-lg-2">
+                                                <div ng-if="vm.phone.step == 0">
+                                                    <button class="btn btn-primary" type="button" ng-if="vm.user.cellPhone" ng-click="vm.checkPwd(1,1)">{{ 'ChangeCellphone' | translate}}</button>
+                                                    <button class="btn btn-primary" type="button" ng-if="!vm.user.cellPhone" ng-click="vm.checkPwd(1,2)">{{ 'BindCellPhone' | translate}}</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group" ng-if="vm.phone.step == 1 || vm.phone.step == 2">
+                                        <div class="col-lg-1">
+                                            <div class="control-label">{{ 'ValidationCode' | translate}}</div>
+                                        </div>
+                                        <div class="col-lg-3">
+                                            <div class="input-group">
+                                                <input ng-model="vm.phone.phoneCode"
+                                                       name="phoneCode"
+                                                       ma-dynamic-element
+                                                       required
+                                                       type="text" class="form-control input validate" placeholder="{{ 'PleaseInputValidationCode' | translate}}">
+                                                <span class="input-group-btn">
+                                                    <button id="sendCode" class="btn btn-primary" ma-resend type="button" ng-click="vm.sendCode(1,vm.user.cellPhone,2)">{{ 'SendValidationCode' | translate}}</button>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="form-group form-md-line-input" ng-if="vm.phone.step == 1 || vm.phone.step == 2">
+                                        <div class="col-lg-9 col-lg-offset-1">
+                                            <button class="btn green" type="button" ma-form-submit="vm.bingding(1, vm.phone.phoneCode, 3)">{{ 'BindNewCellphone' | translate}}</button>
+                                            <button class="btn btn-danger" type="button" ma-form-submit="vm.unbingding(1, vm.phone.phoneCode, vm.user.cellPhone)">{{ 'UnBind' | translate}}</button>
+                                            <button class="btn btn-cancel" type="button" ng-click="vm.cancel()">{{ 'Cancel' | translate}}</button>
+                                        </div>
+                                    </div>
+                                    <div class="form-group" ng-if="vm.phone.step == 3 || vm.phone.step == 4">
+                                        <div class="col-lg-1">
+                                            <div class="control-label">{{ 'NewCellphone' | translate}}</div>
+                                        </div>
+                                        <div class="col-lg-3">
+                                            <div class="input-group">
+                                                <input ng-model="vm.phone.newPhone"
+                                                       name="newPhone"
+                                                       ma-dynamic-element
+                                                       required
+                                                       type="text" class="form-control input validate" placeholder="{{ 'PleaseInputNewCellphone' | translate}}">
+                                                <span class="input-group-btn">
+                                                    <button class="btn btn-primary" ma-resend type="button" ng-click="vm.sendCode(1,vm.phone.newPhone,4)">{{ 'SendValidationCode' | translate}}</button>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group form-md-line-input" ng-if="vm.phone.step == 4">
+                                        <div class="col-lg-1">
+                                            <div class="control-label">{{ 'ValidationCode' | translate}}</div>
+                                        </div>
+                                        <div class="col-lg-3">
+                                            <input type="text" class="form-control" placeholder="{{ 'PleaseInputValidationCode' | translate}}" ng-model="vm.phone.newPhoneCode"
+                                                   required
+                                                   ma-dynamic-element
+                                                   name="newPhoneCode">
+                                        </div>
+                                        <div class="col-lg-3">
+                                            <button type="button" class="btn green" ng-click="vm.confirmBingding(1,vm.phone.newPhoneCode,vm.phone.newPhone)">{{ 'SureForBind' | translate}}</button>
+                                        </div>
+                                    </div>
+
+                                    <!--邮箱相关-->
+                                    <div class="form-group form-md-line-input">
+                                        <div class="col-lg-1">
+                                            <div class="control-label">{{ 'CurrentEmail' | translate}}</div>
+                                        </div>
+                                        <div class="col-lg-9">
+                                            <div class="col-lg-2">
+                                                <label class="control-label" ng-if="vm.user.emailAddress">{{vm.user.emailAddress}}</label>
+                                                <label class="control-label" ng-if="!vm.user.emailAddress">{{ 'NotBind' | translate}}</label>
+                                                &nbsp;
+                                            </div>
+                                            <div class="col-lg-2">
+                                                <div ng-if="vm.email.step == 0">
+                                                    <button type="button" class="btn btn-primary" ng-if="vm.user.emailAddress" ng-click="vm.checkPwd(2,1)">{{ 'ChangeMail' | translate}}</button>
+                                                    <button type="button" class="btn btn-primary" ng-if="!vm.user.emailAddress" ng-click="vm.checkPwd(2,2)">{{ 'BindEmail' | translate}}</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group form-md-line-input" ng-if="vm.email.step == 1 || vm.email.step == 2">
+                                        <div class="col-lg-1">
+                                            <div class="control-label">{{ 'ValidationCode' | translate}}</div>
+                                        </div>
+                                        <div class="col-lg-3">
+                                            <div class="input-group">
+                                                <input ng-model="vm.email.emailCode"
+                                                       name="emailCode"
+                                                       ma-dynamic-element
+                                                       required
+                                                       type="text" class="form-control input validate" placeholder="{{ 'PleaseInputValidationCode' | translate}}">
+                                                <span class="input-group-btn">
+                                                    <button class="btn btn-primary" ma-resend type="button" ng-click="vm.sendCode(2,vm.user.emailAddress,2)">{{ 'SendValidationCode' | translate}}</button>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group" ng-if="vm.email.step == 3 || vm.email.step == 4">
+                                        <div class="col-lg-1">
+                                            <div class="control-label">{{ 'ValidationCode' | translate}}</div>
+                                        </div>
+                                        <div class="col-lg-3">
+                                            <div class="input-group">
+                                                <input ng-model="vm.email.newEmail"
+                                                       name="newEmail"
+                                                       ma-dynamic-element
+                                                       required
+                                                       type="text" class="form-control input validate" placeholder="{{ 'EnterNewEmail' | translate}}">
+                                                <span class="input-group-btn">
+                                                    <button class="btn btn-primary" ma-resend type="button" ng-click="vm.sendCode(2,vm.email.newEmail,4)">{{ 'SendValidationCode' | translate}}</button>
+                                                </span>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <div class="form-group form-md-line-input" ng-if="vm.email.step == 1 || vm.email.step == 2">
+                                        <div class="col-lg-9 col-lg-offset-1">
+                                            <button class="btn green" type="button" ma-form-submit="vm.bingding(2,vm.email.emailCode,3)">{{ 'BindNewEmail' | translate}}</button>
+                                            <button class="btn btn-danger" type="button" ma-form-submit="vm.unbingding(2,vm.email.emailCode,vm.user.emailAddress)">{{ 'UnBind' | translate}}</button>
+                                            <button class="btn btn-cancel" type="button" ma-form-submit="vm.cancel()">{{ 'Cancel' | translate}}</button>
+                                        </div>
+                                    </div>
+                                    <div class="form-group form-md-line-input" ng-if="vm.email.step == 4">
+                                        <div class="col-lg-1">
+                                            <div class="control-label">{{ 'ValidationCode' | translate}}</div>
+                                        </div>
+                                        <div class="col-lg-3">
+                                            <input type="text" class="form-control validate" placeholder="{{ 'PleaseInputValidationCode' | translate}}" ng-model="vm.email.newEmailCode"
+                                                   required
+                                                   ma-dynamic-element
+                                                   name="newEmailCode">
+                                        </div>
+                                        <div class="col-lg-3">
+                                            <button type="button" class="btn green" ng-click="vm.confirmBingding(2,vm.email.newEmailCode,vm.email.newEmail)">{{ 'SureForBind' | translate}}</button>
+                                        </div>
+                                    </div> 
+                                </ma-form>
+                            </div>
+                        </div>
+                    </ma-panel>
+                    <ma-panel data-title="{{ 'OpenApi' | translate}}">
+                        <div role="tabpanel" class="tab-pane" id="safety">
+                            <div class="btn-group" data-toggle="buttons">
+                            </div>
+                            <ma-form name="accessId">
+                                <div class="form-group form-md-line-input">
+                                    <div class="col-lg-1 control-label">{{ 'UserAccessId' | translate}}</div>
+                                    <div class="col-lg-4">
+                                        <input type="text" class="form-control" ng-model="vm.user.accessId"
+                                               required
+                                               name="userAccessId">
+                                    </div>
+                                </div>
+                                <div class="margin-top-10 col-lg-offset-1 btngroup-left">
+                                    <button class="btn btn-primary" type="submit" id="saveAccessId" ma-form-submit="vm.saveAccessId()">{{ 'Save' | translate}}</button>
+                                </div>
+                            </ma-form>
+                        </div>
+                    </ma-panel>
+                </ma-tabs>
+            </div>
+        </div>
+    </div>
+</div>

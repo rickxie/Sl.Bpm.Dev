@@ -1,0 +1,6 @@
+{
+	"jquery": "./js/jquery-2.1.3.min.js",
+	"arale-class": "./js/aralejs/class/class.js",
+	"arale-events": "./js/aralejs/event/event.js",
+	"arale-widget": "./js/aralejs/widget/widget.js"
+}

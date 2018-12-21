@@ -1,0 +1,98 @@
+﻿<modal>
+    <modal-header><span ng-if="vm.model.id == null" translate="Create"></span><span ng-if="vm.model.id != null" translate="Edit"></span>&nbsp;{{ 'InterfaceConfiguration' | translate}} {{vm.model.name}}</modal-header>
+    <ma-tabs>
+        <ma-panel name="basic" data-title="{{ 'Basic' | translate}}">
+            <ma-form name="enterpriseUserEdit">
+                <modal-body>
+                    <div class="form-group form-md-line-input">
+                        <div class="col-lg-4 control-label">{{ 'Name' | translate}}:</div>
+                        <div class="col-lg-6">
+                            <input name="name" ng-model="vm.model.name" type="text" maxlength="50" class="form-control" placeholder="{{ 'Name' | translate}}">
+                        </div>
+                    </div>
+                    <div class="form-group form-md-line-input">
+                        <div class="col-lg-4 control-label">{{ 'HandleType' | translate}}:</div>
+                        <div class="col-lg-6">
+                            <ma-select items="vm.processType" ng-model="vm.model.processType"></ma-select>
+                            <div class="form-control-focus"></div>
+                        </div>
+                    </div>
+                    <div class="form-group form-md-line-input">
+                        <div class="col-lg-4 control-label">{{ 'FileFormat' | translate}}:</div>
+                        <div class="col-lg-6">
+                            <input name="fileFormat" ng-model="vm.model.fileFormat" type="text" maxlength="50" class="form-control" placeholder="e.g. test_{yyyyMMddHHmmssfff}.txt">
+                            <div class="form-control-focus"></div>
+                        </div>
+                    </div>
+                    <div class="form-group form-md-line-input">
+                        <div class="col-lg-4 control-label">{{ 'LoopType' | translate}}:</div>
+                        <div class="col-lg-6">
+                            <ma-select items="vm.loopTypes" ng-model="vm.model.loopType"></ma-select>
+                        </div>
+                    </div>
+                    <div class="form-group form-md-line-input">
+                        <div class="col-lg-4 control-label">{{ 'ExecutionDate' | translate}}:</div>
+                        <div class="col-lg-6">
+                            <input type="text" ng-model="vm.model.execTimeStr" placeholder="08:30"/>
+                        </div>
+                    </div>
+                    <div class="form-group form-md-line-input" ng-if="vm.model.loopType == 2 ||vm.model.loopType == 4">
+                        <div class="col-lg-4 control-label">{{ 'IntervalTimeMS' | translate}}:</div>
+                        <div class="col-lg-6">
+                            <input type="number" class="form-control" ng-model="vm.model.intervalSecond" />
+                        </div>
+                    </div>
+                    <div class="form-group form-md-line-input">
+
+                        <div class="col-lg-4 control-label">{{ 'CallbackMethod' | translate}}:</div>
+                        <div class="col-lg-6">
+                            <input type="text" class="form-control" ng-model="vm.model.callBackMethod" />
+                        </div>
+                    </div>
+                    <div class="form-group form-md-line-input">
+                        <div class="col-lg-4 control-label">{{ 'AssociateDatatable' | translate}}</div>
+                        <div class="col-lg-6">
+                            <fm-data-select display-member="name"
+                                            value-member="id"
+                                            items="vm.tables"
+                                            columns="{name:'表名称',description:'表描述'}"
+                                            fm-model="vm.model.businessTableId"></fm-data-select>
+                            <div class="form-control-focus"></div>
+                        </div>
+                    </div>
+                    <div class="form-group form-md-line-input">
+                        <div class="col-lg-4 control-label">{{ 'Enable' | translate}}:</div>
+                        <div class="col-lg-6">
+                            <ma-checkbox ng-model="vm.model.isEnable" />
+                        </div>
+                    </div>
+                    <div class="form-group form-md-line-input" ng-if="!vm.model.isEnable">
+                        <div class="col-lg-4 control-label">{{ 'EnableDate' | translate}}:</div>
+                        <div class="col-lg-6">
+                            <input type="text" ng-model="vm.model.startTime" placeholder="08:30"/>
+                            <!--<input type="datetime-local" class="form-control" ng-model="vm.model.startTime " />-->
+                        </div>
+                    </div>
+                </modal-body>
+                <modal-footer>
+                    <button class="btn btn-primary" type="submit" id="enterpriseUserEdit" ma-form-submit="vm.save()">{{ 'Save' | translate}}</button>
+                    <button type="button" class="btn btn-default" ng-click="$close()">{{ 'Cancel' | translate}}</button>
+                </modal-footer>
+            </ma-form>
+        </ma-panel>
+        <ma-panel data-title="{{ 'Advance' | translate}}" name="advance">
+            <br />
+            <div class="form-group form-md-line-input">
+                <div class="col-lg-12 control-label">
+
+                </div>
+            </div>
+            <modal-footer>
+                <button class="btn btn-danger" type="button" content="{{ 'PleaseConfirmTheDeletionAgain' | translate}}" confirm-click="vm.delete()">{{ 'Delete' | translate}}</button>
+                <button type="button" class="btn btn-default" ng-click="$close()">{{ 'Cancel' | translate}}</button>
+            </modal-footer>
+        </ma-panel>
+    </ma-tabs>
+
+</modal>
+

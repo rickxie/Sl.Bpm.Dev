@@ -1,0 +1,56 @@
+﻿<div ng-controller="syspages.views.my.data.enum as vm">
+    <div class="ma-center-warper">
+        <div class="siderbar">
+            <h5>{{ 'EnumCollection' | translate}}</h5>
+            <div class="list-group">
+                <span ng-repeat="i in vm.menu" ng-class="{ 'active': vm.activeMenu.id == i.id}" class="list-group-item" ng-click="vm.switch(i)">{{i.name | translate}}</span>
+            </div>
+            <span class="toggler" ma-toggler=".ma-center-warper"><i class="icon-list-ul"></i></span>
+        </div>
+        <div class="page-content">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>文本<!--{{ 'EnumKey' | translate}}--></th>
+                        <th>值<!--{{ 'EnumValue' | translate}}--></th>
+                        <th>
+                            操作
+                            <!--<button class="btn btn-success btn-sm" ng-click="vm.add()">{{ 'AddCreate' | translate}}</button>-->
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th width="25%">
+                            <ma-language name="langName" ng-model="vm.newModel.langName" language-list="vm.newModel.langNameList"></ma-language>
+                        </th>
+                        <th width="25%">
+                            <input class="form-control" required="required"  maxlength="50" ng-model="vm.newModel.value" type="text" placeholder="{{ 'Value' | translate}}" />
+                        </th>
+                        <th>
+                            <button class="btn btn-success btn-sm" ng-click="vm.save(vm.newModel)">{{ 'AddCreate' | translate}}</button>
+                        </th>
+                    </tr>
+                    <tr ng-repeat="item in vm.models | orderBy:'value'">
+                        <th width="25%">
+                            <ma-language ma-blur="vm.langChange(item)"  ma-disabled="!item.$edit"  name="langName" ng-model="item.langName" language-list="item.langNameList"></ma-language>
+                        </th>
+                        <th width="25%">
+                            <input class="form-control" required="required" ng-disabled="!item.$edit" maxlength="50" ng-model="item.value" type="text" placeholder="{{ 'Value' | translate}}" />
+                        </th>
+                        <th>
+                            <div class="buttons" ng-if="item.$edit">
+                                <button class="btn btn-success btn-sm" ng-click="vm.save(item)">{{ 'Save' | translate}}</button>
+                                <button class="btn btn-default  btn-sm" ng-click="vm.cancel(item, $index)">{{ 'Cancel' | translate}}</button>
+                            </div>
+                            <div class="buttons" ng-if="!item.$edit">
+                                <button class="btn btn-primary  btn-sm" ng-click="item.$edit = true">{{ 'Edit' | translate}}</button>
+                                <button class="btn btn-danger  btn-sm" confirm-click="vm.delete(item)">{{ 'Delete' | translate}}</button>
+                            </div>
+                        </th>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

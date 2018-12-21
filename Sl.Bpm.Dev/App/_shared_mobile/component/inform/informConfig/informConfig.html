@@ -1,0 +1,52 @@
+﻿<div ng-controller="shared.component.inform.config as vm">
+    <div class="row">
+        <div class="form-group">
+            <div class="col-lg-12">
+                <button class="btn btn-sm btn-success pull-right" ng-click="vm.add()">新增</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="row form-horizontal">
+        <div class="form-group" ng-repeat="item in vm.informs" style="border-top: #CCC dashed 2px; padding: 5px;">
+            <div class="form-group">
+                <div class="col-lg-12">
+                    <button class="btn btn-sm btn-danger pull-right" message="{{ 'PleaseConfirmTheDeletionAgain' | translate}}" confirm-click="vm.remove(item)">删除</button>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-lg-2 control-label">{{ 'Action' | translate}}</div>
+                <div class="col-lg-2">
+                    <ma-select items="vm.actorList" ng-model="item.eventType" display-member="displayText" value-member="type" placeholder="选择动作" ng-change="vm.changeActor(item)"></ma-select>
+                </div>
+                <div class="col-lg-2 control-label">{{ 'Mode' | translate}}</div>
+                <div class="col-lg-2">
+                    <ma-select items="vm.informType" ng-model="item.sendWay" display-member="text" value-member="id" ng-change="vm.changeType(item)"></ma-select>
+                </div>
+                <div class="col-lg-2 control-label">类型</div>
+                <div class="col-lg-2">
+                    <ma-select items="vm.noticeList" ng-model="item.type" display-member="text" value-member="id" ng-change="vm.changeType(item)"></ma-select>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-lg-2 control-label">{{ 'Format' | translate}}</div>
+                <div class="col-lg-2">
+                    <i class="icon icon-pencil text-primary wf-operation" ng-click="vm.setInformTemplate(item)" style="cursor: pointer;"></i>
+                </div>
+                <div class="col-lg-2 control-label">是否禁用</div>
+                <div class="col-lg-2">
+                    <ma-checkbox ng-model="item.isDisabled" ng-change="vm.changeType(item)"></ma-checkbox>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-lg-2 control-label">{{ 'TheRecipient' | translate}}</div>
+                <div class="col-lg-10">
+                    <ma-informprocessor processor-linked-id="item.processorLinkId" processor-node="vm.model"></ma-informprocessor>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</div>

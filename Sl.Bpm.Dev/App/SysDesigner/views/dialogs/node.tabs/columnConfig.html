@@ -1,0 +1,61 @@
+﻿<div class="form-group" ng-controller="app.sysdesigner.views.dialogs.node.tabs.columnConfig as vm">
+    <!--<div class="col-lg-12">
+        <table class="table">
+            <thead>
+            <tr>
+                <th style="width: 10%;">{{ 'Action' | translate}}</th>
+                <th style="width: 80%;">{{ 'CCTarget' | translate}}</th>
+                <th style="width: 10%;">
+                    <div class="btn btn-success btn-sm" ng-click="vm.add()">+{{ 'Action' | translate}}</div></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="item in vm.copys">
+                <td style="width: 10%;">
+                    <ma-select items="vm.actions" ng-model="item.actionId" display-member="name" value-member="id" ng-change="vm.changeType(item)"></ma-select>
+                </td>
+                <td style="width: 80%;">
+                    <ma-processor processor-linked-id="item.processorLinkId" processor-node="vm.node"></ma-processor>
+                </td>
+                <td style="width: 10%;">
+                    <i class="icon icon-times text-danger wf-operation" message="{{ 'PleaseConfirmTheDeletionAgain' | translate}}" confirm-click="vm.remove(item)" style="cursor: pointer;"></i>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>-->
+    <div class="col-lg-12">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th width="10%">{{ 'FieldCode' | translate}}</th>
+                    <th width="8%">{{ 'FieldName' | translate}}</th>
+                    <th width="10%">{{'SourceType' | translate}}</th>
+                    <th width="15%">{{ 'Content' | translate}}</th>
+                    <th width="15%">{{ 'RequirementDescription' | translate}}</th>
+                    <th width="5%">
+                        <div class="btn btn-success btn-sm" ng-click="vm.addColumn()">+字段</div>
+                    </th>
+                </tr>
+            </thead>
+            <tbody ng-sortable="vm.barConfig">
+                <tr ng-repeat="item in vm.columnConfigs">
+                    <td>
+                        {{item.schemaName}}
+                    </td>
+                    <td>{{item.name}}</td>
+                    <td>
+                        <fm-select readonly
+                                   fm-model="item.whereInputType"
+                                   items="vm.sourceTypes"></fm-select>
+                    </td>
+                    <td>{{item.whereInputContent}}</td>
+                    <td>{{item.memo}}</td>
+                    <td width="5%">
+                        <i class="btn-link text-danger icon icon-times" message="{{ 'PleaseConfirmTheDeletionAgain' | translate}}" confirm-click="vm.deleteColumnConfig(item)" style="cursor: pointer;"></i>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

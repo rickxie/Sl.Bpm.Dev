@@ -1,0 +1,7 @@
+﻿@{
+    var curLang = Model as string;
+}
+<div class="language-switch">
+    <label @Html.Raw(curLang == "zh-CN" ? "class=\"select\"" : "") data-lang="0">中文</label>
+    <label @Html.Raw(curLang == "en" ? "class=\"select\"" : "")  data-lang="1">English</label>
+</div>   

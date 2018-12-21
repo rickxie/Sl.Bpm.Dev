@@ -1,0 +1,62 @@
+﻿<div ng-controller="system.database.viewcolumn as vm">
+    <div>
+        <ma-tabs>
+            <!--常规-->
+            <ma-panel data-title="{{ 'Common' | translate}}" name="basic">
+                <h3 ng-bind="vm.model.text"></h3>
+                <div class="row">
+                    <div class="modal-user">
+                        <div class="panel">
+                            <div class="panel-heading">
+                                搜索
+                                <div class="selectTxt icon-search" style="width: calc(100% - 60px);">
+                                    <input type="text" value="" placeholder="输入内容搜索" ng-model="vm.selectTxt" ng-blur="vm.select()" ng-keydown="vm.event_Keydown($event)" />
+                                </div>
+                            </div>
+                            <div class="panel-body">
+                                <table class="table table-striped table-hover ">
+                                    <thead>
+                                        <tr>
+                                            <th width="15%">{{ 'Code' | translate}}</th>
+                                            <th width="40%">{{ 'Name' | translate}}</th>
+                                            <th width="15%">{{ 'Type' | translate}}</th>
+                                            <th width="10%">{{ 'WhetherVisible' | translate}}</th>
+                                            <th width="15%">{{ 'Alignment' | translate}}</th>
+                                            <th width="8%">{{ 'CanAssociate' | translate}}</th>
+                                            <th width="8%">{{ 'CanQuery' | translate}}</th>
+                                            <th width="8%">{{ 'CanSort' | translate}}</th>
+                                            <th width="8%">{{ 'CanGroup' | translate}}</th>
+                                            <th width="8%">{{ 'CanStatistics' | translate}}</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody ng-sortable="vm.barConfig">
+                                        <tr ng-repeat="i in vm.models">
+                                            <td>{{i.schemaName}}<i class="handle"></i></td>
+                                            <td>
+                                                <ma-language ma-blur="vm.saveLang(i)" name="langName" ng-model="i.langName" language-list="i.langNameList" ng-change="vm.saveColumn(i)"></ma-language>
+                                            </td>
+                                            <td>{{i.whereInputType}}</td>
+                                            <td><ma-checkbox ng-model="i.isDisplayEnable" ng-change="vm.saveColumn(i)"></ma-checkbox></td>
+                                            <td>
+                                                <select class="form-control" ng-model="i.alignment" ng-change="vm.saveColumn(i)">
+                                                    <option value="L">{{ 'Left' | translate}}</option>
+                                                    <option value="M">{{ 'Center' | translate}}</option>
+                                                    <option value="R">{{ 'Right' | translate}}</option>
+                                                </select>
+                                            </td>
+                                            <td><ma-checkbox ng-model="i.isLinkEnable" ng-change="vm.saveColumn(i)"></ma-checkbox></td>
+                                            <td><ma-checkbox ng-model="i.isWhereEnable" ng-change="vm.saveColumn(i)"></ma-checkbox></td>
+                                            <td><ma-checkbox ng-model="i.isOrderByEnable" ng-change="vm.saveColumn(i)"></ma-checkbox></td>
+                                            <td><ma-checkbox ng-model="i.isGroupByEnable" ng-change="vm.saveColumn(i)"></ma-checkbox></td>
+                                            <td><ma-checkbox ng-model="i.isAggregateEnable" ng-change="vm.saveColumn(i)"></ma-checkbox></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </ma-panel>
+        </ma-tabs>
+    </div>
+</div>

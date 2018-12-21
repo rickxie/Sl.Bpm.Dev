@@ -1,0 +1,9 @@
+:host {
+  color: var(--color);
+  font-family: var(--ion-font-family, inherit); }
+
+:host(.ion-color) {
+  color: var(--ion-color-base); }
+
+:host {
+  --color: var(--ion-text-color-step-800, #cccccc); }

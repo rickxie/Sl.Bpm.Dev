@@ -1,0 +1,90 @@
+﻿<div ng-controller="syspages.views.my.workflowcenter.myauthorized as vm">
+    <div class="row">
+        <div class="modal-user" style="position:relative;">
+            <div class="role_tree">
+                <div id="phMenu"><div class="page-menu"></div></div>
+            </div>
+            <div class="flow-table">
+                <div>
+                    <ul class="flow-list-tab clear">
+                        <li><label for="search" class="{{search==true?'open':''}}"><i class="icon-search"></i> {{ 'FilterCondition' | translate}}<input ng-model="search" id="search" type="checkbox" /></label></li>
+                        <li class="oper">
+                            <span ng-if="vm.models.length > 0 && !!vm.workflowId" ng-click="vm.exportExcel()"><i class="icon-upload-alt"></i>{{ "Export" | translate}}</span>
+                            <span style="display:none"><i class="icon-plus"></i>新建</span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="search-hide" ng-show="search">
+                    <div class="form-search-group clear">
+                        <div class="col-xs-4 row">
+                            <div class="col-xs-4 input-group-name">{{ 'SelectTask' | translate}}:</div>
+                            <div class="col-xs-8 input-group-value"><fm-text fm-model="vm.filterText" i-clear fm-placeholder="{{ 'PleaseEnterTheQueryCondition '| translate }}" keydown fm-blur="vm.selectS()"></fm-text></div>
+                        </div>
+                    </div>
+                    <div class="form-search-oper">
+                        <input type="button" value="{{:: 'Query' | translate}}" ng-click="vm.select()" class="btn btn-sm btn-primary" ng-keydown="vm.event_Keydown($event)" />
+                    </div>
+                </div>
+                <div class="table-bd" style="min-height: 330px; position: relative;">
+                    <table class="table-responsive">
+                        <thead>
+                            <tr>
+                                <th data-width="150">{{ 'TaskNumber' | translate}}</th>
+                                <th data-width="100">{{ 'WorkflowName' | translate}}</th>
+                                <th data-width="200">{{ 'Sn' | translate}}</th>
+                                <th data-width="100">{{ 'Creator' | translate}}</th>
+                                <th data-width="100" class="flex-col">{{ 'AnAgent' | translate}}</th>
+                                <th data-width="150" class="flex-col">{{ 'ReceiveDate' | translate}}</th>
+                                <th data-width="150" class="flex-col">{{ 'CompletionTime' | translate}}</th>
+                                <th data-width="100" class="flex-col">ex{{ 'WorkflowType' | translate}}</th>
+                                <!--<th data-width="100" class="flex-col">{{ 'Company' | translate}}</th>-->
+                                <th data-width="100" class="sort-disabled">{{ 'Operation' | translate}}</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="item in vm.models">
+                                <td><div class="txt-warp">{{item.refId}}</div></td>
+                                <td><div class="txt-warp">{{item.workflowName}}</div></td>
+                                <td>
+                                    <div class="txt-warp">
+                                        <a class="ink-label" ng-click="vm.edit(item)">
+                                            {{item.sn}}
+                                            <span ng-if="!!item.areaCode">({{item.areaCode}})</span>
+                                        </a>
+                                    </div>
+                                </td>
+                                <td><div class="txt-warp">{{item.submitter}}</div></td>
+                                <td><div class="txt-warp">{{item.procUserName}}</div></td>
+                                <td><div class="txt-warp">{{item.recvTime | date : 'yyyy-MM-dd HH:mm:ss'}}</div></td>
+                                <td><div class="txt-warp">{{item.finishedTime | date : 'yyyy-MM-dd HH:mm:ss'}}</div></td>
+                                <td><div class="txt-warp">{{item.wfdCategoryName}}</div></td>
+                                <!--<td>{{item.enterprise}}</td>-->
+                                <td>
+                                    <div class="txt-warp">
+                                        <!--<i class="icon-edit" ng-click="vm.edit(item)"></i>-->
+                                        <i title="标记" class="fa-effect-boris cursor-pointer text-warning" ng-class="{true:'icon icon-star',false:'icon icon-star-empty',null:'icon icon-star-empty'}[task.isMarked]" ng-click="vm.mark(task)"></i>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div ng-if="vm.paging.totalCount === undefined">
+                        <div class="content-spinner-bar">
+                            <div class="bounce1"></div>
+                            <div class="bounce2"></div>
+                            <div class="bounce3"></div>
+                        </div>
+                    </div>
+                    <div ng-if="vm.paging.totalCount === 0" style="text-align: center;">
+                        <span class="span1 no-data">{{ 'NoAuthorized' | translate}}</span>
+                    </div>
+                    <div class="table-footer">
+                        <div class="table-footer-pager" ng-if="vm.paging.totalCount > 0">
+                            <rs-pager ng-if="vm.paging.totalCount > vm.paging.pageSize" current-page="vm.paging.currentPage" load="vm.load()" total-count="vm.paging.totalCount" page-size="vm.paging.pageSize"></rs-pager>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

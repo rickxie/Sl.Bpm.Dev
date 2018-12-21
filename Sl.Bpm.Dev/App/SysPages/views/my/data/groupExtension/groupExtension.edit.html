@@ -1,0 +1,65 @@
+﻿<modal>
+    <modal-header><span ng-if="vm.model.id == null" translate="Create"></span><span ng-if="vm.model.id != null" translate="Edit"></span>&nbsp;{{ 'Group' | translate}} {{vm.model.name}}</modal-header>
+    <ma-tabs>
+        <ma-panel data-title="{{ 'Basic' | translate}}" name="basic">
+            <ma-form name="GroupExtensionEdit">
+                <modal-body>
+                    <div class="form-group form-md-line-input">
+                        <div class="col-lg-3 control-label">{{ 'GroupExtensionCompany' | translate}}:</div>
+                        <div class="col-lg-9">
+                            <ma-language name="langName" ng-model="vm.model.langName" ma-required language-list="vm.model.langNameList"></ma-language>
+                        </div>
+                    </div>
+                    <div class="form-group form-md-line-input">
+                        <div class="col-lg-3 control-label">{{ 'AreaCode' | translate}}:</div>
+                        <div class="col-lg-9">
+                            <input ng-model="vm.model.areaCode" name ="areaCode" type="text" required class="form-control input-sm" placeholder="代码">
+                            <div class="form-control-focus"></div>
+                        </div>
+                    </div>
+
+                    <div class="form-group form-md-line-input">
+                        <div class="col-lg-3 control-label">{{ 'Fax' | translate}}:</div>
+                        <div class="col-lg-9">
+                            <input ng-model="vm.model.fax" type="text" class="form-control input-sm" placeholder="传真">
+                            <div class="form-control-focus"></div>
+                        </div>
+                    </div>
+                    <div class="form-group form-md-line-input">
+                        <div class="col-lg-3 control-label">{{ 'Address' | translate}}:</div>
+                        <div class="col-lg-9">
+                            <input ng-model="vm.model.address" type="text" class="form-control input-sm" placeholder="地址">
+                            <div class="form-control-focus"></div>
+                        </div>
+                    </div>
+                    <div class="form-group form-md-line-input">
+                        <div class="col-lg-3 control-label">{{ 'DisplayOrder' | translate}}:</div>
+                        <div class="col-lg-9">
+                            <input ng-model="vm.model.displayOrder" type="number" class="form-control input-sm" placeholder="DisplayOrder">
+                            <div class="form-control-focus"></div>
+                        </div>
+                    </div>
+                    <div class="form-group form-md-line-input">
+                        <div class="col-lg-3 control-label">{{ 'GroupExtensionMemo' | translate}}:</div>
+                        <div class="col-lg-9">
+                            <input ng-model="vm.model.memo" type="text" class="form-control input-sm" placeholder="备注">
+                            <div class="form-control-focus"></div>
+                        </div>
+                    </div>
+                </modal-body>
+                <modal-footer>
+                    <button class="btn btn-primary" type="submit" ma-form-submit="vm.save()" id="GroupExtensionEdit">{{ 'Save' | translate}}</button>
+                    <button type="button" class="btn btn-default" ng-click="$close()">{{ 'Cancel' | translate}}</button>
+                </modal-footer>
+            </ma-form>
+        </ma-panel>
+        <ma-panel data-title="{{ 'Advance' | translate}}" name="advance" ng-if="vm.model.id != null">
+            <br />
+            <modal-footer>
+                <button class="btn btn-danger" type="button" confirm-click="vm.delete()" id="Delete">{{ 'Delete' | translate}}</button>
+                <button type="button" class="btn btn-default" ng-click="$close()">{{ 'Cancel' | translate}}</button>
+            </modal-footer>
+        </ma-panel>
+    </ma-tabs>
+</modal>
+

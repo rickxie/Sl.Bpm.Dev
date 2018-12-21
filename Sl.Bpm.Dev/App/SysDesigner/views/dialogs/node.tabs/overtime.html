@@ -1,0 +1,68 @@
+﻿<div class="form-horizontal" ng-controller="app.sysdesigner.views.dialogs.node.tabs.overtime as vm">
+    <div class="row">
+        <label class="col-lg-2 control-label">{{ 'OutdatedNotice' | translate}}</label>
+        <div class="col-lg-1">
+            <ma-checkbox ng-model="vm.node.isOvertimeInformEnable" ng-change="vm.changeInformEnable()"></ma-checkbox>
+        </div>
+        <div class="col-lg-9" ng-if="vm.node.isOvertimeInformEnable">
+            <div class="col-lg-1 control-label">从</div>
+            <div class="col-lg-2">
+                <input type="text" class="form-control" ng-model="vm.node.overtimeBeginTime" ng-change="vm.changeBeginTime()" />
+            </div>
+            <div class="col-lg-2 control-label" style="padding-left:0px;padding-right:0px;">{{ 'HourStartEvery' | translate}}</div>
+            <div class="col-lg-2">
+                <input type="text" class="form-control" ng-model="vm.node.overtimeIntervalTime" ng-change="vm.changeIntervalTime()" />
+            </div>
+            <div class="col-lg-2 control-label" style="text-align:left;">{{ 'Hour' | translate}}</div>
+        </div>
+    </div>
+    <br />
+    <div class="form-group" ng-if="vm.node.isOvertimeInformEnable">
+        <div class="row form-horizontal">
+            <div class="col-lg-12"><div ng-include="'/App/_shared/component/inform/informconfig/informconfig.html'"></div></div>
+        </div>
+        <!--<div class="col-lg-12 ">
+            <table class="table">
+                <thead>
+                <tr><th colspan="4">{{ 'SendNotificationToFollowingPerson' | translate}}</th></tr>
+                <tr>
+                    <th style="width: 10%;">{{ 'Mode' | translate}}</th>
+                    <th style="width: 70%;">{{ 'TheRecipient' | translate}}</th>
+                    <th style="width: 10%;">{{ 'Format' | translate}}</th>
+                    <th style="width: 10%;">
+                        <div class="btn btn-success btn-sm" ng-click="vm.add()">+{{ 'Notice' | translate}}</div></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="item in vm.overtimes">
+                    <td style="width: 10%;"><ma-select items="vm.informType" ng-model="item.sendWay" display-member="text" value-member="id" ng-change="vm.changeType(item)"></ma-select></td>
+                    <td style="width: 70%;"><ma-processor processor-linked-id="vm.node.informLinkId" processor-node="vm.node"></ma-processor></td>
+                    <td style="width: 10%;"><textarea ng-model="item.informTemplateId" class="form-control" ng-change="vm.changeType(item)"></textarea></td>
+                    <td style="width: 10%;">
+                        <i class="btn-link text-danger icon icon-times" message="{{ 'PleaseConfirmTheDeletionAgain' | translate}}" confirm-click="vm.remove(item)" style="cursor: pointer;"></i>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>-->
+    </div>
+    <div class="form-group">
+        <label class="col-lg-2 control-label">{{ 'OutdatedHandle' | translate}}</label>
+        <div class="col-lg-10">
+            <ma-checkbox ng-model="vm.node.isOvertimeActionEnable" ng-change="vm.changeActionEnable()"></ma-checkbox>
+        </div>
+    </div>
+    <div class="form-group" ng-if="vm.node.isOvertimeActionEnable">
+        <div class="col-lg-1 col-lg-offset-2 control-label">{{ 'Exceed' | translate}}</div>
+        <div class="col-lg-1">
+            <input type="text" class="form-control" ng-model="vm.node.overtimeActionTime" ng-blur="vm.changeOvertimeActionTime()" />
+        </div>
+        <div class="col-lg-2 control-label" style="text-align:left;">{{ 'HourLater' | translate}}</div>
+        <div class="col-lg-10 col-lg-offset-2">
+            <label class="radio-inline"><input type="radio" name="autoValue" ng-model="vm.node.overtimeActionType" value="1" ng-change="vm.changeAutoType()"> {{ 'AutomaticallyToTheNextStep' | translate}}</label>
+        </div>
+        <div class="col-lg-10 col-lg-offset-2">
+            <label class="radio-inline"><input type="radio" name="autoValue" ng-model="vm.node.overtimeActionType" value="2" ng-change="vm.changeAutoType()"> {{ 'AutomaticTransferLeadership' | translate}}</label>
+        </div>
+    </div>
+</div>

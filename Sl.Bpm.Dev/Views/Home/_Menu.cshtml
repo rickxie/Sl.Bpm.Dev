@@ -1,0 +1,51 @@
+﻿@using System.Web.Optimization
+@using MiniAbp.Runtime
+@using System.Dynamic
+@using Sl.Bpm.Application.Base
+@using Sl.Bpm.Client.Controllers;
+@{
+    var path = Request.Path.ToLower();
+    var tree = Model as AppMenuDev;
+    var topMenu = tree.Children;
+}
+<div class="main-menu">
+    <div class="user-face">
+        <img src="~/Content/Images/new/face_def.jpg" />
+    </div>
+    @{int i = 1;}
+    @foreach (var tm in topMenu)
+    {
+        <dl class="menu-item @Html.Raw(((Sl.Bpm.Client.Controllers.SharedController)this.ViewContext.Controller).GetSelectStatus(tm.Link,tm,path ))">
+            <a style="display:none" href="@tm.Link" @Html.Raw(tm.OpenType == 3 ? "target=\"_main\"" : "target=\"" + tm.Target + "\"") data-id="@tm.Id"> <dt data-tips="@tm.Name"><i class="@tm.IconClass"></i><span class="dt-tips">@tm.Name</span></dt></a>
+            <dd>
+                <div class="menu-search">
+                    <h2>@tm.Name</h2>
+                </div>
+                <ul class="dl-menu">
+                    @foreach (var t in tm.Children)
+                    {
+                        <li class="open">
+                            @if (t.Children != null && t.Children.Count > 0)
+                            {
+                                <i class="ico"></i>
+                            }                            
+                            <div class="line"></div>
+                            <h3 data-title="@t.Name"  data-url="@t.Link" @Html.Raw(t.OpenType == 3 ? "target=\"_main\"" : "target=\"" + t.Target + "\"")  data-id="@t.Id"  style="display:none;">@t.Name</h3>
+                            
+                            @if(t.Children != null ) {
+                                foreach (var z in t.Children)
+                                {
+                                <a style="display:none" href="@z.Link" data-title="@z.Name" @Html.Raw(z.OpenType == 3 ? "target=\"_main\"" : "target=\"" + z.Target + "\"")  data-id="@z.Id">
+                                    <h4 title="@z.Name"><i class="icon @z.IconClass"></i>@z.Name</h4>
+                                </a>
+                                }
+                            }
+                        </li>
+                    }
+                </ul>
+            </dd>
+        </dl>
+        i++;
+    }
+</div>
+

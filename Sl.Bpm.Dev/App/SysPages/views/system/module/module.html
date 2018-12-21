@@ -1,0 +1,154 @@
+﻿<div class="container-ui" ng-controller="syspages.views.enterprise.module as vm">
+    <div class="row">
+        <cmd class="pull-right" style="margin-right:10px">
+            <span class="btn btn-success" ng-click="vm.edit()" style="margin-right:20px">{{ 'CreateModule' | translate}}</span>
+            <span class="btn btn-success" ng-click="vm.editCategory()">新增分类</span>
+        </cmd>
+    </div>
+   
+
+    <div class="ma-center-warper">
+        <div class="col-xs-12" ng-show="vm.isLoaded && (vm.models == null || vm.models.length == 0)">{{ 'NoModuleYetClickUpperRightToCreate' | translate}}</div>
+        <div class="siderbar" ng-show="vm.models.length > 0">
+            <h5>
+                模块类型
+            </h5>
+            <div class="list-group">
+                <a ng-repeat="i in vm.menu" ng-class="{ 'active': vm.activeMenu.type == i.id}" class="list-group-item" ng-click="vm.switch('TYPE',i)">{{i.text | translate}}<span class="label label-badge" ng-bind="i.count"></span></a>
+            </div>
+            <h5>
+                模块分类
+            </h5>
+            <table class="table table-hover" style="background: white">
+                <tbody ng-sortable="vm.catParentConfig" is-updated="vm.listUpdated">
+                    <tr ng-repeat="i in vm.moduleCategory track by $index" ng-class="{ 'active': vm.activeMenu.id == i.id}" ng-click="vm.switch('CATEGORY', i)">
+                        <td>
+                            {{ i.displayOrder}} {{ i.name}}
+                        </td>
+                        <td width="50px">
+                            <i class="icon icon-cog pull-right cursor-pointer" ng-click="vm.editCategory(i)"></i>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <span class="toggler" ma-toggler=".ma-center-warper"><i class="icon-list-ul"></i></span>
+        </div>
+
+        <div class="page-content">
+            <!--模块类型-->
+            <div class="modal-user" ng-if="vm.panelShowType == 'TYPE'">
+                <ma-header>{{vm.activeMenu.text | translate}}</ma-header>
+                <div class="panel">
+                    <div class="panel-heading">
+                        搜索
+                        <div class="selectTxt icon-search">
+                            <input type="text" value="" placeholder="请输入查询条件" ng-model="vm.filterText" ng-blur="vm.select()" ng-keydown="vm.event_Keydown($event)" class="ng-pristine ng-untouched ng-valid">
+                        </div>
+                    </div>
+                    <div class="panel-body" style="min-height: 330px; position: relative;">
+                        <table class="table table-striped table-hover table-condensed">
+                            <thead>
+                                <tr>
+                                    <!-- 以下两列左侧固定 -->
+                                    <th>{{ 'Name' | translate}}</th>
+                                    <th class="flex-col" ng-if="vm.activeMenu.id == 3">{{'LinkedWorkflow' | translate}}</th>
+                                    <!-- 以下三列中间可滚动 -->
+                                    <th class="flex-col">{{ 'Description' | translate}}</th>
+                                    <th class="flex-col">{{ 'CreationDate' | translate}}</th>
+                                    <!-- 以下列右侧固定 -->
+                                    <th class="flex-col">{{ 'Open' | translate}}</th>
+                                    <th>{{ 'Operation' | translate}}</th>
+                                </tr>
+                            </thead>
+                            <tbody ng-sortable="vm.barConfig" is-updated="vm.listUpdated">
+                                <tr ng-repeat="i in vm.list">
+                                    <td>{{i.name}}</td>
+                                    <td ng-if="vm.activeMenu.id == 3">{{ i.wfdWorkflowName}}</td>
+                                    <td>{{i.description}}</td>
+                                    <td>{{i.creationTime | date:'yyyy-MM-dd HH:mm:ss'}}</td>
+                                    <td><ma-checkbox class="input-sm" ng-model="i.isEnable" ng-change="vm.switchModule(i)"></ma-checkbox></td>
+                                    <td>
+                                        <i class="icon-edit" ng-click="vm.edit(i)" title="{{ 'Edit' | translate}}" style="cursor: pointer;"></i>
+                                        <i class="icon icon-copy" ng-click="vm.page(i)" title="{{ 'AssociatePage' | translate}}" style="cursor: pointer;"></i>
+                                        <i class="icon icon-link" ng-click="vm.associateWorkflow(i)" title="{{ 'AssociateWorkflow' | translate}}" ng-if="i.type=='3'" style="cursor: pointer;"></i>
+                                        <i class="icon icon-link" ng-click="vm.associatePage(i)" title="{{ 'AssociatePage' | translate}}" ng-if="i.type=='1' || i.type=='2'" style="cursor: pointer;"></i>
+                                        <i class="icon icon-cog  cursor-pointer" ng-click="vm.editCg(i)" style="cursor: pointer;"></i>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div ng-if="vm.models === undefined">
+                            <div class="content-spinner-bar">
+                                <div class="bounce1"></div>
+                                <div class="bounce2"></div>
+                                <div class="bounce3"></div>
+                            </div>
+                        </div>
+                        <div ng-if="vm.paging.totalCount === 0" style="text-align: center;">
+                            <span class="span1" style="position: absolute; height: 100%; width: 100%; left: 0; top: calc(50% - 14px); font-size: 28px; color: #353535;">当前没有待办的流程</span>
+                        </div>
+                        <div ng-if="vm.paging.totalCount > vm.paging.pageSize">
+                            <ma-pager current-page="vm.paging.currentPage" load="vm.load()" total-count="vm.paging.totalCount" page-size="vm.paging.pageSize"></ma-pager>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!--模块分类-->
+            <div class="modal-user" ng-if="vm.panelShowType == 'CATEGORY'">
+                <ma-header>{{vm.activeMenu.text | translate}}</ma-header>
+                <div class="panel">
+                    <div class="panel-heading">
+                        搜索
+                        <div class="selectTxt icon-search">
+                            <input type="text" value="" placeholder="请输入查询条件" ng-model="vm.quer" class="ng-pristine ng-untouched ng-valid">
+                        </div>
+                    </div>
+                    <div class="panel-body" style="min-height: 330px; position: relative;">
+                        <table class="table table-striped table-hover table-condensed">
+                            <thead>
+                                <tr>
+                                    <!-- 以下两列左侧固定 -->
+                                    <th>{{ 'Name' | translate}}</th>
+                                    <th class="flex-col">{{ 'Description' | translate}}</th>
+                                    <th>{{ 'Operation' | translate}}</th>
+                                </tr>
+                                <tr>
+                                    <td><fm-select items="vm.preSelectModels" display-member="name" value-member="id" fm-model="vm.newCategoryDetail.moduleId"></fm-select></td>
+                                    <td>
+                                        <i class="icon icon-save" ng-click="vm.addModuleCategoryMap()" title="保存" style="cursor: pointer;"></i>
+                                    </td>
+                                    <td></td>
+                                </tr>
+                            </thead>
+                            <tbody ng-sortable="vm.catConfig" is-updated="vm.listUpdated">
+                                <tr ng-repeat="i in vm.moduleCategoryDetail  | filter:vm.quer ">
+                                    <td>{{i.name}}</td>
+                                    <td>{{i.description}}</td>
+                                    <td>
+                                        <i class="icon icon-trash" ng-click="vm.deleteModuleCategoryMap(i)" title="{{ 'AssociatePage' | translate}}" style="cursor: pointer;"></i>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div ng-if="vm.models === undefined">
+                            <div class="content-spinner-bar">
+                                <div class="bounce1"></div>
+                                <div class="bounce2"></div>
+                                <div class="bounce3"></div>
+                            </div>
+                        </div>
+                        <div ng-if="vm.paging.totalCount === 0" style="text-align: center;">
+                            <span class="span1" style="position: absolute; height: 100%; width: 100%; left: 0; top: calc(50% - 14px); font-size: 28px; color: #353535;">当前没有待办的流程</span>
+                        </div>
+                        <div ng-if="vm.paging.totalCount > vm.paging.pageSize">
+                            <ma-pager current-page="vm.paging.currentPage" load="vm.load()" total-count="vm.paging.totalCount" page-size="vm.paging.pageSize"></ma-pager>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

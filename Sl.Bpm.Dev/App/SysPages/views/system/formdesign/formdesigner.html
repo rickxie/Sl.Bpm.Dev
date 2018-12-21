@@ -1,0 +1,46 @@
+﻿<div class="container-ui load_content" ng-controller="syspages.views.system.formdesigner as vm">
+    <fm-radiolist items="vm.scenes" fm-model="vm.curScene"></fm-radiolist>
+    <div class="row" ng-if="vm.curScene == 'layout'">
+        <button class="btn btn-sm" ng-click="vm.formObj.push({columns:[{text: '未设置列', edited: false}]})">新增一行</button>
+        <div class="row" ng-repeat="row in vm.formObj">
+            <button class="btn btn-sm btn-success" ng-click="vm.rowUp($index)">Up</button>
+            <button class="btn btn-sm btn-success" ng-click="vm.rowDown($index)">Down</button>
+            <button class="btn btn-sm btn-success" ng-click="vm.colLeft(row.columns, $index)">Left</button>
+            <button class="btn btn-sm btn-success" ng-click="vm.colRight(row.columns)">Right</button>
+            <div class="fd-row" ng-init="row.rowIndex = row.rowIndex || $index">
+                <div ng-class="{'fd-col-edited', col.edited}" class="fd-col  fd-col-{{row.columns.length}}" ng-repeat="col in row.columns">{{col.text}}</div>
+            </div>
+        </div>
+    </div>
+    <div class="row" ng-if="vm.curScene == 'setting'">
+        <div class="row" ng-repeat="row in vm.formObj">
+            <div class="fd-row" ng-init="row.rowIndex = row.rowIndex || $index">
+                <div ng-click="vm.editColumn(col)" class="fd-col fd-col-{{row.columns.length}}" ng-repeat="col in row.columns">{{col.text}}</div>
+            </div>
+        </div>
+
+    </div>
+    <style >
+        .fd-row{
+            border:5px solid #03b8cf;margin:2px 0 1px 0;display:table;width:100%;
+        }
+        .fd-col{
+            background-color:#CCC;
+            margin:0 5px;
+            float:left;
+            line-height:24px;
+        }
+        .fd-col-edited{
+            background-color:#38b03f;
+        }
+        .fd-col-1{
+            width:calc(100% - 20px);
+        }
+        .fd-col-2{
+            width:calc(50% - 20px);
+        }
+        .fd-col-3{
+            width:calc(33.33333% - 20px);
+        }
+    </style>
+</div>

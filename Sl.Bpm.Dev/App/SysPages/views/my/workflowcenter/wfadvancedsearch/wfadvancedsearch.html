@@ -1,0 +1,121 @@
+﻿<div ng-controller="syspages.views.my.workflowcenter.wfsearch as vm">
+    <!--<ma-header>{{ 'WfAdvancedSearch' | translate}}</ma-header>-->
+    <div class="col-md-12">
+        <div class="row">
+            <div class="modal-user">
+                <div class="">
+                    <div class="search-hide">
+                        <div class="form-search-group clear">
+                            <div class="form-group">
+                                <div class="col-xs-12">
+                                    <div class="ma-detailinfo" style="padding-top:20px;">
+                                        <div class="content">
+                                            <div class="row">
+                                                <div class="col-xs-4 cell">
+                                                    <span class="col-xs-4 control-label ng-binding">{{:: 'Sn' | translate}}</span>
+                                                    <div class="col-xs-8">
+                                                        <fm-text class="form-control input-sm" type="text" fm-model="vm.selectModel.sn"></fm-text>
+                                                    </div>
+                                                </div>
+                                                <div class="col-xs-8 cell">
+                                                    <span class="col-xs-2 control-label ng-binding">{{:: 'ApplicationTime' | translate}}</span>
+                                                    <div class="col-xs-10">
+                                                        <div class="area-date" split="——">
+                                                            <fm-datetime date class="input-sm" fm-model="vm.selectModel.creationTimeStart" fm-readonly></fm-datetime>
+                                                            <fm-datetime date class="input-sm" fm-model="vm.selectModel.creationTimeEnd" fm-readonly></fm-datetime>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-xs-4 cell">
+                                                    <span class="col-xs-4 control-label ng-binding">{{:: 'WorkflowMainCategory' | translate}}</span>
+                                                    <div class="col-xs-8">
+                                                        <fm-select class="input-sm" items="vm.categories" fm-model="vm.selectModel.categoryId" callback-func="vm.loadWf(selectItem)" display-member="name"></fm-select>
+                                                    </div>
+                                                </div>
+                                                <div class="col-xs-8 cell">
+                                                    <span class="col-xs-2 control-label ng-binding">{{:: 'CompletionTime' | translate}}</span>
+                                                    <div class="col-xs-10">
+                                                        <div class="area-date" split="——">
+                                                            <fm-datetime date class="input-sm" fm-model="vm.selectModel.finishTimeStart" fm-readonly></fm-datetime>
+                                                            <fm-datetime date class="input-sm" fm-model="vm.selectModel.finishTimeEnd" fm-readonly></fm-datetime>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-xs-4 cell">
+                                                    <span class="col-xs-4 control-label ng-binding">{{:: 'WorkflowName' | translate}}</span>
+                                                    <div class="col-xs-8">
+                                                        <fm-select class="input-sm" items="vm.wfs" fm-model="vm.selectModel.wfId" display-member="name"></fm-select>
+                                                    </div>
+                                                </div>
+                                                <div class="col-xs-4 cell">
+                                                    <span class="col-xs-4 control-label ng-binding">申请人</span>
+                                                    <div class="col-xs-8">
+                                                        <fm-text class="input-sm" fm-model="vm.selectModel.applicantName"></fm-text>
+                                                    </div>
+                                                </div>
+                                                <div class="col-xs-4 cell">
+                                                    <span class="col-xs-4 control-label ng-binding">{{:: 'State' | translate}}</span>
+                                                    <div class="col-xs-8">
+                                                        <fm-select class="input-sm" items="vm.statusDetails" fm-model="vm.selectModel.status"></fm-select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-xs-12" style="text-align:center;">
+                                            <button class="btn btn-primary" ng-click="vm.select()">{{:: 'Query' | translate}}</button>
+                                            <button class="btn btn-default" ng-click="vm.clear()">{{:: 'Clear' | translate}}</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="table-bd" style="min-height: 330px; position: relative;">
+                        <table class="table-responsive">
+                            <thead>
+                                <tr>
+                                    <th>{{ 'TaskNumber' | translate}}</th>
+                                    <th>{{ 'WorkflowName' | translate}}</th>
+                                    <th>{{ 'Sn' | translate}}</th>
+                                    <th>{{ 'Creator' | translate}}</th>
+                                    <th>{{ 'ApplicationTime' | translate}}</th>
+                                    <th>{{ 'CurrentStatus' | translate}}</th>
+                                    <th>{{ 'WorkflowType' | translate}}</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="item in vm.models">
+                                    <td><div class="txt-warp">{{item.refId}}</div></td>
+                                    <td><div class="txt-warp">{{item.workflowName}}</div></td>
+                                    <td>
+                                        <div class="txt-warp">
+                                            <a class="ink-label" target="_blank" ng-href="/SysPages/SnNumber?id={{item.sn}}">
+                                                {{item.sn}}
+                                                <span ng-if="!!item.areaCode">({{item.areaCode}})</span>
+                                            </a>
+                                        </div>
+                                    </td>
+                                    <td><div class="txt-warp">{{item.submitter}}</div></td>
+                                    <td><div class="txt-warp">{{item.creationTime | date : 'yyyy-MM-dd HH:mm:ss'}}</div></td>
+                                    <td><div class="txt-warp">{{item.taskTitle}}</div></td>
+                                    <td><div class="txt-warp">{{item.wfdCategoryName}}</div></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div class="table-footer">
+                            <div class="table-footer-pager" ng-if="vm.paging.totalCount > 0">
+                                <rs-pager ng-if="vm.paging.totalCount > vm.paging.pageSize" current-page="vm.paging.currentPage" load="vm.load()" total-count="vm.paging.totalCount" page-size="vm.paging.pageSize"></rs-pager>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

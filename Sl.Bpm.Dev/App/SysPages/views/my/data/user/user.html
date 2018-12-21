@@ -1,0 +1,47 @@
+﻿<div ng-controller="syspages.views.my.data.user as vm">
+    <div class="row">
+        <cmd class="pull-right">
+            <span class="btn btn-success" ng-click="vm.edit()">+{{ 'AddUser' | translate}}</span>
+        </cmd>
+    </div>
+    <div class="row">
+        <div class="col-xs-12" ng-show="vm.isLoaded && (!vm.models || vm.models.length == 0)">{{ 'NoUserYetClickUpperRightToAdd' | translate}}</div>
+        <div class="form-group form-horizontal">
+            <div class="row">
+                <div class="col-xs-4">
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="icon-search"></i></span>
+                        <input type="text" class="form-control" ng-model="vm.selectTxt" placeholder="输入检索条件" ng-blur="vm.load()" ng-keydown="vm.event_KeyDown_SelectUser($event)">
+                        <span class="input-group-btn">
+                            <button class="btn btn-primary" type="button" ng-click="vm.load()">查询</button>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3 col-sm-4 col-lg-2" ng-repeat="i in vm.models">
+            <div class="card">
+                <div class="card-body">
+                    <div class="visual">
+                        <i class="icon icon-8x icon-user"></i>
+                    </div>
+                    <div class="card-content">
+                        <h4>{{i.name}} {{i.account}}</h4>
+                        <p>
+                            <!--                            {{ 'Account' | translate}}: <br />-->
+                            {{ 'Cellphone' | translate}}: {{i.telephone}}<br />
+                            {{ 'JobNumber' | translate}}: {{i.employeeNumber}}<br />
+                            状态: <span ng-if="i.isActive == true">正常</span>
+                            <span ng-if="i.isActive != true">已禁用</span>
+                        </p>
+                    </div>
+                </div>
+                <div class="card-actions">
+                    <span class="btn btn-default btn-sm" role="button" ng-click="vm.edit(i)">{{ 'Edit' | translate}}</span>
+                    <span ng-if="!i.isSuperAdmin" class="btn btn-danger btn-sm" role="button" message="{{ 'SureForDeleteThisCategory' | translate}}？" confirm-click="vm.delete(i)"><span class="icon icon-trash" aria-hidden="true"></span></span>
+                </div>
+            </div>
+        </div>
+        <ma-pager ng-if="vm.paging.totalCount > vm.paging.pageSize" current-page="vm.paging.currentPage" load="vm.load()" total-count="vm.paging.totalCount" page-size="vm.paging.pageSize"></ma-pager>
+    </div>
+</div>

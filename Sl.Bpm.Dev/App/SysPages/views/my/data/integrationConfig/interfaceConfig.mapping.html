@@ -1,0 +1,51 @@
+﻿<modal>
+    <modal-header>{{ 'InterfaceFieldConfiguration' | translate}}</modal-header>
+    <ma-form name="enterpriseUserEdit">
+        <modal-body>
+            <!--<div class="form-group">
+                <div class="col-xs-2">
+                </div>
+                <div class="col-xs-6 form-inline">
+                    <div class="input-group">
+                        <input type="text" class="input-group-addon form-control" placeholder="分隔符" />
+                    </div>
+                    <div class="input-group">
+                        <input type="file" class="form-control" placeholder="选择文件" />
+                        <span class="input-group-addon" confirm-click="vm.uploadFile()" content="上传成功后会清除现有字段配置，确定吗？" title="上传">上传</span>
+                    </div>
+                </div>
+            </div>-->
+
+            <div class="form-group">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th width="70px">#</th>
+                            <th>{{ 'TableName' | translate}}</th>
+                            <th>{{ 'FieldName' | translate}}</th>
+                            <th width="120px">{{ 'Type' | translate}}</th>
+                            <th>{{ 'PrimaryKey' | translate}}</th>
+                            <th>{{ 'WhetherEnable' | translate}}</th>
+                        </tr>
+                    </thead>
+                    <tbody ng-sortable="vm.barConfig">
+                        <tr ng-repeat="i in vm.models | orderBy:'mappingOrder'">
+                            <td>{{i.mappingOrder}}</td>
+                            <td>{{vm.interface.tableName}}</td>
+                            <td>{{i.dataField}}</td>
+                            <td>{{i.dataType | enumfilter:'tableColumnType'}}</td>
+                            <td><ma-checkbox ng-model="i.isPrimaryField" ng-change="vm.edit(i)" class="input-sm" /></td>
+                            <td><ma-checkbox ng-model="i.isEnable" ng-change="vm.edit(i)" class="input-sm" /></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </modal-body>
+        <modal-footer>
+            <button class="btn btn-danger" type="button" content="{{ 'ResetWillDeleteCurrentFiledConfigurationAreYouSure' | translate}}" confirm-click="vm.reInit()">{{ 'Reset' | translate}}</button>
+            <!--<button class="btn btn-primary" type="submit" id="enterpriseUserEdit" ma-form-submit="vm.save()">保存</button>-->
+            <button type="button" class="btn btn-default" ng-click="$close()">{{ 'Cancel' | translate}}</button>
+        </modal-footer>
+    </ma-form>
+</modal>
+

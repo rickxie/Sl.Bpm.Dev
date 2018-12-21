@@ -1,0 +1,11 @@
+﻿<modal submit="vm.save()" size="sm">
+    <modal-header>请选择角色</modal-header>
+    <modal-body>
+        <div class="modal-group">
+            <span ng-repeat="r in vm.allRoles" ng-if="vm.allRoles">
+                <ma-tree ng-model="r" selected-id="vm.selectedRoleId" />
+            </span>
+        </div>
+    </modal-body>
+</modal>
+ 

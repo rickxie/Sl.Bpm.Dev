@@ -1,0 +1,58 @@
+﻿<modal size="lg">
+    <modal-header>请选择用户</modal-header>
+    <modal-body style="padding-bottom: 5px;">
+        <style>
+            .checkbox_div {
+                position: absolute;
+                top: 0px;
+                left: 0px;
+                width: 100%;
+                height: 100%;
+                z-index: 9999;
+            }
+        </style>
+        <div class="modal-user">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="panel">
+                        <div class="panel-heading">选择用户<div class="selectTxt icon-search"><input type="text" value="" placeholder="输入用户信息搜索" ng-model="vm.selectTxt" ng-blur="vm.load()" ng-keydown="vm.event_Keydown($event)" /></div></div>
+                        <div class="panel-body">
+                            <table class="table table-striped table-hover table-condensed">
+                                <thead>
+                                    <tr>
+                                        <th style="text-align:center;width:60px;"><!--反选&nbsp;<input type="checkbox" value="" ng-change="vm.checkAll()" />--></th>
+                                        <th>姓名</th>
+                                        <th>邮箱</th>
+                                        <th>工号</th>
+                                        <th>电话号码</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr class="" ng-repeat="user in vm.users" ng-click="vm.checkUser($event, user)" ng-class="{ 'active': vm.isCheck(user)}">
+                                        <td style="text-align:center;width:60px;"><input type="checkbox" value="" ng-checked="vm.isCheck(user)" /><div class=""></div></td>
+                                        <td>{{user.name}}</td>
+                                        <td>{{user.emailAddress}}</td>
+                                        <td>{{user.employeeNumber}}</td>
+                                        <td>{{user.telephone}}</td>
+                                    </tr>
+                                </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <td colspan="4">
+                                            已选择：<div ng-repeat="item in vm.selectData" style="display:inline-block;cursor:pointer;" ng-click="vm.removeUser(item)"><a id="{{item.id}}">{{item.name}}</a>、</div>
+                                        </td>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <ma-pager ng-if="vm.paging.totalCount > vm.paging.pageSize" current-page="vm.paging.currentPage" load="vm.load()" total-count="vm.paging.totalCount" page-size="vm.paging.pageSize"></ma-pager>
+        </div>
+    </modal-body>
+    <modal-footer>
+        <button class="btn btn-primary" type="submit" ng-click="vm.save()">保存</button>
+        <button type="button" data-dismiss="modal" ng-click="vm.cancel()" class="btn default">取消</button>
+    </modal-footer>
+</modal>

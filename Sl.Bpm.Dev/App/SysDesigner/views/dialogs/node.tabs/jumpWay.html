@@ -1,0 +1,68 @@
+﻿<div ng-controller="app.sysdesigner.views.dialogs.node.tabs.jumpWay as vm">
+    <div class="form-group" ng-hide="vm.isMoreClick" ng-init="vm.load()">
+        <div class="row">
+            <div class="col-lg-1 control-label"></div>
+            <div class="col-lg-9">
+                <label>
+                    <span class="inc"></span>
+                    <span class="check"></span>
+                    <span class="box"></span>{{ 'PleaseChooseTheFollowingJumpWay' | translate}}：
+                </label>
+            </div>
+        </div><br />
+        <div class="row">
+            <div class="col-lg-3  col-lg-offset-2">
+                {{ 'HandlerSameWithSubmitterThenSkip' | translate}}
+            </div>
+            <div class=" col-lg-5">
+                <ma-checkbox ng-model="vm.jumpWay.submitPersonSame"  ng-change="vm.changeJumpTypeBinary()"></ma-checkbox>
+            </div>
+        </div><br />
+        <div class="row">
+            <div class="col-lg-3 col-lg-offset-2">
+                <div class="md-checkbox">
+                    {{ 'SameWithPreviousNodeHandlerThenSkip' | translate}}
+                </div>
+            </div>
+            <div class=" col-lg-5">
+                <ma-checkbox ng-model="vm.jumpWay.prePersonSame"  ng-change="vm.changeJumpTypeBinary()"></ma-checkbox>
+            </div>
+        </div><br />
+        <div class="row">
+            <div class="col-lg-3 col-lg-offset-2">
+                <div class="md-checkbox">
+                    {{ 'SameWithCertainNodeHandlerThenSkip' | translate}}
+                </div>
+            </div>
+            <div class=" col-lg-2">
+                <ma-checkbox ng-model="vm.jumpWay.oneStepPersonSame"  ng-change="vm.changeJumpTypeBinary()"></ma-checkbox>
+            </div>
+            <div class="col-lg-3">
+                <select class="form-control input-sm" ng-if="vm.jumpWay.oneStepPersonSame" ng-model="vm.node.jumpNodeId"  ng-change="vm.changeJumpNode()" ng-options="o.id as o.displayName for o in vm.processNodes">
+                    <option>{{ 'PleaseChoose' | translate}}</option>
+                </select>
+            </div>
+        </div><br />
+        <div class="row">
+            <div class="col-lg-3 col-lg-offset-2">
+                <div class="md-checkbox">
+                    {{ 'SameWithAnyPreviousNodeHandlerThenSkip' | translate}}
+                </div>
+            </div>
+            <div class=" col-lg-5">
+                <ma-checkbox ng-model="vm.jumpWay.anySame" ng-change="vm.changeJumpTypeBinary()"></ma-checkbox>
+            </div>
+        </div>
+        <br />
+        <div class="row">
+            <div class="col-lg-3 col-lg-offset-2">
+                <div class="md-checkbox">
+                    {{ 'NoNodeHandlerThenSkip' | translate}}
+                </div>
+            </div>
+            <div class=" col-lg-5">
+                <ma-checkbox ng-model="vm.jumpWay.nonPerson" ng-change="vm.changeJumpTypeBinary()"></ma-checkbox>
+            </div>
+        </div>
+    </div>
+</div>

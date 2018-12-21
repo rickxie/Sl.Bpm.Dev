@@ -1,0 +1,15 @@
+﻿<modal submit="vm.save()" size="sm">
+    <modal-header>请选择组织</modal-header>
+    <modal-body>
+        <div class="modal-group">
+            <span ng-repeat="g in vm.allGroups" ng-if="vm.allGroups">
+                <ma-tree ng-model="g" selected-id="vm.selectedGroupId" />
+            </span>
+        </div>
+    </modal-body>
+    <!--<modal-footer>
+        <button type="button" data-dismiss="modal" ng-click="vm.cancel()" class="btn default">取消</button>
+        <button class="btn btn-primary" type="submit">保存</button>
+    </modal-footer>-->
+</modal>
+ 

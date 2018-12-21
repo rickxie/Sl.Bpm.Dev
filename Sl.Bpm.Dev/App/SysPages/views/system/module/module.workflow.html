@@ -1,0 +1,39 @@
+﻿<modal size="md">
+    <modal-header>{{vm.module.name}} - {{ 'Associate' | translate}} {{vm.model.name}}</modal-header>
+    <ma-form name="moduleWorkflow">
+        <modal-body>
+            <div class="form-group">
+                <div class="col-lg-4 control-label">{{ 'Code' | translate}}:</div>
+                <div class="col-lg-6">
+                    <input name="code" ng-model="vm.model.code" type="text" required class="form-control input-sm" placeholder="{{ 'WorkflowCode' | translate}}" ng-disabled="true">
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-lg-4 control-label">{{ 'Name' | translate}}:</div>
+                <div class="col-lg-6">
+                    <ma-language name="langName" ng-disabled="true" ng-model="vm.model.langName" language-list="vm.model.langNameList"></ma-language>
+                    
+                    <!--<ma-lang name="langName" ng-model="vm.model.langName" display="vm.model.name" ng-disabled="true"></ma-lang>-->
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-lg-4 control-label">{{ 'Category' | translate}}:</div>
+                <div class="col-lg-6">
+                    <input name="code" ng-model="vm.model.wfdCategoryName" type="text" required class="form-control input-sm" placeholder="{{ 'WorkflowCategory' | translate}}" ng-disabled="true">
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-lg-4 control-label">{{ 'Description' | translate}}:</div>
+                <div class="col-lg-6">
+                    <textarea name="memo" rows="3" ng-model="vm.model.memo" type="text" class="form-control input-sm" placeholder="{{ 'WorkflowDescription' | translate}}" ng-disabled="true"></textarea>
+                </div>
+            </div>
+        </modal-body>
+        <modal-footer>
+            <button class="btn btn-primary" type="button" ng-click="vm.edit()">{{ 'SwitchWorkflow' | translate}}</button>
+            <!--<button class="btn btn-primary" type="button" ng-click="vm.remove()">移除该流程</button>-->
+            <button class="btn btn-primary" type="submit" ma-form-submit="vm.save()" id="moduleWorkflow">{{ 'Save' | translate}}</button>
+            <button type="button" class="btn btn-default" ng-click="$close()">{{ 'Cancel' | translate}}</button>
+        </modal-footer>
+    </ma-form>
+</modal>

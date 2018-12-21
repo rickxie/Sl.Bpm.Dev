@@ -1,0 +1,465 @@
+﻿<html>
+<head>
+    <meta charset="utf-8" />
+    <title>表格测试</title>
+    <style>
+        #divmain div {
+            border: 1px solid black;
+        }
+
+        .a {
+            background-color: transparent;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        table {
+            width: 100%;
+        }
+
+        table td {
+            width: 50px;
+            height: 50px;
+            text-align: center;
+            position: relative;
+        }
+
+        .seled {
+            border: 1px solid #ff0000;
+            background-color: #D6DFF7;
+        }
+
+        #selContainer {
+            position: absolute;
+            border: 1px dashed #0099FF;
+            background-color: rgba(195,213,237,0.6);
+            z-index: 99999;
+        }
+    </style>
+</head>
+<body>
+    <div id="divmain"></div>
+    <input type="button" value="合并" onclick="SetUnion()" />
+    <input type="button" value="拆分" onclick="SetSplit()" />
+    <input type="button" value="显示合并范围" onclick="GetUnion()" />
+    <input type="button" value="显示选中单元格" onclick="showSelDiv()" />
+
+    <div id="selContainer" style="display:none;"></div>
+
+    <!--表格相关-->
+    <script type="text/javascript">
+        //表格数组
+        var tds = [];
+
+        for (var i = 0; i < 10; i++) {
+            tds[i] = [];
+            for (var o = 0; o < 10; o++) {
+                tds[i][o] = { td: i * 10 + o, colspan: 1, rowspan: 1, colnum: o + 1, rownum: i + 1 };
+            }
+        }
+
+        function ShowTable() {
+            var html = "<table border='1'>";
+            //创建表格并解析合并
+            for (var i = 0; i < tds.length; i++) {
+                html += "<tr>";
+                for (var o = 0; o < tds[i].length; o++) {
+                    html += "<td id='" + tds[i][o].td + "' colspan=   '" + (tds[i][o].colspan || 1) + "' rowspan='" + (tds[i][o].rowspan || 1) + "' style='height:" + ((tds[i][o].rowspan || 1) * 50) + "px;width:" + ((tds[i][o].colspan || 1) * 50) + "px;display:" + (tds[i][o].isDelete ? "none" : "td") + "'>" + (tds[i][o].rownum-1) + ":" + (tds[i][o].colnum-1) + "</td>";
+                }
+                html += "</tr>";
+            }
+            document.getElementById("divmain").innerHTML = html;
+        }
+
+        ShowTable();
+
+        //根据Id获取单元格
+        function GetTd(id) {
+            for (var i = 0; i < tds.length; i++) {
+                for (var o = 0; o < tds[i].length; o++) {
+                    if (tds[i][o].td == id) {
+                        return tds[i][o];
+                    }
+                }
+            }
+        }
+    </script>
+    <!--选择器相关-->
+    <script type="text/javascript">
+        Array.prototype.removeTd = function (item, removeClass) {
+            if (!item) throw ("用于删除的项不能为空。");
+            for (var i = 0; i < this.length; i++) {
+                if (this[i].td == item) {
+                    if (removeClass && !this[i].isDelete) {
+                        document.getElementById(this[i].td).className = document.getElementById(this[i].td).className.replaceAll(se.selectedClass, "");
+                    }
+                    //this[i].td.Me.className = this[i].td.Me.className.replaceAll(se.selectedClass, "");
+                    this.splice(i, 1);
+                }
+            }
+        }
+        Array.prototype.pushTdById = function (item, addClass) {
+            if (!item) throw ("用于新增的项不能为空。");
+            var _td = GetTd(item);
+            _td.Me = document.getElementById(item);
+            if (addClass && !_td.isDelete) {
+                document.getElementById(_td.td).className = document.getElementById(_td.td).className + " " + se.selectedClass;
+            }
+            this.push(_td);
+        }
+        Array.prototype.pushTd = function (item, addClass) {
+            if (!item) throw ("用于新增的项不能为空。");
+            var _td = item;
+            if (addClass && !_td.isDelete) {
+                document.getElementById(_td.td).className = document.getElementById(_td.td).className + " " + se.selectedClass;
+            }
+            this.push(_td);
+        }
+
+        String.prototype.replaceAll = function (AFindText, ARepText) { raRegExp = new RegExp(AFindText, "g"); return this.replace(raRegExp, ARepText); }
+
+        function addEvent(eventType, eventFunc, eventObj) {
+            eventObj = eventObj || document;
+            if (window.attachEvent) eventObj.attachEvent("on" + eventType, eventFunc);
+            if (window.addEventListener) eventObj.addEventListener(eventType, eventFunc, false);
+        }
+        function clearEventBubble(event) {
+            event = event || window.event;
+            if (event.stopPropagation) event.stopPropagation(); else event.cancelBubble = true;
+            if (event.preventDefault) event.preventDefault(); else event.returnValue = false;
+        }
+
+        function posXY(event) {
+            event = event || window.event;
+            var posX = event.pageX || (event.clientX + (document.documentElement.scrollLeft || document.body.scrollLeft));
+            var posY = event.pageY || (event.clientY + (document.documentElement.scrollTop || document.body.scrollTop));
+            return { x: posX, y: posY };
+        }
+
+
+        //选择器
+        function RegionSelect(region, selectedClass) {
+            //选择的元素集合
+            var _selectedRegions = [];
+            this.regions = [];
+            var _self = this;
+            var _regions = document.querySelectorAll(region);
+            if (_regions && _regions.length > 0) {
+                for (var i = 0; i < _regions.length; i++) {
+                    _regions[i].onmousedown = function () {
+                        var event = window.event || arguments[0];
+                        if (!event.shiftKey && !event.ctrlKey) {
+                            // 清空所有select样式
+                            _self.clearSelections();
+                            this.className += " " + _self.selectedClass;
+                            // 清空selected数组，并加入当前select中的元素
+                            _selectedRegions = [];
+                            _selectedRegions.pushTdById(this.id, true);
+                        }
+                    }
+                    this.regions.push(_regions[i]);
+                }
+            }
+            this.selectedClass = selectedClass;
+            this.selectDiv = null;
+            this.startX = null;
+            this.startY = null;
+            //清除所有选中的样式
+            this.clearSelections = function () {
+                for (var i = 0; i < this.regions.length; i++) {
+                    this.regions[i].className = this.regions[i].className.replaceAll(this.selectedClass, "");
+                }
+            }
+            //初始化
+            this.select = function () {
+                var _self = this;
+                addEvent("mousedown", function () {
+                    var evt = window.event || arguments[0];
+                    _self.selectDiv = document.getElementById("selContainer");
+                    _self.startX = posXY(evt).x;
+                    _self.startY = posXY(evt).y;
+                    _self.isSelect = true;
+                    clearEventBubble(evt);
+                }, document);
+
+                addEvent("mousemove", function () {
+                    var evt = window.event || arguments[0];
+                    _self.onSelect(evt);
+                    clearEventBubble(evt);
+                }, document);
+
+                addEvent("mouseup", function () {
+                    //选择结束，隐藏选择框
+                    if (_self.selectDiv) {
+                        _self.selectDiv.style.display = "none";
+                    }
+                    _self.isSelect = false;
+                }, document);
+            }
+            //开始选择，展示选择框
+            this.onSelect = function (event) {
+                if (this.isSelect) {
+                    if (this.selectDiv.style.display == "none") this.selectDiv.style.display = "";
+
+                    var posX = posXY(event).x;
+                    var poxY = posXY(event).y;
+
+                    this.selectDiv.style.left = Math.min(posX, this.startX);
+                    this.selectDiv.style.top = Math.min(poxY, this.startY);
+                    this.selectDiv.style.width = Math.abs(posX - this.startX);
+                    this.selectDiv.style.height = Math.abs(poxY - this.startY);
+
+                    var regionList = this.regions;
+                    var temp_selectedRegions = [];
+
+                    if (event.shiftKey || event.ctrlKey) {
+                        debugger;
+                    }
+
+                    for (var i = 0; i < regionList.length; i++) {
+                        var r = regionList[i];
+                        //判断元素是否选中（仅此而已
+                        var sr = this.innerRegion(this.selectDiv, r);
+                        if (sr) {
+                            temp_selectedRegions.pushTdById(r.id);
+                        }
+                    }
+                    this.clearSelections();
+                    if (temp_selectedRegions.length == 0) return;
+
+                    //扩展选择项
+                    var min_x = 99, min_y = 99, max_x = 0, max_y = 0;
+
+                    for (var i = 0; i < temp_selectedRegions.length; i++) {
+                        var td_x = temp_selectedRegions[i].colnum;
+                        var td_y = temp_selectedRegions[i].rownum;
+                        var td_width = td_x + parseInt(temp_selectedRegions[i].colspan || 1) - 1;
+                        var td_height = td_y + parseInt(temp_selectedRegions[i].rowspan || 1) - 1;
+
+                        if (min_x > td_x) min_x = td_x;
+                        if (min_y > td_y) min_y = td_y;
+                        if (max_x < td_width) max_x = td_width;
+                        if (max_y < td_height) max_y = td_height;
+                    }
+                    
+                    var result = this.GetAllTd({ min_x: --min_x, min_y: --min_y, max_x: --max_x, max_y: --max_y });
+
+
+                    for (var i = result.min_y; i <= result.max_y; i++) {
+                        for (var o = result.min_x; o <= result.max_x; o++) {
+                            if (o >= result.min_x && o <= result.max_x && i >= result.min_y && i <= result.max_y) {
+                                if (tds[i][o].isDelete) {
+                                    _selectedRegions.pushTd(tds[i][o]);
+                                } else {
+                                    _selectedRegions.pushTd(tds[i][o], true);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            var debugid = 0;
+
+            //递归（查询上下左右四个角落是否有未选中的单元格，有就加上然后重新计算四个最大最小值
+            this.GetAllTd = function (obj) {
+                var min_x = obj.min_x;
+                var min_y = obj.min_y;
+                var max_x = obj.max_x;
+                var max_y = obj.max_y;
+
+                for (var y = min_y; y <= max_y; y++) {
+                    for (var x = min_x; x <= max_x; x++) {
+                        if (y == min_y || y == max_y || x == min_x || x == max_x) {
+                            if (!!tds[y][x].isDelete) {
+                                var delTd = tds[y][x].parentTd;
+                                var td_x = delTd.colnum - 1;
+                                var td_y = delTd.rownum - 1;
+                                var td_width = td_x + parseInt(delTd.colspan || 1) - 1;
+                                var td_height = td_y + parseInt(delTd.rowspan || 1) - 1;
+
+                                if (min_x > td_x) min_x = td_x;
+                                if (min_y > td_y) min_y = td_y;
+                                if (max_x < td_width) max_x = td_width;
+                                if (max_y < td_height) max_y = td_height;
+                            } else {
+                                if (tds[y][x].td == debugid) {
+                                }
+                                var td_x = tds[y][x].colnum - 1;
+                                var td_y = tds[y][x].rownum - 1;
+                                var td_width = td_x + parseInt(tds[y][x].colspan || 1) - 1;
+                                var td_height = td_y + parseInt(tds[y][x].rowspan || 1) - 1;
+
+                                if (min_x > td_x) min_x = td_x;
+                                if (min_y > td_y) min_y = td_y;
+                                if (max_x < td_width) max_x = td_width;
+                                if (max_y < td_height) max_y = td_height;
+                            }
+                        }
+                    }
+                }
+
+                if (min_x < obj.min_x || min_y < obj.min_y || max_x > obj.max_x || max_y > obj.max_y) {
+                    return this.GetAllTd({ min_x: min_x, min_y: min_y, max_x: max_x, max_y: max_y });
+                } else {
+                    return { min_x: min_x, min_y: min_y, max_x: max_x, max_y: max_y };
+                }
+            }
+
+            //判断XY坐标上的单元格是否已被选中
+            this.GetTdForXY = function (x, y) {
+                for (var i = 0; i < se.SelectedRegions.length; i++) {
+                    if (se.SelectedRegions[i].rownum == x && se.SelectedRegions[i].colnum == y && se.SelectedRegions[i].isDelete == false) {
+                        return se.SelectedRegions[i];
+                    }
+                }
+                return null;
+            }
+
+
+            //判断一个区域是否在选择区内
+            this.innerRegion = function (selDiv, region) {
+                var s_top = parseInt(selDiv.style.top);
+                var s_left = parseInt(selDiv.style.left);
+                var s_right = s_left + parseInt(selDiv.offsetWidth);
+                var s_bottom = s_top + parseInt(selDiv.offsetHeight);
+
+                var r_top = parseInt(region.offsetTop);
+                var r_left = parseInt(region.offsetLeft);
+                var r_right = r_left + parseInt(region.offsetWidth);
+                var r_bottom = r_top + parseInt(region.offsetHeight);
+
+                var t = Math.max(s_top, r_top);
+                var r = Math.min(s_right, r_right);
+                var b = Math.min(s_bottom, r_bottom);
+                var l = Math.max(s_left, r_left);
+
+                if (b > t && r > l) {
+                    return region;
+                } else {
+                    return null;
+                }
+            }
+            //控制选择器属性
+            Object.defineProperties(this, {
+                //选择的元素集合
+                SelectedRegions: {
+                    Configurable: false,
+                    get: function () { return _selectedRegions; }
+                }
+            });
+        }
+
+        //创建选择器
+        var se = new RegionSelect('td', 'seled');
+        se.select();
+
+        function showSelDiv() {
+            console.log("共选择 " + se.SelectedRegions.length + " 个文件，分别是：\n");
+            for (var i = 0; i < se.SelectedRegions.length; i++) {
+                console.log(se.SelectedRegions[i]);
+            }
+
+        }
+
+        //显示合并范围
+        function GetUnion() {
+            var min_x = 99, min_y = 99, max_x = 0, max_y = 0;
+            for (var i = 0; i < se.SelectedRegions.length; i++) {
+                var td_x = se.SelectedRegions[i].colnum;
+                var td_y = se.SelectedRegions[i].rownum;
+                var td_width = td_x + parseInt(se.SelectedRegions[i].colspan || 1) - 1;
+                var td_height = td_y + parseInt(se.SelectedRegions[i].rowspan || 1) - 1;
+
+                if (min_x > td_x) min_x = td_x;
+                if (min_y > td_y) min_y = td_y;
+                if (max_x < td_width) max_x = td_width;
+                if (max_y < td_height) max_y = td_height;
+            }
+            console.log("选中的范围是：\n");
+            console.log(min_x + ":" + min_y + " 到 " + max_x + ":" + max_y);
+        }
+
+        //合并单元格
+        function SetUnion() {
+            var min_x = 99, min_y = 99, max_x = 0, max_y = 0;
+            for (var i = 0; i < se.SelectedRegions.length; i++) {
+                var td_x = se.SelectedRegions[i].colnum;
+                var td_y = se.SelectedRegions[i].rownum;
+                var td_width = td_x + parseInt(se.SelectedRegions[i].colspan || 1) - 1;
+                var td_height = td_y + parseInt(se.SelectedRegions[i].rowspan || 1) - 1;
+
+                if (min_x > td_x) min_x = td_x;
+                if (min_y > td_y) min_y = td_y;
+                if (max_x < td_width) max_x = td_width;
+                if (max_y < td_height) max_y = td_height;
+            }
+
+            min_x--;
+            min_y--;
+            max_x--;
+            max_y--;
+
+            for (var i = min_y; i <= max_y; i++) {
+                for (var o = min_x; o <= max_x; o++) {
+                    if (o >= min_x && o <= max_x && i >= min_y && i <= max_y) {
+                        var td = document.getElementById(tds[i][o].td);
+                        if (i == min_y && o == min_x) {
+                            tds[i][o].colspan = max_x - min_x + 1;
+                            tds[i][o].rowspan = max_y - min_y + 1;
+                            tds[i][o].isDelete = false;
+                            tds[i][o].parentTd = null;
+                            td.setAttribute("colspan", tds[i][o].colspan.toString());
+                            td.setAttribute("rowspan", tds[i][o].rowspan.toString());
+                            td.style.width = tds[i][o].colspan * 50 + "px";
+                            td.style.height = tds[i][o].rowspan * 50 + "px";
+                            td.style.display = "";
+                        } else {
+                            tds[i][o].colspan = 1;
+                            tds[i][o].rowspan = 1;
+                            tds[i][o].isDelete = true;
+                            tds[i][o].parentTd = tds[min_y][min_x];
+                            td.style.width = "50px";
+                            td.style.height = "50px";
+                            td.setAttribute("colspan", "1");
+                            td.setAttribute("rowspan", "1");
+                            td.style.display = "none";
+                        }
+                    }
+                }
+            }
+
+            se.SelectedRegions = [];
+            se.clearSelections();
+
+
+            se = null;
+            se = new RegionSelect('td', 'seled');
+            se.select();
+        }
+
+        function SetSplit() {
+            for (var i = 0; i < se.SelectedRegions.length; i++) {
+                se.SelectedRegions[i].colspan = 1;
+                se.SelectedRegions[i].rowspan = 1;
+                se.SelectedRegions[i].isDelete = false;
+                var td = document.getElementById(se.SelectedRegions[i].td);
+                td.style.width = "50px";
+                td.style.height = "50px";
+                td.setAttribute("colspan", "1");
+                td.setAttribute("rowspan", "1");
+                td.style.display = "";
+            }
+
+            se.SelectedRegions = [];
+            se.clearSelections();
+
+            se = null;
+            se = new RegionSelect('td', 'seled');
+            se.select();
+        }
+    </script>
+</body>
+</html>

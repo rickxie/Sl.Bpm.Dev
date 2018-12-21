@@ -1,0 +1,18 @@
+﻿<modal class="entire-block">
+    <modal-header>请填写主题</modal-header>
+    <modal-body>
+        <ma-form name="moduleRightEdit">
+            <div class="form-group form-md-line-input">
+                <div class="col-lg-2 control-label">Topic</div>
+                <div class="col-lg-8">
+                    <fm-text fm-normal="true" fm-model="vm.model.topic"></fm-text>
+                </div>
+            </div>
+        </ma-form>
+    </modal-body>
+    <modal-footer>
+        <button class="btn btn-primary" type="submit" id="moduleRightEdit" ng-click="vm.save()">{{ 'Save' | translate}}</button>
+        <button type="button" class="btn btn-default" ng-click="$close()">{{ 'Cancel' | translate}}</button>
+    </modal-footer>
+</modal>
+

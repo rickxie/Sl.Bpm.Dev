@@ -1,0 +1,24 @@
+﻿
+@{
+    ViewBag.Title = "Popup";
+    Layout = "~/Views/Shared/_LayoutPopup.cshtml";
+    ViewBag.hasSubMenu = false;
+}
+
+
+<div ng-controller="popup" style="margin:0 auto;">
+    <ng-include src="'/App/SysPages/views/my/popup/popup.html'"></ng-include>
+</div>
+
+<script type="text/javascript">
+    function loadModule() {
+        angular.module("syspages").controller("popup", ['$scope', '$location', function ($scope, $location) {
+            $scope.type = +$location.search()["type"];
+            $scope.code = $location.search()["code"];
+          
+        }]).config(function ($locationProvider) {
+            $locationProvider.html5Mode(true);
+        });;
+    }
+</script>
+

@@ -1,0 +1,878 @@
+html, body {
+    height: 100%;
+    background-color: -ms-linear-gradient(top, #6DA6CD, #ADD0E4) fixed;
+    background-color: -moz-linear-gradient(top, #6DA6CD, #ADD0E4) fixed; /*火狐*/
+    background-color: -webkit-gradient(linear, 0% 0%, 0% 100%,from(#6DA6CD), to(#ADD0E4)) fixed; /*谷歌*/
+    background-color: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#6DA6CD), to(#ADD0E4)) fixed; /* Safari 4-5, Chrome 1-9*/
+    background-color: -webkit-linear-gradient(top, #6DA6CD, #ADD0E4) fixed; /*Safari5.1 Chrome 10+*/
+    background-color: -o-linear-gradient(top, #6DA6CD, #ADD0E4) fixed; /*Opera 11.10+*/
+}
+
+.ToolItem {
+    font-size: 12px;
+    color: white;
+    cursor: cell;
+    border: 1px dashed white;
+    background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAFoEvQfAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAA1JREFUeNpj+P//vy8ACUkDS1mFsNMAAAAASUVORK5CYII=");
+    z-index: 20;
+}
+
+.icon_A {
+    display: block;
+    width: 12px;
+    height: 12px;
+    background: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAAMCAYAAAEhcmxxAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAL5JREFUeNpi+P//PwMyyAUIIDjrP0AAMcIYIAIggBigCjNhGk5AZWwZkJUBBBBYGVTJRaggG0xLPlQAGf9B1mEBxD9hpgAEEAOS04pRjIZKMEKNuI9kAoM5mvmXQILMQHwPSsOAOBC/gnHikXSwIXuXAeoibZgdAAEGdwWSAhuwPyDYHdml6IELAgVYAqERiJmQFaUB8Q8sCtHxXyAugWnSAeIdeBSDQsCNAYv7QAF5Eknhdgw1ODyUDo1UDEMBiAWkJ1xyhBEAAAAASUVORK5CYII=") no-repeat;
+    margin: -26px 10px auto auto;
+    vertical-align: middle;
+    text-align: right;
+}
+
+.icon_Right {
+    display: block;
+    width: 24px;
+    height: 24px;
+    background: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAAMCAYAAAEhcmxxAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAL5JREFUeNpi+P//PwMyyAUIIDjrP0AAMcIYIAIggBigCjNhGk5AZWwZkJUBBBBYGVTJRaggG0xLPlQAGf9B1mEBxD9hpgAEEAOS04pRjIZKMEKNuI9kAoM5mvmXQILMQHwPSsOAOBC/gnHikXSwIXuXAeoibZgdAAEGdwWSAhuwPyDYHdml6IELAgVYAqERiJmQFaUB8Q8sCtHxXyAugWnSAeIdeBSDQsCNAYv7QAF5Eknhdgw1ODyUDo1UDEMBiAWkJ1xyhBEAAAAASUVORK5CYII=") no-repeat;
+    margin: -26px 10px auto auto;
+    text-align: right;
+    vertical-align: middle;
+}
+
+#Div_Main {
+    margin-right: auto;
+    margin-left: auto;
+    position: relative;
+}
+
+.div_PropertyPanel {
+    margin-top: 30px;
+    width: 100%;
+}
+
+/*属性框*/
+#Div_ControlProperty {
+    display: block;
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    width: calc(50% - 450px);
+    height: 100%;
+    overflow: auto;
+    font-family: 'Microsoft YaHei';
+}
+/*属性框分组小标题*/
+.div_LittleTitle {
+    position: relative;
+    display: block;
+    height: 25px;
+    line-height: 25px;
+    font-size: 16px;
+    padding-left: 80px;
+    text-shadow: 1px 1px 1px rgba(255,255,255,0.6);
+}
+
+    .div_LittleTitle > .fa {
+        margin-right: 5px;
+    }
+
+.div_PropertyItem {
+    display: table;
+    margin-left: 20px;
+    width: calc(100% - 40px);
+}
+
+.div_PropertyName {
+    display: table-cell;
+    text-align: right;
+    /*width: 1%;*/
+    width: 80px;
+    white-space: nowrap;
+}
+
+/*属性值框*/
+.div_PropertyValue {
+    position: relative;
+    display: table-cell;
+    text-align: right;
+}
+
+.Text_Singer {
+    border: 0px;
+    border: none;
+    width: 96%;
+    height: 22px;
+    background-color: rgba(255,255,255,0.2);
+    margin: 2px auto;
+    padding-left: 5px;
+    border-radius: 3px;
+    font-family: 'Microsoft YaHei';
+    border: 1px solid rgba(255,255,255,0.4);
+}
+
+    .Text_Singer:hover {
+        background: rgba(255,255,255,0.4);
+    }
+
+    .Text_Singer[disabled] {
+        border: none;
+        border-bottom: 1px dashed rgba(255,255,255,0.4);
+        background-color: transparent;
+        color: black;
+        text-shadow: 1px 1px 5px white;
+    }
+
+    /*属性单位*/
+    .Text_Singer ~ .Span_Digit {
+        display: inline-block;
+        position: absolute;
+        width: 30px;
+        height: 20px;
+        line-height: 20px;
+        top: 4px;
+        right: 3%;
+        font-family: "Microsoft YaHei";
+        font-size: 14px;
+        padding-left: 2px;
+        text-align: left;
+    }
+
+    .Text_Singer:hover ~ .Span_Digit {
+        background: #EEF;
+        color: dodgerblue;
+    }
+
+    .Text_Singer:focus {
+        background-color: transparent;
+        border: 1px solid dodgerblue;
+        outline: none;
+    }
+
+        .Text_Singer:focus ~ .Span_Digit {
+            background-color: transparent;
+            color: dodgerblue;
+        }
+/*自增操作按钮*/
+.Text_AddNum {
+    display: inline-block;
+    position: absolute;
+    width: 18px;
+    height: 18px;
+    top: 4px;
+    right: calc(4% + 30px);
+    font-family: "Microsoft YaHei";
+    font-size: 14px;
+    padding-left: 2px;
+    text-align: left;
+    background: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAQCAYAAAEAB03PAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA9hJREFUeNpi/P//PwMKAAmwgKn/DAKKSv8BAogRQ4WKkwdYFoSV7Jz+AwQQmMHKzv6fjZOTASYBwmoe/qz8snL/mcDm/vz5Dt0odgGR39/fvf0PEECYdqADFiam/0BXNTFDXQjCuhHJQBME/gNpLgY2bu7/Qiqq/4EKUmAKWBgZ3wHdAFIgxvTv61eG7x/eMwINmAMzVTM8Sejt/VuSQOY7gABihOoAOUSRU0Liwa+PHxn+fv/O8AeL2/QiU2BMxhur5m/QCEsMABvAzsX9X1Rbh+HtvbsMf969fQjUqoDNAF5xCf7///99EFHVBHmIgU9eTRQSTH//MHx58Zzh78cPDEBtxrgCRNHJ59OfX796P79+wfDz2xeQ0F+wp4EBMBcUSsgYOVJgGJsagAAiHA8EAAsrIyPI2WcF1DWMv7x8AfTGR4bf//7hC0CGR8f28H199PCVZkQyB5MGUIKJg8Po461bf/98+MBEwELGO3s2Bv//+/cji6AgyBeMYA18cvIM/GrqTEwsLH+BXjLCpfvGhqWneURE14hp6DJw8PHDDWBkYWNj4BWVYGDk4ACpO4pV86r5aoysrMYc/EIMLJzcIK2M4DAAhiLDt7dvGd4/esTw78uX3YyMjG7YDAAmmltAiu3O3k0//v76yfTv10+wONON9Uv+f3/+jOHfp48+THx8bgTC4LeKsx/bm1vXb31/8xrE/weLXw5S0wAQx4HEAQKUVj6/DERBHJ92W62WoFZTaUm46P/AhYSLG+IgaRBXf4SLk3/AQUOchDg4kOilBwlHDpISB9pIlNJNt9a+7f7yfaubNE5LXzJ5m32TmTczn5nXqrDz25AXuDw6a5UgZMXVdUDsQBFsXXeJrEIy4UTiTEdT2o0GWYw5yoZHaFuZay6heHE+yiQpTz5KwhdLz2W68d8I8NOxhWW6P96ncKyf/AEhptbrp1qlgh41c3C5hMJ+/KNJfHLpIfRye7MlhELrnT29JMYTZFkmfVXegnw2QGoBVxmIUUQUqTueJAOEyOVnPiBmQNY7omfQWYdkvXguHO6mkbIrf1dXb0QcgM1B6uwTEVyQGnKVWK3GqxF0KHTfA7KQYqRblSVS3sukSlWyVeZ0LmTCq3Nn4C6u3kVTQykyjEtd+bRZrUoa7BqqQqaug13zh2DeR074qC2vs1wqkmw/oe468LY2kf4NjAmLNI3+OrSGx6eV5sWFx/zpVP21fNIRiYZ9fj9pn3Wu8sUDdy5QOMjygUY2Y9fY5qPJ1KOuMTKREQ5hG4ubNUYmZ3PYI/wyd0d722BrDd8qP297HLe7vgFfgxWA70fDMQAAAABJRU5ErkJggg==") no-repeat 5px 1px;
+    cursor: pointer;
+    filter: alpha(opacity=50);
+    -moz-opacity: 0.5;
+    -khtml-opacity: 0.5;
+    opacity: 0.5;
+}
+
+    .Text_AddNum:hover {
+        filter: alpha(opacity=100);
+        -moz-opacity: 1;
+        -khtml-opacity: 1;
+        opacity: 1;
+    }
+/*自减操作按钮*/
+.Text_MinusNum {
+    display: inline-block;
+    position: absolute;
+    width: 18px;
+    height: 18px;
+    top: 4px;
+    right: calc(4% + 46px);
+    font-family: "Microsoft YaHei";
+    font-size: 14px;
+    padding-left: 2px;
+    text-align: left;
+    background: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAQCAYAAAEAB03PAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA9hJREFUeNpi/P//PwMKAAmwgKn/DAKKSv8BAogRQ4WKkwdYFoSV7Jz+AwQQmMHKzv6fjZOTASYBwmoe/qz8snL/mcDm/vz5Dt0odgGR39/fvf0PEECYdqADFiam/0BXNTFDXQjCuhHJQBME/gNpLgY2bu7/Qiqq/4EKUmAKWBgZ3wHdAFIgxvTv61eG7x/eMwINmAMzVTM8Sejt/VuSQOY7gABihOoAOUSRU0Liwa+PHxn+fv/O8AeL2/QiU2BMxhur5m/QCEsMABvAzsX9X1Rbh+HtvbsMf969fQjUqoDNAF5xCf7///99EFHVBHmIgU9eTRQSTH//MHx58Zzh78cPDEBtxrgCRNHJ59OfX796P79+wfDz2xeQ0F+wp4EBMBcUSsgYOVJgGJsagAAiHA8EAAsrIyPI2WcF1DWMv7x8AfTGR4bf//7hC0CGR8f28H199PCVZkQyB5MGUIKJg8Po461bf/98+MBEwELGO3s2Bv//+/cji6AgyBeMYA18cvIM/GrqTEwsLH+BXjLCpfvGhqWneURE14hp6DJw8PHDDWBkYWNj4BWVYGDk4ACpO4pV86r5aoysrMYc/EIMLJzcIK2M4DAAhiLDt7dvGd4/esTw78uX3YyMjG7YDAAmmltAiu3O3k0//v76yfTv10+wONON9Uv+f3/+jOHfp48+THx8bgTC4LeKsx/bm1vXb31/8xrE/weLXw5S0wAQx4HEAQKUVj6/DERBHJ92W62WoFZTaUm46P/AhYSLG+IgaRBXf4SLk3/AQUOchDg4kOilBwlHDpISB9pIlNJNt9a+7f7yfaubNE5LXzJ5m32TmTczn5nXqrDz25AXuDw6a5UgZMXVdUDsQBFsXXeJrEIy4UTiTEdT2o0GWYw5yoZHaFuZay6heHE+yiQpTz5KwhdLz2W68d8I8NOxhWW6P96ncKyf/AEhptbrp1qlgh41c3C5hMJ+/KNJfHLpIfRye7MlhELrnT29JMYTZFkmfVXegnw2QGoBVxmIUUQUqTueJAOEyOVnPiBmQNY7omfQWYdkvXguHO6mkbIrf1dXb0QcgM1B6uwTEVyQGnKVWK3GqxF0KHTfA7KQYqRblSVS3sukSlWyVeZ0LmTCq3Nn4C6u3kVTQykyjEtd+bRZrUoa7BqqQqaug13zh2DeR074qC2vs1wqkmw/oe468LY2kf4NjAmLNI3+OrSGx6eV5sWFx/zpVP21fNIRiYZ9fj9pn3Wu8sUDdy5QOMjygUY2Y9fY5qPJ1KOuMTKREQ5hG4ubNUYmZ3PYI/wyd0d722BrDd8qP297HLe7vgFfgxWA70fDMQAAAABJRU5ErkJggg==") no-repeat -16px 1px;
+    cursor: pointer;
+    filter: alpha(opacity=50);
+    -moz-opacity: 0.5;
+    -khtml-opacity: 0.5;
+    opacity: 0.5;
+}
+
+    .Text_MinusNum:hover {
+        filter: alpha(opacity=100);
+        -moz-opacity: 1;
+        -khtml-opacity: 1;
+        opacity: 1;
+    }
+
+
+
+#Div_Phone {
+    display: inline-block;
+    position: relative;
+    width: 341px;
+    height: 585px;
+    background: #EEE;
+    border-radius: 5px;
+    border-width: 5px;
+    border-style: solid;
+    z-index: 2;
+    /*禁止选中*/
+    moz-user-select: -moz-none;
+    -moz-user-select: none;
+    -o-user-select: none;
+    -khtml-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    float: left;
+    background: url(css/images/phone-background.png);
+    background-repeat: no-repeat;
+    background-position: 0px 0px;
+    background-size: auto 800px !important;
+    padding: 92px 40px 100px 40px;
+    border: none;
+}
+
+#Div_Phone_Main {
+    height: 100%;
+    /*position: relative;
+    display: inline-block;
+    border-bottom-left-radius: 3px;
+    border-bottom-right-radius: 3px;
+    width: 100%;
+    background: #f0eff4 !important;
+    padding-top: 0px;
+    overflow-y: auto;*/
+}
+
+#Div_Tool {
+    display: block;
+    position: absolute;
+    left: 0px;
+    top: 15px;
+    width: calc(50% - 450px);
+    height: 100%;
+    border-radius: 5px;
+    /*禁止选中*/
+    moz-user-select: -moz-none;
+    -moz-user-select: none;
+    -o-user-select: none;
+    -khtml-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+/*分割红线的样式*/
+#SplitHr {
+    background: #ff4500;
+    height: 2px;
+    overflow: visible;
+    position: relative;
+    margin: 3px 0;
+}
+
+    #SplitHr:after, #SplitHr:before {
+        position: absolute;
+        content: '';
+        display: block;
+        height: 0;
+        width: 0;
+        border-style: solid;
+        border-color: transparent;
+        border-width: 4px 10px;
+        top: -3px;
+    }
+
+    #SplitHr:before {
+        left: 0px;
+        border-left-color: #ff4500;
+    }
+
+    #SplitHr:after {
+        right: 0px;
+        border-right-color: #ff4500;
+    }
+
+
+.UL_Tool {
+    margin-top: 15px;
+    padding-left: 20px;
+    padding-right: 20px;
+    display: block;
+    font-family: 'Microsoft YaHei';
+    position: relative;
+}
+
+    .UL_Tool[category]:before {
+        content: attr(category);
+        display: block;
+        position: relative;
+        margin-right: 60px;
+        margin-left: -21px;
+        padding-left: 30px;
+        height: 30px;
+        line-height: 30px;
+        font-size: 14px;
+        /*background: rgba(255,255,255,0.6);*/
+        background: -webkit-linear-gradient(left, rgba(255,255,255,1), rgba(255,255,255,0)); /* Safari 5.1 - 6.0 */
+        background: -o-linear-gradient(right, rgba(255,255,255,1), rgba(255,255,255,0)); /* Opera 11.1 - 12.0 */
+        background: -moz-linear-gradient(right, rgba(255,255,255,1), rgba(255,255,255,0)); /* Firefox 3.6 - 15 */
+        background: linear-gradient(to right, rgba(255,255,255,1), rgba(255,255,255,0)); /* 标准的语法 */
+    }
+
+    .UL_Tool[category]:after {
+        content: '';
+        display: inline-block;
+        position: absolute;
+        top: 0px;
+        left: -31px;
+        border-left: 12px solid transparent;
+        border-bottom: 0px solid transparent;
+        border-right: 18px solid rgba(255,255,255,1);
+        border-top: 30px solid transparent;
+    }
+
+    .UL_Tool li {
+        list-style: none;
+        display: inline-block;
+        margin-right: 6px;
+        margin-top: 6px;
+        width: calc(100% - 9px);
+    }
+
+
+
+.ToolItem {
+    color: #fff;
+    background-color: #32c5d2;
+    border: 1px solid #32c5d2;
+    border-radius: 4px;
+}
+
+/*未上线的功能*/
+.ToolItem_IsDisabled {
+    background: #FFC;
+    cursor: default;
+    border-color: #32c5d2;
+    background-color: #90D9E0;
+}
+
+.BasicControl > .Div_ControlGroup > .Div_LineControl {
+    cursor: cell;
+    font-family: 'Microsoft YaHei';
+    height: 50px;
+    background: white;
+    margin-bottom: 1px;
+}
+
+.Span_LineControl_title_font {
+    display: inline-block;
+    font-family: 'Microsoft YaHei';
+    font-size: 14px;
+    color: black;
+    margin: auto 10px auto 15px;
+    position: absolute;
+    top: calc(50% - 10px);
+}
+/*标题*/
+.Span_ControlGroup_title_font {
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    background: #f0eff4;
+    width: calc(100% - 8px);
+    padding-left: 8px;
+    font-family: 'Microsoft YaHei';
+    font-size: 14px;
+    color: #888;
+    line-height: 25px;
+}
+/*提示*/
+.Span_LineControl_tip_font {
+    display: inline-block;
+    position: absolute;
+    left: 10px;
+    color: #AAA;
+    font-size: 12px;
+    top: 8px;
+}
+
+.BasicControl > .Div_LineControl.Control_Image {
+    height: 50px;
+}
+/*图片*/
+.Span_LineControl_Image {
+    height: 100%;
+    border: none;
+}
+
+.Div_LineControl.Combobox_Img:after {
+    content: '';
+    display: inline-block;
+    position: absolute;
+    width: 12px;
+    height: 12px;
+    top: calc(50% - 6px);
+    right: 20px;
+    background: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAAMCAYAAAEhcmxxAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAL5JREFUeNpi+P//PwMyyAUIIDjrP0AAMcIYIAIggBigCjNhGk5AZWwZkJUBBBBYGVTJRaggG0xLPlQAGf9B1mEBxD9hpgAEEAOS04pRjIZKMEKNuI9kAoM5mvmXQILMQHwPSsOAOBC/gnHikXSwIXuXAeoibZgdAAEGdwWSAhuwPyDYHdml6IELAgVYAqERiJmQFaUB8Q8sCtHxXyAugWnSAeIdeBSDQsCNAYv7QAF5Eknhdgw1ODyUDo1UDEMBiAWkJ1xyhBEAAAAASUVORK5CYII=") no-repeat right center;
+}
+
+.Span_LineControl_tip_font.Font_Right {
+    margin: auto 2px auto auto;
+    right: 40px;
+    left: inherit;
+}
+
+.Control_Remark .Span_LineControl_title_font {
+    position: relative;
+}
+
+/*输入框的内容*/
+.Span_LineControl_text_font {
+    display: inline-block;
+    position: absolute;
+    left: 10px;
+    color: #34495e;
+    font-size: 13px;
+    top: calc(50% - 8px);
+}
+/*表格*/
+.Control_Table {
+}
+
+    .Control_Table .Div_TableControl {
+    }
+
+.BasicControl {
+    position: relative;
+    margin-bottom: 10px;
+    margin-top: 10px;
+    width: calc(100% - 2px);
+    left: 1px;
+}
+
+    .BasicControl .btnDel {
+        display: none;
+        cursor: pointer;
+        top: 0px;
+        right: 0px;
+        width: 16px;
+        height: 16px;
+        position: absolute;
+        background-color: darkorange;
+    }
+
+    .BasicControl .lblTitle {
+        display: none;
+        position: absolute;
+        top: 0px;
+        right: 16px;
+        color: #333;
+        background: #DDF3F5;
+        font-family: 'Microsoft YaHei';
+        font-size: 11px;
+        margin-right: 1px;
+        height: 16px;
+        line-height: 16px;
+        padding-left: 5px;
+        padding-right: 5px;
+    }
+
+    .BasicControl .btnRecovery {
+        display: none;
+        cursor: pointer;
+        top: 0px;
+        right: 16px;
+        position: absolute;
+        background: #AAE;
+        font-family: 'Microsoft YaHei';
+        font-size: 12px;
+        margin-right: 1px;
+    }
+
+    .BasicControl .DragUp {
+        display: none;
+        cursor: row-resize;
+        top: -30px;
+        left: calc(50% - 60px);
+        width: 30px;
+        height: 14px;
+        position: absolute;
+        background: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAC0AAAAPCAYAAABwfkanAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAIlJREFUeNpi/P//P8NQAywgYua5OdxAagYQ+wIx/yB05zsgXgnEJelGKd9YoIK9QBwziANXCIgzgZgTiBOZoILBQyRlgN0Jc7TIEHE0L7KjhxQYdfSoo0cdPYgc/WmIuPcVsqMXDxFHL4W3PYCgEIg/gqpIIJYchI79AMRrgLgaxGEciq08gAADADLyFsnjAY+8AAAAAElFTkSuQmCC") no-repeat center center;
+        border-radius: 3px;
+        padding-left: 55px;
+        padding-right: 40px;
+        padding-top: 8px;
+        padding-bottom: 8px;
+    }
+
+        .BasicControl .DragUp .ui-icon {
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+    .BasicControl .DragDown {
+        display: none;
+        cursor: row-resize;
+        bottom: -15px;
+        left: calc(50% - 30px);
+        width: 45px;
+        height: 15px;
+        position: absolute;
+        background: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAC0AAAAPCAYAAABwfkanAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAIlJREFUeNpi/P//P8NQAywgYua5OdxAagYQ+wIx/yB05zsgXgnEJelGKd9YoIK9QBwziANXCIgzgZgTiBOZoILBQyRlgN0Jc7TIEHE0L7KjhxQYdfSoo0cdPYgc/WmIuPcVsqMXDxFHL4W3PYCgEIg/gqpIIJYchI79AMRrgLgaxGEciq08gAADADLyFsnjAY+8AAAAAElFTkSuQmCC") no-repeat center center;
+        border-radius: 3px;
+        padding-top: 8px;
+        padding-bottom: 8px;
+    }
+
+        .BasicControl .DragDown .ui-icon {
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+    .BasicControl .DragLeft {
+        display: none;
+        cursor: col-resize;
+        top: calc(50% - 15px);
+        left: -18px;
+        width: 14px;
+        height: 25px;
+        position: absolute;
+        background: #8C8;
+        border-radius: 3px;
+        padding-top: 7px;
+    }
+
+    .BasicControl .DragRight {
+        display: none;
+        cursor: col-resize;
+        top: calc(50% - 15px);
+        right: -18px;
+        width: 14px;
+        height: 25px;
+        position: absolute;
+        background: #8C8;
+        border-radius: 3px;
+        padding-top: 7px;
+    }
+
+    .BasicControl.EditFrameShow {
+        outline: 1px dashed darkorange;
+    }
+    /*选中之后的样式*/
+    .BasicControl.Div_SelectControl {
+        outline: 1px solid darkorange;
+    }
+
+    .BasicControl > .Div_LineControl {
+        cursor: cell;
+        font-family: 'Microsoft YaHei';
+        width: 100%;
+        background: white;
+        margin: 1px 0px;
+        /*border-top: 1px solid white;
+        border-bottom: 1px solid white;*/
+    }
+
+    .BasicControl > .Div_ControlGroup {
+        cursor: cell;
+        font-family: 'Microsoft YaHei';
+        border: 1px solid #EEE;
+        margin: 0px;
+        width: calc(100% - 2px);
+        height: auto;
+    }
+
+    /*无论任何情况必定显示*/
+    .BasicControl.EditFrameShow > .btnDel {
+        display: block;
+    }
+
+.btnDel > .fa {
+    position: absolute;
+    display: inline-block;
+    top: 1px;
+    left: 3px;
+}
+
+.BasicControl.EditFrameShow > .lblTitle {
+    display: block;
+}
+
+.BasicControl.EditFrameShow > .btnRecovery {
+    display: block;
+}
+/*在[单行]时不允许上下左右拖动*/
+.BasicControl.SingerLine.EditFrameShow > .DragUp,
+.BasicControl.SingerLine.EditFrameShow > .DragDown,
+.BasicControl.SingerLine.EditFrameShow > .DragLeft,
+.BasicControl.SingerLine.EditFrameShow > .DragRight {
+}
+/*在[单行分离]时允许左右拖动，不允许上下拖动*/
+.BasicControl.SingerSplitLine.EditFrameShow > .DragLeft,
+.BasicControl.SingerSplitLine.EditFrameShow > .DragRight {
+    display: block;
+}
+/*在[多行]时允许上下拖动，不允许左右拖动*/
+.BasicControl.MultiLine.EditFrameShow > .DragUp,
+.BasicControl.MultiLine.EditFrameShow > .DragDown {
+    display: block;
+}
+/*在[多行分离]时允许上下左右拖动*/
+.BasicControl.MultiSplitLine.EditFrameShow > .DragUp,
+.BasicControl.MultiSplitLine.EditFrameShow > .DragDown,
+.BasicControl.MultiSplitLine.EditFrameShow > .DragLeft,
+.BasicControl.MultiSplitLine.EditFrameShow > .DragRight {
+    display: block;
+}
+
+
+/*无论任何情况必定显示*/
+.Div_SelectControl > .btnDel {
+    display: block;
+}
+
+.Div_SelectControl > .lblTitle {
+    display: block;
+}
+
+.Div_SelectControl > .btnRecovery {
+    display: block;
+}
+/*在[单行]时不允许上下左右拖动*/
+.Div_SelectControl.SingerLine > .DragUp,
+.Div_SelectControl.SingerLine > .DragDown,
+.Div_SelectControl.SingerLine > .DragLeft,
+.Div_SelectControl.SingerLine > .DragRight {
+}
+/*在[单行分离]时允许左右拖动，不允许上下拖动*/
+.Div_SelectControl.SingerSplitLine > .DragLeft,
+.Div_SelectControl.SingerSplitLine > .DragRight {
+    display: block;
+}
+/*在[多行]时允许上下拖动，不允许左右拖动*/
+.Div_SelectControl.MultiLine > .DragUp,
+.Div_SelectControl.MultiLine > .DragDown {
+    display: block;
+}
+/*在[多行分离]时允许上下左右拖动*/
+.Div_SelectControl.MultiSplitLine > .DragUp,
+.Div_SelectControl.MultiSplitLine > .DragDown,
+.Div_SelectControl.MultiSplitLine > .DragLeft,
+.Div_SelectControl.MultiSplitLine > .DragRight {
+    display: block;
+}
+
+
+.LocationDiv {
+    position: absolute;
+    filter: alpha(opacity=50);
+    -moz-opacity: 0.5;
+    -khtml-opacity: 0.5;
+    opacity: 0.5;
+    background: red;
+    border: 1px solid black;
+    z-index: 998;
+}
+/*黑+模糊效果的ionic文本框*/
+.BlurControl {
+    background: #CCC !important;
+    -webkit-filter: blur(1px);
+    -moz-filter: blur(1px);
+    -o-filter: blur(1px);
+    -ms-filter: blur(1px);
+    filter: blur(1px);
+}
+
+.GrayBackground {
+    background: #888 !important;
+    border: 1px solid black !important;
+    color: white !important;
+    margin-top: 0px;
+    margin-bottom: 0px;
+}
+
+    .GrayBackground span {
+        color: white !important;
+    }
+/*删除控件*/
+#Div_DeleteControl {
+    display: block;
+    position: absolute;
+    left: 25%;
+    width: 50%;
+    FILTER: progid:DXImageTransform.Microsoft.Gradient(gradientType=0,startColorStr=#b8c4cb,endColorStr=red); /*IE 6 7 8*/
+    background: -ms-linear-gradient(top, #EEE, #6DA6CD); /* IE 10 */
+    background: -moz-linear-gradient(top,#EEE,#6DA6CD); /*火狐*/
+    background: -webkit-gradient(linear, 0% 0%, 0% 100%,from(#EEE), to(#6DA6CD)); /*谷歌*/
+    background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#EEE), to(#6DA6CD)); /* Safari 4-5, Chrome 1-9*/
+    background: -webkit-linear-gradient(top, #EEE, #6DA6CD); /*Safari5.1 Chrome 10+*/
+    background: -o-linear-gradient(top, #EEE, #6DA6CD); /*Opera 11.10+*/
+    border-radius: 5px;
+    text-align: center;
+    line-height: 30px;
+    height: 30px;
+    font-family: 'Microsoft YaHei';
+    z-index: 900;
+    cursor: default;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+    #Div_DeleteControl.DeleteControl_Ok {
+        cursor: cell;
+        ILTER: progid:DXImageTransform.Microsoft.Gradient(gradientType=0,startColorStr=#b8c4cb,endColorStr=red) !important; /*IE 6 7 8*/
+        background: -ms-linear-gradient(top, #EEE, #CD6DA6) !important; /* IE 10 */
+        background: -moz-linear-gradient(top,#EEE,#CD6DA6) !important; /*火狐*/
+        background: -webkit-gradient(linear, 0% 0%, 0% 100%,from(#EEE), to(#CD6DA6)) !important; /*谷歌*/
+        background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#EEE), to(#CD6DA6)) !important; /* Safari 4-5, Chrome 1-9*/
+        background: -webkit-linear-gradient(top, #EEE, #CD6DA6) !important; /*Safari5.1 Chrome 10+*/
+        background: -o-linear-gradient(top, #EEE, #CD6DA6) !important; /*Opera 11.10+*/
+    }
+/*暂存控件*/
+.Div_SaveAsControl {
+}
+/*提示控件*/
+#Div_ToolTip {
+    display: none;
+    position: absolute;
+    min-width: 100px;
+    max-width: 400px;
+    font-weight: normal;
+    background: #EEF;
+    border: 1px solid #699;
+    padding: 3px 5px;
+    text-align: left;
+    font-size: 12px;
+    font-family: 'Microsoft YaHei';
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+    cursor: default;
+}
+/*单行输入框样式*/
+.BasicControl > .Control_Text,
+.BasicControl > .Control_Number,
+.BasicControl > .Control_Datetime,
+.BasicControl > .Control_Textarea {
+    position: relative;
+    min-height: 34px;
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+    border-radius: 4px;
+    font-size: 13px;
+    border: 1px solid #ccc;
+    background-color: #fff;
+}
+
+    .BasicControl > .Control_Text.isRequired,
+    .BasicControl > .Control_Number.isRequired,
+    .BasicControl > .Control_DateTime.isRequired {
+        background-color: #FAFFBD;
+    }
+
+/*明细框无细节*/
+.BasicControl > .Control_Detail {
+    position: relative;
+    min-height: 100px;
+    max-height: 300px;
+    background: #DDEFF3;
+    padding-top: 25px;
+    padding-bottom: 30px;
+}
+    /*明细框无细节时提示文字*/
+    .BasicControl > .Control_Detail:before {
+        content: '可拖入多个组件';
+        position: absolute;
+        top: 40px;
+        width: 100%;
+        text-align: center;
+        color: #777;
+        font-size: 16px;
+        vertical-align: middle;
+    }
+
+/*明细框无细节时提示文字*/
+.Blank_Detail_Text {
+    color: #999;
+    font-size: 16px;
+    height: 120px;
+    text-align: center;
+    vertical-align: middle;
+    background: #ADD0E4;
+    line-height: 120px;
+}
+/*明细框新增明细按钮（实际上是span标签）*/
+.BasicControl > .Control_Detail > .Span_ControlGroup_adddetail_button {
+    position: absolute;
+    bottom: 0px;
+    left: 0px;
+    display: inline-block;
+    width: 100%;
+    height: 30px;
+    color: #008CEE;
+    background: #F7F9FF;
+    font-size: 15px;
+    line-height: 30px;
+    text-align: center;
+}
+
+    .BasicControl > .Control_Detail > .Span_ControlGroup_adddetail_button:hover {
+        color: #00AfFF;
+        background: #F9FBFF;
+    }
+
+.BasicControl > .Control_Remark {
+    background-color: transparent;
+    line-height: 30px;
+    height: auto;
+    border-bottom: 1px solid #eee;
+    border-top: 1px solid #eee;
+    min-height: 30px;
+    background-color: rgb(238, 238, 238);
+}
+
+    .BasicControl > .Control_Remark > .Span_LineControl_title_font {
+        line-height: normal;
+    }
+
+.fa.ControlIcon:before {
+    color: black;
+    font-size: 16px;
+    width: 16px;
+    height: 16px;
+    position: absolute;
+    top: calc(50% - 7px);
+    right: 10px;
+}
+
+input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
+    -webkit-appearance: none !important;
+    margin: 0;
+}
+
+/*半透明样式*/
+.translucent {
+    opacity: 0.4;
+}
+/*有新值的属性框*/
+.ControlNewValue {
+    font-weight: bold;
+}
+/*禁用的样式*/
+.BasicControl.isdisabled {
+    background-color: #DDD;
+    border-color: #DDD;
+    text-shadow: 1px 1px 1px #AAA;
+    box-shadow: 1px 1px 5px rgba(20,20,20,0.2);
+}
+
+    .BasicControl.isdisabled > .Div_LineControl {
+        background-color: #DDD;
+        border-color: #DDD;
+        text-shadow: 1px 1px 1px #AAA;
+        box-shadow: 1px 1px 5px rgba(20,20,20,0.2);
+    }
+
+.BlurControl.lblTitle,
+.BlurControl.btnDel {
+    display: none;
+}

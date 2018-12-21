@@ -1,0 +1,54 @@
+﻿<modal size="lg">
+    <div class="modal-header"><button type="button" class="close" ng-click="reload()"><i class="iocn icon-refresh"></i></button><h4>{{ 'FormMultiLanguageConfig' | translate}}</h4> </div>
+    <modal-body style="background-color:#fff;">
+        <div class="col-lg-12">
+            <div class="col-lg-10">&nbsp;</div>
+            <div class="col-lg-2 pull-right" style="text-align:right;">
+                <button class="btn btn-primary" ng-click="vm.import()">批量导入</button>
+            </div>
+        </div>
+        <table class="col-lg-12 table table-striped table-hover" style="float:none;">
+            <thead>
+                <tr>
+                    <th>Key</th>
+                    <th ng-repeat="lang in vm.languages">{{lang.displayName}}</th>
+                    <th>{{ 'Operation' | translate}}</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="item in vm.model">
+                    <td>
+                        <input class="form-control" type="text"
+                               readonly="readonly"
+                               ng-model="item.key" />
+                    </td>
+                    <td ng-repeat="lang in vm.languages">
+                        <input class="form-control" type="text"
+                               ng-model="item.nameValues[lang.name]" />
+                    </td>
+                    <td ng-if="item.schemaName != 'Id' && item.schemaName != 'TaskId' ">
+                        <i class="btn-link text-primary icon icon-save" titie="{{ 'Save' | translate}}" ng-click="vm.edit(item)"></i>&nbsp;
+                        <i class="btn-link text-danger icon icon-times" ng-click="vm.delete(item)" title="{{ 'Delete' | translate}}"></i>
+                    </td>
+                </tr>
+            </tbody>
+            <tbody>
+                <tr>
+                    <td>
+                        <input class="form-control" type="text"
+                               ng-model="vm.newColumn.key" />
+                    </td>
+                    <td ng-repeat="lang in vm.languages">
+                        <input class="form-control" type="text"
+                               ng-model="vm.newColumn.langValue[lang.name]" />
+                    </td>
+                    <!--<td>
+                        <input class="form-control" type="text"
+                               ng-model="vm.newColumn.value2"/>
+                    </td>-->
+                    <td><i class="btn-link text-primary icon icon-save" ng-click="vm.save(vm.newColumn)" title="{{ 'Create' | translate}}"></i></td>
+                </tr>
+            </tbody>
+        </table>
+    </modal-body>
+</modal>

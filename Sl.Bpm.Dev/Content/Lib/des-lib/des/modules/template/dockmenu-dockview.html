@@ -1,0 +1,211 @@
+<style>
+	.wfd_dockview {
+		background: #f5f5f5;
+		border: 1px solid #999;
+		-webkit-box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.33);
+		-moz-box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.33);
+		box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.33);
+		z-index: 0;
+		position: absolute;
+		/*top: 10px;*/
+		display: none;
+		
+		top: 0px;
+		width: 320px;
+		right: 58px;
+	}
+	.wfd_dockview .dockheader {
+		height: 18px;
+		line-height: 18px;
+		border-top: #bfbfbf solid 1px;
+		border-bottom: #666666 solid 1px;
+		text-shadow: 0 1px 0 rgba(255, 255, 255, 0.33);
+		background-color: #a6a6a6;
+		background-image: -webkit-linear-gradient(top, #b2b2b2, #9b9b9b);
+		background-image: -moz-linear-gradient(top, #b2b2b2, #9b9b9b);
+		background-image: -ms-linear-gradient(top, #b2b2b2, #9b9b9b);
+		background-image: -o-linear-gradient(top, #b2b2b2, #9b9b9b);
+    /* ReSharper disable once InvalidValue */
+		background-image: linear-gradient(top, #b2b2b2, #9b9b9b);
+		padding: 0px 10px;
+		position: relative;
+	}
+	.wfd_dockview .dockbody {
+		overflow-y: scroll;
+		overflow-x: hidden;
+		height: 100%;
+		min-height: 150px;
+		max-height: 400px;
+		
+		padding-bottom: 50px;
+	}
+	.dockblock .dockblockheader {
+		background-color: #DDD;
+		height: 20px;
+		font-weight: bold;
+		line-height: 20px;
+		font-size: 14px;
+		/*padding-left: 20px;*/
+	}
+	.dockblock .dockblockheader span {
+		float: left;
+		display: block;
+		/*width: 16px;*/
+		
+		height: 16px;
+		line-height: 20px;
+		width: 16px;
+		background-position: -36px -42px;
+	}
+	.dockblock table {
+		border-collapse: collapse;
+		width: 100%;
+		
+		padding-left: 5px;
+	}
+	.dockblock input {
+		width: 100%;
+		border: 0;
+	}
+	.dockblock th {
+		width: 80px;
+		padding-left: 5px;
+	}
+	.dockblock td,
+	.dockblock th {
+		border: 1px solid #ccc;
+		font-size: 12px;
+		text-align: left;
+		font-weight: normal;
+		height: 18px;
+	}
+	/*
+	.dockblock .dockblockheader .icon-dock-collapse {
+		background-image: url(./img/icon/icon-plus.png);
+		background-size: contain;
+	}
+	.dockblock .dockblockheader .icon-dock-collapsed {
+		background-image: url(./img/icon/icon-minus.png);
+		background-size: contain;
+	} 
+	*/
+	
+	.dockblock .dockblockcontent {
+		border-left: 18px #DDD solid;
+	}
+</style>
+<div class="wfd_dockview">
+	<div class="dockheader">属性<span class="ico ico_dock_collapse"></span>
+	</div>
+	<div class="dockbody">dock body
+		<div class="dockblock">
+			<div class="dockblockheader"><span class="ico ico_accordion"></span>常规</div>
+			<div class="dockblockcontent">
+				<table class="table">
+					<tr>
+						<th>节点代码</th>
+						<td>
+							<input type="text" placeholder="节点代码" />
+						</td>
+					</tr>
+					<tr>
+						<th>节点名称</th>
+						<td>
+							<input type="text" placeholder="" />
+						</td>
+					</tr>
+					<tr>
+						<th>节点描述</th>
+						<td></td>
+					</tr>
+
+					<tr>
+						<th>默认提交人</th>
+						<td></td>
+					</tr>
+					<tr>
+						<th>通知方式</th>
+						<td></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+		<div class="dockblock">
+			<div class="dockblockheader"><span class="ico ico_accordion"></span>处理者</div>
+			<div class="dockblockcontent">
+				<table class="table">
+					<tr>
+						<th>处理方式</th>
+						<td></td>
+					</tr>
+					<tr>
+						<th>处理者</th>
+						<td></td>
+					</tr>
+					<tr>
+						<th>不处理方式</th>
+						<td></td>
+					</tr>
+
+				</table>
+			</div>
+		</div>
+
+		<div class="dockblock">
+			<div class="dockblockheader"><span class="ico ico_accordion"></span>过时与考核</div>
+			<div class="dockblockcontent">
+				<table class="table">
+					<tr>
+						<th>过时通知</th>
+						<td></td>
+					</tr>
+					<tr>
+						<th>过时处理</th>
+						<td></td>
+					</tr>
+					<tr>
+						<th>启用考核</th>
+						<td></td>
+					</tr>
+
+				</table>
+			</div>
+		</div>
+		<div class="dockblock">
+			<div class="dockblockheader"><span class="ico ico_accordion"></span>杂项</div>
+			<div class="dockblockcontent">
+				<table class="table">
+					<tr>
+						<th>按钮文本</th>
+						<td>
+							<input type="text" placeholder="例如:Approve,Return,Reject,Restart" />
+						</td>
+					</tr>
+					<tr>
+						<th>退回节点</th>
+						<td>
+							<input type="text" placeholder="退回节点代码" />
+						</td>
+					</tr>
+					<tr>
+						<th>可以拒绝</th>
+						<td></td>
+					</tr>
+					<tr>
+						<th>可以退回</th>
+						<td></td>
+					</tr>
+					<tr>
+						<th>可以保存</th>
+						<td></td>
+					</tr>
+					<tr>
+						<th>抄送任务</th>
+						<td></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+
+	</div>
+</div>

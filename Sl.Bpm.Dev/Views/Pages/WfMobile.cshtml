@@ -1,0 +1,349 @@
+﻿@using System.Web.Optimization
+@using MiniAbp.Extension
+
+@{
+    Layout = null;
+    var isPdf = ViewBag.isPdf == "1" || ViewBag.isPrint == "1";
+    Func<object, string> format = (o) => { return o == null ? null : o.SerializeJsonCamelCase().Replace("\\", "\\\\"); };
+}
+@model Sl.Bpm.Repository.Dto.AppPageResultDto
+<!DOCTYPE html>
+<html ng-app="appPage">
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no">
+    <link rel="icon" type="image/gif" href="../../Content/Images/AppTitle.png">
+
+    @if (!isPdf)
+    {
+        <title ng-bind="title"></title>
+    }
+    else
+    {
+        <title></title>
+    }
+    @Styles.Render("~/MobilePages/Css")
+
+</head>
+<body class="@if (isPdf)
+             { @Html.Raw("print-theme");}
+             else
+             { @Html.Raw("my-theme-deep");} print-preview" ng-controller="PageCtrl as vm">
+    <div class="container form-container" id="container">
+        @*style="height:500px;overflow-y:scroll;-webkit-overflow-scrolling: touch;"*@
+        <div class="form-horizontal page_content fm-form-block entire-block content-on-load">
+            <div class="fm-content" page-state="{{base.pageState}}" page-language="{{base.language}}">
+                <!--此处会加载表单内容-->
+            </div>
+            <!--审批中时显示, 退回到发起人时显示, 不为自动发起的第一个节点时显示-->
+            <dl class="form-item-box row open" ng-if="(base.pageState == 2 || (!!base.taskId && base.pageState != 3)) && !base.isFromAutoPost">
+                <dt>
+                    <fm-Group-Head title="{{ 'TaskApproval' | translate}}"></fm-Group-Head><!--审批意见-->
+                </dt>
+                <dd>
+                    <div class="">
+                        <div class="col-xs-12">
+                            <fm-textarea fm-model="base.memo" field-name="{{ 'TaskApproval' | translate}}" normal i-clear ismulti placeholder="请填写审批意见">
+                            </fm-textarea>
+                        </div>
+                    </div>
+                </dd>
+            </dl>
+            @*显示错误信息*@
+            <div class="show-fm-errors-container">
+                <div class="form-group has-error">
+                    <ul class="list-unstyled">
+                        <li class="text-danger" ng-click="moveToErrorEle(e)" ng-repeat="e in form.$errors">
+                            <span ng-bind="e.msg"></span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            @*用户可以操作的按钮*@
+            <div class="row">
+                <div class="form-group form-buttons">
+                    <div class="col-xs-12 text-center">
+                        <div class="col-xs-4" ng-repeat="btn in base.actionButtons">
+                            <button id="{{btn.id}}"
+                                    class="button"
+                                    style="font-size:1.3rem"
+                                    ng-click="base.submit(btn)"
+                                    ng-bind="btn.name"></button>
+                        </div>
+                        @*<input type="button" class="btn btn-default" value="{{ 'Close' | translate}}" ng-click="base.close()" />*@
+                    </div>
+                </div>
+            </div>
+            @*审批记录*@
+            <dl class="form-item-box row open" ng-if="base.pageState!=1 || !!base.taskId">
+                <dt>
+                    <fm-Group-Head title="{{ 'ApprovalRecord' | translate }}"></fm-Group-Head>
+                </dt>
+                <dd>
+                    <fm-approve-history task-id="base.taskId" ng-if="base.pageState!=1 || !!base.taskId" approve-history="base.formHistory" expect-approver="base.formExpectApprover"></fm-approve-history>
+                </dd>
+            </dl>
+        </div>
+    </div>
+    @Scripts.Render("~/MobilePages/Js")
+    <script src="http://res2.wx.qq.com/open/js/jweixin-1.4.0.js" type="text/javascript"></script>
+    <script src="/Account/Permissions" type="text/javascript"></script>
+    <script type="text/javascript">
+        angular.module('appPage', ['mabp', 'app.shared', 'angularFileUpload', 'pascalprecht.translate'])
+            .config([
+                '$translateProvider', function($translateProvider) {
+                    $translateProvider.translations('en', mabp.localization['Bpm.en']);
+                    $translateProvider.translations('zh-CN', mabp.localization['Bpm.zh-CN']);
+                    $translateProvider.preferredLanguage('zh-CN');
+                }
+            ]).controller('PageCtrl',
+                ['mabp.app.module', 'mabp.app.task', '$compile', '$scope', '$timeout', 'formHelper', 'appSession', '$rootScope', '$pageDialog', 'mabp.app.bpm', '$modal',
+                    function (service, taskService, $compile, $scope, $timeout, formHelper, session, $rootScope, $pageDialog, bpmService, $modal) {
+                    var vm = this;
+                    //debugger;
+                        vm.isLoaded = false;
+                        var pa = !!_shared.escape2Html('@ViewBag.param')?_shared.escape2Html('@ViewBag.param'):null;
+                    var param = JSON.parse(pa);
+
+                           // 初始化 base对象
+                        vm.base = {
+                            $queryString:  @(Html.Raw(format(Model.QueryString))),
+                            $loaded: @(Html.Raw(format(Model.Loaded))),
+                            pageId: '@Model.Input.PageId',
+                            html: `@(Html.Raw(Model.Page.MobileHtml))`,
+                            js: `@(Html.Raw(Model.Page.MobileController))`,
+                            fileName: '@Model.Page.FileName',
+                            workflowId: '@Model.Page.WfdWorkflowId',
+                            aliasTables:JSON.parse(`@(Html.Raw(Model.Page.AliasTables == null ? null : Model.Page.AliasTables.SerializeJsonCamelCase()))` || null), //页面涉及的表别名
+                            title: '@Model.Page.PageName',
+                            nodeCode: '@Model.Input.NodeCode',
+                            nodeId: '@Model.Input.NodeId',
+                            jobId: '@Model.Input.JobId',
+                            applicantJobId: '@Model.Input.JobId', // 申请人JobId
+                            draftId: '@Model.Input.DraftId', //若为草稿打开则存在DraftId
+                            procId: '@Model.Input.ProcId', //若为某一步打开则存在步骤Id
+                            taskId: '@Model.Input.TaskId',
+                            nodeType: @(Model.Input.NodeType==null? -1 : Model.Input.NodeType),
+                            areaCode: '@Model.Input.AreaCode',
+                            areaEnable: '@Model.Page.AreaEnable',
+                            areaCodeList:  '@Model.Page.AreaCodeList', //流程可选公司范围 [ text: '文本', areaCode: 'CompanyCode'] 只在发起时使用
+                            displayLanguages: '@Model.Input.DisplayLanguages',
+                            param: param,
+                            topic: '@Model.Input.Topic',
+                            isPdf: @Model.Input.IsPdf,
+                            isWaiting:'@Model.Input.IsWaiting',
+                            isNewTab: true,  //是否新窗口打开
+                            isPrint: '@Model.Input.IsPrint' === '1',
+                            basicAndViewData: {}, //初始加载视图和基础数据
+                            pageRight: JSON.parse(`@(Html.Raw(format(Model.PageRight)))` || null),
+                            formAction: JSON.parse(`@(Html.Raw(format(Model.FormActions)))` || null),
+                            formBody: JSON.parse(`@(Html.Raw(format(Model.FormBody)))` || '[]'),
+                            formHeader: JSON.parse(`@(Html.Raw(format(Model.FormHeader)))` || null),
+                            formHistory: JSON.parse(`@(Html.Raw(format(Model.FormHistory)))` || null),
+                            formExpectApprover: JSON.parse(`@(Html.Raw(format(Model.FormExpectApprover)))` || null),
+                            pageLanguages: JSON.parse('@(Html.Raw(format(Model.PageLang)))' || null),
+                            companyPermission: JSON.parse(`@(Html.Raw(format(Model.CompanyPermission)))` || null),
+                            $rejectNeedMemo: true,
+                            pageState: 3, //页面打开的状态 1 发起 / 2 审批 / 3 查看 默认3
+                            snNumber: null,
+                            applyDate: null, //创建日期
+                            initiator: {}, //发起人信息
+                            applicant: { userId: '' }, //申请人信息
+                            currentUserId: $currentUser.id, //当前用户Id
+                            actionButtons: [], //命令按钮组
+                            language: app.language, //页面当前语言
+                            ruleL: _shared.languageSetting.defaultRules[app.language], //静态多语言设置 参考App/_shared/language/languageSetting.js
+                            close: function () {
+                                  console.log('');
+                            setTimeout(function () {
+                                formHelper.postMessage.call(parent, "goBackMethod");
+                                wx.miniProgram.getEnv(function (res) {
+                                    if (res.miniprogram) {
+wx.miniProgram.navigateTo({url:'/pages/Message/index'});
+				wx.miniProgram.postMessage({ data: { id: '1234' } }); // 传的参数
+                                    }
+ else{
+					alert("wx.miniProgram,不可用");
+				}                               });
+                            }, 1500);//时间好和后台弹窗的时间基本一致
+                            }, //关闭当前窗体方法
+                            nextProcId: '', //下一步处理人Id
+                            getDateTimeNow: function (callBack) {
+                                return that.dateTimeNow();
+                            },
+                            addButton: function (btnType, btnName, btnId, memo) {
+                                base.actionButtons.push({ type: btnType, name: btnName, id: btnId });
+                                base.memo = memo;
+                            },
+                            $initial: [], //保存刚打开的数据，用于Callback-func 第一次调用使用.
+                    }
+
+		    mabp.notify.error = function(a){alert(a);}
+
+                        vm.base.basicAndViewData.showHeaderAndTitle='@ViewBag.showHeaderAndTitle'.toLowerCase()=='true'//手机端是否显示自定义的标题，不显示返回的html自带的标题
+                    // 检查岗位是否多个
+                    function checkJobId() {
+                        var d = $.Deferred();
+                        if (vm.base.taskId || vm.base.jobId) {
+                            d.resolve(true);
+                            return d.promise();
+                        }
+                        session.telephone = "111";
+                        if (!session.telephone || session.telephone == '0') {
+                            mabp.notify.error("请先完善个人中心的联系方式");
+                            d.resolve(false);
+                            return d.promise();
+                        }
+
+                        // 从哪个岗位打开页面
+                        bpmService.getUserJobs().then(function (jobList) {
+                            if (jobList.length > 1) {
+                                if (jobList == null || jobList.length === 0) {
+                                    mabp.notify.error("没有身份,无法发起流程");
+                                    d.resolve(false);
+                                    return d.promise();
+                                }
+                                var $modalScope = $scope.$new(true);
+                                $modalScope.models = jobList;
+                                var info = _shared.dialogs["jobSelect"];
+
+                                var m = $modal({
+                                    templateUrl: info.templateUrl,
+                                    scope: $modalScope,
+                                    controller: '{0} as vm'.fill(info.controller),
+                                    size: info.size || "md"
+                                });
+                                m.result.then(function (jobId) {
+                                    vm.base.jobId = jobId;
+                                    vm.base.applicantJobId = jobId;
+                                    d.resolve(true);
+                                });
+                            }
+                            else if (jobList.length === 1) {
+                                var job = jobList[0];
+                                vm.base.jobId = job.jobId;
+                                vm.base.applicantJobId = job.jobId;
+                                d.resolve(true);
+                            }
+                            else {
+                                //不存在职位
+                                d.resolve(false);
+                            }
+                        });
+
+                        return d.promise();
+                    }
+
+                    // 从哪一个节点打开页面
+                    function checkNodeId() {
+                        var d = $.Deferred();
+                        if (vm.base.nodeId) {
+                            d.resolve(true);
+                            return d.promise();
+                        }
+
+                        taskService.getHandledNode({ Id: vm.base.taskId }).then(function (nodeList) {
+                            if (nodeList.length > 1) {
+                                var $modalScope = $scope.$new(true);
+                                $modalScope.models = nodeList;
+                                var info = _shared.dialogs["handledNodeSelect"];
+
+                                var m = $modal({
+                                    templateUrl: info.templateUrl,
+                                    scope: $modalScope,
+                                    controller: '{0} as vm'.fill(info.controller),
+                                    size: info.size || "md"
+                                });
+                                m.result.then(function (info) {
+                                    vm.base.nodeId = info.id;
+                                    vm.base.nodeType = info.nodeType;
+                                    d.resolve(true);
+                                });
+                            }
+                            else if (nodeList.length == 1) {
+                                var info = nodeList[0];
+                                d.resolve(true);
+                            }
+                            else {
+                                mabp.notify.error("nodeId为空");
+                                d.resolve(false);
+                            }
+                        });
+                        return d.promise();
+                    }
+
+                    // 确保打开的岗位和节点都是确定的
+                    $.when(checkJobId(), checkNodeId()).done(function (r1, r2) {
+                        //只有检测jobId和nodeId都成功才执行操作
+                        if (r1 && r2) {
+                            //初始化容器对象
+                            var base = $scope.base = vm.base;
+                            //初始化页面状态 开始节点
+                            if (!base.taskId && !base.procId) {
+                                base.pageState = 1;
+                            } else if ((!!base.taskId && !!base.procId) || !!base.draftId) {
+                                base.pageState = base.nodeType === 0 ? 1 : 2;
+                            } else if (!!base.taskId && !base.procId) {
+                                base.pageState = 3;
+                            }
+
+                            console.log('taskId:' + base.taskId);
+
+                            //初始化表单对象
+                            var form = $scope.form = formHelper.buildForm($scope);
+
+
+                            formHelper.pageStart(base, form, $scope, $rootScope);
+                        }
+                    });
+
+
+                    $(function() {
+                        if (navigator.platform == "iPhone") {
+                            $("#container").css({
+                                height: window.innerHeight + "px",
+                                '-webkit-overflow-scrolling': "touch",
+                                'overflow-y': "scroll",
+                                position: 'fixed',
+                                top: 0,
+                                left: 0,
+                                right: 0,
+                                bottom: 0
+                            });
+                        };
+                    });
+
+
+                        $scope.myCallback = function (data) {
+                            console.log(data);
+                            setTimeout(function () {
+                                formHelper.postMessage.call(parent, "goBackMethod");
+				alert("wx.miniProgram是否存在："+!!wx.miniProgram);
+                                wx.miniProgram.getEnv(function (res) {
+                                    if (res.miniprogram) {
+
+				wx.miniProgram.navigateBack({detal:1});
+				alert("res.miniprogram");
+				wx.miniProgram.postMessage({ data: { id: '1234' } }); // 传的参数
+                                    }
+ else{
+					alert("wx.miniProgram,不可用");
+				}                               });
+                            }, 1500);//时间好和后台弹窗的时间基本一致
+                        }
+                        $scope.moveToErrorEle = function (ele) {
+                            //console.dir(ele);
+                            var jqLiteEle = ele.element;
+                            //console.dir(jqLiteEle.offset().top);
+                            $("html").animate({
+                                scrollTop: Math.floor(jqLiteEle.offset().top) - 56 - window.innerHeight / 3//扣除标题和移动到屏幕1/3处
+                            }, 100, "linear", function moveCompleted() {
+                                jqLiteEle.parents('dd').show();//打开所在的位置块
+                                $(":not(.readonly)",jqLiteEle).focus();
+                            });
+                        }
+                }
+            ]);
+    </script>
+</body>
+</html>

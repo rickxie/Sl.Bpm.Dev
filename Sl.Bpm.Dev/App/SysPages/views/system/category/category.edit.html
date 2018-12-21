@@ -1,0 +1,36 @@
+﻿<modal>
+    <modal-header><span ng-if="vm.model.id == null" translate="Create"></span><span ng-if="vm.model.id != null" translate="Edit"></span>&nbsp;{{ 'Category' | translate}} {{vm.model.name}}</modal-header>
+    <ma-form>
+        <modal-body>
+            <div class="form-group form-md-line-input">
+                <div class="col-lg-4 control-label">{{ 'Code' | translate}}:</div>
+                <div class="col-lg-6">
+                    <input ng-model="vm.model.code" type="text" maxlength="50" required class="form-control input-sm" placeholder="{{ 'WorkflowCategoryCode' | translate}}">
+                    <div class="form-control-focus"></div>
+                </div>
+            </div>
+            <div class="form-group form-md-line-input">
+                <div class="col-lg-4 control-label">{{ 'Name' | translate}}:</div>
+                <div class="col-lg-6">
+                    <ma-language name="langName" ng-model="vm.model.langName" language-list="vm.model.langNameList"></ma-language>
+                    
+                    <!--<ma-lang ng-model="vm.model.langName" display="vm.model.name"></ma-lang>-->
+                </div>
+            </div>
+            <div class="form-group form-md-line-input">
+                <div class="col-lg-4 control-label">{{ 'Type' | translate}}:</div>
+                <div class="col-lg-6">
+                    <ma-language name="langType" ng-model="vm.model.langType" language-list="vm.model.langTypeList"></ma-language>
+                    
+                    <!--<ma-lang ng-model="vm.model.langType" display="vm.model.type"></ma-lang>-->
+                </div>
+            </div>
+
+        </modal-body>
+        <modal-footer>
+            <button class="btn btn-primary" type="submit" id="categoryEdit" ma-form-submit="vm.save()">{{ 'Save' | translate}}</button>
+            <button type="button" class="btn btn-default" ng-click="$close()">{{ 'Cancel' | translate}}</button>
+        </modal-footer>
+    </ma-form>
+</modal>
+

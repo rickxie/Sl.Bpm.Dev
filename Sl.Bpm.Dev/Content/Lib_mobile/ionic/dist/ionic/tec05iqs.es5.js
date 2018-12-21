@@ -1,0 +1,5 @@
+/*!
+ * (C) Ionic http://ionicframework.com - MIT License
+ * Built with http://stenciljs.com
+ */
+Ionic.loadBundle("tec05iqs",["exports","./chunk-e2855e3e.js"],function(e,t){window.Ionic.h;var o=function(){function e(){}return e.prototype.create=function(e){return t.createOverlay(this.doc.createElement("ion-action-sheet"),e)},e.prototype.dismiss=function(e,o,n){return t.dismissOverlay(this.doc,e,o,"ion-action-sheet",n)},e.prototype.getTop=function(){return t.getOverlay(this.doc,"ion-action-sheet")},Object.defineProperty(e,"is",{get:function(){return"ion-action-sheet-controller"},enumerable:!0,configurable:!0}),Object.defineProperty(e,"properties",{get:function(){return{create:{method:!0},dismiss:{method:!0},doc:{context:"document"},getTop:{method:!0}}},enumerable:!0,configurable:!0}),e}();e.IonActionSheetController=o,Object.defineProperty(e,"__esModule",{value:!0})});

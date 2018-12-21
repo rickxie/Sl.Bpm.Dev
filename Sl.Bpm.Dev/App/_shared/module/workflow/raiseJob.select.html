@@ -1,0 +1,56 @@
+﻿<modal size="md">
+    <div class="modal-header" style="cursor: default;">
+        <h4 class="modal-title">
+            <i class="icon-list"></i>
+            <span ng-if="!vm.topicRequired">&nbsp;{{'SelectRoles' | translate}}</span>
+            <span ng-if="vm.topicRequired">&nbsp;主题及身份</span>
+        </h4>
+    </div>
+    <modal-body>
+        <style>
+            .checkbox_div {
+                position: absolute;
+                top: 0px;
+                left: 0px;
+                width: 100%;
+                height: 100%;
+                z-index: 9999;
+            }
+        </style>
+        <div class="form-group">
+            <div class="row" style="padding:0 10px">
+
+                <div class="panel"  ng-if="vm.topicRequired">
+                    <div class="panel-heading">
+                        主题
+                    </div>
+                    <div class="col-lg-12" style="padding:15px 15px;">
+                        <div class="input-control has-icon-left">
+                            <textarea id="topic" ng-model="vm.topic" type="text" class="form-control" placeholder="主题,用于查询请勿随意填写"></textarea>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="panel">
+                    <div class="panel-heading">
+                        {{'Roles'|translate}}
+                    </div>
+                    <div class="col-lg-12" style="padding:15px 15px;">
+                        <div ng-repeat="i in vm.models">
+                            <label>
+                                <input name="Fruit" type="radio" ng-value="i.jobId" ng-model="vm.selectJobId" ng-checked="vm.selectJobId==i.jobId" />
+                                <span class="cursor-pointer crumb ng-scope">{{i.groupChains}}</span>
+                                <span class="ng-scope"> : </span>
+                                <span class="cursor-pointer crumb ng-scope">{{i.jobName}}</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </modal-body>
+    <modal-footer>
+        <button class="btn btn-primary" ng-click="vm.save(vm.selectJobId)">{{'Confirm'|translate}}</button>
+    </modal-footer>
+</modal>

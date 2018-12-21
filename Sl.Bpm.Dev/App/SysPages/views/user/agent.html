@@ -1,0 +1,92 @@
+﻿<div ng-controller="syspages.views.user.agent as vm">
+    <cmd>
+        </cmd>
+
+    <div class="row text-right">
+        <button class="btn btn-success" ng-if='permissions["Menu_My_Outing_NewApply"]' ng-click="vm.edit(1)">{{ 'AddApply' | translate}}</button>
+        <button class="btn btn-success" ng-if='permissions["Menu_My_Outing_NewApproval"]' ng-click="vm.edit(2)">{{ 'AddAgent' | translate}}</button>
+    </div>
+    <div class="row">
+        <div class="col-xs-12" ng-show="vm.isLoaded && ((!vm.submitters && !vm.approvers) || (vm.submitters.length == 0 && vm.approvers.length == 0))">{{ 'NoAgentYetClickUpperRightToCreate' | translate}}</div>
+    </div>
+    <div class="row" ng-hide="vm.isLoaded && ((!vm.submitters && !vm.approvers) || (vm.submitters.length == 0 && vm.approvers.length == 0))">
+        <ma-header>代理审批列表</ma-header>
+        <view head="{{ 'AgentList' | translate}}" models="vm.approvers" paging="vm.paging" load="vm.load">
+            <div class="content-list">
+                <table class=" table table-striped table-hover table-condensed">
+                    <thead>
+                    <tr>
+                        <!-- 以下两列左侧固定 -->
+                        <th>#</th>
+                        <th>{{ 'WorkflowMainCategory' | translate}}</th>
+                        <th>{{ 'WorkflowName' | translate}}</th>
+                        <!-- 以下三列中间可滚动 -->
+                        <th class="flex-col">{{ 'FirstAgent' | translate}}</th>
+                        <th class="flex-col">{{ 'SecondAgent' | translate}}</th>
+                        <th class="flex-col">{{ 'StartDate' | translate}}</th>
+                        <th class="flex-col">{{ 'EndDate' | translate}}</th>
+                        <!-- 以下列右侧固定 -->
+                        <th>{{ 'WhetherValid' | translate}}</th>
+                        <th>{{ 'Operation' | translate}}</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="i in vm.approvers">
+                        <td>{{$index}}</td>
+                        <td><span ng-if="i.wfdCategoryId != 'ALL'">{{i.catName}}</span><span ng-if="i.wfdCategoryId == 'ALL'">ALL</span></td>
+                        <td><span ng-if="i.wfdWorkflowId != 'ALL'">{{i.wfName}}</span><span ng-if="i.wfdWorkflowId == 'ALL'">ALL</span></td>
+                        <td>{{i.firstName}}</td>
+                        <td>{{i.secondName}}</td>
+                        <td>{{i.startDateTime | date:'yyyy-MM-dd'}}</td>
+                        <td>{{i.endDateTime | date:'yyyy-MM-dd'}}</td>
+                        <td ng-if="i.enable">{{ 'Valid' | translate}}</td>
+                        <td ng-if="!i.enable">{{ 'Invalid' | translate}}</td>
+                        <td>
+                            <a class="text-primary" ng-click="vm.edit(i)">{{ 'Edit' | translate}}</a> <a class="text-muted"><i class="icon-edit" ng-click="vm.edit(i)"></i></a>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </view>
+        <ma-header>代理申请列表</ma-header>
+        <view head="{{ 'AgentList' | translate}}" models="vm.submitters" paging="vm.paging" load="vm.load">
+            <div class="content-list">
+                <table class=" table table-striped table-hover table-condensed">
+                    <thead>
+                    <tr>
+                        <!-- 以下两列左侧固定 -->
+                        <th>#</th>
+                        <th>{{ 'WorkflowMainCategory' | translate}}</th>
+                        <th>{{ 'WorkflowName' | translate}}</th>
+                        <!-- 以下三列中间可滚动 -->
+                        <th class="flex-col">{{ 'FirstAgent' | translate}}</th>
+                        <th class="flex-col">{{ 'SecondAgent' | translate}}</th>
+                        <th class="flex-col">{{ 'StartDate' | translate}}</th>
+                        <th class="flex-col">{{ 'EndDate' | translate}}</th>
+                        <!-- 以下列右侧固定 -->
+                        <th>{{ 'WhetherValid' | translate}}</th>
+                        <th>{{ 'Operation' | translate}}</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="i in vm.submitters">
+                        <td>{{$index}}</td>
+                        <td><span ng-if="i.wfdCategoryId != 'ALL'">{{i.catName}}</span><span ng-if="i.wfdCategoryId == 'ALL'">ALL</span></td>
+                        <td><span ng-if="i.wfdWorkflowId != 'ALL'">{{i.wfName}}</span><span ng-if="i.wfdWorkflowId == 'ALL'">ALL</span></td>
+                        <td>{{i.firstName}}</td>
+                        <td>{{i.secondName}}</td>
+                        <td>{{i.startDateTime | date:'yyyy-MM-dd'}}</td>
+                        <td>{{i.endDateTime | date:'yyyy-MM-dd'}}</td>
+                        <td ng-if="i.enable">{{ 'Valid' | translate}}</td>
+                        <td ng-if="!i.enable">{{ 'Invalid' | translate}}</td>
+                        <td>
+                            <a class="text-primary" ng-click="vm.edit(i)">{{ 'Edit' | translate}}</a> <a class="text-muted"><i class="icon-edit" ng-click="vm.edit(i)"></i></a>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </view>
+    </div>
+</div>

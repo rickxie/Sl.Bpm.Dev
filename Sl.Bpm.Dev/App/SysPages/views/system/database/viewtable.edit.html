@@ -1,0 +1,81 @@
+﻿<div ng-controller="system.database.viewtableedit as vm">
+    <div class="col-lg-12">
+        <h3 ng-bind="vm.model.schemaName + '（'+ vm.model.langNameList[0].value+'）'"></h3>
+        <ma-tabs>
+            <ma-panel data-title="{{ 'Basic' | translate}}" name="basic">
+                <ma-form name="variableEdit">
+                    <modal-body>
+                        <div class="form-group form-md-line-input">
+                            <div class="col-lg-1 control-label">{{ 'Type' | translate}}</div>
+                            <div class="col-lg-11">
+                                <ma-select ng-model="vm.model.type" items="vm.allViewType" ng-disabled="{{vm.model.id != null}}"></ma-select>
+                                <div class="form-control-focus"></div>
+                            </div>
+                        </div>
+                        <div class="form-group form-md-line-input">
+                            <div class="col-lg-1 control-label">{{ 'DataViewCode' | translate}}:</div>
+                            <div class="col-lg-11">
+                                <input ng-disabled="vm.model.type==1" ng-model="vm.model.schemaName" type="text" maxlength="50" required class="form-control input" placeholder="{{ 'DataViewNameInDatatable' | translate}}" ng-disabled="{{vm.model.id != null}}">
+                                <div class="form-control-focus"></div>
+                            </div>
+                        </div>
+                        <div class="form-group form-md-line-input">
+                            <div class="col-lg-1 control-label">{{ 'DataViewName' | translate}}:</div>
+                            <div class="col-lg-11">
+                                <ma-language ma-disabled="vm.model.type==1" name="langName" ng-model="vm.model.langName" language-list="vm.model.langNameList"></ma-language>
+
+                                <!--<ma-lang ng-model="vm.model.langName" display="vm.model.name"></ma-lang>-->
+                            </div>
+                        </div>
+                        <div class="form-group form-md-line-input">
+                            <div class="col-lg-1 control-label">{{ 'DataViewDescription' | translate}}:</div>
+                            <div class="col-lg-11">
+                                <ma-language ma-disabled="vm.model.type==1" name="langDescription" ng-model="vm.model.langDescription" language-list="vm.model.langDescriptionList"></ma-language>
+
+                                <!--<ma-lang ng-model="vm.model.langDescription" display="vm.model.description"></ma-lang>-->
+                            </div>
+                        </div>
+                        <div class="form-group form-md-line-input">
+                            <div class="col-lg-1 control-label">{{ 'DataViewSQL' | translate}}:</div>
+                            <div class="col-xs-11">
+                                <ma-code-sql ng-model="vm.model.dataSql"></ma-code-sql>
+                                <div class="tip-text">e.g. <%UserId%>, <%EnterpriseId%>, <%LanguageCulture%>, <%AreaCodeList%>(<a target="_blank" href="https://doc.bpm.shalu.com/shu-ju-quan-xian-she-zhi.html">用法</a>)</div>
+                            </div>
+                        </div>
+                        <div class="form-group form-md-line-input">
+                            <div class="col-lg-1 control-label">{{ 'DataViewSearchSQL' | translate}}:</div>
+                            <div class="col-xs-11">
+                                <ma-code-sql ng-model="vm.model.searchSql"></ma-code-sql>
+                                <div class="tip-text">e.g. <%UserId%>, <%EnterpriseId%>, <%LanguageCulture%></div>
+                            </div>
+                        </div>
+                        <div class="form-group form-md-line-input" ng-if="vm.model.type!=1">
+                            <div class="col-lg-1 control-label"></div>
+                            <div class="col-lg-11 text-right ">
+                                <button class="btn btn-primary" type="submit" id="variableEdit" ma-form-submit="vm.save()">{{ 'Save' | translate}}</button>&nbsp;&nbsp;
+                                <button type="button" class="btn btn-default" ng-click="$close()">{{ 'Close' | translate}}</button>
+                            </div>
+                        </div>
+                    </modal-body>
+                </ma-form>
+            </ma-panel>
+            <div data-title="{{ 'Advance' | translate}}" name="advance" ma-panel ng-if="vm.model.id != null" ng-if="vm.model.type!=1">
+                <!--<br />
+                <div class="form-group form-md-line-input">
+                    <div class="col-lg-2 control-label"></div>
+                    <div class="col-lg-8 ">
+                        删除流程分类，请先删除分类下的流程！
+                    </div>
+                </div>-->
+                <div class="form-group form-md-line-input">
+                    <div class="col-lg-2 control-label"></div>
+                    <div class="col-lg-8 text-right ">
+                        <button class="btn btn-danger" role="button" message="{{ 'SureForDeleteThisDataView' | translate}}" type="button" confirm-click="vm.delete()">{{ 'Delete' | translate}}</button>&nbsp;&nbsp;
+                        <button type="button" class="btn btn-default" ng-click="$close()">{{ 'Close' | translate}}</button>
+                    </div>
+                </div>
+
+            </div>
+        </ma-tabs>
+    </div>
+</div>

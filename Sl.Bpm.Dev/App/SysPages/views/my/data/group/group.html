@@ -1,0 +1,21 @@
+﻿<div ng-controller="syspages.views.my.data.group as vm">
+    <div class="ma-center-warper">
+        <div class="siderbar">
+            <h5>{{ 'GroupStructure' | translate}}</h5>
+            <span ng-repeat="g in vm.allGroups" ng-if="vm.allGroups">
+                <group-tree ng-model="g" selected-id="vm.selectedGroupId" right-menu-delete="vm.deleteGroup" right-menu-edit="vm.editGroup" />
+            </span>
+            <span class="toggler" ma-toggler=".ma-center-warper"><i class="icon-list-ul"></i></span>
+        </div>
+        <div class="page-content">
+            <div class="org_right">
+                <div class="col-md-12 org-chart-title">
+                    <ma-breadcrumb items="vm.groupArray" ng-model="vm.selectedGroupId"></ma-breadcrumb>
+                </div>
+                <div class="org_chart">
+                    <org-chart ng-model="vm.jobsJson" job-users="vm.jobUsers" drag-drop="vm.dropTo" db-click="vm.dbClick" right-menu-delete="vm.deleteJob" right-menu-next="vm.groupJobProperty" />
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

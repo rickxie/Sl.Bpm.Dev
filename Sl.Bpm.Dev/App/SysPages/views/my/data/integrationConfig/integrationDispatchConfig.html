@@ -1,0 +1,80 @@
+﻿<div ng-controller="syspages.views.my.data.integrationDispatchConfig as vm">
+    <cmd>
+        <span class="btn btn-success" ng-click="vm.edit(vm.activeItem)">+{{ 'Interface' | translate}}</span>
+    </cmd>
+    <div class="row">
+        <div class="col-xs-12" ng-show="vm.isLoaded && (!vm.models || vm.models.length == 0)">{{ 'NoServerInterfaceYetClickUpperRightToAdd' | translate}}</div>
+        <div class="ma-center-warper">
+            <div class="siderbar role_tree">
+                <h5>{{ 'ServerConfiguration' | translate}} <i class="icon icon-plus text-success cursor-pointer" ng-click="vm.editServer()"></i></h5>
+                <ul class="list-group interface-server">
+                    <li class="list-group-item">
+                        <a ng-repeat="i in vm.servers" ng-class="{ 'active': vm.activeItem == i}" class="list-group-item" ng-click="vm.switch(i)">
+                            {{i.name}}
+                            <i class="icon icon-cog pull-right" ng-click="vm.editServer(i)"></i>
+                        </a>
+                    </li>
+                </ul>
+                <span class="toggler" ma-toggler=".ma-center-warper"><i class="icon-list-ul"></i></span>
+            </div>
+            <div class="page-content rolejob_table">
+                <ma-header>{{vm.activeItem.name}}</ma-header>
+                <div class="content-list">
+                    <table class=" table datatable">
+                        <thead>
+                            <tr>
+                                <!-- 以下两列左侧固定 -->
+                                <th width="150px">{{ 'Name' | translate}}</th>
+                                <!-- 以下三列中间可滚动 -->
+                                <th class="flex-col" width="150px">{{ 'HandleType' | translate}}</th>
+                                <th class="flex-col" width="100px">{{ 'FileFormat' | translate}}</th>
+                                <th class="flex-col" width="100px">{{ 'LoopType' | translate}}</th>
+                                <th width="100px">{{ 'Enable' | translate}}</th>
+                                <!-- 以下列右侧固定 -->
+                                <th width="250px">{{ 'ServerAddress' | translate}}</th>
+                                <th width="100ox">{{ 'Operation' | translate}}</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="i in vm.models">
+                                <td>{{i.name}}</td>
+                                <td>{{i.processType | enumfilter :'interfaceConfigProcessType'}}</td>
+                                <td>{{i.fileFormat}}</td>
+                                <td>{{i.loopType | enumfilter: 'interfaceConfigLoopType'}}</td>
+                                <td>{{i.isEnable?'是':'否'}}</td>
+                                <td>{{vm.activeItem.address}}</td>
+                                <td>
+                                    <span class="btn btn-default btn-sm" role="button" ng-click="vm.edit(vm.activeItem,i)"><span class="icon icon-pencil" aria-hidden="true"></span></span>
+                                    <span class="btn btn-default btn-sm" role="button" ng-click="vm.editMapping(i)"><span class="icon icon-list-alt" aria-hidden="true"></span></span>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <!--<div class="row">
+                    <div class="col-md-3 col-sm-4 col-lg-2" ng-repeat="i in vm.models">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="visual">
+                                    <i class="icon icon-8x icon-carousel"></i>
+                                </div>
+                                <div class="card-content">
+                                    <h4>{{i.name }}</h4>
+                                    <p>
+                                        接口类型: {{i.account}}
+                                        循环类型: {{i.loopType}}
+                                    </p>
+
+                                </div>
+                            </div>
+                            <div class="card-actions">
+                                <span class="btn btn-default btn-sm" role="button" ng-click="vm.edit(vm.activeItem,i)">编辑</span>
+                                <span class="btn btn-default btn-sm" role="button" ng-click="vm.editMapping(i)">字段匹配</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>-->
+            </div>
+        </div>
+    </div>
+</div>

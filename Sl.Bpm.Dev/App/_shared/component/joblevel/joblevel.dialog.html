@@ -1,0 +1,32 @@
+﻿<modal>
+    <modal-header>岗位级别</modal-header>
+    <modal-body>
+        <div class="modal-body">
+            <div role="tabpanel">
+                <div class="tab-content">
+                    <div role="tabpanel" class="tab-pane active"><table class="table table-striped table-hover ">
+                            <thead>
+                                <tr>
+                                    <th>选择</th>
+                                    <th>名称</th>
+                                    <th>值</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="item in vm.model" ng-class="{'active':item.selected}" ng-click="vm.selectItem(item)">
+                                    <td style="position:relative;min-width:50px;"><input ng-click="$event.stopPropagation()" class="uniform" type="{{vm.ismulti?'checkbox':'radio'}}" value="1" ng-checked="item.selected" /><div class="checkbox_div"></div></td>
+                                    <td>{{item.value}}</td>
+                                    <td>{{item.name}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </modal-body>
+    <modal-footer ng-if="vm.ismulti">
+        <button class="btn btn-primary" type="button" ng-click="vm.save()">{{ 'Save' | translate}}</button>
+        <button type="button" data-dismiss="modal" ng-click="vm.cancel()" class="btn default">{{ 'Cancel' | translate}}</button>
+    </modal-footer>
+</modal>

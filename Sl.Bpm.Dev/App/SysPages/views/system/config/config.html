@@ -1,0 +1,241 @@
+﻿<div class="container-ui" ng-controller="syspages.views.system.config as vm">
+    <ma-tabs class="portlet light">
+        <ma-panel data-title="{{ 'SysConfig' | translate}}">
+            <ma-form name="saveSetting">
+                <div class="row form-horizontal">
+                    <div class="form-group">
+                        <span class="col-lg-1 control-label ">{{ 'SyncServerAddress' | translate}}</span>
+                        <div class="col-lg-3">
+                            <input type="text" ng-model="vm.syncConfig.serviceAddress" class="form-control" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <span class="col-lg-1 control-label">{{ 'EnterpriseAccessId' | translate}}</span>
+                        <div class="col-lg-3">
+                            <input type="text" ng-model="vm.syncConfig.enterpriseAccessId" class="form-control" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-lg-1">&nbsp;</div>
+                        <div class="col-lg-3">
+                            <button type="button" ma-form-submit="vm.saveSyncConfig()" class="btn btn-primary btn_save">{{ 'Save' | translate}}</button>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <span class="col-lg-1 control-label">{{ 'EnterpriseCode' | translate}}</span>
+                        <div class="col-lg-3">
+                            <label ng-bind="vm.enterprise.code" class="control-label"></label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <span class="col-lg-1 control-label">{{ 'EnterpriseName' | translate}}</span>
+                        <div class="col-lg-3" ng-init="vm.ccccc='superRed'">
+                            <label ng-bind="vm.enterprise.name" class="control-label"></label>
+                        </div>
+                    </div>
+                </div>
+            </ma-form>
+        </ma-panel>
+    <!--<ma-panel data-title="{{ 'MessageCenterConfiguration' | translate}}">
+        <ma-form name="message">
+            <div class="row form-horizontal">
+                <div class="form-group">
+                    <span class="col-lg-1 control-label ">{{ 'MessageCenterAddress' | translate}}</span>
+                    <div class="col-lg-3">
+                        <input type="text" ng-model="vm.msgConfig.messageAddress" required name="messageAddress" class="form-control"/>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <span class="col-lg-1 control-label ">{{ 'MessageCenterAccount' | translate}}</span>
+                    <div class="col-lg-3">
+                        <input type="text" ng-model="vm.msgConfig.messageAccount" required name="messageAccount"
+                               autocomplete="off"
+                               class="form-control"/>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <span class="col-lg-1 control-label ">{{ 'MessageCenterPassword' | translate}}</span>
+                    <div class="col-lg-3">
+                        <input type="password" ng-model="vm.msgConfig.messagePassword"
+                               autocomplete="off"
+                               required name="messagePassword" class="form-control"/>
+                    </div>
+                </div>
+
+
+                <div class="form-group">
+                    <div class="col-lg-1">&nbsp;</div>
+                    <div class="col-lg-3">
+                        <button type="button" ma-form-submit="vm.saveConfig(vm.msgConfig)" class="btn btn-primary btn_save">{{ 'Save' | translate}}</button>
+                    </div>
+                </div>
+            </div>
+        </ma-form>
+    </ma-panel>-->
+        <ma-panel data-title="{{'ModuleOpenType' | translate}}">
+            <ma-form name="moduleOpenType">
+                <div class="row form-horizontal">
+                    <div class="form-group">
+                        <span class="col-lg-1 control-label ">{{ 'BasicData' | translate}}</span>
+                        <div class="col-lg-3">
+                            <fm-select fm-model="vm.moduleOpenType.basicDataOpenType" items="vm.moduleOpenTypes"></fm-select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <span class="col-lg-1 control-label ">{{ 'Report' | translate}}</span>
+                        <div class="col-lg-3">
+                            <fm-select fm-model="vm.moduleOpenType.reportOpenType" items="vm.moduleOpenTypes"></fm-select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <span class="col-lg-1 control-label ">{{ 'Workflow' | translate}}</span>
+                        <div class="col-lg-3">
+                            <fm-select fm-model="vm.moduleOpenType.workflowOpenType" items="vm.moduleOpenTypes"></fm-select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <span class="col-lg-1 control-label ">{{ 'Undefined' | translate}}</span>
+                        <div class="col-lg-3">
+                            <fm-select fm-model="vm.moduleOpenType.unDefinedOpenType" items="vm.moduleOpenTypes"></fm-select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-lg-1">&nbsp;</div>
+                        <div class="col-lg-3">
+                            <button type="button" ma-form-submit="vm.saveConfig(vm.moduleOpenType)" class="btn btn-primary btn_save">{{ 'Save' | translate}}</button>
+                        </div>
+                    </div>
+                </div>
+            </ma-form>
+        </ma-panel>
+        <ma-panel data-title="{{ 'MailServerConfiguration' | translate}}">
+            <ma-form name="message">
+                <div class="row form-horizontal">
+                    <div class="form-group">
+                        <span class="col-lg-1 control-label ">{{ 'MailServerAddress' | translate}}</span>
+                        <div class="col-lg-3">
+                            <input type="text" ng-model="vm.mailConfig.emailServerAddress" required name="mailServerAddress" class="form-control"/>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <span class="col-lg-1 control-label ">{{ 'MailServerPort' | translate}}</span>
+                        <div class="col-lg-3">
+                            <input type="text" ng-model="vm.mailConfig.emailServerPort" required name="mailServerPort"
+                                   autocomplete="off"
+                                   class="form-control" />
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <span class="col-lg-1 control-label ">{{ 'MailServerAccount' | translate}}</span>
+                        <div class="col-lg-3">
+                            <input type="text" ng-model="vm.mailConfig.emailServerAccount" required name="mailServerAccount"
+                                   autocomplete="off"
+                                   class="form-control"/>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <span class="col-lg-1 control-label ">{{ 'MailServerPassword' | translate}}</span>
+                        <div class="col-lg-3">
+                            <input type="password" ng-model="vm.mailConfig.emailServerPassword"
+                                   autocomplete="off"
+                                   required name="emailServerPassword" class="form-control"/>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <span class="col-lg-1 control-label ">{{ 'MailServerSenderEmail' | translate}}</span>
+                        <div class="col-lg-3">
+                            <input type="text" ng-model="vm.mailConfig.emailServerSenderEmail"
+                                   autocomplete="off"
+                                   required name="emailServerSenderEmail" class="form-control"/>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <span class="col-lg-1 control-label ">{{ 'MailServerSenderName' | translate}}</span>
+                        <div class="col-lg-3">
+                            <input type="text" ng-model="vm.mailConfig.emailServerSenderDisplayName"
+                                   autocomplete="off"
+                                   required name="emailServerSenderDisplayName" class="form-control"/>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <span class="col-lg-1 control-label ">{{ 'MailServerIsSSL' | translate}}</span>
+                        <div class="col-lg-3">
+                            <ma-checkbox ng-model="vm.mailConfig.emailServerIsSSL"></ma-checkbox>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <span class="col-lg-1 control-label ">{{ 'MailServerIsOpen' | translate}}</span>
+                        <div class="col-lg-3">
+                            <ma-checkbox ng-model="vm.mailConfig.emailServerIsOpen"></ma-checkbox>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-lg-1">&nbsp;</div>
+                        <div class="col-lg-3">
+                            <button type="button" ma-form-submit="vm.saveConfig(vm.mailConfig)" class="btn btn-primary btn_save">{{ 'Save' | translate}}</button>
+                        </div>
+                    </div>
+                </div>
+            </ma-form> 
+        </ma-panel>
+        <ma-panel data-title="{{ 'FileServerConfiguration' | translate}}">
+            <ma-form name="message">
+                <div class="row form-horizontal">
+                    <div class="form-group">
+                        <span class="col-lg-1 control-label ">{{ 'FileServerAddress' | translate}}</span>
+                        <div class="col-lg-3">
+                            <input type="text" ng-model="vm.fileConfig.FileAddress" required name="fileAddress" class="form-control"/>
+                        </div>
+                        <span>e.g ftp://ftp.shalu.com:31000</span>
+                    </div>
+
+                    <div class="form-group">
+                        <span class="col-lg-1 control-label ">{{ 'Username' | translate}}</span>
+                        <div class="col-lg-3">
+                            <input type="text" ng-model="vm.fileConfig.FileAccount" required name="fileAccount"
+                                   autocomplete="off"
+                                   class="form-control"/>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <span class="col-lg-1 control-label ">{{ 'Password' | translate}}</span>
+                        <div class="col-lg-3">
+                            <input type="password" ng-model="vm.fileConfig.FilePassword"
+                                   autocomplete="off"
+                                   required name="filePassword" class="form-control"/>
+                        </div>
+                    </div>
+
+
+                    <div class="form-group">
+                        <div class="col-lg-1">&nbsp;</div>
+                        <div class="col-lg-3">
+                            <button type="button" ma-form-submit="vm.saveConfig(vm.fileConfig)" class="btn btn-primary btn_save">{{ 'Save' | translate}}</button>
+                        </div>
+                    </div>
+                </div>
+            </ma-form>
+        </ma-panel>
+        <ma-panel data-title="全局邮件格式">
+            <ma-form name="message">
+                <div class="row form-horizontal">
+                    <div class="form-group">
+                        <div class="col-lg-8"><div ng-include="'/App/_shared/component/inform/informconfig/informconfig.html'"></div></div>
+                    </div>
+                </div>
+            </ma-form>
+        </ma-panel>
+    </ma-tabs>
+</div>

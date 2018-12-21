@@ -1,0 +1,245 @@
+﻿<div class="container-ui" ng-controller="syspages.views.system.developer as vm">
+    <ma-tabs class="portlet light">
+        <ma-panel data-title="{{ 'WorkflowProcessorChange' | translate}}">
+            <ma-form name="workflowProcessorChange">
+                <div class="form-group">
+                    <div class="col-lg-12">
+                        <div class="col-md-4 cell">
+                            <span class="col-xs-4 control-label ng-binding">{{:: 'Sn' | translate}}</span>
+                            <div class="col-xs-8">
+                                <fm-text class="form-control input-sm" type="text" fm-model="vm.selectModel.sn"></fm-text>
+                            </div>
+                        </div>
+                        <div class="col-md-4 cell">
+                            <button class="btn btn-sm btn-primary" ng-click="vm.load()">{{:: 'Query' | translate}}</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-lg-12">
+                        <table class="table table-striped table-hover table-condensed">
+                            <thead>
+                                <tr>
+                                    <th>{{ 'TaskNumber' | translate}}</th>
+                                    <th>{{ 'WorkflowName' | translate}}</th>
+                                    <th>{{ 'Sn' | translate}}</th>
+                                    <th>{{ 'Creator' | translate}}</th>
+                                    <th>{{ 'ApplicationTime' | translate}}</th>
+                                    <th>{{ 'CurrentStatus' | translate}}</th>
+                                    <th>{{ 'WorkflowType' | translate}}</th>
+                                    <th>{{ 'Operation' | translate}}</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="item in vm.models">
+                                    <td>{{item.refId}}</td>
+                                    <td>{{item.workflowName}}</td>
+                                    <td><a class="ink-label" ng-click="vm.check(item)">{{item.sn}}</a></td>
+                                    <td>{{item.submitter}}</td>
+                                    <td>{{item.creationTime | date : 'yyyy-MM-dd HH:mm:ss'}}</td>
+                                    <td>{{item.procStatus | procstatus}}</td>
+                                    <td>{{item.wfdCategoryName}}</td>
+                                    <td>
+                                        <i class="icon icon-edit" ng-click="vm.edit(item)"></i>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div ng-if="vm.paging.totalCount > vm.paging.pageSize">
+                            <ma-pager current-page="vm.paging.currentPage" load="vm.load()" total-count="vm.paging.totalCount" page-size="vm.paging.pageSize"></ma-pager>
+                        </div>
+                    </div>
+                </div>
+            </ma-form>
+        </ma-panel>
+        <ma-panel data-title="代码管理">
+            <div class="form-group">
+                <div class="col-lg-12 pull-right">
+                    <button class="btn btn-success" ng-click="vm.code_refreshAllFiles()">找寻</button>
+                    <!--<button class="btn btn-success" ng-click="vm.code_updateSelected()">更新选中</button>-->
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-lg-12">
+                    <table class="table table-striped table-hover table-condensed">
+                        <thead>
+                            <tr>
+                                <th><input type="checkbox" /></th>
+                                <th>文件名</th>
+                                <th>版本号</th>
+                                <!-- <th>类型全名</th>-->
+                                <th>相对路径</th>
+                                <th>创建时间</th>
+                                <th>最近修改</th>
+                                <th>{{ 'Operation' | translate}}</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="item in vm.codeFiles">
+                                <td><input type="checkbox" fm-model="item.$checked" /> </td>
+                                <td>{{item.fileName}}</td>
+                                <td>{{item.fileVersion}}</td>
+                                <!-- <td>{{item.fullTypeName}}</td>-->
+                                <td>{{item.fileRelativePath}}</td>
+                                <td>{{item.creationTime | date : 'yyyy-MM-dd HH:mm:ss'}}</td>
+                                <td>{{item.lastModificationTime | date : 'yyyy-MM-dd HH:mm:ss'}}</td>
+                                <td>
+                                    <i class="icon icon-search" title="查看" ng-click="vm.code_edit(item)"></i>
+                                    <i class="icon icon-refresh" title="获取最新" ng-click="vm.code_refresh(item)"></i>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </ma-panel>
+        <ma-panel data-title="更改数据">
+            <ma-form name="WorkflowDataChange">
+                <div class="form-group">
+                    <div class="col-lg-12">
+                        <div class="col-md-4 cell">
+                            <span class="col-xs-4 control-label ng-binding">{{:: 'Sn' | translate}}</span>
+                            <div class="col-xs-8">
+                                <fm-text class="form-control input-sm" type="text" fm-model="vm.ChangeData.sn"></fm-text>
+                            </div>
+                        </div>
+                        <div class="col-md-4 cell">
+                            <button class="btn btn-sm btn-primary" ng-click="vm.dataService_load()">{{:: 'Query' | translate}}</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-lg-12">
+                        <table class="table table-striped table-hover table-condensed">
+                            <thead>
+                                <tr>
+                                    <th ng-repeat="item in vm.ChangeData.datas.masterColumn.value">{{item.name}}</th>
+
+                                </tr>
+                                <tr><th ng-repeat="item in vm.ChangeData.datas.masterColumn.value">{{item.value}}</th></tr>
+                            </thead>
+                            <tbody>
+                                <tr><td ng-repeat="item in vm.ChangeData.datas.masterInfo.data[0]">{{item}}</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </ma-form>
+        </ma-panel>
+        <ma-panel data-title="代理管理">
+            <ma-form name="AgentChange">
+                <div class="form-group">
+                    <div class="col-lg-12">
+                        <div class="col-md-4 cell">
+                            <span class="col-xs-4 control-label ng-binding">{{:: 'Authorizer' | translate}}</span>
+                            <div class="col-xs-8">
+                                <fm-text class="form-control input-sm" type="text" fm-model="vm.authorizerFilter.delegateName"></fm-text>
+                            </div>
+                        </div>
+                        <div class="col-md-8 cell ">
+                            <button class="btn btn-sm btn-primary" ng-click="vm.loadAgent()">{{:: 'Query' | translate}}</button>
+                            <button class="btn btn-success" ng-if='permissions["Menu_My_Outing_NewApply"]' ng-click="vm.editAgent(1)">{{ 'AddApply' | translate}}</button>
+                            <button class="btn btn-success" ng-if='permissions["Menu_My_Outing_NewApproval"]' ng-click="vm.editAgent(2)">{{ 'AddAgent' | translate}}</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="rol-lg-12">
+                        <ma-header>代理审批列表</ma-header>
+                        <view head="{{ 'AgentList' | translate}}" models="vm.approvers" paging="vm.approvePaging" load="vm.loadApproveAgent">
+                            <div class="content-list">
+                                <table class=" table table-striped table-hover table-condensed">
+                                    <thead>
+                                        <tr>
+                                            <!-- 以下两列左侧固定 -->
+                                            <th>#</th>
+                                            <th>{{ 'WorkflowMainCategory' | translate}}</th>
+                                            <th>{{ 'WorkflowName' | translate}}</th>
+                                            <th>{{ 'Authorizer' | translate}}</th>
+                                            <!-- 以下三列中间可滚动 -->
+                                            <th class="flex-col">{{ 'FirstAgent' | translate}}</th>
+                                            <th class="flex-col">{{ 'SecondAgent' | translate}}</th>
+                                            <th class="flex-col">{{ 'StartDate' | translate}}</th>
+                                            <th class="flex-col">{{ 'EndDate' | translate}}</th>
+                                            <!-- 以下列右侧固定 -->
+                                            <th>{{ 'WhetherValid' | translate}}</th>
+                                            <th>{{ 'Operation' | translate}}</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr ng-repeat="i in vm.approvers">
+                                            <td>{{$index}}</td>
+                                            <td><span ng-if="i.wfdCategoryId != 'ALL'">{{i.catName}}</span><span ng-if="i.wfdCategoryId == 'ALL'">ALL</span></td>
+                                            <td><span ng-if="i.wfdWorkflowId != 'ALL'">{{i.wfName}}</span><span ng-if="i.wfdWorkflowId == 'ALL'">ALL</span></td>
+                                            <td>{{i.delegateName}}</td>
+                                            <td>{{i.firstName}}</td>
+                                            <td>{{i.secondName}}</td>
+                                            <td>{{i.startDateTime | date:'yyyy-MM-dd'}}</td>
+                                            <td>{{i.endDateTime | date:'yyyy-MM-dd'}}</td>
+                                            <td ng-if="i.enable">{{ 'Valid' | translate}}</td>
+                                            <td ng-if="!i.enable">{{ 'Invalid' | translate}}</td>
+                                            <td>
+                                                <a class="text-primary" ng-click="vm.editAgent(i)"><i class="icon-edit"></i>{{ 'Edit' | translate}}</a>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <ma-pager ng-if="vm.approvePaging.totalCount > vm.approvePaging.pageSize" current-page="vm.approvePaging.currentPage" load="vm.loadApproveAgent()" total-count="vm.approvePaging.totalCount" page-size="vm.approvePaging.pageSize"></ma-pager>
+                            </div>
+                        </view>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="rol-lg-12">
+                        <ma-header>代理申请列表</ma-header>
+                        <view head="{{ 'AgentList' | translate}}" models="vm.submitters" paging="vm.subbmitPaging" load="vm.loadSubbmitAgent">
+                            <div class="content-list">
+                                <table class=" table table-striped table-hover table-condensed">
+                                    <thead>
+                                        <tr>
+                                            <!-- 以下两列左侧固定 -->
+                                            <th>#</th>
+                                            <th>{{ 'WorkflowMainCategory' | translate}}</th>
+                                            <th>{{ 'WorkflowName' | translate}}</th>
+                                            <th>{{ 'Authorizer' | translate}}</th>
+                                            <!-- 以下三列中间可滚动 -->
+                                            <th class="flex-col">{{ 'FirstAgent' | translate}}</th>
+                                            <th class="flex-col">{{ 'SecondAgent' | translate}}</th>
+                                            <th class="flex-col">{{ 'StartDate' | translate}}</th>
+                                            <th class="flex-col">{{ 'EndDate' | translate}}</th>
+                                            <!-- 以下列右侧固定 -->
+                                            <th>{{ 'WhetherValid' | translate}}</th>
+                                            <th>{{ 'Operation' | translate}}</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr ng-repeat="i in vm.submitters">
+                                            <td>{{$index}}</td>
+                                            <td><span ng-if="i.wfdCategoryId != 'ALL'">{{i.catName}}</span><span ng-if="i.wfdCategoryId == 'ALL'">ALL</span></td>
+                                            <td><span ng-if="i.wfdWorkflowId != 'ALL'">{{i.wfName}}</span><span ng-if="i.wfdWorkflowId == 'ALL'">ALL</span></td>
+                                            <td>{{i.delegateName}}</td>
+                                            <td>{{i.firstName}}</td>
+                                            <td>{{i.secondName}}</td>
+                                            <td>{{i.startDateTime | date:'yyyy-MM-dd'}}</td>
+                                            <td>{{i.endDateTime | date:'yyyy-MM-dd'}}</td>
+                                            <td ng-if="i.enable">{{ 'Valid' | translate}}</td>
+                                            <td ng-if="!i.enable">{{ 'Invalid' | translate}}</td>
+                                            <td>
+                                                <a class="text-primary" ng-click="vm.editAgent(i)"><i class="icon-edit"></i>{{ 'Edit' | translate}}</a>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <ma-pager ng-if="vm.subbmitPaging.totalCount > vm.subbmitPaging.pageSize" current-page="vm.subbmitPaging.currentPage" load="vm.loadSubmitAgent()" total-count="vm.subbmitPaging.totalCount" page-size="vm.subbmitPaging.pageSize"></ma-pager>
+                            </div>
+                        </view>
+                    </div>
+                </div>
+
+            </ma-form>
+        </ma-panel>
+    </ma-tabs>
+</div>

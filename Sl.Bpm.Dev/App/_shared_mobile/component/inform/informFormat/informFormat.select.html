@@ -1,0 +1,41 @@
+﻿<modal>
+    <modal-header>{{ 'Format' | translate}}</modal-header>
+    <ma-tabs>
+        <ma-panel data-title="{{ 'Basic' | translate}}" name="basic">
+            <ma-form name="informFormat">
+                <modal-body>
+                    <!--<div class="form-group text-right">
+                        <span class="btn btn-sm btn-primary" ng-click="vm.openColumn()">+字段</span>
+                        <span class="btn btn-sm btn-primary" ng-click="vm.watch()">查看</span>
+                    </div>-->
+                    <div class="form-group">
+                        <span class="col-lg-2 control-label">标题</span>
+                        <div class="col-lg-8">
+                            <ma-text-language name="langTextSubject" ng-model="vm.model.langTextSubject" language-list="vm.model.langTextSubjectList"></ma-text-language>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-lg-2 control-label">内容</div>
+                        <div class="col-lg-8">
+                            <ma-inform-language type="textarea" name="langTextTemplate" ng-model="vm.model.langTextTemplate"
+                                                item="vm.column"
+                                                language-list="vm.model.langTextTemplateList"></ma-inform-language>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-lg-12">
+                            {{ vm.formatedData}}
+                        </div>
+                    </div>
+                </modal-body>
+                <modal-footer>
+                    <button class="btn btn-primary" type="submit" ma-form-submit="vm.save()">{{ 'Save' | translate}}</button>
+                    <button type="button" data-dismiss="modal" ng-click="vm.cancel()" class="btn default">{{ 'Cancel' | translate}}</button>
+                </modal-footer>
+            </ma-form>
+        </ma-panel>
+    </ma-tabs>
+</modal>
+

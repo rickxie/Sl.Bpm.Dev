@@ -1,0 +1,24 @@
+﻿<modal>
+    <modal-header><span ng-if="vm.model.id == null" translate="Create"></span><span ng-if="vm.model.id != null" translate="Edit"></span>&nbsp;{{ 'Role' | translate}} {{vm.model.name}}</modal-header>
+    <ma-form name="enterpriseRoleEdit">
+        <modal-body>
+            <div class="form-group form-md-line-input">
+                <div class="col-lg-4 control-label">{{ 'Name' | translate}}:</div>
+                <div class="col-lg-6">
+                    <ma-language name="langName" ma-required ng-model="vm.model.langName" language-list="vm.model.langNameList"></ma-language>
+                </div>
+            </div>
+            <div class="form-group form-md-line-input">
+                <div class="col-lg-4 control-label">{{ 'Code' | translate}}:</div>
+                <div class="col-lg-6">
+                    <input type="text" name="code" required class="form-control" ng-model="vm.model.code"/>
+                </div>
+            </div>
+        </modal-body>
+        <modal-footer>
+            <button class="btn btn-primary" type="submit" id="enterpriseRoleEdit" ma-form-submit="vm.save()">{{ 'Save' | translate}}</button>
+            <button type="button" class="btn btn-default" ng-click="$close()">{{ 'Cancel' | translate}}</button>
+        </modal-footer>
+    </ma-form>
+</modal>
+

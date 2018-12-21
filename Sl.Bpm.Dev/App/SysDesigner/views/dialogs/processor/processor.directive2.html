@@ -1,0 +1,23 @@
+﻿<div>
+    <table class="table table-striped table-hover">
+        <thead>
+            <tr>
+                <th style="width:20%;">{{ 'Type' | translate}}</th>
+                <th style="width:60%;">{{ 'Handler' | translate}}</th>
+                <th style="width:20%;">
+                    <div class="btn btn-success btn-sm" ng-click="vm.open()">+{{ 'Handler' | translate}}</div>
+                </th>
+            </tr>
+        </thead>
+        <tbody ng-sortable="vm.barConfig">
+            <tr ng-repeat="item in vm.actorList">
+                <td style="width:20%;">{{item.type | processortype}}<i class="handle"></i></td>
+                <td style="width:60%;">{{item.dataValueName}}&nbsp;按&nbsp;{{vm.getBaseType(item.baseType)}}&nbsp;{{ 'Filter' | translate}}{{!!item.baseValue ? "/"+item.baseValue : ""}}</td>
+                <td style="width:20%;">
+                    <i class="icon icon-pencil text-primary wf-operation" ng-click="vm.editActor(item)" style="cursor:pointer;"></i>
+                    <i class="icon icon-times text-danger wf-operation" message="{{ 'PleaseConfirmTheDeletionAgain' | translate}}" confirm-click="vm.removeActor(item)" style="cursor:pointer;"></i>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

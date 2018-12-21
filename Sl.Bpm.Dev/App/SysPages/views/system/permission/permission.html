@@ -1,0 +1,85 @@
+﻿<div ng-controller="syspages.views.system.permission as vm">
+    <style>
+        .label-permission:hover {
+            border: 1px solid #00bfff;
+            cursor: pointer;
+        }
+
+        .cgDisable {
+            background: #CCC;
+        }
+    </style>
+    <div class="row">
+        <cmd class="pull-right" style="margin-right:10px">
+            <span class="btn btn-success" ng-click="vm.editCg()" style="margin-right:10px">+控制组</span>
+            <span class="btn btn-info" ng-click="vm.clearCache()">清除缓存</span>
+        </cmd>
+    </div>
+   
+
+    <div class="ma-center-warper">
+        <!--控制組列表-->
+        <div class="siderbar role_tree">
+            <h5>查询用户权限</h5>
+            <div class="form-group">
+                <div class="input-group">
+                    <input type="text" placeholder="输入账号" class="form-control" ng-model="vm.userSearchTxt" ng-keydown="vm.keydown($event)" />
+                    <div class="input-group-btn">
+                        <button class="btn btn-default" type="button" ng-click="vm.searchUserRight(vm.userSearchTxt)">查询</button>
+                    </div>
+                </div>
+            </div>
+            <h5>权限控制组</h5>
+            <table class="table table-hover" style="background: white">
+                <tbody>
+                    <tr ng-repeat="i in vm.allCg | orderBy : '-displayOrder'" ng-class="{ 'active': vm.selectedCg.id == i.id, 'cgDisable' : i.isEnable != true}" ng-click="vm.switchCg(i)">
+                        <td>
+                            {{ i.displayOrder}} {{ i.name}}
+                        </td>
+                        <td width="50px">
+                            <i class="icon icon-cog pull-right cursor-pointer" ng-click="vm.editCg(i)"></i>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <span class="toggler" ma-toggler=".ma-center-warper"><i class="icon-list-ul"></i></span>
+        </div>
+        <!--控制組明細权限信息-->
+        <div class="page-content rolejob_table">
+            <div class="h3">
+                <table>
+                    <tbody>
+                        <tr>
+                            <td>{{vm.selectedCg.name}}</td>
+                            <td width="100"></td>
+                            <td>开启状态:</td>
+                            <td><ma-checkbox class="input-sm" ng-if="vm.selectedCg != null" ng-model="vm.selectedCg.isEnable" disabled></ma-checkbox></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th width="300px">配置项</th>
+                        <th width="100px">允许/拒绝</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="item in vm.list">
+                        <td>
+                            {{ item.text}}
+                        </td>
+                        <td>
+                            <span class="label-permission label label-default" ng-click="vm.switchPermissionValue(item)" ng-if="item.permissionValue == 2 || item.permissionValue == null">Not Set</span>
+                            <span class="label-permission label label-success" ng-click="vm.switchPermissionValue(item)" ng-if="item.permissionValue == 1">Allow</span>
+                            <span class="label-permission label label-danger" ng-click="vm.switchPermissionValue(item)" ng-if="item.permissionValue == 0">Deny</span>
+                        </td>
+                        <td></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

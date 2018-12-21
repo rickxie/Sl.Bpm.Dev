@@ -1,0 +1,49 @@
+﻿<modal size="lg">
+    <modal-header>{{ 'WorkflowInfo' | translate}}</modal-header>
+    <modal-body>
+        <ma-form>
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-lg-2">
+                        <input type="text" class="form-control" placeholder="搜索流程代码" ng-model="vm.filterText" ng-keydown="vm.keyDown($event)" />
+                    </div>
+                </div>
+            </div>
+            <div class="form-group data_load">
+                <div style="max-height: 380px; overflow-y: auto; overflow-x: hidden; margin: 0px 0;">
+                    <table class="table table-hover" style="height: 50px">
+                        <thead>
+                        <tr>
+                            <th width="20px"><!--<input type="checkbox" ng-model="vm.allChecked"/>全选--></th>
+                            <th>{{ 'Name' | translate}}</th>
+                            <th width="15%">{{ 'Code' | translate}}</th>
+                            <th width="15%">{{ 'Category' | translate}}</th>
+                            <th width="15%">{{ 'State' | translate}}</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="item in vm.pagedItems" ng-class="{ 'active': item.checked}" ng-click="item.checked = !item.checked">
+                            <td><input type="checkbox" ng-model="item.checked"/>
+                                <div class="checkbox_div_mask"></div></td>
+                            <td ng-bind="item.workflowName"></td>
+                            <td ng-bind="item.code"></td>
+                            <td ng-bind="item.wfdCategoryName"></td>
+                            <td><span ng-bind="item.status"></span></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <ma-pager ng-if="vm.paging.totalCount > vm.paging.pageSize" current-page="vm.paging.currentPage" load="vm.load()" total-count="vm.paging.totalCount" page-size="vm.paging.pageSize"></ma-pager>
+            </div>
+        </ma-form>
+    </modal-body>
+    <modal-footer>
+        <!--<button class="btn btn-primary" type="button" id="getAll" ng-click="vm.getAll()">
+            <span>获取全部流程</span>
+        </button>-->
+        <button class="btn btn-success" type="button" ng-click="vm.getSelected()" id="getSelected">
+            {{ 'GetChoosedWorkflow' | translate}}
+        </button>
+        <button type="button" class="btn btn-default" ng-click="$close()">{{ 'Cancel' | translate}}</button>
+    </modal-footer>
+</modal>

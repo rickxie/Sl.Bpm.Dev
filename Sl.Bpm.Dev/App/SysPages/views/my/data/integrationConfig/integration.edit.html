@@ -1,0 +1,30 @@
+﻿<modal size="lg">
+    <modal-header><span ng-if="vm.model.id == null" translate="Create"></span><span ng-if="vm.model.id != null" translate="Edit"></span>&nbsp;{{ 'InterfaceConfiguration' | translate}} {{vm.model.name}}</modal-header>
+    <ma-form name="enterpriseRoleEdit">
+        <modal-body>
+            <div class="form-group form-md-line-input">
+                <div class="col-lg-4 control-label">{{ 'IntegrationCode' | translate}}:</div>
+                <div class="col-lg-6">
+                    <input type="text" name="code" required class="form-control" ng-model="vm.model.code" />
+                </div>
+            </div>
+            <div class="form-group form-md-line-input">
+                <div class="col-lg-4 control-label">{{ 'IntegrationDescription' | translate}}:</div>
+                <div class="col-lg-6">
+                    <input type="text" name="description" required class="form-control" ng-model="vm.model.description" />
+                </div>
+            </div>
+            <div class="form-group form-md-line-input">
+                <div class="col-lg-4 control-label">{{ 'IntegrationMode' | translate}}:</div>
+                <div class="col-lg-6">
+                    <select type="text" name="type" required class="form-control" ng-model="vm.model.type" ng-options="item.value as item.text for item in vm.types">
+                    </select>
+                </div>
+            </div>
+        </modal-body>
+        <modal-footer>
+            <button class="btn btn-primary" type="submit" id="enterpriseRoleEdit" ma-form-submit="vm.save()">{{ 'Save' | translate}}</button>
+            <button type="button" class="btn btn-default" ng-click="$close()">{{ 'Cancel' | translate}}</button>
+        </modal-footer>
+    </ma-form>
+</modal>

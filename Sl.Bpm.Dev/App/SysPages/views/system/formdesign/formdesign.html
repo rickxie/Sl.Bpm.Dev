@@ -1,0 +1,107 @@
+﻿<div class="container-ui load_content" ng-controller="syspages.views.system.formdesign as vm">
+
+    <div class="row">
+        <cmd class="nav navbar-nav navbar-right" style="float: right; margin-left: auto; margin-right: 0px; margin-right: 50px; line-height: 54px;">
+            <span class="btn btn-success" ng-click="vm.list()">{{ 'GetLatestForm' | translate}}</span>
+        </cmd>
+        <search class="main-select-text">
+            <input type="text" value="" class="pull-left"  ng-keydown="vm.keyDown($event)" ng-blur="vm.select()" ng-model="vm.filterText" placeholder="Select" />
+        </search>
+    </div>
+  
+    <div class="row formdesign_edit">
+        <div class="col-md-12">
+            <ma-breadcrumb items="vm.pageArray" ng-model="vm.selectedPageId" pre-item="vm.rootPage"></ma-breadcrumb>
+        </div>
+        <div class="col-xs-12" ng-show="vm.isLoaded && (!vm.models || vm.models.length == 0)">{{ 'NoFormYetClickUpperRightToGetLatest' | translate}}</div>
+        <list-view ng-hide="vm.isLoaded && (!vm.models || vm.models.length == 0)" head="{{ 'Form' | translate}}" models="vm.models" paging="vm.paging" load="vm.load">
+            <div class="content-list">
+                <table class="table datatable">
+                    <thead>
+                        <tr>
+                            <!-- 以下两列左侧固定 -->
+                            <th>#</th>
+                            <th>{{ 'Name' | translate}}</th>
+                            <th>{{ 'FileName' | translate}}</th>
+
+                            <!-- 以下三列中间可滚动 -->
+                            <th class="flex-col">{{ 'Type' | translate}}</th>
+                            <th class="flex-col">{{ 'Description' | translate}}</th>
+                            <th class="flex-col">{{ 'CreationTime' | translate}}</th>
+                            <!-- 以下列右侧固定 -->
+                            <th>{{ 'Operation' | translate}}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="i in vm.models">
+                            <td>{{$index}}</td>
+                            <td>{{i.name}}</td>
+                            <td>{{i.fileName}}</td>
+                            <td>{{i.type | enumfilter:'formDesignType'}}</td>
+                            <td>{{i.description}}</td>
+                            <td>{{i.creationTime | date:'yyyy-MM-dd'}}</td>
+                            <td>
+                                <!--<span class="btn btn-primary btn-sm" ng-click="vm.design(i)" role="button"><span class="icon-spin icon-cog" aria-hidden="true"></span></span>-->
+                                <span class="btn btn-default btn-sm" role="button" ng-click="vm.edit(i)"><span class="icon icon-search" aria-hidden="true"></span></span>
+                                <span class="btn btn-default btn-sm" role="button" ng-click="vm.language(i)"><span class="icon icon-globe" aria-hidden="true"></span></span>
+                                <!--<span class="btn btn-info btn-sm" role="button" ng-click="vm.delete(i)"><span class="icon icon-share-alt" aria-hidden="true"></span></span>-->
+                                <!--<span class="btn btn-danger btn-sm" role="button" message="{{ 'SureForDeleteThisForm' | translate}}" confirm-click="vm.delete(i)"><span class="icon icon-trash" aria-hidden="true"></span></span>-->
+                                <span class="btn btn-default btn-sm" role="button" ng-click="vm.getNew(i)"><span class="icon icon-refresh"></span></span>
+                                cl
+                                <span class="btn btn-default btn-sm" role="button" ng-click="vm.goToDetailPage(i)"><span class="icon icon-bell"></span></span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="content-blocker">
+                <div class="col-md-3 col-sm-4 col-lg-2" ng-repeat="i in vm.models">
+                    <div class="my-card" ng-click="vm.openModule(i)">
+                        <div class="card-body">
+                            <div class="card-content">
+                                <h2><i class="icon icon-2x icon-file-word" style="opacity:0.0;"></i>{{i.name}}</h2>
+                            </div>
+                            <div class="colorblock"><div ng-style="{'background-color':mainIcons[$index % 6].color}"></div></div>
+                            <div class="card-detail">
+                                <span>{{ 'Type' | translate}}: {{i.type| enumfilter:'formDesignType'}}</span><br />
+                                <span>{{ 'FileName' | translate}}: {{i.fileName}}</span><br />
+                                <span>{{ 'Description' | translate}}: {{i.description}}</span>
+                            </div>
+                            <div class="card-button">
+                                <!--<i class="icon icon-2x icon-file-word" style="float:left;"></i>-->
+                                <span class="btn btn-default btn-sm" role="button" ng-click="vm.edit(i)"><span class="icon icon-search" aria-hidden="true"></span></span>
+                                <span class="btn btn-default btn-sm" role="button" ng-click="vm.language(i)"><span class="icon icon-globe" aria-hidden="true"></span></span>
+                                <span class="btn btn-default btn-sm" role="button" ng-click="vm.getNew(i)"><span class="icon icon-refresh"></span></span>
+                                <span class="btn btn-default btn-sm" role="button" ng-click="vm.goToDetailPage(i)"><span class="icon icon-bell"></span></span>
+                            </div>
+                        </div>
+                    </div>
+                    <!--<div class="card">
+                        <div class="card-body">
+                            <div class="visual">
+                                <i class="icon icon-8x icon-file-word"></i>
+                            </div>
+                            <div class="card-content">
+                                <h4>{{i.name}}</h4>
+                                <p>
+                                    {{ 'Type' | translate}}: {{i.type| enumfilter:'formDesignType'}}<br />
+                                    {{ 'FileName' | translate}}: {{i.fileName}}<br />
+                                    {{ 'Description' | translate}}: {{i.description}}<br />
+                                    {{i.creationTime | date:'yyyy-MM-dd'}}
+                                </p>
+
+                            </div>
+                        </div>
+                        <div class="card-actions">
+                            <span class="btn btn-primary btn-sm" ng-click="vm.design(i)" role="button"><span class="icon-spin icon-cog" aria-hidden="true"></span></span>
+                            <span class="btn btn-default btn-sm" role="button" ng-click="vm.edit(i)"><span class="icon icon-search" aria-hidden="true"></span></span>
+                            <span class="btn btn-default btn-sm" role="button" ng-click="vm.language(i)"><span class="icon icon-globe" aria-hidden="true"></span></span>
+                            <span class="btn btn-default btn-sm" role="button" ng-click="vm.getNew(i)"><span class="icon icon-refresh"></span></span>
+                            <span class="btn btn-default btn-sm" role="button" ng-click="vm.goToDetailPage(i)"><span class="icon icon-bell"></span></span>
+                        </div>
+                    </div>-->
+                </div>
+            </div>
+        </list-view>
+    </div>
+</div>

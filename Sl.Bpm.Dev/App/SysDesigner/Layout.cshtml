@@ -1,0 +1,73 @@
+﻿@using System.Web.Optimization
+@using MiniAbp.Runtime
+@using MiniAbp.Web
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html ng-app="sysdesigner" >
+<head>
+    <meta name="viewport" content="width=device-width">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"> 
+    <link rel="icon" type="image/gif" href="../../Content/Images/AppTitle.png">
+    <title ng-bind="workfloCode"></title>
+    @Styles.Render("~/SysDesinger/Css")
+</head>
+<body ng-controller="layoutController as vm">
+    <div class="container container-layout">
+        <nav class="navbar navbar-fixed-top" ng-controller="headerController as vm">
+            <div class="container-fluid nav-main" style="background-color:#FFF;">
+                <div class="navbar-header">
+                    <a class="navbar-brand" href=""><span ng-bind="workflowName+' ' + workflowCode" style="color:#808080;"></span> <small class="text-muted" ng-if="!isSaving" translate="AllChangesHaveBeenSaved"></small> <small class="text-muted" ng-if="isSaving" translate="SavingData"></small></a>
+                </div>
+                <div class="collapse navbar-collapse">
+
+                    <ul class="nav navbar-nav navbar-right">
+                        <li class="dropdown">
+
+                            <a href="" class="dropdown-toggle" id="dropdownMenu1"
+                               data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" style="background-color:rgba(50,50,50,0.15);">
+                                <span ng-bind="vm.model.name"></span>
+                                <span class="caret"></span>
+                            </a>
+                            @*<ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+
+                                <li role="presentation">
+                                    <a role="menuitem" tabindex="-1" href="#/personalsetting">个人设置</a>
+                                </li>
+                                <li role="presentation">
+                                    <a role="menuitem" tabindex="-1" href="#/setlanague">语言设置</a>
+                                </li>
+                                <li role="presentation">
+                                    <a role="menuitem" tabindex="-1" href="#/resetpassword">密码修改</a>
+                                </li>
+                                <li role="presentation">
+                                    <a role="menuitem" tabindex="-1" href="/Account/Logout">安全退出</a>
+                                </li>
+
+                            </ul>*@
+
+                        </li>
+                    </ul>
+                </div>
+            </div> 
+        </nav>
+
+
+
+        <!-- /.navbar -->
+        <div></div>
+        <div class="container-main">
+            <div class=" angular-animation-container">
+                <div class="container-body shuffle-animation" ui-view></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        var currentLanguage = '@Session.GetUserLanguage()' || 'zh-CN';
+    </script>
+    @Scripts.Render("~/SysDesinger/Js")
+    <script src="/Account/Permissions" type="text/javascript"></script>
+</body>
+</html>

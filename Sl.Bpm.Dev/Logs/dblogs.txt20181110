@@ -1,0 +1,40 @@
+[2018-11-10 10:25:00,823] [19] [DEBUG] [Sl.Bpm.Engine.Log.ReflectionLayout] [DESKTOP-IQ8Q4G6\T470P]
+ source:Sl.Bpm.Engine.Log.SlEngineLogger.Debug(:0)
+ operator:NewPost
+ actionType:NewPost
+ systemCode:(null)
+ message:insert into instproc(nodetype,wfdworkflownodeid,procuser,
+                    recvtime,proctime,status,note,formfile,TaskId,PROCOwner,id,procjobid,ProcOwnerJobId,EnterpriseId,ActionId,ActionLangName)values(0,'1b257469-7492-409e-8079-7e808ebfcbd7','aa211652-aabe-4a99-8323-bf25f1aeb15d','2018-11-10 10:24:59.759','2018-11-10 10:24:59.759',2,N'','b1140522-35ff-453e-af64-771b708920da','DD36E1BB-821E-44AB-8FEF-7D596C993E3F','aa211652-aabe-4a99-8323-bf25f1aeb15d','0BF71699-807A-4CB0-B32B-504EE15C95D4','1cc436fd-4679-4eef-a448-687ea4ccc354','1cc436fd-4679-4eef-a448-687ea4ccc354','00c7f9d3-56e9-4bdb-baf2-9c67a9f79c5f','fdf0f608-d367-4e11-a2cd-ea5c13827b2e','B33509C1-FA30-4BDB-A553-37287EC102BA')
+insert into InstTask(Id,WfdCategoryId,WfdWorkflowId,createby,createbygroupid,
+                    createbyjobid,ApplicantId,ApplicantJobId,ApplicantGroupId,CreationTime,Priority,Status,
+                    ParentTaskId,Memo,ConnectTable,AreaCode,Sn,Topic, EnterpriseId)values('DD36E1BB-821E-44AB-8FEF-7D596C993E3F','2f7a3219-8d10-4f70-8a19-014627ce1dd5','2d74e4f2-e8e7-491a-82a2-55b1fa6f5c4e','aa211652-aabe-4a99-8323-bf25f1aeb15d','9e0cfd82-e0b7-4636-912a-2e9e67e6f42d','1cc436fd-4679-4eef-a448-687ea4ccc354','aa211652-aabe-4a99-8323-bf25f1aeb15d','1cc436fd-4679-4eef-a448-687ea4ccc354','9e0cfd82-e0b7-4636-912a-2e9e67e6f42d','2018-11-10 10:24:59.759','',0,'',N'','t_forleave','','','test','00c7f9d3-56e9-4bdb-baf2-9c67a9f79c5f')
+insert into instproc(nodetype,wfdworkflownodeid,procuser,recvtime,status,formfile,TaskId,PROCOwner,id,procjobid,PROCOwnerJobID,ProcNodeUserOrder, EnterpriseId)values(1,'ba28e687-f002-4a67-b27f-60d12b321df2','aa211652-aabe-4a99-8323-bf25f1aeb15d','2018-11-10 10:25:00.182', 0,'b1140522-35ff-453e-af64-771b708920da','DD36E1BB-821E-44AB-8FEF-7D596C993E3F','aa211652-aabe-4a99-8323-bf25f1aeb15d','E0990857-8EA5-468D-AEFB-8C6D483B2EEB','1cc436fd-4679-4eef-a448-687ea4ccc354','1cc436fd-4679-4eef-a448-687ea4ccc354','0','00c7f9d3-56e9-4bdb-baf2-9c67a9f79c5f')
+insert into instproclink(taskid,procidfrom,procidto) values('DD36E1BB-821E-44AB-8FEF-7D596C993E3F','0BF71699-807A-4CB0-B32B-504EE15C95D4','E0990857-8EA5-468D-AEFB-8C6D483B2EEB')
+update InstTask set Sn='LEAVE-20181100003' where Id='DD36E1BB-821E-44AB-8FEF-7D596C993E3F'
+delete from InstVariable where taskid='DD36E1BB-821E-44AB-8FEF-7D596C993E3F'
+insert into InstVariable (id, taskid,variablename,variablevalue) values(NEWID(),'DD36E1BB-821E-44AB-8FEF-7D596C993E3F','syscurrenttime','2018-11-10 10:24:59.759')
+insert into InstVariable (id, taskid,variablename,variablevalue) values(NEWID(),'DD36E1BB-821E-44AB-8FEF-7D596C993E3F','systoday','2018/11/10')
+insert into InstVariable (id, taskid,variablename,variablevalue) values(NEWID(),'DD36E1BB-821E-44AB-8FEF-7D596C993E3F','systaskid','DD36E1BB-821E-44AB-8FEF-7D596C993E3F')
+insert into InstVariable (id, taskid,variablename,variablevalue) values(NEWID(),'DD36E1BB-821E-44AB-8FEF-7D596C993E3F','sysinitiator','1cc436fd-4679-4eef-a448-687ea4ccc354')
+insert into InstVariable (id, taskid,variablename,variablevalue) values(NEWID(),'DD36E1BB-821E-44AB-8FEF-7D596C993E3F','sysapplicant','1cc436fd-4679-4eef-a448-687ea4ccc354')
+insert into InstVariable (id, taskid,variablename,variablevalue) values(NEWID(),'DD36E1BB-821E-44AB-8FEF-7D596C993E3F','sysinitiatorgroupcode','')
+insert into InstVariable (id, taskid,variablename,variablevalue) values(NEWID(),'DD36E1BB-821E-44AB-8FEF-7D596C993E3F','sysapplicantgroupcode','')
+insert into InstVariable (id, taskid,variablename,variablevalue) values(NEWID(),'DD36E1BB-821E-44AB-8FEF-7D596C993E3F','sysinitiatorjoblevel','0')
+insert into InstVariable (id, taskid,variablename,variablevalue) values(NEWID(),'DD36E1BB-821E-44AB-8FEF-7D596C993E3F','sysapplicantjoblevel','0')
+insert into InstVariable (id, taskid,variablename,variablevalue) values(NEWID(),'DD36E1BB-821E-44AB-8FEF-7D596C993E3F','syslocation','')
+insert into InstVariable (id, taskid,variablename,variablevalue) values(NEWID(),'DD36E1BB-821E-44AB-8FEF-7D596C993E3F','syscurrentjoblevel','0')
+insert into t_forleave ([gender],[name],[leaveclass],creationtime,id,snnumber,taskid) Values(N'011ece22-d7db-41e7-9f77-238addeeed4f',N'test',N'331a4da1-5208-4c2e-a577-5bcd97fcc0f0',getdate(),newid(),'LEAVE-20181100003','DD36E1BB-821E-44AB-8FEF-7D596C993E3F')
+
+                    INSERT INTO dbo.InstTaskHeader
+                            ( Id ,TaskId ,ApplicantName ,ApplicantEmployeeNumber ,ApplicantDepartment ,
+                              ApplicantContactNumber ,ApplicantContactEmail ,ApplicantId ,ApplicantJobId ,ApplicantGroupId ,
+                              InitiatorName ,InitiatorEmployeeNumber ,InitiatorDepartment ,InitiatorContactNumber ,
+                              InitiatorContactEmail ,InitiatorId ,InitiatorJobId ,InitiatorGroupId ,ApplicantMobileNumber ,
+                              ApplicantDirectManagerJobId ,ApplicantDirectManager ,InitiatorMobileNumber ,InitiatorDirectManagerJobId ,
+                              InitiatorDirectManager ,ApplicantJobName ,ApplicantGroupName ,ApplicantDirectManagerName ,
+                              InitiatorJobName ,InitiatorGroupName ,InitiatorDirectManagerName)
+                    VALUES  (NEWID() , 'DD36E1BB-821E-44AB-8FEF-7D596C993E3F','d49eda00-a259-4f0b-8370-00a43452cf1e','_','f531e1cf-30fa-4493-9a76-9ee7092feb9d','025-81069273','admin123@qq.com','aa211652-aabe-4a99-8323-bf25f1aeb15d','1cc436fd-4679-4eef-a448-687ea4ccc354','9e0cfd82-e0b7-4636-912a-2e9e67e6f42d','d49eda00-a259-4f0b-8370-00a43452cf1e','_','f531e1cf-30fa-4493-9a76-9ee7092feb9d','025-81069273','admin123@qq.com','aa211652-aabe-4a99-8323-bf25f1aeb15d','1cc436fd-4679-4eef-a448-687ea4ccc354','9e0cfd82-e0b7-4636-912a-2e9e67e6f42d','','36AE464D-3EE8-403B-8183-D35FFF547C6D','d49eda00-a259-4f0b-8370-00a43452cf1e','','36AE464D-3EE8-403B-8183-D35FFF547C6D','d49eda00-a259-4f0b-8370-00a43452cf1e','IT工程师','','超级管理员','IT工程师','','超级管理员')
+ detailInfomation:(null)
+ exception:
+ 
+

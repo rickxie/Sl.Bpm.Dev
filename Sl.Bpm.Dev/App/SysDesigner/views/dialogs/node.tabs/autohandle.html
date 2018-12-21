@@ -1,0 +1,21 @@
+﻿<div role="tabpanel" class="tab-pane form-horizontal" id="autohandle" ng-controller="app.sysdesigner.views.dialogs.node.tabs.autohandle as vm">
+    <div class="form-group">
+        <div class="row">
+            <div class="col-lg-2 control-label">{{ 'CommandType' | translate}}：</div>
+            <div class="col-lg-8">
+                <ma-select ng-model="vm.model.autoCallType" items="vm.autoCallType" ng-change="vm.changeHandle();" display-member="displayName" value-member="id"></ma-select>
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="row">
+            <div class="col-lg-2 control-label">{{ 'CommandText' | translate}}：</div>
+            <div class="col-lg-8">
+                <div class="input-group">
+                    <textarea ng-model="vm.model.autoCallValue" rows="5" type="text" ng-blur="vm.changeHandle();" class="form-control" placeholder="{{ 'Text' | translate}}"></textarea>
+                    <span class="input-group-addon" ng-click="vm.setVariable()">+</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

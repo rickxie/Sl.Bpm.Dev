@@ -1,0 +1,82 @@
+﻿<div ng-controller="syspages.views.system.workflow as vm" class="workflow_content">
+    <div class="cmd">
+        <span class="btn btn-success" ng-click="vm.list()">{{ 'GetLatestWorkflow' | translate}}</span>
+        <span class="btn btn-success" ng-click="vm.import()">导入</span>
+    </div>
+    <input type="file" class="picUpload" id="fileinput" nv-file-select uploader="vm.uploader" multiple="true" />
+
+
+    <div class="ma-tabs">
+        <ul class="nav nav-tabs" role="tablist">
+            <!-- ngRepeat: $pane in $panes track by $index -->
+            <li ng-repeat="item in vm.categories" ng-class="{'active': vm.activeCategory == item.id } ">
+                <a ng-click="vm.activeCategory = item.id">{{ item.name }}</a>
+            </li>
+
+        </ul>
+    </div>
+
+
+    <!--<div class="btn-group">
+        <button class="btn btn-default " ng-repeat="item in vm.categories" ng-click="vm.activeCategory = item.id" ng-class="{'active' : vm.activeCategory == item.id}">{{ item.name }}</button>
+    </div>-->
+    <div class="row">
+        <div class="col-xs-12" ng-show="vm.isLoaded && (!vm.models || vm.models.length == 0)">{{ 'NoWorkflowYetClickUpperRightToGetLatest' | translate}}</div>
+        <list-view ng-hide="vm.isLoaded && (!vm.models || vm.models.length == 0)" head="{{ 'Workflow' | translate}}" models="vm.models" paging="vm.paging" load="vm.load">
+            <div class="content-list">
+                <table class=" table datatable">
+                    <thead>
+                        <tr>
+                            <!-- 以下两列左侧固定 -->
+                            <th>#</th>
+                            <th>{{ 'Name' | translate}}</th>
+
+                            <!-- 以下三列中间可滚动 -->
+                            <th class="flex-col">{{ 'Code' | translate}}</th>
+                            <th class="flex-col">{{ 'CreationDate' | translate}}</th>
+                            <!-- 以下列右侧固定 -->
+                            <th>{{ 'Operation' | translate}}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="i in vm.models">
+                            <td>{{$index}}</td>
+                            <td>{{i.name}}</td>
+                            <td>{{i.code}}</td>
+                            <td>{{i.creationTime | date:'yyyy-MM-dd'}}</td>
+                            <td>
+                                <span class="btn btn-primary btn-sm" ng-click="vm.design(i)" role="button"><span class="icon-spin icon-cog" aria-hidden="true"></span></span>
+                                <span class="btn btn-default btn-sm" role="button" ng-click="vm.edit(i)"><span class="icon icon-edit" aria-hidden="true"></span></span>
+                                <span class="btn btn-default btn-sm" role="button" ng-click="vm.variable(i)"> <span class="icon icon-bolt" aria-hidden="true">  </span> </span>
+                                <span class="btn btn-default btn-sm" role="button" ng-click="vm.getNew(i)"><span class="icon icon-refresh"></span></span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="content-blocker">
+                <div class="col-md-3 col-sm-4 col-lg-2" ng-repeat="i in vm.models">
+                    <div class="my-card" ng-click="vm.openModule(i)">
+                        <div class="card-body">
+                            <div class="card-content">
+                                <h2 class="ng-binding"><i class="icon icon-2x icon-file-word" style="opacity:0.0;"></i>{{i.name}}</h2>
+                            </div>
+                            <div class="colorblock"><div ng-style="{'background-color':mainIcons[$index % 6].color}" style="background-color: rgb(251, 150, 120);"></div></div>
+                            <div class="card-detail">
+                                <span class="ng-binding">{{ 'Code' | translate}}: {{i.code}}</span><br>
+                            </div>
+                            <div class="card-button">
+                                <span class="btn btn-primary btn-sm" ng-click="vm.design(i)" role="button"><span class="icon-spin icon-cog" aria-hidden="true"></span></span>
+                                <span class="btn btn-default btn-sm" role="button" ng-click="vm.edit(i)"><span class="icon icon-edit" aria-hidden="true"></span></span>
+                                <span class="btn btn-default btn-sm" role="button" ng-click="vm.variable(i)"> <span class="icon icon-bolt" aria-hidden="true">  </span> </span>
+                                <span class="btn btn-default btn-sm" role="button" ng-click="vm.getNew(i)"><span class="icon icon-refresh"></span></span>
+                                <span class="btn btn-default btn-sm" role="button" title="导出到文件" ng-click="vm.copyNew(i)"><span class="icon icon-file-text-o"></span></span>
+                                <!--<span class="btn btn-default btn-sm" role="button" ng-click="vm.setInformTemplate(i)"><span class="icon icon-bell"></span></span>-->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </list-view>
+    </div>
+</div>

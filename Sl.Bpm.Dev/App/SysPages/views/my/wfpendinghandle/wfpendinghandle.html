@@ -1,0 +1,173 @@
+﻿<div class="container-ui" ng-controller="syspages.views.my.wfpendinghandle as vm">
+    <div class="row">
+        <div class="modal-wfpendinghandle">
+            <div class="pendinghandle_tree" style="display: block; float: left; width: 250px;">
+                <!-- <span ng-repeat="g in vm.allGroups" ng-if="vm.allGroups">-->
+                <!-- <group-tree ng-model="g" selected-id="vm.selectedGroupId" dficon="vm.icon"/>-->
+                <!-- </span>-->
+                <!--<button class="btn btn-info btn-sm" ng-click="vm.toggle()">{{vm.btnText}}</button>
+                <br />-->
+                <nav class="menu" data-ride="menu" style="width: 250px">
+                    <ul class="nav nav-primary" style="background-color:#fff;" ng-init="vm.activeIndex=0">
+                        <li class="nav-parent" ng-class="{'active':vm.activeIndex==0 }">
+                            <a href="javascript:;" ng-click="vm.selectGroup('All');vm.activeIndex=0"><i class="icon icon-user"></i> {{:: 'All' | translate}}<span class="bubble">{{vm.totalCount}}</span></a>
+                        </li>
+                        <li class="nav-parent" ng-repeat="g in vm.groupArray" ng-if="!!vm.showAll || g.count > 0" ng-class="{'show':g.state.opened && vm.rootOpen,'active': vm.activeIndex==$index+1 }">
+                            <a href="javascript:;" ng-click="vm.selectGroup(g);vm.activeIndex=$index+1" >
+                                <i class="icon icon-time"></i> {{g.text}}<span class="bubble">{{g.count}}</span>
+                                <i class="icon-chevron-right nav-parent-fold-icon" ng-class="{'icon-rotate-90':g.state.opened && vm.rootOpen }" ng-click="vm.showGroup(g)"></i>
+                            </a>
+                            <ul class="nav">
+                                <li ng-repeat="w in g.children" ng-class="{'active':w.state.selected }" ng-click="vm.selectGroup(w)" ng-if="!!vm.showAll || w.count > 0">
+                                    <a href="javascript:;">
+                                        <i class="icon icon-circle-blank"></i> {{w.text}}<span class="bubble">{{w.count}}</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <!--<li class="active show nav-parent">
+                            <a href="javascript:;">
+                                <i class="icon icon-tasks"></i> Status<span class="bubble">9</span>
+                                <i class="icon-chevron-right nav-parent-fold-icon icon-rotate-90"></i>
+                            </a>
+                        </li>-->
+                    </ul>
+                </nav>
+            </div>
+            <div class="modal-user">
+                <div class="panel" style="background-color: #f1f1f1; margin-left: 5px;">
+                    <button class="btn btn-info btn-sm" ng-click="vm.show()">{{ 'FilterCondition' | translate}}</button>
+                    <div class="panel-heading" ng-if="!!vm.showSearch">
+                        <div class="row search-condition">
+                            <div class="col-xs-3">
+                                <div class="input-group wf-search">
+                                    <span class="input-group-addon input-sm">{{ 'Sn' | translate}}</span>
+                                    <fm-text fm-model="vm.filter.sn" i-clear fm-placeholder="{{ 'Sn' | translate}}" keydown fm-blur="vm.selectS()"></fm-text>
+                                </div>
+                            </div>
+                            <div class="col-xs-3">
+                                <div class="input-group wf-search">
+                                    <span class="input-group-addon input-sm">{{ 'Creator' | translate}}</span>
+                                    <fm-text fm-model="vm.filter.creator" i-clear fm-placeholder="{{ 'Creator' | translate}}" keydown fm-blur="vm.selectS()"></fm-text>
+                                </div>
+                            </div>
+                            <div class="col-xs-3">
+                                <div class="input-group wf-search">
+                                    <span class="input-group-addon input-sm">{{ 'AreaCode' | translate}}</span>
+                                    <fm-text fm-model="vm.filter.areaCode" i-clear fm-placeholder="{{ 'AreaCode' | translate}}" keydown fm-blur="vm.selectS()"></fm-text>
+                                </div>
+                            </div>
+                            <div class="col-xs-3" ng-repeat="col in vm.columnLists">
+                                <div class="input-group wf-search">
+                                    <span class="input-group-addon input-sm">{{col.name}}</span>
+                                    <fm-text fm-model="vm.filter[col.value]" i-clear fm-placeholder="{{col.name}}" keydown fm-blur="vm.selectS()"></fm-text>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12" style="text-align: center;">
+                                <button class="btn btn-info btn-xs" ng-click="vm.selectS()">{{:: 'Query' | translate}}</button>
+                                <button class="btn btn-default btn-xs" ng-click="vm.clearS()">{{:: 'Clear' | translate}}</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel-body" style="min-height: 330px; position: relative;">
+                        <div class="sp-table" ng-if="vm.models.length > 0">
+                            <div class="sp-tablecolumn">
+                                <div class="sp-tablecell">
+                                    <table class="table sortable table-striped table-hover table-condensed">
+                                        <thead>
+                                            <tr>
+                                                <th class="order both" name="sn">{{ 'Sn' | translate}} </th>
+                                                <th class="order both" name="submitter">{{ 'Creator' | translate}} </th>
+                                                <th class="order both" name="workflowName" ng-if="!vm.moduleIds">{{ 'WorkflowName' | translate}}</th>
+                                                <th class="order down" name="recvTime">{{ 'ReceiveDate' | translate}}</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr ng-repeat="task in vm.models track by $index">
+                                                <td>
+                                                    <a class="ink-label ng-binding" ng-click="vm.edit(task)">
+                                                        {{task.sn}}
+                                                        <span ng-if="!!task.areaCode">({{task.areaCode}})</span>
+                                                    </a>
+                                                </td>
+                                                <td>{{task.submitter}}</td>
+                                                <td ng-if="!vm.moduleIds">
+                                                    <span class="taskcolumn">{{task.workflowName}}</span>
+                                                </td>
+                                                <td>
+                                                    <span class="taskcolumn" title="{{task.recvTime | date : 'yyyy-MM-dd HH:mm:ss'}}">{{task.recvTime | date : 'yyyy-MM-dd'}}</span>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <!--
+                            -->
+                            <div class="sp-tablecolumn sp-scrolltable" ng-if="vm.columnLists.length > 0 && !!vm.moduleIds">
+                                <div class="sp-tablecell">
+                                    <table class="table table-striped table-hover table-condensed">
+                                        <thead>
+                                            <tr>
+                                                <th style="max-width: 300px;" ng-repeat="aa in vm.columnLists track by $index">{{aa.name}}</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr ng-repeat="task in vm.models track by $index">
+                                                <td style="max-width: 300px;" ng-repeat="cc in vm.columnLists track by $index" ng-if="vm.columnLists.length > 0">
+                                                    <span class="taskcolumn" title="{{task[cc.value]}}">{{task[cc.value]}}</span>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="sp-tablecolumn">
+                                <div class="sp-tablecell">
+                                    <table class="table sortable table-striped table-hover table-condensed">
+                                        <thead>
+                                            <tr>
+                                                <th class="order both" name="procUserName" style="max-width: 300px;">{{ 'CurrentStatus' | translate}}</th>
+                                                <th>{{ 'Operation' | translate}}</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr ng-repeat="task in vm.models track by $index">
+                                                <td style="max-width: 300px;">
+                                                    <span class="taskcolumn" title="{{task.finishedTime | date:'yyyy-MM-dd HH:mm:ss'}}">{{task.taskTitle}}</span>
+                                                </td>
+                                                <td>
+                                                    <i title="标记" class="fa-effect-boris cursor-pointer text-warning" ng-class="{true:'icon icon-star',false:'icon icon-star-empty',null:'icon icon-star-empty'}[task.isMarked]" ng-click="vm.mark(task)"></i>
+                                                    <i title="挂起" class="fa-effect-boris cursor-pointer" ng-class="{1:'icon icon-play-circle text-info',0:'icon icon-pause text-danger'}[task.isWaiting]" ng-click="vm.waiting(task)"></i>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div ng-if="vm.paging.totalCount === 0" style="text-align: center;">
+                            <span class="span1" style="position: absolute; height: 100%; width: 100%; left: 0; top: calc(50% - 14px); font-size: 28px; color: #353535;">{{ 'Notaskwating' | translate}}</span>
+                        </div>
+                        <div class="col-xs-12">
+                            <div class="col-xs-2">
+                                <button ng-if="vm.models.length > 0 && !!vm.moduleIds" style="text-align: left;" class="btn btn-primary btn-xs" ng-click="vm.exportExcel()">{{ "Export" | translate}}</button>
+                            </div>
+                            <div class="col-xs-10" style="text-align: right;" ng-if="vm.paging.totalCount > 0">
+                                <div class="col-xs-10">
+                                    <ma-pager current-page="vm.paging.currentPage" load="vm.load()" total-count="vm.paging.totalCount" page-size="vm.paging.pageSize"></ma-pager>
+                                </div>
+                                <div class="col-xs-2">
+                                    <span style="vertical-align: -webkit-baseline-middle;">{{ "Count" | translate}}：{{vm.paging.totalCount}}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,534 @@
+﻿@using System.Web.Optimization
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html ng-app="login">
+<head>
+    <meta name="viewport" content="width=device-width" />
+    @*<link rel="icon" type="image/gif" href="../../Content/Images/AppTitle.png">*@
+    <title>@ViewBag.EnterpriseName BPM系统登陆</title>
+    @Styles.Render("~/SysPages/Css")
+    <style>
+        .content_on_load {
+            visibility: hidden;
+        }
+    </style>
+</head>
+<body class="body-login" ng-controller="LoginCtrl as vm" style="background-color: rgb(90,111,133)">
+    @*<script>
+            function ShowMessage(msg) {
+                alert(msg);
+            }
+        </script>
+        <ma-form name="login">
+                <div class="container">
+                    <div class="row login-title" style="height: 100px;">
+                        <h1>BPM客户端</h1>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <img src="~/Content/Images/home2.png" style="width: 100%"/>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-signin">
+                                <h2 class="form-signin-heading">请登录</h2>
+                                <label for="inputEmail" class="sr-only">登录名</label>
+                                <input id="inputEmail" name="email" type="text" class="form-control" placeholder="Email address" required ng-model="vm.UsernameOrEmailAddress">
+                                <br/>
+                                <label for="inputPassword" class="sr-only">密码</label>
+                                <input id="inputPassword" name="pwd" type="password" class="form-control" placeholder="Password" required ng-model="vm.Password">
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox" value="RememberMe">
+                                        记住我
+                                    </label>
+                                </div>
+
+                                <button class="btn btn-lg btn-primary btn-block" type="submit" ma-form-submit="vm.save()">登陆</button>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </ma-form>*@
+    <div class="user-login-5 content_on_load" style="">
+
+
+        <div class="row bs-reset" style="background-color:#FFF">
+            <div class="col-md-6 bs-reset">
+                <div class="login-bg" onclick="javascript: location.href='#';">
+
+                </div>
+            </div>
+            <div class="login-container col-md-6" style="background-color: #FFF">
+
+                <div class="login-content">
+                    <!--登录页面-->
+                    <ma-form action="javascript:;" class="login-form" name="login">
+                        <div class="form-signin" style="background-color:#FFF">
+                            <h1>BPM系统登录</h1>
+                            <br />
+                            <p class="ng-scope">BPM系统能方便员工进行业务流程的发起、审批、通知以及报表查询，数据同步等功能。通过系统来提升流程管理信息化的水平，提高流程运转效率。</p>
+                            <br />
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label for="inputEmail" class="sr-only">登录名</label>
+                                    <input type="text" class="form-control" placeholder="请输入域账号" name="userName" required ng-model="vm.usernameOrEmailAddress">
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="inputPassword" class="sr-only">密码</label>
+                                    <input type="password" class="form-control" placeholder="请输入密码" name="password" required ng-model="vm.password">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-4">
+                                    <div class="rem-password" style="margin-top: 0px; visibility: hidden">
+                                        <p>
+                                            <input id="tncL" type="checkbox" class="uniform">
+                                            <label for="tncL" class="uniform-label" style="padding-left: 0px; padding-top: 0px; margin-top: -2px;">记住密码</label>
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="col-sm-8 text-right">
+                                    <div class="forgot-password" ng-if="!vm.isAdlogin">
+                                        <a ng-if="false" href="javascript:;" ng-click="vm.goToPhoneRegister()" id="register" class="forget-password" style="margin-right: 10px; color: #3197cb;">新建用户</a>
+                                        <a href="javascript:;" ng-click="vm.goToForget()" id="forget-password" class="forget-password">忘记密码</a>
+                                    </div>
+                                    <button class="btn btn-primary" type="submit" ma-form-submit="vm.save()">登录&nbsp;<i class="icon-signin"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                    </ma-form>
+                    <div ng-if="!vm.isAdlogin">
+                        <!--手机注册页面-->
+                        <ma-form class="register-form-mobile login-form" name="registerMobile" style="display: none;">
+                            <br />
+                            <h1 class="font-green form-title" style="display: inline;">手机注册</h1>&nbsp;
+                            <h1 style="display: inline;">|</h1>
+                            &nbsp;
+                            <h1 class="font-blue form-title form-title-email" style="cursor: pointer; display: inline;">
+                                <a style="color: #AAA; text-decoration: none;" ng-click="vm.goToEmailRegister()">邮箱注册</a>
+                            </h1><br /><br />
+
+                            <div class="form-group">
+                                <div class="form-group form-md-line-input">
+                                    <div class="col-lg-12">
+                                        <input class="form-control placeholder-no-fix" type="text" autocomplete="off" placeholder="手机号" name="phone"
+                                               required
+                                               ng-pattern="/^1\d{10}$/"
+                                               ng-model="vm.phone.cellPhone">
+                                    </div>
+                                </div>
+                                <div class="form-group form-md-line-input">
+                                    <div class="col-lg-12">
+                                        <div class="input-group">
+                                            <input ng-model="vm.phone.phoneConfirmationCode"
+                                                   name="phoneCode"
+                                                   required
+                                                   type="text" class="form-control input validate" placeholder="验证码">
+                                            <span class="input-group-btn">
+                                                <button id="sendCode" class="btn btn-primary" type="button" ng-click="vm.sendPhoneCode()">发送验证码</button>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group form-md-line-input">
+                                    <div class="col-lg-12">
+                                        <input class="form-control placeholder-no-fix" type="text" autocomplete="off" placeholder="昵称"
+                                               name="nickname" required ng-model="vm.phone.nickName">
+                                    </div>
+                                </div>
+                                <div class="form-group form-md-line-input">
+                                    <div class="col-lg-12">
+                                        <input class="form-control placeholder-no-fix" type="password" autocomplete="off" placeholder="密码"
+                                               name="phonePassword" ng-minlength="6"
+                                               ng-pattern="/^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,}$/"
+                                               required ng-model="vm.phone.password">
+                                    </div>
+                                </div>
+                                <br />
+                            </div>
+                            <p>
+                                <input id="phoneTncP" type="checkbox" class="uniform validate" required name="phoneTncP" ng-model="phoneTncP" />
+                                <label for="phoneTncP" class="checkbox-inline" style="padding-left:0px;padding-top:0px;margin-top:-10px;">我同意履行<a href="../UseTerms/UseTerms" target="_blank">使用条例</a></label>
+                            </p>
+                            <br />
+                            <div class="form-actions">
+                                <button ng-click="vm.back()" type="button" class="btn grey btn-default btn-back"><i class="icon-reply"></i>&nbsp;返回登录页</button>
+                                <button id="RegisterButtonPhone" type="button" ma-form-submit="vm.registerPhone()" class="btn blue btn-success uppercase" ng-disabled="vm.saving" style="float:right;">
+                                    注册&nbsp;<i class="icon-check"></i>
+                                </button>
+                            </div>
+                        </ma-form>
+                        <!--邮箱注册页面-->
+                        <ma-form class="register-form-email login-form" name="registerMail" style="display: none;">
+                            <br />
+                            <h1 class="font-blue form-title form-title-mobile" style="cursor: pointer; display: inline;">
+                                <a style="color: #AAA; text-decoration: none;" ng-click="vm.goToPhoneRegister()">手机注册</a>
+                            </h1>&nbsp;
+                            <h1 style="display: inline;">|</h1>
+                            &nbsp;
+                            <h1 class="font-green form-title form-title-email" style="display: inline;">邮箱注册</h1><br /><br />
+                            <div class="form-group">
+                                <div class="form-group form-md-line-input">
+                                    <div class="col-lg-12">
+                                        <input class="form-control placeholder-no-fix" type="email" autocomplete="off" placeholder="邮箱"
+                                               name="email"
+                                               required
+                                               ng-model="vm.email.emailAddress">
+                                    </div>
+                                </div>
+                                <div class="form-group form-md-line-input">
+                                    <div class="col-lg-12">
+                                        <input class="form-control placeholder-no-fix" type="text" autocomplete="off" placeholder="昵称"
+                                               name="nickname" required ng-model="vm.email.nickName">
+                                    </div>
+                                </div>
+                                <div class="form-group form-md-line-input">
+                                    <div class="col-lg-12">
+                                        <input class="form-control placeholder-no-fix" type="password" autocomplete="off" placeholder="密码"
+                                               name="emailPassword" ng-minlength="6"
+                                               ng-pattern="/^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,}$/"
+                                               required ng-model="vm.email.password">
+                                    </div>
+                                </div>
+                                <br />
+                            </div>
+                            <p>
+                                <input id="emailTncP" type="checkbox" class="uniform validate" required name="emailTncP" ng-model="emailTncP" />
+                                <label for="emailTncP" class="checkbox-inline" style="padding-left:0px;padding-top:0px;margin-top:-10px;">我同意履行<a href="../UseTerms/UseTerms" target="_blank">使用条例</a></label>
+                            </p>
+                            <br />
+                            <div class="form-actions">
+                                <button ng-click="vm.back()" type="button" class="btn grey btn-default btn-back"><i class="icon-reply"></i>&nbsp;返回登录页</button>
+                                <button id="RegisterButtonEmail" type="button" ma-form-submit="vm.registerEmail()" class="btn blue btn-success uppercase" ng-disabled="vm.saving" style="float:right;">
+                                    注册&nbsp;<i class="icon-check"></i>
+                                </button>
+                            </div>
+                        </ma-form>
+                        <!--忘记密码界面-->
+                        <ma-form class="forget-form login-form" name="forgetForm" style="display: none;">
+                            <br />
+                            <h1 class="font-green form-title" style="display: inline;">忘记密码</h1><br /><br />
+                            <div class="form-group">
+                                <div class="form-group form-md-line-input">
+                                    <div class="col-lg-12">
+                                        <input class="form-control placeholder-no-fix" type="text" autocomplete="off" placeholder="登录名"
+                                               name="userName"
+                                               required
+                                               ng-model="vm.forget.userIdentity">
+                                    </div>
+                                </div>
+                                <div class="form-group form-md-line-input">
+                                    <div class="col-lg-12">
+                                        <div class="input-group">
+                                            <input name="phoneCode"
+                                                   required
+                                                   ng-model="vm.forget.code"
+                                                   type="text" class="form-control input validate" placeholder="验证码">
+                                            <span class="input-group-btn">
+                                                <button id="sendForgetCode" class="btn btn-primary" type="button" ng-click="vm.sendCode()">发送验证码</button>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group form-md-line-input">
+                                    <div class="col-lg-12">
+                                        <input class="form-control placeholder-no-fix" type="password" autocomplete="off" placeholder="新密码"
+                                               name="password" ng-minlength="6"
+                                               ng-pattern="/^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,}$/"
+                                               required ng-model="vm.forget.password">
+                                    </div>
+                                </div>
+
+                                <div class="form-group form-md-line-input">
+                                    <div class="col-lg-12">
+                                        <input class="form-control placeholder-no-fix" type="password" autocomplete="off" placeholder="重复新密码"
+                                               name="newpassword" ng-minlength="6" ma-repeat="password"
+                                               ng-pattern="/^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,}$/"
+                                               required ng-model="vm.forget.newPassword">
+                                    </div>
+                                </div>
+                                <br />
+                            </div>
+                            <p>
+                                <input id="forgetTncP" type="checkbox" class="uniform validate" required name="forgetTnc" ng-model="vm.forget.tnc" />
+                                <label for="forgetTncP" class="checkbox-inline" style="padding-left: 0px; padding-top: 0px; margin-top: -10px;">我同意履行<a href="../UseTerms/UseTerms" target="_blank">使用条例</a></label>
+                            </p>
+                            <br />
+                            <div class="form-actions">
+                                <button ng-click="vm.back()" type="button" class="btn grey btn-default btn-back"><i class="icon-reply"></i>&nbsp;返回登录页</button>
+                                <button id="ForgetButton" type="button" ma-form-submit="vm.forgetPwd()" class="btn blue btn-success uppercase" ng-disabled="vm.saving" style="float: right;">
+                                    重置密码&nbsp;<i class="m-icon-swapright m-icon-white"></i>
+                                </button>
+                            </div>
+                        </ma-form>
+                        <!--被邀请用户首次登录重新设置密码-->
+                        <ma-form class="setname-form login-form" name="setNameForm" style="display: none;">
+                            <div class="form-signin">
+                                <br />
+                                <br />
+                                <h1 class="font-green form-title" style="display: inline;">设置新密码</h1><br /><br />
+                                <br>
+                                <div class="form-group">
+                                    <div class="form-group form-md-line-input">
+                                        <div class="col-lg-3 control-label">新密码</div>
+                                        <div class="col-lg-8">
+                                            <input type="password" placeholder="新密码" class="form-control"
+                                                   name="password"
+                                                   required
+                                                   ng-pattern="/^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,}$/"
+                                                   ng-model="vm.user.password">
+                                        </div>
+                                    </div>
+                                    <div class="form-group form-md-line-input">
+                                        <div class="col-lg-3 control-label">确认密码</div>
+                                        <div class="col-lg-8">
+                                            <input type="password" placeholder="确认密码" class="form-control"
+                                                   name="confirmpassword"
+                                                   required
+                                                   ma-repeat="password"
+                                                   ng-model="vm.user.confirmpassword">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-sm-8 text-right">
+                                        <button class="btn btn-primary" type="submit" ma-form-submit="vm.saveFirst()">进入系统&nbsp;<i class="icon-signin"></i></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </ma-form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    @Scripts.Render("~/SysPages/Js")
+
+    <script>
+        $(".login-bg").backstretch(["../Content/Images/bg1.jpg", "../Content/Images/bg2.jpg", "../Content/Images/bg3.jpg", "../Content/Images/bg5.jpg"], {
+            fade: 1e3,
+            duration: 8e3
+        });
+    </script>
+    <script type="text/javascript">
+        angular.module('login', ['mabp']).controller('LoginCtrl', [
+                '$scope', '$http', 'mabp.app.system', '$timeout', function ($scope, $http, service, $timeout) {
+                    var vm = this;
+                    vm.isAdlogin = '@ViewBag.IsAdLogin' === 'True';
+                    vm.phone = {};
+                    vm.email = {};
+                    vm.forget = {};
+                    vm.saving = false;
+                    var phone = /^1\d{10}$/;
+                    var email = /^([\.a-zA-Z0-9_-])+@@([a-zA-Z0-9_-])+(\.[a-zA-Z0-9_-])+/;
+                    vm.check = function (data) {
+                        if (phone.test(data)) {
+                            vm.forget.cellPhone = data;
+                            vm.forget.phoneConfirmationCode = vm.forget.code;
+                            return true;
+                        } else if (email.test(data)) {
+                            vm.forget.emailAddress = data;
+                            vm.forget.emailConfirmationCode = vm.forget.code;
+                            return true;
+                        } else {
+                            vm.isSaving = false;
+                            return false;
+                        }
+                    }
+
+
+                    vm.save = function () {
+                        $http({
+                            url: '/Account/Index',
+                            method: "POST",
+                            data: { UsernameOrEmailAddress: vm.usernameOrEmailAddress, Password: vm.password }
+                        }).success(function (result) {
+                            if (!result.Success) {
+                                if (result.UserModel && !result.UserModel.IsAlreadyActivated) {
+                                    vm.user = result.UserModel;
+                                    vm.user.name = result.name;
+                                    app.language = vm.user.Language;
+                                    vm.goToSetName();
+                                } else {
+                                    mabp.notify.error(result.Error);
+                                }
+                            } else {
+                                window.location.href = "/";
+                            }
+                        });
+                    }
+
+                    vm.saveFirst = function () {
+                        service.updateActiveUser(vm.user).then(function () {
+                            vm.password = vm.user.password;
+                            vm.save();
+                        });
+                    }
+
+                    //手机注册页面
+                    vm.goToPhoneRegister = function () {
+                        $(".login-form,.register-form-email,.forget-form,.setname-form").hide();
+                        $(".register-form-mobile").show();
+                    }
+
+                    //邮箱注册页面
+                    vm.goToEmailRegister = function () {
+                        $(".login-form,.register-form-mobile,.forget-form,.setname-form").hide();
+                        $(".register-form-email").show();
+                    }
+
+                    //返回登录页面
+                    vm.back = function () {
+                        $(".register-form-mobile,.register-form-email,.forget-form,.setname-form").hide();
+                        $(".login-form").show();
+                    }
+
+                    //忘记密码页面
+                    vm.goToForget = function () {
+                        $(".register-form-mobile,.register-form-email,.login-form,.setname-form").hide();
+                        $(".forget-form").show();
+                    }
+
+                    vm.goToSetName = function () {
+                        $(".register-form-mobile,.register-form-email,.login-form,.forget-form").hide();
+                        $(".setname-form").show();
+                    }
+
+                    //发送验证码
+                    vm.sendPhoneCode = function () {
+                        if (!vm.phone.cellPhone) {
+                            mabp.notify.warn("请填写手机号！");
+                        } else {
+                            var codeBtn = angular.element("#sendCode");
+                            vm.timeCountDown(codeBtn);
+
+                            service.sendPhoneCode(vm.phone).then(function () {
+                                mabp.notify.success("验证码已发送，请查看手机！");
+                            });
+                        }
+                    }
+
+                    //倒计时
+                    vm.timeCountDown = function (data) {
+                        var time = 60;
+                        var timer = setInterval(function () {
+                            time--;
+                            data[0].disabled = "disabled";
+                            data[0].innerHTML = "重新发送(" + time + ")";
+
+                            if (time == 0) {
+                                data[0].disabled = false;
+                                data[0].innerHTML = "重新发送";
+                                clearInterval(timer);
+                            }
+                        }, 1000);
+                    }
+
+                    //忘记密码-发送验证码
+                    vm.sendCode = function () {
+                        if (!vm.forget.userIdentity) {
+                            mabp.notify.warn("请填写登录名！");
+                        } else {
+                            vm.check(vm.forget.userIdentity);
+                            var forgetCodeBtn = angular.element("#sendForgetCode");
+                            vm.timeCountDown(forgetCodeBtn);
+
+                            service.resetValidationCode(vm.forget).then(function (data) {
+                                if (data == 1) {
+                                    mabp.notify.success("验证码已发送，请查看邮箱！");
+                                }
+                                if (data == 2) {
+                                    mabp.notify.success("验证码已发送，请查看手机！");
+                                }
+                            });
+                        }
+
+                    }
+
+                    //手机注册
+                    vm.registerPhone = function () {
+                        vm.saving = true;
+                        service.registerUser(vm.phone)
+                        .then(function (result) {
+                            vm.isSaving = false;
+                            if (result == "注册成功") {
+                                //mabp.notify.error(result);
+                                $http({
+                                    url: '/Account/Index',
+                                    method: "POST",
+                                    data: { UsernameOrEmailAddress: vm.phone.cellPhone, Password: vm.phone.password }
+                                }).success(function (result) {
+                                    if (!result.Success) {
+                                        mabp.notify.error(result.Error);
+                                    } else {
+                                        window.location.href = "/";
+                                    }
+                                });
+                            } else {
+                                window.location.href = "/";
+                            }
+                        }).finally(function () {
+                            vm.saving = false;
+                        });
+                    }
+
+                    //邮箱注册
+                    vm.registerEmail = function () {
+                        vm.saving = true;
+                        service.sendAutoLoginEmail(vm.email)
+                        .then(function () {
+                            vm.saving = false;
+                            mabp.notify.success("激活邮件已发送，请登录邮箱激活！");
+                        }).finally(function () {
+                            vm.saving = false;
+                        });
+                    }
+
+                    //忘记密码
+                    vm.forgetPwd = function () {
+                        vm.saving = true;
+                        vm.check(vm.forget.userIdentity);
+                        service.resetLogin(vm.forget).then(function (result) {
+                            vm.isSaving = false;
+                            if (result) {
+                                $http({
+                                    url: '/Account/Index',
+                                    method: "POST",
+                                    data: { UsernameOrEmailAddress: vm.forget.userIdentity, Password: vm.forget.password }
+                                }).success(function (result) {
+                                    if (!result.Success) {
+                                        mabp.notify.error(result);
+                                    } else {
+                                        window.location.href = "/";
+                                    }
+                                });
+                            } else {
+                                window.location.href = "/";
+                            }
+                        }).finally(function () {
+                            vm.saving = false;
+                        });
+                    }
+                    $timeout(function () {
+                        $('.content_on_load').removeClass('content_on_load');
+                    });
+                }
+        ]);
+
+        //$(function () {
+        //    $(".login-bg").backstretch(["../../Content/Images/bg3.jpg", "../../Content/Images/bg3.jpg"], {
+        //        fade: 1e3,
+        //        duration: 8e3
+        //    });
+        //});
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,59 @@
+﻿
+@using Sl.Bpm.TaskOld;
+@{
+    Layout = null;
+    var dic = Model as Dictionary<string, IEnumerable<AppPage>>;
+}
+
+<div class="raise_block" ng-controller="workflowRaise as vm">
+    <div class="row data_load">
+        <div class="raise-bd">
+            @foreach (string key in dic.Keys)
+            {
+                <dl class="raise-dl" style="border:none;">
+                    <dt style="position:relative;">@key<i class="icon" style="position:absolute;right:5px;top:8px;"></i></dt>
+                    @{
+                        var list = dic[key];
+                        foreach (var item in list)
+                        {
+                            <dd style="" data-menuid="@item.Id">
+                                @if (item.wfcd != null && item.wfcatcd != null)
+                                {
+                                    <a ng-click="vm.open('@item.wfcd','@item.wfcatcd')" target="_blank">
+                                        <span class="raise-icon"><i class="icon @item.IconClass"></i></span>
+                                        @item.Name
+                                    </a>
+                                }
+                                else
+                                {
+                                    <a href="/pages/wf?nodeId=@item.NodeId" target="_blank">
+                                        <span class="raise-icon"><i class="icon @item.IconClass"></i></span>
+                                        @item.Name
+                                    </a>
+                                }
+                            </dd>
+                        }
+                    }
+                </dl>
+            }
+        </div>
+    </div>
+    <style>
+        .modal.fade {
+            background: rgba(0, 0, 0, 0.4);
+        }
+
+        .model .modal-dialog .modal-body {
+            padding: 5px;
+        }
+    </style>
+    <div class="modal fade" id="modalJump" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog" style="top:95px">
+            <div class="modal-content">
+                <div class="modal-body" style="font-size:14px;color:#666;">
+                    <iframe style="height:320px;width:100%;border:none;" src=""></iframe>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+</div>

@@ -1,0 +1,97 @@
+﻿@using System.Web.Optimization
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html ng-app="errorMessage">
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>错误信息</title>
+    @Styles.Render("~/SysPages/Css")
+</head>
+<body class="body-login" ng-controller="ErrorMessageCtrl as vm">
+    <style>
+        html, body {
+            overflow: hidden;
+            height: 100%;
+        }
+
+        h3 {
+            margin-top: 20px;
+            margin-bottom: 10px;
+        }
+
+        ol {
+            margin-left: 100px;
+        }
+
+            ol li {
+                list-style: circle;
+            }
+
+        p {
+            text-align: center;
+            color: red;
+            font-size: 42px;
+        }
+
+        .login-content {
+            height: 100%;
+            overflow-y: scroll;
+            background: #EEE;
+            padding-left: 10px;
+            padding-top: 20px;
+            border-radius: 5px;
+        }
+
+        .bodyheight {
+            height: 100%;
+        }
+    </style>
+    <div class="user-login-5 bodyheight">
+        <div class="row bs-reset bodyheight">
+            <div class="col-md-6 bs-reset">
+                <div class="login-bg" style="cursor: pointer;" onclick="javascript: location.href = 'https://shalu.com';">
+                    <span class="logo-default" style="display: inline-block; color: #5B9BD1; font-size: 23px; font-family: 'Courier New'; margin-top: 22px; margin-left: 22px;"><img style="height: 35px;" src="~/Content/Images/shalu_logo.png" /></span>
+                </div>
+            </div>
+            <div class="col-md-6 bs-reset bodyheight">
+                <div class="login-content">
+                    <div style="height: auto;margin-top: 30vh;">
+                        <div style="text-align: center;">
+                            <h1>错误信息</h1>
+                        </div>
+                        <br />
+                        <p>
+                            @ViewBag.Title
+                        </p>
+                        <div style="text-align: center;">
+                            <a href="../Account/Index?ReturnUrl=%2F" class="btn blue btn-default btn-back"><i class="m-icon-swapleft m-icon-white"></i>退回登录页</a>
+                        </div><br /><br /><br />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    @Scripts.Render("~/SysPages/Js")
+    <script type="text/javascript">
+    angular.module('errorMessage', ['mabp']).controller('ErrorMessageCtrl', [
+        function() {
+            var vm = this;
+
+            $(function() {
+                $(".login-bg").backstretch(["../../Content/Images/bg3.jpg", "../../Content/Images/bg3.jpg"], {
+                    fade: 1e3,
+                    duration: 8e3
+                });
+            });
+
+        }
+    ]);
+    </script>
+
+</body>
+</html>

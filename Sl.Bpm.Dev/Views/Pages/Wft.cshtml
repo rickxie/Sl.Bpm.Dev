@@ -1,0 +1,85 @@
+﻿@using System.Web.Optimization
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html ng-app="appPage">
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Wft</title>
+    @Styles.Render("~/SysPages/Css")
+    <script src="/Account/Permissions" type="text/javascript"></script>
+    <script>
+        var pageInfo = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model));
+        function objectToQuerystring(obj) {
+            return Object.keys(obj).reduce(function (str, key, i) {
+                var delimiter, val;
+                delimiter = (i === 0) ? '?' : '&';
+                key = encodeURIComponent(key);
+                val = encodeURIComponent(obj[key]);
+                return [str, delimiter, key, '=', val].join('');
+            }, '');
+        }
+    </script>
+
+
+    @Scripts.Render("~/SysPages/Js")
+
+
+    <script type="text/javascript">
+        angular.module('appPage', ['mabp', 'app.shared', 'angularFileUpload', 'pascalprecht.translate'])
+            .config([
+                '$translateProvider', function ($translateProvider) {
+                    $translateProvider.translations('en', mabp.localization['Bpm.en']);
+                    $translateProvider.translations('zh-CN', mabp.localization['Bpm.zh-CN']);
+                    $translateProvider.preferredLanguage('zh-CN');
+                }
+            ]).controller('PageCtrl',
+            ['mabp.app.task', '$modal', '$scope', function (taskService, $modal, $scope) {
+
+
+                function toWf(nodeId) {
+                    pageInfo.nodeId = nodeId;
+                    var info = {};
+                    angular.forEach(pageInfo, function (v, k) {
+                        if (v !== null) {
+                            info[k] = v;
+                        }
+                    });
+                    window.location.href = "wf" + objectToQuerystring(info);
+                }
+                taskService.getHandledNode({ Id: pageInfo.taskId }).then(function (nodeList) {
+                    if (nodeList.length > 1) {
+                        var $modalScope = $scope.$new(true);
+                        $modalScope.models = nodeList;
+                        var info = _shared.dialogs["handledNodeSelect"];
+
+                        var m = $modal({
+                            templateUrl: info.templateUrl,
+                            scope: $modalScope,
+                            controller: '{0} as vm'.fill(info.controller),
+                            size: info.size || "md"
+                        });
+                        m.result.then(function (info) {
+                            toWf(info.id);
+                        });
+                    }
+                    else if (nodeList.length == 1) {
+                        var info = nodeList[0];
+                        toWf(info.id);
+                    }
+                    else {
+                        mabp.notify.error("nodeId为空");
+                    }
+                });
+            }]);
+    </script>
+
+</head>
+<body ng-controller="PageCtrl as vm">
+    <div>
+    </div>
+</body>
+</html>

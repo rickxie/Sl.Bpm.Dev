@@ -1,0 +1,47 @@
+﻿@{
+    Layout = "~/Views/Home/_Layout.cshtml";
+    ViewBag.Title = "我的日程";
+    ViewBag.hasSubMenu = false;
+}
+<div class="page-con">
+    <div class="main-head">
+        <h2>@ViewBag.Title</h2>
+        <div class="logo">
+            <img src="~/Content/Images/new/logoA.png">
+        </div>
+    </div>
+    <div class="calendar-left">
+        <h4>日历</h4>
+        <div id="calendar1"></div>
+        <div class="Drop">
+            <dl>
+                <dd class="select">
+                    <a href="#" target="_blank"><i class="icon-check-board"></i>我的日程</a>
+                </dd>
+                <dd>
+                    <a href="#" target="_blank"><i class="icon-group"></i>会议安排</a>
+                </dd>
+            </dl>
+        </div>
+    </div>
+    <div class="personal-main">
+        <div class="calendar-main">
+            <div class="add-schedule"><input type="button" value="+ 新建日程" /></div>
+            <div id="calendar2">
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .no-submenu .page-main { left: 298px; }
+</style>
+<script src="~/Content/Scripts/workCalendar.js"></script>
+<script>
+    workCalendar("calendar1");
+    var notelist = [{ date: "2018-7-9", time: "9:30", content: "微创OA例会" },
+    { date: "2018-7-18", time: "9:30", content: "微创界面设计研讨" },
+    { date: "2018-7-22", time: "9:30", content: "周列会" }];
+    fullWorkCalendar("calendar2", notelist);
+</script>

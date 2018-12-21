@@ -1,0 +1,339 @@
+﻿fm-tree > .tree-view,
+.fm-tree > .tree-view {
+    margin-left: 10px;
+    padding-left: 0px !important;
+    overflow-x: hidden;
+}
+
+    fm-tree > .tree-view .toggle,
+    .fm-tree > .tree-view .toggle {
+        width: 24px;
+        height: 24px;
+        line-height: 24px;
+    }
+
+    fm-tree > .tree-view .treeicon,
+    .fm-tree > .tree-view .treeicon {
+        background-image: url(/Content/images/treeicon2.png);
+        width: 14px;
+        height: 14px;
+        display: inline-block;
+        margin: 0px;
+        vertical-align: middle;
+        cursor: pointer;
+    }
+
+        fm-tree > .tree-view .treeicon.icon_open,
+        .fm-tree > .tree-view .treeicon.icon_open {
+            background-position: -132px -4px;
+            width: 24px;
+            height: 24px;
+            margin: 0px;
+            margin-right: -3px;
+        }
+
+        fm-tree > .tree-view .treeicon.icon_close,
+        .fm-tree > .tree-view .treeicon.icon_close {
+            background-position: -100px -4px;
+            width: 24px;
+            height: 24px;
+            margin: 0px;
+            margin-right: -3px;
+        }
+
+        fm-tree > .tree-view .treeicon.icon_blank,
+        .fm-tree > .tree-view .treeicon.icon_blank {
+            background-position: -68px -4px;
+            width: 24px;
+            height: 24px;
+            margin-right:-3px;
+        }
+
+
+
+    fm-tree > .tree-view li,
+    .fm-tree > .tree-view li {
+        min-height: 24px;
+        list-style: none;
+        background-image: url(/Content/images/treeicon2.png);
+        background-position: -292px -4px;
+        background-repeat: repeat-y;
+    }
+
+        fm-tree > .tree-view li.isdisabled > .check-box + .text-field:hover,
+        .fm-tree > .tree-view li.isdisabled > .check-box + .text-field:hover {
+            transition: none;
+            background-color: transparent;
+        }
+
+fm-tree ul > li:last-child,
+.fm-tree ul > li:last-child {
+    background-image: none;
+    background-color: transparent;
+}
+
+fm-tree li > .check-box,
+.fm-tree li > .check-box {
+    vertical-align: middle;
+}
+
+fm-tree li > .text-field,
+.fm-tree li > .text-field {
+    height: 24px;
+    line-height: 24px;
+    vertical-align: middle;
+    cursor: default;
+    padding-left: 3px;
+    padding-right: 10px;
+    position: absolute;
+    display: inline-block;
+    width: 100%;
+}
+
+fm-tree > .tree-view li,
+.fm-tree > .tree-view li {
+    margin-left: 0px;
+    list-style: none;
+    position: relative;
+}
+
+    fm-tree > .tree-view li > .text-field,
+    .fm-tree > .tree-view li > .text-field {
+        transition: ease-out 0.2s;
+        background-color: transparent;
+        border-bottom: 1px solid transparent;
+        border-top: 1px solid transparent;
+        white-space: nowrap;
+    }
+        fm-tree > .tree-view li.active > .text-field,
+        fm-tree > .tree-view li > .text-field:hover,
+        fm-tree > .tree-view li > .icon:hover,
+        .fm-tree > .tree-view li > .text-field:hover,
+        .fm-tree > .tree-view li > .icon:hover {
+            transition: ease-out 0.2s;
+            background-color: #cae9f8;
+            cursor: pointer;
+        }
+
+        fm-tree > .tree-view li > .text-field.isdisabled,
+        .fm-tree > .tree-view li > .text-field.isdisabled {
+            /*color: #559;*/
+        }
+
+            fm-tree > .tree-view li > .text-field.isdisabled:hover,
+            fm-tree > .tree-view li > .icon.isdisabled:hover,
+            .fm-tree > .tree-view li > .text-field.isdisabled:hover,
+            .fm-tree > .tree-view li > .icon.isdisabled:hover {
+                background-color: transparent;
+                cursor: default;
+            }
+
+    fm-tree > .tree-view li.is-latest > .text-field,
+    fm-tree > .tree-view li.is-latest > .icon,
+    .fm-tree > .tree-view li.is-latest > .text-field,
+    .fm-tree > .tree-view li.is-latest > .icon {
+        background-color: transparent;
+        color: #ea644a;
+        cursor: default;
+    }
+
+    fm-tree > .tree-view li > input:not(.one-checked):checked + .text-field,
+    .fm-tree > .tree-view li > input:not(.one-checked):checked + .text-field {
+        transition: ease-out 0.2s;
+        background-color: #ffe7bc;
+    }
+
+        fm-tree > .tree-view li > input:not(.one-checked):checked + .text-field:hover,
+        .fm-tree > .tree-view li > input:not(.one-checked):checked + .text-field:hover {
+            transition: ease-out 0.2s;
+            background-color: #fcf8e3;
+        }
+
+.fm-tree .dropdown-menu > li {
+    background-image: none;
+}
+
+.dropdown-menu > li > a > span {
+    cursor: pointer;
+}
+
+.dropdown-menu > li > a > i {
+    display: inline-block;
+    width: 18px;
+    height: 17px;
+    text-align: center;
+    margin-right:5px;
+}
+
+fm-tree li > ul,
+.fm-tree li > ul {
+    margin-left: 0px;
+}
+
+fm-tree ul > li > ul:not(.dropdown-menu),
+.fm-tree ul > li > ul:not(.dropdown-menu) {
+    padding-left: 24px;
+}
+
+fm-tree li > .toggle,
+.fm-tree li > .toggle {
+}
+
+fm-tree li > .treeicon.tree-rootnode-line,
+.fm-tree li > .treeicon.tree-rootnode-line {
+    width: 24px;
+    height: 24px;
+    margin: 0px;
+    margin-right: -3px;
+    background-position: -68px -4px;
+    cursor: default;
+}
+
+fm-tree ul > li:last-child > .treeicon.tree-rootnode-line,
+.fm-tree ul > li:last-child > .treeicon.tree-rootnode-line {
+    width: 24px;
+    height: 24px;
+    margin: 0px;
+    background-position: -68px -4px;
+    background-color: transparent;
+    margin-right: -3px;
+}
+
+fm-tree .treeicon.nochildren,
+.fm-tree .treeicon.nochildren {
+    display: none;
+}
+
+fm-tree .tree-item-span,
+.fm-tree .tree-item-span {
+}
+
+fm-tree > .tree-view .dropdown-menu li {
+    background-image: none;
+}
+
+fm-tree > .tree-view .tree-item-span i {
+    padding: 3px 5px 3px 3px;
+}
+
+.tree .tree-item-text {
+    padding-left: 5px;
+}
+
+.fm-text-find {
+    position: relative;
+    max-width:300px;
+}
+
+    .fm-text-find > .icon {
+        position: absolute;
+        top: calc(50% - 8px);
+        left: 8px;
+        font-size: 15px;
+        color: #DDD;
+    }
+
+    .fm-text-find > input[type=text] {
+        left: 0px;
+        top: 0px;
+        width: calc(100% - 5px);
+        padding-left: 26px;
+    }
+
+fm-tree > .tree-view .hide-line {
+    background-image: none !important;
+    background-color: transparent;
+}
+
+fm-tree > .tree-view .tree-item-span .config-wrap{
+    position:absolute;
+    display:none;
+    z-index:100;
+}
+fm-tree > .tree-view .tree-item-span .icon-star-empty{
+    color:#000;
+}
+fm-tree > .tree-view .tree-item-span .icon-star-empty:hover,
+fm-tree > .tree-view .tree-item-span .icon-star {
+    color: sandybrown;
+}
+
+fm-tree > .tree-view .tree-item-span .config-wrap {
+    text-align: center;
+    width: 25px;
+    height: 22px;
+    background-color: #cae9f8;
+    right: 22px;
+}
+fm-tree > .tree-view .tree-item-span .config-wrap:hover {
+    background-color: #89d1f0;
+}
+fm-tree > .tree-view .tree-item-span:hover .config-wrap{
+    display: inline;
+}
+.treeMenu{
+    min-width:200px;
+}
+.tree-view badge {
+    display: inline-block;
+    min-width: 10px;
+    padding: 1px 3px;
+    font-size: 8px;
+    font-weight: 700;
+    line-height: 1;
+    color: #fff;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    background-color: #777;
+    border-radius: 10px;
+    margin-bottom: 3px;
+    margin-left:5px;
+}
+    .tree-view badge.danger {
+        background-color: #d9534f;
+    }
+
+    .tree-view badge.primary {
+        background-color: #337ab7;
+    }
+
+    .tree-view badge.success {
+        background-color: #5cb85c;
+    }
+
+    .tree-view badge.info {
+        background-color: #5bc0de;
+    }
+
+    .tree-view badge.warning {
+        background-color: #f0ad4e;
+    }
+
+    .tree-view badge.hide {
+        display: none;
+    }
+
+.treeMenu .dropdown-menu > li > a:hover i, .treeMenu .dropdown-menu > li > a:focus i {
+    color: #fff;
+}
+
+.treeMenu .tree-item-span.high-light {
+    background-color: #3280fc;
+    font-weight: bold;
+    color: #fff !important;
+}
+
+    .treeMenu .tree-item-span.high-light .icon-file-code {
+        color: #fff !important;
+    }
+
+.treeMenu .tree-item-span.high-light-menu {
+    background-color: #3280fc !important;
+    font-weight: bold;
+    color: #fff !important;
+}
+
+    .treeMenu .tree-item-span.high-light-menu .icon-file-code {
+        color: #fff !important;
+    }

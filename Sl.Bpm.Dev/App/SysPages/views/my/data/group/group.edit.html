@@ -1,0 +1,34 @@
+﻿<modal>
+    <modal-header><span ng-if="vm.model.id == null" translate="Create"></span><span ng-if="vm.model.id != null" translate="Edit"></span>&nbsp;{{ 'Group' | translate}} {{vm.model.name}}</modal-header>
+    <ma-form name="organizeEdit">
+        <modal-body>
+            <div class="form-group form-md-line-input">
+                <div class="col-lg-4 control-label">{{ 'Account' | translate}}:</div>
+                <div class="col-lg-6">
+                    <input ng-model="vm.model.account" type="text" maxlength="50" required class="form-control input-sm" placeholder="{{ 'Account' | translate}}">
+                    <div class="form-control-focus"></div>
+                </div>
+            </div>
+            <div class="form-group form-md-line-input">
+                <div class="col-lg-4 control-label">{{ 'ChineseName' | translate}}:</div>
+                <div class="col-lg-6">
+                    <input ng-model="vm.model.chineseName" type="text" maxlength="50" required class="form-control input-sm" placeholder="{{ 'ChineseName' | translate}}">
+                    <div class="form-control-focus"></div>
+                </div>
+            </div>
+
+            <div class="form-group form-md-line-input">
+                <div class="col-lg-4 control-label">{{ 'EnglishName' | translate}}:</div>
+                <div class="col-lg-6">
+                    <input ng-model="vm.model.englishName" type="text" maxlength="50" required class="form-control input-sm" placeholder="{{ 'EnglishName' | translate}}">
+                    <div class="form-control-focus"></div>
+                </div>
+            </div>
+        </modal-body>
+        <modal-footer>
+            <button class="btn btn-primary" type="submit" ma-form-submit="vm.save()" id="OrganizeEdit">{{ 'Save' | translate}}</button>
+            <button type="button" class="btn btn-default" ng-click="$close()">{{ 'Cancel' | translate}}</button>
+        </modal-footer>
+    </ma-form>
+</modal>
+

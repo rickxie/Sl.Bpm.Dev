@@ -1,0 +1,29 @@
+﻿<div class="row">
+    <div class="form-group">
+        <div class="col-xs-12">
+            <fm-tree tree-data="vm.tree" select-data="vm.selectNodes" text-field="text" value-field='id'></fm-tree>
+        </div>
+    </div>
+</div>
+<script type="text/ng-template" id="/treeMenu1.html">
+    <ul class="tree-view" style="min-height:360px;">
+        <li ng-if="!treeData" style="min-height:360px;position:relative;">
+            <div class="content-spinner-bar" style="position:absolute;top: 40%;"><div class="bounce1"></div><div class="bounce2"></div><div class="bounce3"></div></div>
+        </li>
+        <li ng-if="!!treeData && treeData.length == 0" style="min-height:360px;position:relative;height: 360px;text-align: center;">
+            <span class="span1" style="position: absolute;height:100%;width:100%;left:0;top: calc(50% - 14px);font-size:28px;color:#353535;">没有数据</span>
+        </li>
+        <li ng-repeat="item in treeData" ng-class="{'isdisabled': mustleaf && !isLeaf(item)}" ng-include="itemTemplateUrl || '/treeMenuItem.html'"></li>
+    </ul>
+</script>
+<script type="text/ng-template" id="/treeMenuItem1.html">
+    <i ng-click="itemExpended(item, $event);" class="{{getItemIcon(item)}}"></i>
+    <i class="treeicon tree-rootnode-line {{hasChildren(item)}}"></i>
+    <input type="{{ismulti?'checkbox':'radio'}}" class="check-box tree-uniform treeicon" ng-if="canChecked" ng-disabled="mustleaf && !isLeaf(item)" ng-checked="isChecked(item) || setParentChecked(item)" ng-click="itemCheckedChanged(item)" ng-class="setParentChecked(item)" /> <!--ng-change="warpCallback('itemCheckedChanged', item, $event)"-->
+    <span class="text-field tree-item-span" ng-click="itemCheckedChanged(item)">{{item[textField]}}</span>
+    <ul ng-if="!isLeaf(item)"
+        ng-show="item.$$isExpend">
+        <li ng-class="{'isdisabled': mustleaf && !isLeaf(item)}" ng-repeat="item in item.children" ng-include="itemTemplateUrl || '/treeItem.html'">
+        </li>
+    </ul>
+</script>

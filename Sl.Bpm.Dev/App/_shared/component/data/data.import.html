@@ -1,0 +1,45 @@
+﻿<modal size="xlg">
+    <modal-header><i class="icon icon-upload-alt"></i> {{:: 'DataImport' | translate }}</modal-header>
+    <modal-body>
+        <div class="form-group">
+            <div class="col-lg-12">
+                <input type="file" class="picUpload" id="fileinput" nv-file-select uploader="vm.uploader" multiple="true" />
+                <input type="button" class="btn btn-sm btn-primary ng-scope" ng-click="vm.uploadBefore()" value="{{:: 'Choose' | translate}}" />
+                <a target="_blank" ng-href="{{vm.config.base.template}}">{{:: 'TemplateDownload' | translate }}</a>
+            </div>
+            <hr />
+            <div class="col-lg-12" style="width:100%;overflow:scroll;">
+                <table class="table table-striped table-hover table-condensed " ng-style="vm.config.base.width">
+                    <thead>
+                        <tr>
+                            <th ng-repeat="i in vm.config.columns" ng-class="{'text-danger':i.validate.level === 1 }">{{i.columnName}}</th>
+                            <th>{{:: 'ErrorMessage' | translate }}</th>
+                            <th>{{:: 'InfoMessage' | translate }}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="item in vm.currentData">
+                            <td ng-repeat="i in item">
+                                <span ng-if="!i.Level">{{i}}</span>
+                                <span ng-if="!!i.Level" ng-class="{'text-danger': i.Level === 1 , 'text-warning': i.Level === 2 }">{{i.Message}}</span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div ng-if="!vm.baseChecked" ng-repeat="i in vm.validateMsg" class="text-danger">
+                    <span ng-if="!!i">{{$index + 1}}、{{i}}</span>
+                </div>
+            </div>
+            <div class="col-lg-12">
+                <ma-pager ng-if="vm.config.base.allowPaged" current-page="vm.paging.currentPage" load="vm.pageData()" total-count="vm.paging.totalCount" page-size="vm.paging.pageSize"></ma-pager>
+            </div>
+        </div>
+    </modal-body>
+    <modal-footer>
+        <ma-panel-command>
+            <!--<button class="btn btn-warning " ng-disabled="!vm.baseChecked" ng-click="vm.validateFunc()">{{:: 'ValidateData' | translate}}</button>-->
+            <button class="btn btn-primary" type="button" id="importSubmit" ng-disabled="!vm.isValid" ng-click="vm.save()">{{:: 'Save' | translate}}</button>&nbsp;&nbsp;
+            <button type="button" class="btn btn-default" ng-click="$close()">{{:: 'Close' | translate}}</button>
+        </ma-panel-command>
+    </modal-footer>
+</modal>

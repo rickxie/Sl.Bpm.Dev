@@ -1,0 +1,55 @@
+﻿<modal size="xlg">
+    <modal-header>{{ 'WorkflowIntegration' | translate}} {{vm.title}}</modal-header>
+    <ma-form name="enterpriseRoleEdit">
+        <modal-body>
+            <div class="form-group form-md-line-input">
+                <div class="col-lg-4 control-label">{{ 'Operation' | translate}}:</div>
+                <div class="col-lg-6">
+                    <button ng-if="vm.type == 2" class="btn btn-primary" type="button" ng-click="vm.readService()">{{ 'RereadWebservice' | translate}}</button>
+                    <button ng-if="vm.type == 1" class="btn btn-primary" type="button" ng-click="vm.createSource()">{{ 'ReadMapping' | translate}}</button>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-lg-12">
+                    <textarea ng-model="vm.configmodel.content" class="form-control input-sm"></textarea>
+                </div>
+            </div>
+            <table class="table table-striped table-hover table-condensed">
+                <thead>
+                    <tr>
+                        <th>{{ 'ParentDestElement' | translate}}</th>
+                        <th>{{ 'DestElement' | translate}}</th>
+                        <th>{{ 'SourceTable' | translate}}</th>
+                        <th>{{ 'SourceField' | translate}}</th>
+                        <th>{{ 'FieldDataType' | translate}}</th>
+                        <th>{{ 'Format' | translate}}</th>
+                        <th>{{ 'MappingMemo' | translate}}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="item in vm.model">
+                        <td width="130">{{item.parentDestElement}}</td>
+                        <td width="130">{{item.destElement}}</td>
+                        <td width="200"><fm-data-select class="input-sm"
+                                view="GetAppBusinessTable"
+                                field-name="{{ 'SourceTable' | translate}}"
+                                fm-model="item.sourceTable"></fm-data-select></td>
+                        <td width="150"><fm-data-select class="input-sm"
+                                view="GetAppBusinessTableColumn"
+                                field-name="{{ 'SourceField' | translate}}"
+                                filter="{tableName:item.sourceTable}"
+                                fm-model="item.sourceField"></fm-data-select></td>
+                        <td width="130"><fm-select fm-model="item.dataType" class="input-sm"
+                                       items="vm.datatype"></fm-select></td>
+                        <td width="180"><input class="form-control input-sm" type="text" ng-model="item.fieldFormat" /></td>
+                        <td><input class="form-control input-sm" type="text" ng-model="item.memo" /></td>
+                    </tr>
+                </tbody>
+            </table>
+        </modal-body>
+        <modal-footer>
+            <button class="btn btn-primary" type="submit" id="enterpriseRoleEdit" ma-form-submit="vm.save()">{{ 'Save' | translate}}</button>
+            <button type="button" class="btn btn-default" ng-click="$close()">{{ 'Cancel' | translate}}</button>
+        </modal-footer>
+    </ma-form>
+</modal>

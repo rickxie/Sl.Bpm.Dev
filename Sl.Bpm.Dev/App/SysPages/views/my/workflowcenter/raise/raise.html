@@ -1,0 +1,21 @@
+﻿<div ng-controller="syspages.views.my.workflowcenter.raise as vm">
+    <div class="raise_block">
+        <div>
+            <i class="icon icon-plus pull-right text-danger" ng-click="vm.toogleFold();" ng-class="{'icon-plus':vm.fold,'icon-minus':!vm.fold}"></i>
+        </div>
+        <div class="row data_load">
+            <div class="raise-bd {{vm.classname}}">
+                <dl class="raise-dl" ng-repeat="p in vm.pages" ng-if="p.visibleLength" style="border:none;">
+                    <dt style="position:relative;">{{p.categoryName}}<i class="icon" ng-class="{'icon-plus':p.fold,'icon-minus':!p.fold}" style="position:absolute;right:5px;top:8px;" ng-click="p.fold=!p.fold"></i></dt>
+                    <dd ng-repeat="i in p.data" style="" data-menuid="{{i.id}}" ng-if="i.visible" ng-show="!p.fold">
+                        <a href="javascript:void(0)" ng-click="vm.openModule(i)">
+                            <span class="raise-icon"><i class="icon {{i.iconClass}}"></i></span>
+                            {{i.name}}
+                        </a>
+                        <i ng-class="{0:'icon-star-empty',1:'icon-star'}[i.isFavourite?1:0]" ng-click="vm.setFavourite(i, $event);"></i>
+                    </dd>
+                </dl>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,41 @@
+﻿<modal>
+    <ma-form name="connectionEdit">
+        <modal-header>{{ 'ConnectionInformation' | translate}}</modal-header>
+        <modal-body>
+
+            <div class="form-group">
+                <div class="col-lg-2 control-label">{{ 'Description' | translate}}：</div>
+                <div class="col-lg-8">
+                    <ma-language name="langMemo" disabled ng-model="vm.model.langMemo" language-list="vm.model.langMemoList"></ma-language>
+                    
+                    <!--<ma-lang ng-model="vm.model.langMemo" ng-disabled="isDesignModel" display="vm.model.memo"></ma-lang>-->
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-lg-2 control-label">{{ 'ConnectionCondition' | translate}}：</div>
+                <div class="col-lg-8">
+                    <ma-checkbox ng-model="vm.model.useCondition"></ma-checkbox>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-lg-8 col-lg-offset-2 text-right" style="margin-bottom: 5px">
+                    <span class="btn btn-sm btn-default" ng-click="vm.openVar()">+变量</span>
+                    <span class="btn btn-sm btn-default" ng-click="vm.openColumn()">+字段</span>
+                    <span class="btn btn-sm btn-primary" ng-click="vm.watch()">查看</span>
+                </div>
+                <div class="col-lg-8 col-lg-offset-2">
+                    <textarea name="conditionValue" ng-model="vm.model.conditionValue" ng-disabled="!vm.model.useCondition" type="text" rows="10" class="form-control input-sm" placeholder="{{ 'ConnectionCondition' | translate}}"></textarea>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-lg-8 col-lg-offset-2">
+                    {{ vm.formatedData}}
+                </div>
+            </div>
+        </modal-body>
+        <modal-footer>
+            <button class="btn btn-primary" type="submit" ma-form-submit="vm.save()">{{ 'Save' | translate}}</button>
+            <button type="button" data-dismiss="modal" ng-click="vm.cancel()" class="btn default">{{ 'Cancel' | translate}}</button>
+        </modal-footer>
+    </ma-form>
+</modal>

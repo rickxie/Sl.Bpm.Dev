@@ -1,0 +1,42 @@
+﻿<modal size="lg">
+    <modal-header>{{ 'WorkflowIntegration' | translate}} {{vm.title}}</modal-header>
+    <ma-form name="enterpriseRoleEdit">
+        <modal-body ng-if="vm.type == 1">
+            <div class="form-group form-md-line-input">
+                <div class="col-lg-4 control-label">{{ 'ServerAddress' | translate}}:</div>
+                <div class="col-lg-6">
+                    <fm-select fm-model="vm.model.serverId" display-member="name" value-member="id"
+                               items="vm.servers"></fm-select>
+                </div>
+            </div>
+            <div class="form-group form-md-line-input">
+                <div class="col-lg-4 control-label">{{ 'FileServerFolder' | translate}}:</div>
+                <div class="col-lg-6">
+                    <input type="text" name="code" required class="form-control" ng-model="vm.model.fileServerFolder" />
+                </div>
+            </div>
+            <div class="form-group form-md-line-input">
+                <div class="col-lg-4 control-label">{{ 'FileNameFormat' | translate}}:</div>
+                <div class="col-lg-6">
+                    <input type="text" name="code" required class="form-control" ng-model="vm.model.fileNameFormat" />
+                </div>
+            </div>
+            <div class="form-group form-md-line-input">
+                <div class="col-lg-4 control-label">{{ 'FileSeparator' | translate}}:</div>
+                <div class="col-lg-6">
+                    <input type="text" name="code" required class="form-control" ng-model="vm.model.fileSeparator" />
+                </div>
+            </div>
+            <div class="form-group form-md-line-input">
+                <div class="col-lg-4 control-label">{{ 'FileExtension' | translate}}:</div>
+                <div class="col-lg-6">
+                    <input type="text" name="code" required class="form-control" ng-model="vm.model.fileExtension" />
+                </div>
+            </div>
+        </modal-body>
+        <modal-footer>
+            <button class="btn btn-primary" type="submit" id="enterpriseRoleEdit" ma-form-submit="vm.save()">{{ 'Save' | translate}}</button>
+            <button type="button" class="btn btn-default" ng-click="$close()">{{ 'Cancel' | translate}}</button>
+        </modal-footer>
+    </ma-form>
+</modal>

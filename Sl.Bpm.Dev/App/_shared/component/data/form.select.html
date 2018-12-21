@@ -1,0 +1,70 @@
+﻿<modal size="{{vm.size}}">
+    <modal-header><i class="icon-list"></i>&nbsp;{{vm.title}}</modal-header>
+    <modal-body>
+        <style>
+            .checkbox_div {
+                position: absolute;
+                top: 0px;
+                left: 0px;
+                width: 100%;
+                height: 100%;
+                z-index: 9999;
+            }
+        </style>
+        <div class="form-group modal-user content-on-load" id="{{ vm.formGuid }}">
+            <div class="col-lg-12">
+                <div class="panel">
+                    <div ng-hide="vm.hasSearch" class="panel-heading">搜索<div class="selectTxt icon-search" style="width:calc(100% - 60px);"><input type="text" value="" placeholder="输入内容搜索" ng-model="vm.selectTxt" ng-blur="vm.searchData()" ng-keydown="vm.event_Keydown($event)" /></div></div>
+                    <div class="panel-heading" ng-show="vm.hasSearch">
+                        <div class="row search-condition">
+                            <div class="col-xs-6" ng-repeat="col in vm.displayColumListAll" ng-show="col.isWhereEnable">
+                                <div class="input-group" style="margin-bottom:5px;">
+                                    <span class="input-group-addon input-sm">{{col.name}}</span>
+                                    <input name="{{col.displayColumn}}" value="{{col.value}}" type="text" class="form-control input-sm" ng-enter="vm.searchCondition()" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-6">
+                                <input type="button" value="搜索" class="btn btn-block btn-info btn-md" style="padding: 1px 5px;" ng-click="vm.searchCondition()" />
+                            </div>
+                            <div class="col-xs-6">
+                                <input type="button" value="清空" class="btn btn-block btn-default btn-md" style="padding: 1px 5px;" ng-click="vm.clearCondition()" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel-body" style="min-height: 380px;" id="{{ vm.tableGuid }}">
+                    </div>
+                    <div ng-if="vm.ismulti">
+                        <span ng-repeat="item in vm.selectedData"><a ng-click="vm.remove(item)">{{item.text}}</a>、</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </modal-body>
+    <modal-footer>
+        <select style="float:left;width:65px;margin-right:10px;" class="form-control" ng-model="vm.paging.pageSize" ng-options="(a) for a in vm.pageSizeList"></select>
+        <ul class="pager" style="float: left;">
+            <li class="previous"><span> {{vm.paging.currentPage}} / {{ vm.paging.totalPage}}</span></li>
+            <li class="previous" ng-if="vm.paging.currentPage > 1"><a ng-click="vm.changePage(vm.paging.currentPage - 1)">上一页</a></li>
+            <li class="next" ng-if="vm.paging.currentPage < vm.paging.totalPage"><a ng-click="vm.changePage(vm.paging.currentPage + 1)">下一页</a></li>
+
+        </ul>
+        <ul class="pager" style="float: left; margin-left: 30px;">
+            <li class="previous"><a ng-click="vm.changePages()">跳转到</a></li>
+            <li class="previous">
+                <input id="txt_changePage" value="{{vm.paging.currentPage}}" ng-keyup="vm.event_Keyup($event)" type="text" style="width: 45px; display: inline;" class="form-control">&nbsp;页
+            </li>
+            <!--<li class="previous"><a>页</a></li>-->
+        </ul>
+        <!--<div style="float: left; margin-left: 100px; margin-top: 5px;" class="previous">
+            <a  ng-click="vm.changePages()">跳转到</a>
+        </div>
+        <div style="float: left;">
+
+        </div>
+        <div style="float: left;margin-top: 5px;" >页</div>-->
+        <button class="btn btn-primary" ng-click="vm.save()">{{'Save' | translate}}</button>
+        <button type="button" data-dismiss="modal" ng-click="$close()" class="btn default">{{'Close' | translate}}</button>
+    </modal-footer>
+</modal>

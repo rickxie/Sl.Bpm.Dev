@@ -1,0 +1,95 @@
+﻿<modal size="{{vm.size}}" style="margin-right: -0.8rem;margin-left: -0.8rem;padding:1rem;">
+    <modal-header class="text-center"><i class="icon-list" style="display:none"></i>&nbsp;{{vm.title}}</modal-header>
+    <modal-body style="padding:15px 0">
+        <style>
+            .checkbox_div {
+                position: absolute;
+                top: 0px;
+                left: 0px;
+                width: 100%;
+                height: 100%;
+                z-index: 9999;
+            }
+        </style>
+        <div class="form-group modal-user content-on-load" id="{{ vm.formGuid }}">
+            <div class="col-lg-12" style="padding-right: 2px;padding-left: 2px;">
+                <div class="panel">
+                    <div ng-hide="vm.hasSearch" class="panel-heading">
+                        搜索
+                        <div class="selectTxt icon-search" style="width:calc(100% - 60px);">
+                            <input type="text"
+                                   value=""
+                                   placeholder="输入内容搜索"
+                                   ng-model="vm.selectTxt"
+                                   ng-blur="vm.searchData()"
+                                   ng-keydown="vm.event_Keydown($event)" />
+                        </div>
+                    </div>
+                    <div class="panel-heading" ng-show="vm.hasSearch">
+                        <div class="row search-condition">
+                            <div class="col-xs-12" ng-repeat="col in vm.displayColumListAll" ng-show="col.isWhereEnable">
+                                <div class="input-group " style="margin-bottom:5px;">
+                                    <span class="input-group-addon">{{col.name}}</span>
+                                    <input name="{{col.displayColumn}}" value="{{col.value}}" type="text" class="form-control" ng-enter="vm.searchCondition()" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-6">
+                                <input type="button" value="搜索" class="button small" style="padding: 1px 5px;" ng-click="vm.searchCondition()" />
+                            </div>
+                            <div class="col-xs-6">
+                                <input type="button" value="清空" class="button small" style="padding: 1px 5px;" ng-click="vm.clearCondition()" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="table-responsive" style="border:none">
+                         <div class="select-list-tb" id="{{ vm.tableGuid }}"></div>
+                    </div>
+                    <div class="row">
+                        <div class="container text-center">
+                            <div ng-if="vm.ismulti" class="text-left">
+                                <span ng-repeat="item in vm.selectedData track by $index"><a ng-click="vm.remove(item)">{{item.text}}</a>、</span>
+                            </div>
+                            <ul class="pager" style="padding-bottom:5px">
+                                <li class="previous" ng-if="vm.paging.currentPage > 1"><a ng-click="vm.changePage(vm.paging.currentPage - 1)">上一页</a></li>
+                                <li class="previous"><span> {{vm.paging.currentPage}} / {{ vm.paging.totalPage}}</span></li>
+                                <li class="next" ng-if="vm.paging.currentPage < vm.paging.totalPage"><a ng-click="vm.changePage(vm.paging.currentPage + 1)">下一页</a></li>
+                            </ul>
+                            <select style="float:left;width:65px;margin-right:10px;display:none" class="form-control" ng-model="vm.paging.pageSize" ng-options="(a) for a in vm.pageSizeList"></select>
+                            <ul class="hide">
+                                <li class="previous"><a ng-click="vm.changePages()">跳转到</a></li>
+                                <li class="previous">
+                                    <input id="txt_changePage" value="{{vm.paging.currentPage}}" ng-keyup="vm.event_Keyup($event)" type="text" style="width: 45px; display: inline;" class="form-control">&nbsp;页
+                                </li>
+                                <li class="previous"><a>页</a></li>
+                            </ul>
+                            <button class="button" ng-click="vm.save()">{{'Save' | translate}}</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </modal-body>
+    <!--<modal-footer>
+        <div style="position:fixed;left:0;right:0;bottom:0;z-index: 2;background: #fff;padding: 10px 15px;">
+            <div ng-if="vm.ismulti" class="text-left">
+                <span ng-repeat="item in vm.selectedData track by $index"><a ng-click="vm.remove(item)">{{item.text}}</a>、</span>
+            </div>
+            <select style="float:left;width:65px;margin-right:10px;display:none" class="form-control" ng-model="vm.paging.pageSize" ng-options="(a) for a in vm.pageSizeList"></select>
+            <ul class="pager" style="padding-bottom:5px">
+                <li class="previous"><span> {{vm.paging.currentPage}} / {{ vm.paging.totalPage}}</span></li>
+                <li class="previous" ng-if="vm.paging.currentPage > 1"><a ng-click="vm.changePage(vm.paging.currentPage - 1)">上一页</a></li>
+                <li class="next" ng-if="vm.paging.currentPage < vm.paging.totalPage"><a ng-click="vm.changePage(vm.paging.currentPage + 1)">下一页</a></li>
+
+            </ul>
+            <ul class="pager" style=" margin-left: 30px;display:none;">
+                <li class="previous"><a ng-click="vm.changePages()">跳转到</a></li>
+                <li class="previous">
+                    <input id="txt_changePage" value="{{vm.paging.currentPage}}" ng-keyup="vm.event_Keyup($event)" type="text" style="width: 45px; display: inline;" class="form-control">&nbsp;页
+                </li>
+                <li class="previous"><a>页</a></li>
+            </ul>
+        </div>
+    </modal-footer>-->
+</modal>

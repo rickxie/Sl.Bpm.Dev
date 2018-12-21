@@ -1,0 +1,114 @@
+﻿
+<div class="page-con" ng-controller="syspages.views.system.developer.agent as vm">
+    <div class="main-head">
+        <h2>代理设置</h2>
+        <div class="logo">
+            <img src="/Content/Images/new/logo.png">
+        </div>
+    </div>
+    <div class="personal-main">
+        <div class="personal-left">
+            <div class="up">
+                <img src="/Content/Images/new/load_def.jpg" class="headPortrait">
+                <p class="fts20"><b>{{vm.UserInfo.nickName}}</b></p>
+                <p class="jobNumber">{{ 'JobNumber' | translate}}：{{vm.UserInfo.employeeNumber}}</p>
+            </div>
+            <div class="Drop">
+                <dl>
+                    <dd class="{{vm.AgentIndex==0?'select':''}}" ng-click="vm.AgentSelect(0)">
+                        <a href="javascript:"><label><i class="icon-newspaper-o"></i></label>{{ 'AgentApproval' | translate}}</a>
+                    </dd>
+                    <dd class="{{vm.AgentIndex==1?'select':''}}" ng-click="vm.AgentSelect(1)">
+                        <a href="javascript:"><label><i class="icon-check-board"></i></label>{{ 'AgentApply' | translate}}</a>
+                    </dd>
+                </dl>
+            </div>
+        </div>
+        <div class="personal-right" id="Right" ng-if="vm.AgentIndex==0">
+            <p class="fts20 mag20"><b>{{ 'AgentApprovalList' | translate}}</b><input class="delegate-add" ng-click="vm.editAgent(2)" type="button" value="{{ 'AddAgent' | translate}}" /></p>
+            <div class="fg"></div>
+            <div class="table-bd">
+                <table class="table-responsive">
+                    <thead>
+                        <tr>
+                            <th style="width:60px;text-align:center">#</th>
+                            <th><div class="txt-warp">{{ 'WorkflowMainCategory' | translate}}</div></th>
+                            <th><div class="txt-warp">{{ 'WorkflowName' | translate}}</div></th>
+                            <th><div class="txt-warp">{{ 'FirstAgent' | translate}}</div></th>
+                            <th><div class="txt-warp">{{ 'SecondAgent' | translate}}</div></th>
+                            <th><div class="txt-warp">{{ 'StartDate' | translate}}</div></th>
+                            <th><div class="txt-warp">{{ 'EndDate' | translate}}</div></th>
+                            <th><div class="txt-warp">{{ 'WhetherValid' | translate}}</div></th>
+                            <th><div class="txt-warp">{{ 'Operation' | translate}}</div></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="i in vm.approvers">
+                            <td style="text-align:center">{{$index}}</td>
+                            <td><div class="txt-warp">{{i.catName}}</div></td>
+                            <td><div class="txt-warp">{{i.wfName}}</div></td>
+                            <td><div class="txt-warp">{{i.firstName}}</div></td>
+                            <td><div class="txt-warp">{{i.secondName}}</div></td>
+                            <td><div class="txt-warp">{{i.startDateTime | date:'yyyy-MM-dd'}}</div></td>
+                            <td><div class="txt-warp">{{i.endDateTime | date:'yyyy-MM-dd'}}</div></td>
+                            <td ng-if="i.enable"><div class="txt-warp">{{ 'Valid' | translate}}</div></td>
+                            <td ng-if="!i.enable"><div class="txt-warp">{{ 'Invalid' | translate}}</div></td>
+                            <td><i class="icon-edit ico" ng-click="vm.editAgent(i)"></i></td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="table-footer">
+                    <rs-pager ng-if="vm.approvePaging.totalCount > vm.approvePaging.pageSize" current-page="vm.approvePaging.currentPage" load="vm.loadApproveAgent()" total-count="vm.approvePaging.totalCount" page-size="vm.approvePaging.pageSize"></rs-pager>
+                </div>
+            </div>
+
+        </div>
+        <div class="personal-right" id="Right" ng-if="vm.AgentIndex==1">
+            <p class="fts20 mag20"><b>{{ 'AgentApplyList' | translate}}</b><input class="delegate-add" ng-click="vm.editAgent(1)" type="button" value="{{ 'AddApply' | translate}}" /></p>
+            <div class="fg"></div>
+            <div class="table-bd">
+                <table class="table-responsive">
+                    <thead>
+                        <tr>
+                            <th style="width:60px;text-align:center">#</th>
+                            <th><div class="txt-warp">{{ 'WorkflowMainCategory' | translate}}</div></th>
+                            <th><div class="txt-warp">{{ 'WorkflowName' | translate}}</div></th>
+                            <th><div class="txt-warp">{{ 'FirstAgent' | translate}}</div></th>
+                            <th><div class="txt-warp">{{ 'SecondAgent' | translate}}</div></th>
+                            <th><div class="txt-warp">{{ 'StartDate' | translate}}</div></th>
+                            <th><div class="txt-warp">{{ 'EndDate' | translate}}</div></th>
+                            <th><div class="txt-warp">{{ 'WhetherValid' | translate}}</div></th>
+                            <th><div class="txt-warp">{{ 'Operation' | translate}}</div></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="i in vm.submitters">
+                            <td style="text-align:center">{{$index}}</td>
+                            <td><div class="txt-warp">{{i.catName}}</div></td>
+                            <td><div class="txt-warp">{{i.wfName}}</div></td>
+                            <td><div class="txt-warp">{{i.firstName}}</div></td>
+                            <td><div class="txt-warp">{{i.secondName}}</div></td>
+                            <td><div class="txt-warp">{{i.startDateTime | date:'yyyy-MM-dd'}}</div></td>
+                            <td><div class="txt-warp">{{i.endDateTime | date:'yyyy-MM-dd'}}</div></td>
+                            <td ng-if="i.enable"><div class="txt-warp">{{ 'Valid' | translate}}</div></td>
+                            <td ng-if="!i.enable"><div class="txt-warp">{{ 'Invalid' | translate}}</div></td>
+                            <td><i class="icon-edit ico" ng-click="vm.editAgent(i)"></i></td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="table-footer">
+                    <rs-pager ng-if="vm.subbmitPaging.totalCount > vm.subbmitPaging.pageSize" current-page="vm.subbmitPaging.currentPage" load="vm.loadSubmitAgent()" total-count="vm.subbmitPaging.totalCount" page-size="vm.subbmitPaging.pageSize"></rs-pager>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+<style>
+    .pagination { margin: 0; margin-top: 2px }
+    .pagination > li > a { border: 0 }
+    .fg { height: 6px; background: #edf1f5 }
+    .mag20 { border: 0; margin-top: 8px; padding-bottom: 5px; }
+    .delegate-add { float: right; background: #6ab8ff; color: #fff; border-radius: 3px; border: 0; margin-right: 10px }
+    .delegate-add:hover { background: #7dbffb }
+</style>

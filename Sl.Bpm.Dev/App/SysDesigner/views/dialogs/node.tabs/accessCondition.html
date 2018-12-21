@@ -1,0 +1,34 @@
+﻿<div class="form-group"  ng-controller="app.sysdesigner.views.dialogs.node.tabs.accessCondition as vm">
+    <ma-form name="accessCondition" submit="vm.save()">
+        <div class="form-group">
+            <label class="col-lg-2 control-label">{{ 'accessCondition' | translate}}</label>
+            <div class="col-lg-8">
+                <ma-checkbox ng-model="vm.node.isEntryEnable" ng-change="vm.changeEntryEnable()"></ma-checkbox>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-lg-8 col-lg-offset-2 text-right" style="margin-bottom: 5px">
+                <span class="btn btn-sm btn-default" ng-click="vm.setVariable()">+变量</span>
+                <span class="btn btn-sm btn-default" ng-click="vm.openColumn()">+字段</span>
+                <span class="btn btn-sm btn-primary" ng-click="vm.watch()">查看</span>
+            </div>
+            <div class="col-lg-8 col-lg-offset-2">
+                <textarea name="jumpCondition" ng-model="vm.node.entryCondition" ng-disabled="!vm.node.isEntryEnable" ng-blur="vm.changeEntryCondition()" type="text" rows="5" class="form-control input-sm" placeholder="{{ 'ConnectionCondition' | translate}}"></textarea>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-lg-8 col-lg-offset-2">
+                {{ vm.formatedData}}
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-lg-8 col-lg-offset-2">
+                注意:<br/>
+                <p>1. 这里是SQL中WHERE的写法，支持MS SQL中的内置函数</p>
+                <p>2. 如果是比较日期，请注意是否要比较时分秒，否则需要做日期转换</p>
+            </div>
+        </div>
+    </ma-form>
+</div>
+

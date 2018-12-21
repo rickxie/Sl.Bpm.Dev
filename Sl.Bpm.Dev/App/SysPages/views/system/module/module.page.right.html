@@ -1,0 +1,47 @@
+﻿<modal size="lg">
+    <modal-header>{{vm.newRight.pageName}}{{ 'Page' | translate}} {{ 'Permissions' | translate}}</modal-header>
+    <ma-form name="workflowSecurity">
+        <modal-body>
+            <div class="form-group">
+                <table class="table table-striped table-hover">
+                    <thead>
+                        <tr>
+                            <th width="30%">{{ 'NodeName' | translate}}</th>
+                            <th>{{ 'Identity' | translate}}</th>
+                            <th>{{ 'State' | translate}}</th>
+                            <th>{{ 'ControlStatus' | translate}}</th>
+                            <th>{{ 'Operation' | translate}}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="i in vm.models">
+                            <td><ma-select ng-model="i.nodeId" items="vm.nodes" display-member="name"></ma-select></td>
+                            <td><input ng-model="i.flag" required type="text" class="form-control" /></td>
+                            <td><ma-select items="vm.openStatus" ng-model="i.openStatus"></ma-select></td>
+                            <td><ma-select items="vm.controlStatus" ng-model="i.status"></ma-select></td>
+                            <td>
+                                <i class="icon icon-save" ng-click="vm.save(i)"></i>
+                                <i class="icon icon-remove" ng-click="vm.remove(i)"></i>
+                            </td>
+                        </tr>
+                    </tbody>
+                    <tbody>
+                        <tr>
+                            <td><ma-select ng-model="vm.newRight.nodeId" items="vm.nodes" display-member="name"></ma-select></td>
+                            <td><input ng-model="vm.newRight.flag" required type="text" class="form-control" /></td>
+                            <td><ma-select items="vm.openStatus" ng-model="vm.newRight.openStatus"></ma-select></td>
+                            <td><ma-select items="vm.controlStatus" ng-model="vm.newRight.status"></ma-select></td>
+                            <td>
+                                <i class="icon icon-save" ng-click="vm.save(vm.newRight)"></i>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </modal-body>
+        <modal-footer>
+            <!--<button class="btn btn-primary" type="submit" id="workflowSecurity" ma-form-submit="vm.save()">{{ 'Save' | translate}}</button>-->
+            <button type="button" class="btn btn-default" ng-click="$close()">{{ 'Cancel' | translate}}</button>
+        </modal-footer>
+    </ma-form>
+</modal>

@@ -1,0 +1,4 @@
+windows 里下载ruby 安装后安装sass
+先执行 sass xxx.scss xxx.css 
+然后在浏览器中调试样式
+找到对应的scss变量，修改后再执行上述指令即可

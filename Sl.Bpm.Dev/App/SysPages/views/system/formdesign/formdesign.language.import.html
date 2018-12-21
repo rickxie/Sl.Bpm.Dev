@@ -1,0 +1,36 @@
+﻿<modal size="lg">
+    <modal-header><i class="icon-list"></i>&nbsp;{{ 'FormMultiLanguageImport' | translate}} <span class="caption-helper"></span></modal-header>
+    <modal-body>
+        <ma-form>
+            <div class="col-lg-12">
+                <fm-import-xls template="/App/SysPages/views/system/formdesign/PageLanguageImportTemplate.xlsx" start-index="0" columns="['Key','LangNameCN','LangNameEN']" callback-func="vm.import(data)"></fm-import-xls>
+            </div>
+            <hr />
+            <div class="col-lg-12">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Key</th>
+                            <th>中文</th>
+                            <th>英文</th>
+                            <th>验证</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="i in vm.models">
+                            <td>{{i.Key}}</td>
+                            <td>{{i.LangNameCN}}</td>
+                            <td>{{i.LangNameEN}}</td>
+                            <td ng-class="{'text-danger':!i.isValid}">{{i.validMsg}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <ma-panel-command>
+                <button class="btn btn-primary" type="submit" id="importSubmit" ng-disabled="!vm.isValid" content="如果存在相同Key会更新原有数据" confirm-click="vm.save()">保存</button>&nbsp;&nbsp;
+                <button type="button" class="btn btn-default" ng-click="$close()">关闭</button>
+            </ma-panel-command>
+        </ma-form>
+    </modal-body>
+</modal>

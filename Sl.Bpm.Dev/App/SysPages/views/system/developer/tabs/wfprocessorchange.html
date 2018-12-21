@@ -1,0 +1,44 @@
+﻿<modal size="lg">
+    <modal-header>{{ 'WorkflowProcessorChange' | translate}}：{{vm.params.sn + " " + vm.params.workflowName}}</modal-header>
+    <modal-body>
+        <div class="row">
+            <div class="col-lg-12">
+                <button class="btn btn-primary input-sm" ng-click="vm.clearToProposer()">清除审批记录并退回发起人</button>
+                <button class="btn btn-primary input-sm" ng-click="vm.backToProposer()">退回发起人</button>
+                <button class="btn btn-primary input-sm" ng-if="vm.params.taskStatus==0" ng-click="vm.backToNode()">退回到某节点</button>
+                <button class="btn btn-primary input-sm" ng-if="vm.params.taskStatus==7 || vm.params.taskStatus==9" ng-click="vm.activateTask()">激活拒绝/取消流程</button>
+                <button class="btn btn-primary input-sm" ng-if="vm.params.taskStatus==1" ng-click="vm.backToLastNode()">退回最后一步</button>
+            </div>
+        </div>
+        <div class="row"></div>
+        <div class="row">
+            <div class="col-lg-12">
+                <table class="table datatable table-bordered table-condensed table-hover">
+                    <thead>
+                        <tr>
+                            <th>{{ "ReceiveDate" | translate}}</th>
+                            <th>{{ "CompletionTime" | translate}}</th>
+                            <th>{{ "NodeName" | translate}}</th>
+                            <th>{{ "Handler" | translate}}</th>
+                            <th>{{ "Action" | translate}}</th>
+                            <th>{{ "Memo" | translate}}</th>
+                            <th>{{ "Operation" | translate}}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="i in vm.allTaskInfos">
+                            <td>{{i.recvTime | date : "yyyy-MM-dd HH:mm:ss"}}</td>
+                            <td>{{i.procTime | date : "yyyy-MM-dd HH:mm:ss"}}</td>
+                            <td>{{i.wfdWorkflowNodeName}}</td>
+                            <td>{{vm.getProcer(i)}}</td>
+                            <td>{{i.action}}</td>
+                            <td>{{i.note}}</td>
+                            <td><button ng-if="i.type==1 " class="input-sm btn btn-primary" ng-click="vm.changeProcessor(i)">修改处理人</button></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <!--<fm-approve-history task-id="vm.params.taskId"></fm-approve-history>-->
+    </modal-body>
+</modal>

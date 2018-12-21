@@ -1,0 +1,57 @@
+﻿<modal size="lg">
+    <modal-header>{{ 'NodeProperties' | translate}} {{vm.model.name}}</modal-header>
+    <modal-body>
+        <ma-tabs active-panel="vm.activePanel">
+            <!--常规-->
+            <ma-panel data-title="{{ 'Common' | translate}}" name="general" ng-if="vm.visible.canSeeGeneral">
+                <div ng-if="vm.activePanel== 'general'" ng-include="'/App/SysDesigner/views/dialogs/node.tabs/general.html'"></div>
+            </ma-panel>
+            <!--准入条件-->
+            <ma-panel data-title="{{ 'accessCondition' | translate}}" name="accessCondition" ng-if="vm.visible.canSeeProcess">
+                <div ng-if="vm.activePanel== 'accessCondition'" ng-include="'/App/SysDesigner/views/dialogs/node.tabs/accessCondition.html'"></div>
+            </ma-panel>
+            <!--动作-->
+            <ma-panel data-title="{{ 'Action' | translate}}" name="action" ng-if="vm.visible.isStartNode || vm.visible.isHandleNode || vm.visible.isEndNode">
+                <div ng-if="vm.activePanel== 'action'" ng-include="'/App/SysDesigner/views/dialogs/node.tabs/action.html'"></div>
+            </ma-panel>
+            <!--处理者-->
+            <ma-panel data-title="{{ 'Handler' | translate}}" name="processor" ng-if="vm.visible.canSeeProcess">
+                <div ng-if="vm.activePanel== 'processor'" ng-include="'/App/SysDesigner/views/dialogs/node.tabs/processor.html'"></div>
+            </ma-panel>
+            <!--跳过方式-->
+            <ma-panel data-title="{{ 'JumpWay' | translate}}" name="jumpWay" ng-if="vm.visible.canSeeProcess">
+                <div ng-if="vm.activePanel== 'jumpWay'" ng-include="'/App/SysDesigner/views/dialogs/node.tabs/jumpWay.html'"></div>
+            </ma-panel>
+            <!--自动处理-->
+            <ma-panel data-title="{{ 'AutoProcessing' | translate}}" name="autohandle" ng-if="vm.visible.canSeeAutoHandle">
+                <div ng-if="vm.activePanel== 'autohandle'" ng-include="'/App/SysDesigner/views/dialogs/node.tabs/autohandle.html'"></div>
+            </ma-panel>
+            <!--抄送-->
+            <ma-panel data-title="{{ 'CC' | translate}}" name="copy" ng-if="vm.visible.canSeeGeneral">
+                <div ng-if="vm.activePanel== 'copy'" ng-include="'/App/SysDesigner/views/dialogs/node.tabs/copy.html'"></div>
+            </ma-panel>
+            <!--通知-->
+            <ma-panel data-title="{{ 'Notice' | translate}}" name="inform" ng-if="vm.visible.canSeeGeneral ">
+                <div ng-if="vm.activePanel== 'inform'" ng-include="'/App/SysDesigner/views/dialogs/node.tabs/inform.html'"></div>
+            </ma-panel>
+            <!--过时-->
+            <ma-panel data-title="{{ 'Outdated' | translate}}" name="overtime" ng-if="vm.visible.canSeeProcess">
+                <div ng-if="vm.activePanel== 'overtime'" ng-include="'/App/SysDesigner/views/dialogs/node.tabs/overtime.html'"></div>
+            </ma-panel>
+            <!--考核-->
+            <ma-panel data-title="{{ 'Assessment' | translate}}" name="examination" ng-if="vm.visible.canSeeExamination">
+                <div ng-if="vm.activePanel== 'examination'" ng-include="'/App/SysDesigner/views/dialogs/node.tabs/examination.html'"></div>
+            </ma-panel>
+            <!--预处理人-->
+            <ma-panel data-title="{{ 'PretreatmentPerson' | translate}}" name="preprocessor" ng-if="vm.visible.canSeeExamination">
+                <div ng-if="vm.activePanel== 'preprocessor'" ng-include="'/App/SysDesigner/views/dialogs/node.tabs/preprocessor.html'"></div>
+            </ma-panel>
+            <!--展示配置-->
+            <ma-panel data-title="展示配置" name="columnConfig" ng-if="vm.visible.canSeeColumnConfig">
+                <div ng-if="vm.activePanel== 'columnConfig'" ng-include="'/App/SysDesigner/views/dialogs/node.tabs/columnConfig.html'"></div>
+            </ma-panel>
+        </ma-tabs>
+    </modal-body>
+</modal>
+
+

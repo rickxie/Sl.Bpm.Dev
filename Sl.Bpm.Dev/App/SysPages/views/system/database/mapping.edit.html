@@ -1,0 +1,118 @@
+﻿<div ng-controller="system.database.mappingedit as vm">
+    <div class="col-lg-12">
+        <h3 ng-bind="vm.model.viewTable.schemaName + '（'+ vm.model.viewTable.langNameList[0].value+'）'"></h3>
+        <ma-tabs>
+            <ma-panel data-title="{{ 'Basic' | translate}}" name="basic">
+                <ma-form name="variableEdit">
+                    <modal-body>
+                        <div class="form-group form-md-line-input">
+                            <div class="col-lg-1 control-label">{{ 'Type' | translate}}</div>
+                            <div class="col-lg-11">
+                                <ma-select ng-model="vm.model.viewTable.type" items="vm.allViewType" ng-disabled="{{vm.model.viewTable.id != null}}"></ma-select>
+                                <div class="form-control-focus"></div>
+                            </div>
+                        </div>
+                        <div class="form-group form-md-line-input">
+                            <div class="col-lg-1 control-label">{{ 'DataViewCode' | translate}}:</div>
+                            <div class="col-lg-11">
+                                <input ng-disabled="vm.model.viewTable.type==1" ng-model="vm.model.viewTable.schemaName" type="text" maxlength="50" required class="form-control input" placeholder="{{ 'DataViewNameInDatatable' | translate}}" ng-disabled="{{vm.model.viewTable.id != null}}">
+                                <div class="form-control-focus"></div>
+                            </div>
+                        </div>
+                        <div class="form-group form-md-line-input">
+                            <div class="col-lg-1 control-label">{{ 'DataViewName' | translate}}:</div>
+                            <div class="col-lg-11">
+                                <ma-language ma-disabled="vm.model.viewTable.type==1" name="langName" ng-model="vm.model.viewTable.langName" language-list="vm.model.viewTable.langNameList"></ma-language>
+                            </div>
+                        </div>
+                        <div class="form-group form-md-line-input">
+                            <div class="col-lg-1 control-label">{{ 'DataViewDescription' | translate}}:</div>
+                            <div class="col-lg-11">
+                                <ma-language ma-disabled="vm.model.viewTable.type==1" name="langDescription" ng-model="vm.model.viewTable.langDescription" language-list="vm.model.viewTable.langDescriptionList"></ma-language>
+                            </div>
+                        </div>
+                        <div class="form-group form-md-line-input">
+                            <div class="col-lg-1 control-label">{{ 'DataViewSQL' | translate}}:</div>
+                            <div class="col-xs-11">
+                                <ma-code-sql ng-model="vm.model.viewTable.dataSql"></ma-code-sql>
+                                <div class="tip-text">e.g. <%EnterpriseId%></div>
+                            </div>
+                        </div>
+                        <!--同步文件属性配置-->
+                        <div class="form-group form-md-line-input">
+                            <div class="col-lg-1 control-label">{{ 'ServerConfiguration' | translate}}:</div>
+                            <div class="col-lg-11">
+                                <ma-select ng-model="vm.model.integrationFile.serverId" items="vm.servers" display-member="name"></ma-select>
+                                <div class="form-control-focus"></div>
+                            </div>
+                        </div>
+                        <div class="form-group form-md-line-input">
+                            <div class="col-lg-1 control-label">{{ 'FileServerFolder' | translate}}:</div>
+                            <div class="col-lg-11">
+                                <input ng-model="vm.model.integrationFile.fileServerFolder" type="text" required class="form-control input" placeholder="{{ 'FileServerFolder' | translate}}" ng-disabled="{{vm.model.viewTable.id != null}}">
+                                <div class="form-control-focus"></div>
+                            </div>
+                        </div>
+                        <div class="form-group form-md-line-input">
+                            <div class="col-lg-1 control-label">{{ 'FileReturnFolder' | translate}}:</div>
+                            <div class="col-lg-11">
+                                <input ng-model="vm.model.integrationFile.fileReturnFolder" type="text" required class="form-control input" placeholder="{{ 'FileServerFolder' | translate}}" ng-disabled="{{vm.model.viewTable.id != null}}">
+                                <div class="form-control-focus"></div>
+                            </div>
+                        </div>
+                        <div class="form-group form-md-line-input">
+                            <div class="col-lg-1 control-label">{{ 'FileNameFormat' | translate}}:</div>
+                            <div class="col-lg-11">
+                                <input ng-model="vm.model.integrationFile.fileNameFormat" type="text" required class="form-control input" placeholder="{{ 'FileNameFormat' | translate}}" ng-disabled="{{vm.model.viewTable.id != null}}">
+                                <div class="form-control-focus"></div>
+                            </div>
+                        </div>
+                        <div class="form-group form-md-line-input">
+                            <div class="col-lg-1 control-label">{{ 'FileSeparator' | translate}}:</div>
+                            <div class="col-lg-11">
+                                <input ng-model="vm.model.integrationFile.fileSeparator" type="text" class="form-control input" placeholder="{{ 'FileSeparator' | translate}}" ng-disabled="{{vm.model.viewTable.id != null}}">
+                                <div class="form-control-focus"></div>
+                            </div>
+                        </div>
+                        <div class="form-group form-md-line-input">
+                            <div class="col-lg-1 control-label">{{ 'FileExtension' | translate}}:</div>
+                            <div class="col-lg-11">
+                                <input ng-model="vm.model.integrationFile.fileExtension" type="text" required class="form-control input" placeholder="{{ 'FileExtension' | translate}}" ng-disabled="{{vm.model.viewTable.id != null}}">
+                                <div class="form-control-focus"></div>
+                            </div>
+                        </div>
+                        <div class="form-group form-md-line-input">
+                            <div class="col-lg-1 control-label">{{ 'NeedRemoveCharacter' | translate}}:</div>
+                            <div class="col-lg-11">
+                                <input ng-model="vm.model.integrationFile.removeCharacters" type="text" class="form-control input" placeholder="{{ 'NeedRemoveCharacter' | translate}}" ng-disabled="{{vm.model.viewTable.id != null}}">
+                                <div class="form-control-focus"></div>
+                                <div class="tip-text">Note：需要移除多个特殊字符用半角逗号隔开，e.g ',",‘,“</div>
+                            </div>
+                        </div>
+                        <div class="form-group form-md-line-input">
+                            <div class="col-lg-1 control-label">{{ 'SuccessCallBack' | translate}}:</div>
+                            <div class="col-lg-11">
+                                <input ng-model="vm.model.integrationFile.successCallBack" type="text" class="form-control input" placeholder="{{ 'SuccessCallBack' | translate}}" ng-disabled="{{vm.model.viewTable.id != null}}">
+                                <div class="form-control-focus"></div>
+                            </div>
+                        </div>
+                        <div class="form-group form-md-line-input">
+                            <div class="col-lg-1 control-label">{{ 'ErrorCallBack' | translate}}:</div>
+                            <div class="col-lg-11">
+                                <input ng-model="vm.model.integrationFile.errorCallBack" type="text" class="form-control input" placeholder="{{ 'ErrorCallBack' | translate}}" ng-disabled="{{vm.model.viewTable.id != null}}">
+                                <div class="form-control-focus"></div>
+                            </div>
+                        </div>
+                        <div class="form-group form-md-line-input" ng-if="vm.model.viewTable.type!=1">
+                            <div class="col-lg-1 control-label"></div>
+                            <div class="col-lg-11 text-right ">
+                                <button class="btn btn-primary" type="submit" id="variableEdit" ma-form-submit="vm.save()">{{ 'Save' | translate}}</button>&nbsp;&nbsp;
+                                <button type="button" class="btn btn-default" ng-click="$close()">{{ 'Close' | translate}}</button>
+                            </div>
+                        </div>
+                    </modal-body>
+                </ma-form>
+            </ma-panel>
+        </ma-tabs>
+    </div>
+</div>

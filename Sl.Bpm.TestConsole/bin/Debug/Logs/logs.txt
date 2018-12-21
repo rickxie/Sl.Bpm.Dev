@@ -1,0 +1,27 @@
+Error 10/13/2018 12:00:52 772 名称:Sl.Bpm.TestConsole.exe
+无上下文策略。
+MiniAbp.UserFriendlyException: Schedule不存在
+   在 Sl.Bpm.Application.Experts.Codes.CsComposer.CreateInstance(String typeName) 位置 D:\Code\ShaluTfs\Shalu\Sl.Bpm_1.7.26\Sl.Bpm\Application\Sl.Bpm.Application\Experts\Codes\CodeComposer.cs:行号 155
+   在 Sl.Bpm.Application.Experts.Codes.CsComposer.Invoke(String pocIdOrFileName, String methodName, Object[] param) 位置 D:\Code\ShaluTfs\Shalu\Sl.Bpm_1.7.26\Sl.Bpm\Application\Sl.Bpm.Application\Experts\Codes\CodeComposer.cs:行号 117
+   在 Sl.Bpm.Application.Experts.CodeExpert.MethodExecuteByCodeItemId(String codeItemId, JobTaskQueue param) 位置 D:\Code\ShaluTfs\Shalu\Sl.Bpm_1.7.26\Sl.Bpm\Application\Sl.Bpm.Application\Experts\Codes\CodeExpert.cs:行号 172
+   在 Sl.Bpm.TestConsole.AutoPostTest.Execute() 位置 D:\Code\ShaluTfs\Shalu\Sl.Bpm_1.7.26\Sl.Bpm\Test\Sl.Bpm.TestConsole\AutoPostTest.cs:行号 16
+   在 Sl.Bpm.TestConsole.Program.Main(String[] args) 位置 D:\Code\ShaluTfs\Shalu\Sl.Bpm_1.7.26\Sl.Bpm\Test\Sl.Bpm.TestConsole\Program.cs:行号 17
+
+Error 10/13/2018 12:05:44 271 名称:Sl.Bpm.TestConsole.exe
+无上下文策略。
+MiniAbp.UserFriendlyException: Schedule不存在
+   在 Sl.Bpm.Application.Experts.Codes.CsComposer.CreateInstance(String typeName) 位置 D:\Code\ShaluTfs\Shalu\Sl.Bpm_1.7.26\Sl.Bpm\Application\Sl.Bpm.Application\Experts\Codes\CodeComposer.cs:行号 155
+   在 Sl.Bpm.Application.Experts.Codes.CsComposer.Invoke(String pocIdOrFileName, String methodName, Object[] param) 位置 D:\Code\ShaluTfs\Shalu\Sl.Bpm_1.7.26\Sl.Bpm\Application\Sl.Bpm.Application\Experts\Codes\CodeComposer.cs:行号 117
+   在 Sl.Bpm.Application.Experts.CodeExpert.MethodExecuteByCodeItemId(String codeItemId, JobTaskQueue param) 位置 D:\Code\ShaluTfs\Shalu\Sl.Bpm_1.7.26\Sl.Bpm\Application\Sl.Bpm.Application\Experts\Codes\CodeExpert.cs:行号 172
+   在 Sl.Bpm.TestConsole.AutoPostTest.Execute() 位置 D:\Code\ShaluTfs\Shalu\Sl.Bpm_1.7.26\Sl.Bpm\Test\Sl.Bpm.TestConsole\AutoPostTest.cs:行号 16
+   在 Sl.Bpm.TestConsole.Program.Main(String[] args) 位置 D:\Code\ShaluTfs\Shalu\Sl.Bpm_1.7.26\Sl.Bpm\Test\Sl.Bpm.TestConsole\Program.cs:行号 17
+
+Error 10/13/2018 12:06:02 182 名称:Sl.Bpm.TestConsole.exe
+无上下文策略。
+MiniAbp.UserFriendlyException: Schedule不存在
+   在 Sl.Bpm.Application.Experts.Codes.CsComposer.CreateInstance(String typeName) 位置 D:\Code\ShaluTfs\Shalu\Sl.Bpm_1.7.26\Sl.Bpm\Application\Sl.Bpm.Application\Experts\Codes\CodeComposer.cs:行号 155
+   在 Sl.Bpm.Application.Experts.Codes.CsComposer.Invoke(String pocIdOrFileName, String methodName, Object[] param) 位置 D:\Code\ShaluTfs\Shalu\Sl.Bpm_1.7.26\Sl.Bpm\Application\Sl.Bpm.Application\Experts\Codes\CodeComposer.cs:行号 117
+   在 Sl.Bpm.Application.Experts.CodeExpert.MethodExecuteByCodeItemId(String codeItemId, JobTaskQueue param) 位置 D:\Code\ShaluTfs\Shalu\Sl.Bpm_1.7.26\Sl.Bpm\Application\Sl.Bpm.Application\Experts\Codes\CodeExpert.cs:行号 172
+   在 Sl.Bpm.TestConsole.AutoPostTest.Execute() 位置 D:\Code\ShaluTfs\Shalu\Sl.Bpm_1.7.26\Sl.Bpm\Test\Sl.Bpm.TestConsole\AutoPostTest.cs:行号 16
+   在 Sl.Bpm.TestConsole.Program.Main(String[] args) 位置 D:\Code\ShaluTfs\Shalu\Sl.Bpm_1.7.26\Sl.Bpm\Test\Sl.Bpm.TestConsole\Program.cs:行号 17
+

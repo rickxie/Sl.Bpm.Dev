@@ -1,0 +1,216 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="page-con" ng-controller="personaldata">
+    <div class="main-head">
+        <h2>个人资料</h2>
+        <div class="logo">
+            <img src="/Content/Images/new/logoA.png">
+        </div>
+    </div>
+    <div class="personal-main">
+        <div class="personal-left">
+            <div class="up">
+                <img src="/Content/Images/new/load_defA.jpg" class="headPortrait">
+                <p class="fts20"><b>{{userInfo.name}}</b></p>
+                <p class="jobNumber">工号：{{userInfo.employeeNumber}}</p>
+            </div>
+            <div class="Drop">
+                <dl>
+                    <dd class="select">
+                        <a href="#" target="_blank"><label><i class="icon-newspaper-o"></i></label>基本信息</a>
+                    </dd>
+                    <dd>
+                        <a href="#" target="_blank"><label><i class="icon-check-board"></i></label>工作信息</a>
+                    </dd>
+                    <dd>
+                        <a href="#" target="_blank"><label><i class="icon-newspaper-o"></i></label>工作经历</a>
+                    </dd>
+                    <dd>
+                        <a href="#" target="_blank"><label><i class="icon-file-text"></i></label>技能信息</a>
+                    </dd>
+                    <dd>
+                        <a href="#" target="_blank"><label><i class="icon-area-chart"></i></label>成长轨迹</a>
+                    </dd>
+                    <dd>
+                        <a href="#" target="_blank"><label><i class="icon-thumbs-o-up"></i></label>点赞信息</a>
+                    </dd>
+                    <dd>
+                        <a href="#" target="_blank"><label><i class="icon-book"></i></label>证书信息</a>
+                    </dd>
+                    <dd>
+                        <a href="#" target="_blank"><label><i class="icon-edit-sign"></i></label>培训信息</a>
+                    </dd>
+                    <dd>
+                        <a href="#" target="_blank"><label><i class="icon-yen"></i></label>薪资信息</a>
+                    </dd>
+                    <dd>
+                        <a href="#" target="_blank"><label><i class="icon-calendar"></i></label>假期考勤</a>
+                    </dd>
+                    <dd>
+                        <a href="#" target="_blank"><label><i class="icon-line-chart"></i></label>绩效信息</a>
+                    </dd>
+                    <dd>
+                        <a href="#" target="_blank"><label><i class="icon-calendar"></i></label>我的借支</a>
+                    </dd>
+                    <dd>
+                        <a href="#" target="_blank"><label><i class="icon-line-chart"></i></label>我的资产</a>
+                    </dd>
+                </dl>
+            </div>
+        </div>
+        <div class="personal-right" id="Right">
+            <p class="fts20 mag20"><b>个人基本信息</b></p>
+            <div class="top" style="overflow: auto;">
+                <dl class="d1">
+                    <dd>
+                        <div>
+                            <ul>
+                                <li>
+                                    <span><span class="required2">*</span>姓：</span> <input type="text">
+                                </li>
+                                <li>
+                                    <span><span class="required2">*</span>名：</span> <input type="text">
+                                </li>
+                                <li>
+                                    <span>中间名：</span> <input type="text">
+                                </li>
+                                <li>
+                                    <span><span class="required2">*</span>英文名：</span> <input type="text">
+                                </li>
+                                <li>
+                                    <span>中文名：</span> <input type="text">
+                                </li>
+                                <li>
+                                    <span></span>
+                                </li>
+                                <li>
+                                    <span><span class="required2">*</span>国籍：</span> <input type="text">
+                                </li>
+                                <li>
+                                    <span><span class="required2">*</span>户口所在地：</span> <input type="text">
+                                </li>
+                                <li>
+                                    <span><span class="required2">*</span>性别：</span> <input type="text">
+                                </li>
+                                <li>
+                                    <span>出生年月：</span> <input type="text">
+                                </li>
+                                <li>
+                                    <span>政治面貌：</span> <input type="text">
+                                </li>
+                                <li>
+                                    <span><span class="required2">*</span>生育状况：</span> <input type="text">
+                                </li>
+                                <li>
+                                    <span>居留许可证到期日：</span> <input type="text">
+                                </li>
+                            </ul>
+                        </div>
+                    </dd>
+                </dl>
+                <dl class="d2">
+                    <dd>
+                        <div>
+                            <ul>
+                                <li class="caiwenji">
+                                    <span class="uploadimg">
+                                        <img src="~/Content/Images/new/load_def.jpg">
+                                        <label><i class="icon-cloud-upload"></i> 上传</label>
+                                    </span>
+
+                                </li>
+                                <li>
+                                    <span><span class="required2">*</span>证件号：</span> <input type="text">
+                                </li>
+                                <li>
+                                    <span><span class="required2">*</span>婚姻状况：</span> <input type="text">
+                                </li>
+                                <li>
+                                    <span>护照到期日：</span> <input type="text">
+                                </li>
+                                <li>
+                                    <span>就业证到期日：</span> <input type="text">
+                                </li>
+                            </ul>
+                        </div>
+                    </dd>
+                </dl>
+            </div>
+            <div class="pad10-50">
+                <p class="CallInfo">通讯信息</p>
+            </div>
+            <div class="RightDrop">
+                <dl class="d1">
+                    <dd>
+                        <div>
+                            <ul>
+                                <li>
+                                    <span><span class="required2">*</span>手机号码：</span> <input type="text">
+                                </li>
+                                <li>
+                                    <span><span class="required2">*</span>户籍地址：</span> <input type="text">
+                                </li>
+                            </ul>
+                        </div>
+                    </dd>
+                </dl>
+                <dl class="d2">
+                    <dd>
+                        <div>
+                            <ul>
+                                <li>
+                                    <span><span class="required2">*</span>通讯地址：</span> <input type="text">
+                                </li>
+                            </ul>
+                        </div>
+                    </dd>
+                </dl>
+            </div>
+            <div class="pad10-50">
+                <p class="CallInfo">银行卡信息</p>
+            </div>
+            <div class="RightDrop">
+                <dl class="d1">
+                    <dd>
+                        <div>
+                            <ul>
+                                <li>
+                                    <span><span class="required2">*</span>开户名：</span> <input type="text">
+                                </li>
+                                <li>
+                                    <span><span class="required2">*</span>开户银行：</span> <input type="text">
+                                </li>
+                            </ul>
+                        </div>
+                    </dd>
+                </dl>
+                <dl class="d2">
+                    <dd>
+                        <div>
+                            <ul>
+                                <li>
+                                    <span><span class="required2">*</span>银行卡号：</span> <input type="text">
+                                </li>
+                            </ul>
+                        </div>
+                    </dd>
+                </dl>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function loadModule() {
+        angular.module("syspages").controller("personaldata", ["$scope", function ($scope) {
+
+            $scope.userInfo = {
+                name: $currentUser.name || $currentUser.account,
+                employeeNumber: $currentUser.employeeNumber
+            };
+
+        }]);
+    }
+   
+</script>

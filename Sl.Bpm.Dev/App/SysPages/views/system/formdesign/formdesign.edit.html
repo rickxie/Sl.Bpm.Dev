@@ -1,0 +1,99 @@
+﻿<modal size="lg">
+    <div class="modal-header"><button type="button" class="close" ng-click="reload()"><i class="iocn icon-refresh"></i></button><h4>&nbsp;{{ 'BusinessTable' | translate}} {{vm.model.name}}</h4> </div>
+ 
+    <div class="col-lg-12" style="background-color:#fff;">
+
+        <ma-tabs>
+            <ma-panel data-title="{{ 'Basic' | translate}}" name="basic">
+                <modal-body>
+                    <ma-form name="formEdit">
+                        <div class="form-group form-md-line-input">
+                            <div class="col-lg-2 control-label">{{ 'FormType' | translate}}:</div>
+                            <div class="col-lg-8">
+                                <ma-select ng-model="vm.model.type" items="vm.allType" disabled></ma-select>
+                                <!--<button type="button" class="btn btn-default"
+                    required
+                    name="type"
+                    maxlength="200" ng-model="vm.model.type"
+                    data-html="1" bs-options="item.id as item.text for item in vm.allType" bs-select ng-disabled="true">
+                <span class="caret"></span>
+            </button>-->
+                                <div class="form-control-focus"></div>
+                            </div>
+                        </div>
+
+                        <div class="form-group form-md-line-input">
+                            <div class="col-lg-2 control-label">{{ 'FormName' | translate}}:</div>
+                            <div class="col-lg-8">
+                                <ma-language ng-disabled name="langName" ng-model="vm.model.langName" language-list="vm.model.langNameList"></ma-language>
+
+                                <!--<ma-lang ng-model="vm.model.langName" display="vm.model.name" enterprise-id="vm.enterpriseId" ng-disabled="true"></ma-lang>-->
+                            </div>
+                        </div>
+                        <div class="form-group form-md-line-input">
+                            <div class="col-lg-2 control-label">{{ 'FormDescription' | translate}}:</div>
+                            <div class="col-lg-8">
+                                <ma-language ng-disabled type="textarea" name="langDescription" ng-model="vm.model.langDescription" language-list="vm.model.langDescriptionList" ng-disabled="true"></ma-language>
+
+                                <!--<ma-lang ng-model="vm.model.langDescription" display="vm.model.description" enterprise-id="vm.enterpriseId" ng-disabled="true"></ma-lang>-->
+                            </div>
+                        </div>
+
+                        <div class="form-group form-md-line-input">
+                            <div class="col-lg-2 control-label">{{ 'FileName' | translate}}:</div>
+                            <div class="col-lg-8">
+                                <input ng-model="vm.model.fileName" readonly="readonly" type="text" class="form-control input">
+                                <div class="form-control-focus"></div>
+                            </div>
+                        </div>
+
+                        <div class="form-group form-md-line-input">
+                            <div class="col-lg-2 control-label">是否启用:</div>
+                            <div class="col-lg-8">
+                                <ma-checkbox class="input-sm" ng-model="vm.model.isEnable" ng-change="vm.switchPage(vm.model)"></ma-checkbox>
+                                <div class="form-control-focus"></div>
+                            </div>
+                        </div>
+
+                        <div class="form-group form-md-line-input">
+                            <div class="col-lg-2 control-label">{{ 'Datatable' | translate}}:</div>
+                            <div class="col-lg-8">
+                                <input type="text" ng-model="vm.model.dataTableName" class="form-control" readonly="readonly" />
+                                <!--<ma-select-data ismulti key-field="name" value-field="id" table="vm.businesstables" columns="{name:'表名称',description:'表描述'}" placeholder="{{ 'ChooseAssociatedDataTable' | translate}}" ng-model="vm.model.tableIds"></ma-select-data>-->
+                                <div class="form-control-focus"></div>
+                            </div>
+                        </div>
+                        <div class="form-group form-md-line-input">
+                            <div class="col-lg-2 control-label">输出:</div>
+                            <div class="col-lg-8">
+                                <div ng-if="vm.model.startUpError != null" ng-model="vm.model.startUpError"></div>
+                                <div ng-if="vm.model.startUpError == null" ng-model="vm.model.startUpError">无</div>
+                                <div class="form-control-focus"></div>
+                            </div>
+                        </div>
+                    </ma-form>
+                </modal-body>
+
+            </ma-panel>
+            <!--<ma-panel data-title="高级" name="advance" ng-if="vm.model.id != null">
+                <br />
+                <div class="form-group form-md-line-input">
+                    <div class="col-lg-3 control-label"></div>
+                    <div class="col-lg-8 ">
+                        请注意，删除表单会删除表单对应的所有数据！
+                    </div>
+                </div>
+                <div class="form-md-line-input">
+                    <div class="col-lg-9 col-lg-offset-3 btngroup-left">
+                        <button class="btn btn-danger" role="button" message="删除此流程？" type="button" confirm-click="vm.delete()">删除</button>&nbsp;&nbsp;
+                        <button type="button" class="btn btn-default" ng-click="$close()">关闭</button>
+                    </div>
+                </div>
+
+            </ma-panel>-->
+        </ma-tabs>
+
+    </div>
+</modal>
+
+

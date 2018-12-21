@@ -1,0 +1,21 @@
+﻿<modal size="md">
+    <modal-header>{{ 'JobBindGroup' | translate}}</modal-header>
+    <ma-form name="jobBindOrg">
+        <modal-body>
+            <div class="form-group">
+                <div class="col-lg-4 control-label">{{ 'BindGroup' | translate}}:</div>
+                <div class="col-lg-6">
+                    <button type="button" class="btn btn-default validate" ng-model="vm.selectedGroupId" data-html="1" bs-options="item.id as item.name for item in vm.models" bs-select placeholder="{{ 'PleaseChooseGroup' | translate}}">
+                        <span class="caret"></span>
+                    </button>
+                    <div class="form-control-focus"></div>
+                </div>
+            </div>
+        </modal-body>
+        <modal-footer>
+            <button class="btn btn-primary" type="submit" ma-form-submit="vm.save()" id="jobBindOrg">{{ 'Confirm' | translate}}</button>
+            <button type="button" class="btn btn-default" ng-click="$close()">{{ 'Cancel' | translate}}</button>
+        </modal-footer>
+    </ma-form>
+</modal>
+

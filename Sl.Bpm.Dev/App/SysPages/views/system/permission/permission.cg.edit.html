@@ -1,0 +1,118 @@
+﻿<modal size="xlg" fm-cache>
+    <modal-header><span ng-if="vm.model.id == null" translate="Create"></span><span ng-if="vm.model.id != null" translate="Edit"></span>&nbsp;控制组 {{vm.model.name}}</modal-header>
+    <ma-form name="enterpriseRoleEdit">
+        <modal-body>
+            <div class="form-group form-md-line-input">
+                <div class="col-lg-2 control-label">{{ 'Name' | translate}}:</div>
+                <div class="col-lg-8">
+                    <fm-text fm-model="vm.model.name"></fm-text>
+                </div>
+            </div>
+            <div class="form-group form-md-line-input">
+                <div class="col-lg-2 control-label">优先序号:</div>
+                <div class="col-lg-2">
+                    <fm-number fm-model="vm.model.displayOrder" integer></fm-number>
+                </div>
+            </div>
+            <div class="form-group form-md-line-input">
+                <div class="col-lg-2 control-label">启用:</div>
+                <div class="col-lg-8">
+                    <ma-checkbox ng-model="vm.model.isEnable"></ma-checkbox>
+                </div>
+            </div>
+            <div class="form-group form-md-line-input">
+                <div class="col-lg-2 control-label">限制:</div>
+                <div class="col-lg-8">
+                    <!--组织-->
+                    <fm-data-select group fm-model="vm.model.belongGroupId" i-clear></fm-data-select>
+                </div>
+            </div>
+            <div class="form-group form-md-line-input">
+                <div class="col-lg-2 control-label">组项:</div>
+                <div class="col-lg-8">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th width="140px">类型</th>
+                                <th width="250px">值</th>
+                                <th>公司限制</th>
+                                <th width="100px">操作</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><fm-select items="[{id: '60', text:'60 全部成员'},{id: '50', text:'50 组织'},{id: '40', text:'40 岗位级别'},{id: '30', text:'30 角色'},{id: '20', text:'20 岗位'},{id: '10', text:'10 用户'}]" fm-model="vm.newItem.type"></fm-select></td>
+                                <td>
+                                    <!--组织-->
+                                    <fm-data-select ng-if="vm.newItem.type== 50" group ismulti fm-model="vm.newItem.value"></fm-data-select>
+                                    <!--岗位级别-->
+                                    <fm-data-select ng-if="vm.newItem.type == 40"
+                                                    joblevel
+                                                    required
+                                                    fm-model="vm.newItem.value"></fm-data-select>
+                                    <!--角色-->
+                                    <fm-data-select ng-if="vm.newItem.type==30"
+                                                    view="Sys_GetRoles"
+                                                    required
+                                                    fm-model="vm.newItem.value"></fm-data-select>
+                                    <!--岗位-->
+                                    <fm-job-select ng-if="vm.newItem.type== 20"
+                                                   required
+                                                   fm-model="vm.newItem.value"></fm-job-select>
+                                    <!--用戶-->
+                                    <fm-data-select ng-if="vm.newItem.type==10"
+                                                    view="Sys_GetUserNameById"
+                                                    required
+                                                    fm-model="vm.newItem.value"></fm-data-select>
+                                </td>
+                                <td>
+                                    <fm-select view="Sys_GetAllCompany" fm-model="vm.newItem.areaCodeList" ismulti></fm-select>
+                                </td>
+                                <td><button class="btn btn-success btn-sm" ng-click="vm.saveItem()">保存</button></td>
+                            </tr>
+                            <tr ng-repeat="item in vm.detail">
+                                <td><fm-select state="readonly" items="[{id: '60', text:'60 全部成员'},{id: '50', text:'50 组织'},{id: '40', text:'40 岗位级别'},{id: '30', text:'30 角色'},{id: '20', text:'20 岗位'},{id: '10', text:'10 用户'}]" fm-model="item.type"></fm-select></td>
+                                <td>
+                                    <!--组织-->
+                                    <fm-data-select state="readonly" ng-if="item.type== 50" group fm-model="item.value"></fm-data-select>
+                                    <!--岗位级别-->
+                                    <fm-data-select state="readonly" ng-if="item.type == 40"
+                                                    joblevel
+                                                    required
+                                                    fm-model="item.value"></fm-data-select>
+                                    <!--角色-->
+                                    <fm-data-select state="readonly" ng-if="item.type==30"
+                                                    view="Sys_GetRoles"
+                                                    required
+                                                    fm-model="item.value"></fm-data-select>
+                                    <!--岗位-->
+                                    <fm-job-select state="readonly" ng-if="item.type== 20"
+                                                   required
+                                                   fm-model="item.value"></fm-job-select>
+                                    <!--用戶-->
+                                    <fm-data-select state="readonly" ng-if="item.type==10"
+                                                    view="Sys_GetUserNameById"
+                                                    required
+                                                    fm-model="item.value"></fm-data-select>
+
+                                </td>
+                                <td>
+                                    <fm-select view="Sys_GetAllCompany" state="readonly" fm-model="item.areaCodeList" ismulti></fm-select>
+                                </td>
+                                <td>
+                                    <button class="btn btn-danger btn-sm" ng-click="vm.deleteItem(item)">删除</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </modal-body>
+        <modal-footer>
+            <button class="btn btn-danger" ng-if="vm.model.id != null" type="submit" title="确定删除吗?" confirm-click="vm.delete()">删除</button>
+            <button class="btn btn-primary" type="submit" id="enterpriseRoleEdit" ma-form-submit="vm.save()">{{ 'Save' | translate}}</button>
+            <button type="button" class="btn btn-default" ng-click="$close()">{{ 'Cancel' | translate}}</button>
+        </modal-footer>
+    </ma-form>
+</modal>
+

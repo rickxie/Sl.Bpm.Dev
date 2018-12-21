@@ -1,0 +1,137 @@
+﻿
+
+<div ng-controller="syspages.views.system.chart.wfprocess as vm">
+    <div class="row form-group ma-block">
+        <div style="height: 30px;"></div>
+        <div class="col-xs-12">
+            <div class="container">
+                <div class="form-group">
+                    <div class="col-xs-12">
+                        <div class="row">
+                            <div class="ma-detailinfo">
+                                <div class="content">
+                                    <div class="row">
+                                        <div class="col-xs-4">
+                                            <div class="input-group wf-search">
+                                                <span class="input-group-addon input-sm">{{ 'Sn' | translate}}</span>
+                                                <fm-text fm-model="vm.filter.sn" i-clear fm-placeholder="{{ 'Sn' | translate}}" keydown fm-blur="vm.load()"></fm-text>
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-4">
+                                            <div class="input-group wf-search">
+                                                <span class="input-group-addon input-sm">{{ 'WorkflowName' | translate}}:</span>
+                                                <fm-select items="vm.flows" fm-model="vm.filter.wfId" callback-func="vm.load()"></fm-select>
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-4">
+                                            <div class="input-group wf-search">
+                                                <span class="input-group-addon input-sm">申请人</span>
+                                                <fm-text fm-model="vm.filter.applicantName" i-clear keydown fm-blur="vm.load()"></fm-text>
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-4">
+                                            <div class="input-group wf-search">
+                                                <span class="input-group-addon input-sm">{{ 'CurrentStatus' | translate}}</span>
+                                                <fm-select class="form-control input-sm" items="vm.taskStatus" fm-model="vm.filter.status" fm-blur="vm.load()"></fm-select>
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-4">
+                                            <div class="input-group wf-search">
+                                                <span class="input-group-addon input-sm">{{ 'StartDate' | translate}}</span>
+                                                <fm-datetime class="form-control input-sm" date fm-model="vm.filter.searchStartTime" fm-readonly fm-blur="vm.load()"></fm-datetime>
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-4">
+                                            <div class="input-group wf-search">
+                                                <span class="input-group-addon input-sm">{{ 'EndDate' | translate}}</span>
+                                                <fm-datetime class="form-control input-sm" date fm-model="vm.filter.searchEndTime" fm-readonly fm-blur="vm.load()"></fm-datetime>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12" style="text-align: center;">
+                                <button class="btn btn-primary" ng-click="vm.load()">{{:: 'Query' | translate}}</button>
+                                <button class="btn btn-default" ng-click="vm.clear()">清空</button>
+                                <button class="btn btn-default" ng-click="vm.add()">+++</button>
+                                <button class="btn btn-default" ng-click="vm.ddd()">---</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="col-xs-12">
+                        <div style="width: 100%; overflow-x: auto;">
+                            <table class="table table-striped table-hover table-condensed">
+                                <thead>
+                                <tr></tr>
+                                <tr>
+                                    <th class="checked" style="width: 30px;">
+                                        <input type="checkbox" class="uniform" ng-checked="vm.allChecked" ng-model="vm.allChecked" ng-click="vm.checkAll(vm.allChecked,vm.models)"/>
+                                    </th>
+                                    <th style="width: 70px;">任务号</th>
+                                    <th style="width: 190px;">流程名称</th>
+                                    <th style="width: 210px;">单号</th>
+                                    <th style="width: 100px;">申请人</th>
+                                    <th style="width: 350px;">当前状态</th>
+                                    <th style="width: 250px;">申请时间</th>
+                                    <th>OverTime</th>
+                                    <th>StandardTime</th>
+                                    <th style="width: 250px;">进度</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr ng-repeat="item in vm.models" ng-class="{ 'active': item.checked}">
+                                    <td class="checked">
+                                        <input class="uniform"
+                                               type="checkbox" ng-model="item.checked"/>
+                                    </td>
+                                    <td>{{item.refId}}</td>
+                                    <td>{{item.workflowName}}</td>
+                                    <td>
+                                        <a href="/SysPages/SnNumber/{{item.sn}}/" target="_blank">
+                                            {{item.sn}}
+                                            <span ng-if="!!item.areaCode">({{item.areaCode}})</span>
+                                        </a>
+                                    </td>
+                                    <td>{{item.applicant}}</td>
+                                    <td>{{item.procStatus}}</td>
+                                    <td>{{item.creationTime}}</td>
+                                    <td>{{item.overTime}}</td>
+                                    <td>{{item.standardTime}}</td>
+                                    <td>
+                                        <div ng-class="{progress: true, 'progress-striped': vm.striped}">
+                                            <div class="progress-bar" ng-class="{'progress-bar-success':(item.overTime <= item.standardTime) && (item.taskStatus == 1), 'progress-bar-info': (item.taskStatus == 0) && (item.overTime < item.standardTime), 'progress-bar-warning': item.taskStatus == 9, 'progress-bar-danger': (item.overTime > item.standardTime) && (item.taskStatus == 0 || item.taskStatus == 1)}" ng-style="{width: ((item.overTime/item.standardTime)*100 > 100? 100:(item.overTime/item.standardTime)*100) + '%'}">
+                                                <div ng-if="vm.showLabel">{{item.overTime}}/{{item.standardTime}}</div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="col-xs-12">
+                <div class="col-xs-1" style="text-align: right;" ng-if="vm.paging.totalCount > 0">
+                    <span class="control-label" style="vertical-align: top; line-height: 32px;">{{ "Count" | translate}}：{{vm.paging.totalCount}}</span> &nbsp;&nbsp;&nbsp;
+                </div>
+                <div class="col-xs-11" style="text-align: right;" ng-if="vm.paging.totalCount > 0">
+                    <ma-pager current-page="vm.paging.currentPage" load="vm.load()" total-count="vm.paging.totalCount" page-size="vm.paging.pageSize"></ma-pager>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+

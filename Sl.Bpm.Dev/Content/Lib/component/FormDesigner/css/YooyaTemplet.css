@@ -1,0 +1,115 @@
+﻿html {
+    font-family: 'Microsoft Yahei','Helvetica Neue',Helvetica,Arial,sans-serif;
+    /*background-color: rgb(238, 238, 238);*/
+}
+
+body {
+    font-family: 'Microsoft Yahei','Helvetica Neue',Helvetica,Arial,sans-serif;
+    /*background-color: rgb(238, 238, 238);*/
+    color: #34495e;
+    padding: 0px;
+    margin: 0px;
+}
+
+#Div_Main {
+    background-color: white;
+    /*border-bottom: 1px solid #d9d9d9;
+    -webkit-box-shadow: 0px 1px 6px #ccc;
+    -moz-box-shadow: 0px 1px 6px #ccc;
+    -ms-box-shadow: 0px 1px 6px #ccc;
+    -o-box-shadow: 0px 1px 6px #ccc;
+    box-shadow: 0px 1px 6px #ccc;*/
+    border-radius: 4px;
+}
+
+.UL_Tool[category]:before {
+    content: attr(category);
+    color: #838FA1;
+    font-weight: bold;
+    display: block;
+    position: relative;
+    margin-right: 20px;
+    margin-left: 0px;
+    padding-left: 10px;
+    height: 30px;
+    line-height: 30px;
+    font-size: 14px;
+    border-bottom: 1px solid #eee;
+    font-size: 15px;
+}
+
+.UL_Tool[category]:after {
+    display: none;
+}
+
+.ToolItem {
+    color: #fff;
+    background-color: #32c5d2;
+    border: 1px solid #32c5d2;
+    border-radius: 4px;
+}
+
+.fa.ControlIcon:before {
+    color: #34495e;
+}
+
+.Text_Singer {
+    display: block;
+    width: calc(100% - 30px);
+    margin-left: 5px;
+    margin-right: 5px;
+    height: 32px;
+    padding: 0px 10px;
+    font-size: 13px;
+    line-height: 1.53846154;
+    color: #34495e;
+    vertical-align: middle;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+    box-sizing: border-box;
+    font-size: 15px;
+}
+.Text_Singer:disabled {
+    box-shadow: none;
+    border-radius: 0px;
+    border-bottom: 1px dashed #888;
+    color: #34495e;
+}
+.Text_Singer:hover:not(:disabled) {
+    background-color: #fff;
+}
+.Text_Singer:focus {
+    background-color: #fff;
+    box-shadow: 0px 0px 6px #74B9EF;
+}
+.Span_RedStar {
+        color: red;
+        font-family: 'Microsoft YaHei';
+        font-size: 14px;
+        font-weight: bold;
+        line-height: 100%;
+    }
+.div_Property {
+    margin-bottom: 15px;
+    position: relative;
+}
+.div_PropertyName {
+    position: absolute;
+    display: inline-block;
+    top: calc(50% - 10px);
+    padding-right: 20px;
+    font-size: 14px;
+    width: 100px;
+}
+.div_PropertyValue {
+    position: relative;
+    display: inline-block;
+    width: calc(100% - 120px);
+    text-align: right;
+    margin-left: 120px;
+}
+#Div_ControlProperty {
+    padding-top: 30px;
+}

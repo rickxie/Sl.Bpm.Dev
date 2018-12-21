@@ -1,0 +1,43 @@
+﻿<modal size="md">
+    <modal-header><span ng-if="vm.model.id == null" translate="Create"></span><span ng-if="vm.model.id != null" translate="Edit"></span>&nbsp;{{ 'ModuleAssociateForm' | translate}} {{vm.model.name}}</modal-header>
+    <ma-form name="modulePageEdit">
+        <modal-body>
+            <div class="modal-user">
+                <div role="tabpanel" class=" panel">
+                    <!--<div class="panel-heading">选择表单<div class="selectTxt icon-search"><input type="text" value="" placeholder="输入岗位信息搜索" ng-model="vm.selectTxt"/></div></div>-->
+                    <div class="panel-heading">
+                        搜索
+                        <div class="selectTxt icon-search">
+                            <input type="text" value="" placeholder="请输入查询条件" ng-model="vm.filterText" ng-blur="vm.select()" class="ng-pristine ng-untouched ng-valid">
+                        </div>
+                    </div>
+                    <div class="panel-body">
+                        <table class="table table-striped table-hover">
+                            <thead>
+                                <tr>
+                                    <th width="20px"></th>
+                                    <th>{{ 'PageName' | translate}}</th>
+                                    <th>{{ 'PageDescription' | translate}}</th>
+                                    <th>{{ 'PageAddress' | translate}}</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            <tr ng-class="{ 'active': item.checked}" ng-repeat="item in vm.model" ng-click="item.checked = !item.checked">
+                                <td><input type="checkbox" ng-model="item.checked"/><div class="checkbox_div_mask"></div></td>
+                                <td>{{item.name}}</td>
+                                <td>{{item.description}}</td>
+                                <td>{{item.fileName}}</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <ma-pager ng-if="vm.paging.totalCount > vm.paging.pageSize" current-page="vm.paging.currentPage" load="vm.load()" total-count="vm.paging.totalCount" page-size="vm.paging.pageSize"></ma-pager>
+            </div>
+        </modal-body>
+        <modal-footer>
+            <button class="btn btn-primary" type="submit" confirm-click="vm.save()" content="{{ 'ConfirmSubmitWillCoverSettedForm'| translate }}" id="modulePageEdit">{{ 'Save' | translate}}</button>
+            <button type="button" class="btn btn-default" ng-click="vm.close()">{{ 'Cancel' | translate}}</button>
+        </modal-footer>
+    </ma-form>
+</modal>

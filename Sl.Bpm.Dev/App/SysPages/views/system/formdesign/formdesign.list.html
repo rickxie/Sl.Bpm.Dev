@@ -1,0 +1,51 @@
+﻿<modal size="lg">
+    <modal-header>{{ 'FormInfo' | translate}}</modal-header>
+    <modal-body>
+        <ma-form>
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-lg-2">
+                        <input type="text" class="form-control" placeholder="搜索文件名" ng-model="vm.filterText" ng-keydown="vm.keyDown($event)" />
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div style="max-height: 380px; overflow-y: auto; overflow-x: hidden; margin: 0px 0;">
+                    <table class="table table-hover" style="height: 50px">
+                        <thead>
+                        <tr>
+                            <th width="20px"></th>
+                            <th>{{ 'Name' | translate}}</th>
+                            <th width="15%">{{ 'Type' | translate}}</th>
+                            <th width="15%">文件名</th>
+                            <th width="25%">{{ 'Description' | translate}}</th>
+                            <th width="10%">{{ 'State' | translate}}</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="item in vm.pagedItems" ng-class="{ 'active': item.checked}" ng-click="item.checked = !item.checked">
+                            <td><input type="checkbox" ng-model="item.checked"/>
+                                <div class="checkbox_div_mask"></div></td>
+                            <td ng-bind="item.formPageName"></td>
+                            <td ng-bind="item.fileName"></td>
+                            <td ng-bind="item.type | enumfilter:'formDesignType' "></td>
+                            <td ng-bind="item.formPageDescription"></td>
+                            <td ng-bind="item.status"></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <ma-pager ng-if="vm.paging.totalCount > vm.paging.pageSize" current-page="vm.paging.currentPage" load="vm.load()" total-count="vm.paging.totalCount" page-size="vm.paging.pageSize"></ma-pager>
+            </div>
+        </ma-form>
+    </modal-body>
+    <modal-footer>
+        <!--<button class="btn btn-primary" type="button" id="getAll" ng-click="vm.getAll()">
+            {{ 'GetAllForm' | translate}}
+        </button>-->
+        <button class="btn btn-success" type="button" id="getSelected" ng-click="vm.getSelected()">
+            {{ 'GetChoosedForm' | translate}}
+        </button>
+        <button type="button" class="btn btn-default" ng-click="$close()">{{ 'Cancel' | translate}}</button>
+    </modal-footer>
+</modal>

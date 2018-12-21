@@ -1,0 +1,6 @@
+open {{ip}}
+user {{username}} {{password}}
+cd {{targetpath}}
+lcd {{localpath}}
+prompt off
+mget -a

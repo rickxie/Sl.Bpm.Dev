@@ -1,0 +1,17 @@
+﻿<div ng-controller="app.sysdesigner.views.dialogs.node.tabs.processor as vm">
+    <div class="form-group" ng-hide="vm.isMoreClick">
+        <div class="col-lg-2 control-label">{{ 'HandleMode' | translate}}：</div>
+        <div class="col-lg-8">
+            <label class="radio-inline"> <input type="radio" ng-model="vm.node.processType" name="ProcessType" value="0" ng-change="vm.changeProcessType()">{{ 'AnyOne' | translate}} </label>
+            <label class="radio-inline"> <input type="radio" ng-model="vm.node.processType" name="ProcessType" value="1" ng-change="vm.changeProcessType()"> {{ 'ParallelProcessing' | translate}} </label>
+            <label class="radio-inline"> <input type="radio" ng-model="vm.node.processType" name="ProcessType" value="2" ng-change="vm.changeProcessType()"> {{ 'SerialProcessing' | translate}} </label>
+        </div>
+    </div>
+    <br />
+    <br />
+    <div class="form-group">
+        <div class="col-lg-12 "><!--col-lg-offset-2-->
+            <ma-processor processor-linked-id="vm.node.processorLinkId" processor-node="vm.node"></ma-processor>
+        </div>
+    </div>
+</div>

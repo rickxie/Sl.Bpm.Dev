@@ -1,0 +1,71 @@
+﻿<modal size="lg">
+    <modal-header>数据字段</modal-header>
+    <modal-body>
+        <div class="modal-body">
+            <div role="tabpanel">
+                <div class="tab-content">
+                    <div role="tabpanel" class="tab-pane active">
+                        <table ng-if="!vm.params.columnType && 1 == 2" class="table table-striped table-hover table-condensed" style="margin-bottom:30px;">
+                            <thead>
+                                <tr>
+                                    <td>
+                                        <div class="form-horizontal form-condensed">
+                                            <legend>Task表</legend>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>字段代码</th>
+                                    <th>字段名称</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="item in vm.task" ng-click="vm.save(item)">
+                                    <td>{{item.c_SchemaName}}</td>
+                                    <td>{{item.c_Name}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <table class="table table-striped table-hover table-condensed" ng-repeat="table in vm.wfBusinessTable" style="margin-bottom: 30px;">
+                            <thead>
+                            <tr>
+                                <td colspan="6">
+                                    <div class="form-horizontal form-condensed">
+                                        <legend>{{table.schemaName}}
+                                            <span ng-if="table.type == '1'">(业务表)</span>
+                                            <span ng-if="table.type == '2'">(基础表)</span>
+                                            <span ng-if="table.type == '3'">(系统表)</span>    
+                                        </legend>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>字段代码</th>
+                                <th>字段名称</th>
+                                <th>字段类型</th>
+                                <th>字段长度</th>
+                                <th>是否必填</th>
+                                <th>需求描述</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr ng-repeat="column in table.Columns" ng-click="vm.save(column)">
+                                <td>{{column.c_SchemaName}}</td>
+                                <td>{{column.c_Name}}</td>
+                                <td>{{column.c_Type | enumfilter:'tableColumnType' }}</td>
+                                <td>{{column.c_MaxLength}}</td>
+                                <td>{{column.c_IsRequired}}</td>
+                                <td>{{column.c_Memo}}</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </modal-body>
+    <modal-footer>
+        <!--<button type="button" data-dismiss="modal" ng-click="vm.cancel()" class="btn default">取消</button>
+        <button class="btn green" type="submit">保存</button>-->
+    </modal-footer>
+</modal>

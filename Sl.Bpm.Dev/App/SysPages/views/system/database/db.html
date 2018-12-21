@@ -1,0 +1,62 @@
+﻿<div class="container-ui" ng-controller="syspages.views.enterprise.businesstable.db as vm" ng-mouseup="vm.splitDown = false;" ng-mousemove="vm.splitMove($event)">
+    <div onselectstart="return false;" class="db" style="width:300px;">
+        <!--自定义Tree-->
+       <style type="text/css">
+           .hide-line {
+               background-image: none !important;
+               background-color: transparent;
+           }
+       </style>
+        <fm-tree-menu-x tree-data="vm.treemenu" text-field="text" value-field='id' find-text="vm.findTxt"></fm-tree-menu-x>
+      
+        <script type="text/ng-template" id="/treeMenu.html">
+            <div class="fm-tree">
+                <div class="fm-text-find" style="margin-bottom: 5px;">
+                    <i class="icon icon-search"></i>
+                    <input class="form-control input-sm" type="text" placeholder="搜索" ng-model="findTxt" ng-blur="findMenu()" ng-keydown="keyDown($event)" ng-keypress="keyPress($event)" />
+                </div>
+                <!--<ma-checkbox ng-model="isQuickSelect"></ma-checkbox>-->
+                <ul class="tree-view" style="min-height: calc(100vh - 190px);">
+                    <li ng-if="!treeData" style="position:relative;">
+                        <div class="content-spinner-bar" style="position:absolute;top: 40%;"><div class="bounce1"></div><div class="bounce2"></div><div class="bounce3"></div></div>
+                    </li>
+                    <li ng-if="!!treeData && treeData.length == 0" style="min-height:360px;position:relative;height: 360px;text-align: center;">
+                        <span class="span1" style="position: absolute;height:100%;width:100%;left:0;top: calc(50% - 14px);font-size:28px;color:#353535;">没有数据</span>
+                    </li>
+                    <li ng-repeat="item in treeData track by $index" ng-if="item.$$isHide !== true" ng-class="{'open':activeItem.id==item.id && !!menuOpen,'is-latest': item.isLatest == '0'}" ng-include="itemTemplateUrl || '/treeItem.html'"></li>
+                </ul>
+            </div>
+        </script>
+
+        <script type="text/ng-template" id="/treeItem.html">
+            <i ng-click="itemExpended(item, $event);" class="{{getItemIcon(item)}}"></i>
+            <span class="text-field tree-item-span" ng-dblclick="itemDbClicked($event, item)" ng-class="{'isdisabled':item.$$isDisabled}" title="{{item.isLatest == '0' ? '（需要更新数据库）':''}}">
+                <i ng-mousedown="itemIconClicked($event, item)" class="icon {{item.icon||'icon-bookmark'}}" style="padding-right: 5px;padding-left: 3px;padding-top: 3px;padding-bottom: 3px;"></i>
+                {{::item[textField]}}
+            </span>
+            <ul class="dropdown-menu" ng-if="!!item.menu && item.menu.length > 0" style="position: absolute;top: 22px;left: 24px;">
+                <li ng-if="!!item.name" style="text-align: center;color: #999;">
+                    <span ng-bind="item.name"></span>
+                </li>
+                <li ng-repeat="itemmenu in item.menu track by $index">
+                    <a ng-mousedown="itemmenu.click($event, item);">
+                        <i class="icon {{::itemmenu.icon}} cursor-pointer refresh_db" title="{{::itemmenu.text}}"></i>
+                        <span class="ng-binding">{{::itemmenu.text}}</span>
+                    </a>
+                </li>
+            </ul>
+            <ul ng-if="!isLeaf(item)" ng-show="item.$$isExpend">
+                <li ng-class="{'open':activeItem.id==item.id && !!menuOpen,'is-latest': item.isLatest == '0'}" ng-if="item.$$isHide !== true" ng-repeat="item in item.children track by $index | orderBy: 'aliasName'" ng-include="itemTemplateUrl || '/treeItem.html'">
+                </li>
+            </ul>
+        </script>
+    </div>
+    <div onselectstart="return false;" class="db-split" ng-mousedown="vm.splitDown = true;" style="left: 305px;" ng-dblclick="vm.hideTree()">
+        <div class="db-split-block">
+            <div class="db-split-button"></div>
+        </div>
+    </div>
+    <div class="db-page" style="width: calc(100% - 335px);">
+        <div ui-view ng-route-change></div>
+    </div>
+</div>

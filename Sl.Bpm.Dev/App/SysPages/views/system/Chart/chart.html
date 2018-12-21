@@ -1,0 +1,11 @@
+﻿<div class="container-ui" ng-controller="syspages.views.system.chart as vm">
+    <!--流程中心功能尚未开发，敬请期待。-->
+    <div class="ma-center-warper">
+        <div class="siderbar">
+            <ma-siderbar ng-model="vm.nav" target=".ma-center-warper" expend="true" active-menu="vm.currentActiveMenu"></ma-siderbar>
+        </div>
+        <div class="page-content">
+            <div ui-view ng-route-change></div>
+        </div>
+    </div>
+</div>

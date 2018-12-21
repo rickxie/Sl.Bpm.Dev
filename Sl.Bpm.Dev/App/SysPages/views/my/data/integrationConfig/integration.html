@@ -1,0 +1,91 @@
+﻿<div ng-controller="syspages.views.my.data.integration as vm">
+    <div class="ma-center-warper">
+        <div class="siderbar">
+            <h5>{{'InterfaceConfiguration' | translate}}</h5>
+            <div class="list-group">
+                <a ng-repeat="i in vm.menu track by $index" ng-class="{ 'active': vm.activeMenuId == i.id}" class="list-group-item" ng-click="vm.switch(i)">
+                    {{i.name}}
+                </a>
+            </div>
+            <span class="toggler" ma-toggler=".ma-center-warper"><i class="icon-list-ul"></i></span>
+        </div>
+        <div class="page-content" id="div_integration">
+            <div class="col-lg-12">
+                <div class="row">
+                    <div class="col-md-4 cell">
+                        <span class="col-xs-4 control-label ng-binding">{{:: 'IntegrationCond' | translate}}</span>
+                        <div class="col-xs-8">
+                            <fm-text class="form-control input-sm" type="text" fm-model="vm.codeOrDescription"></fm-text>
+                        </div>
+                    </div>
+                    <div class="col-md-4 cell">
+                        <button class="btn btn-primary" ng-click="vm.loadIntegration()">{{:: 'Query' | translate}}</button>
+                        <button class="btn btn-success" ng-click="vm.editIntegration()">+新增</button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-12">
+                <table class="table table-striped table-hover table-condensed">
+                    <thead>
+                        <tr>
+                            <th>{{ 'IntegrationCode' | translate}}</th>
+                            <th>{{ 'IntegrationDescription' | translate}}</th>
+                            <th>{{ 'IntegrationMode' | translate}}</th>
+                            <th>{{ 'Operation' | translate}}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="item in vm.models">
+                            <td>{{item.code}}</td>
+                            <td>{{item.description}}</td>
+                            <td>{{item.type}}</td>
+                            <td>
+                                <i class="icon-edit" title="{{'IntegrationModify' | translate}}" ng-click="vm.editIntegration(item)" style="cursor:pointer;">{{'IntegrationModify' | translate}}</i>
+                                <i class="icon icon-copy" title="{{'IntegrationConfig' | translate}}" ng-click="vm.editIntegrationConfig(item)" style="cursor:pointer;">{{'IntegrationConfig' | translate}}</i>
+                                <i class="icon icon-link ng-scope" title="{{'IntegrationMapping' | translate}}" ng-click="vm.editIntegrationMapping(item)" style="cursor:pointer;">{{'IntegrationMapping' | translate}}</i>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div ng-if="vm.pagingIntegration.totalCount > vm.pagingIntegration.pageSize">
+                    <ma-pager current-page="vm.pagingIntegration.currentPage" load="vm.loadIntegration()" total-count="vm.pagingIntegration.totalCount" page-size="vm.pagingIntegration.pageSize"></ma-pager>
+                </div>
+            </div>
+        </div>
+        <div class="page-content" id="div_server">
+            <div class="col-lg-12">
+                <div class="row">
+                    <div class="col-md-4 cell">
+                        <button class="btn btn-success" ng-click="vm.editIntegrationServer()">+新增</button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-12">
+                <table class="table table-striped table-hover table-condensed">
+                    <thead>
+                        <tr>
+                            <th>{{ 'FunctionDescription' | translate}}</th>
+                            <th>{{ 'ServerAddress' | translate}}</th>
+                            <th>{{ 'FileServerAccount' | translate}}</th>
+                            <th>{{ 'FileServerPassword' | translate}}</th>
+                            <th>{{ 'FileServerPort' | translate}}</th>
+                            <th>{{ 'Operation' | translate}}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="item in vm.modelServer">
+                            <td>{{item.name}}</td>
+                            <td>{{item.address}}</td>
+                            <td>{{item.account}}</td>
+                            <td>{{item.password}}</td>
+                            <td>{{item.port}}</td>
+                            <td>
+                                <i class="icon-edit" title="{{'IntegrationModify' | translate}}" ng-click="vm.editIntegrationServer(item)" style="cursor:pointer;"></i>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

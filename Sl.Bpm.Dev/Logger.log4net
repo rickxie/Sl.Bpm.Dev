@@ -1,0 +1,95 @@
+﻿<?xml version="1.0"?>
+<log4net>
+  <root>
+    <level value="ALL" />
+    <appender-ref ref="RollingLogFileAppender" />
+  </root>
+  <appender name="RollingLogFileAppender" type="log4net.Appender.RollingFileAppender">
+    <File value="Logs\dblogs.txt"/>
+    <appendToFile value="true" />
+    <rollingStyle value="Date" />
+    <datePattern value="yyyyMMdd" />
+    <layout type="Sl.Bpm.Engine.Log.ReflectionLayout">
+      <conversionPattern value="[%date] [%thread] [%-5level] [%logger] [%username]%n source:%location%n operator:%property{Operator}%n actionType:%property{ActionType}%n systemCode:%property{SystemCode}%n message:%property{Message}%n detailInfomation:%property{DetailInfomation}%n exception:%exception%n %newline%n" />
+    </layout>
+    <parameter>
+      <parameterName value="@operator" />
+      <dbType value="String" />
+      <size value="50" />
+      <layout type="Sl.Bpm.Engine.Log.ReflectionLayout" >
+        <conversionPattern value="%property{Operator}"/>
+      </layout>
+    </parameter>
+    <parameter>
+      <parameterName value="@actiontype" />
+      <dbType value="String" />
+      <size value="50" />
+      <layout type="Sl.Bpm.Engine.Log.ReflectionLayout" >
+        <conversionPattern value="%property{ActionType}"/>
+      </layout>
+    </parameter>
+    <parameter>
+      <parameterName value="@operand" />
+      <dbType value="String" />
+      <size value="100" />
+      <layout type="Sl.Bpm.Engine.Log.ReflectionLayout" >
+        <conversionPattern value="%property{Operand}"/>
+      </layout>
+    </parameter>
+    <parameter>
+      <parameterName value="@ip" />
+      <dbType value="String" />
+      <size value="50" />
+      <layout type="Sl.Bpm.Engine.Log.ReflectionLayout" >
+        <conversionPattern value="%property{IP}"/>
+      </layout>
+    </parameter>
+    <parameter>
+      <parameterName value="@browser" />
+      <dbType value="String" />
+      <size value="50" />
+      <layout type="Sl.Bpm.Engine.Log.ReflectionLayout" >
+        <conversionPattern value="%property{Browser}"/>
+      </layout>
+    </parameter>
+    <parameter>
+      <parameterName value="@machinename" />
+      <dbType value="String" />
+      <size value="50" />
+      <layout type="Sl.Bpm.Engine.Log.ReflectionLayout" >
+        <conversionPattern value="%property{MachineName}"/>
+      </layout>
+    </parameter>
+    <parameter>
+      <parameterName value="@systemcode" />
+      <dbType value="String" />
+      <size value="50" />
+      <layout type="Sl.Bpm.Engine.Log.ReflectionLayout" >
+        <conversionPattern value="%property{SystemCode}"/>
+      </layout>
+    </parameter>
+    <parameter>
+      <parameterName value="@message" />
+      <dbType value="String" />
+      <size value="2000" />
+      <layout type="Sl.Bpm.Engine.Log.ReflectionLayout" >
+        <conversionPattern value="%property{Message}"/>
+      </layout>
+    </parameter>
+    <parameter>
+      <parameterName value="@detail_infomation" />
+      <dbType value="String" />
+      <size value="4000" />
+      <layout type="Sl.Bpm.Engine.Log.ReflectionLayout" >
+        <conversionPattern value="%property{Message}"/>
+      </layout>
+    </parameter>
+    <parameter>
+      <parameterName value="@tag" />
+      <dbType value="Int32" />
+      <layout type="Sl.Bpm.Engine.Log.ReflectionLayout" >
+        <conversionPattern value="%property{Tag}"/>
+      </layout>
+    </parameter>
+  </appender>
+</log4net>

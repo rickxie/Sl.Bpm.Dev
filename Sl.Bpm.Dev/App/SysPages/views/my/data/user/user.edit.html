@@ -1,0 +1,101 @@
+﻿<modal class="my-theme">
+    <modal-header><span ng-if="vm.model.id == null" translate="Create"></span><span ng-if="vm.model.id != null" translate="Edit"></span>&nbsp;{{ 'EnterpriseUser' | translate}} {{vm.model.name}}</modal-header>
+    <ma-tabs active-panel="vm.activePanel">
+        <ma-panel name="basic" data-title="{{ 'Basic' | translate}}">
+            <ma-form name="enterpriseUserEdit">
+                <modal-body>
+                    <div class="form-group form-md-line-input">
+                        <div class="col-lg-4 control-label">{{ 'Account' | translate}}:</div>
+                        <div class="col-lg-6">
+                            <input name="account" ng-model="vm.model.account" required type="text" ng-maxlength="50" ng-disabled="vm.model.isSuperAdmin" required class="form-control " placeholder="{{ 'Account' | translate}}">
+                            <div class="form-control-focus"></div>
+                        </div>
+                    </div>
+                    <div class="form-group form-md-line-input">
+                        <div class="col-lg-4 control-label">{{ 'Cellphone' | translate}}:</div>
+                        <div class="col-lg-6">
+                            <input name="telPhone" ng-model="vm.model.telephone" type="text" ng-maxlength="50" class="form-control " placeholder="{{ 'Cellphone' | translate}}">
+                            <div class="form-control-focus"></div>
+                        </div>
+                    </div>
+                    <div class="form-group form-md-line-input">
+                        <div class="col-lg-4 control-label">{{ 'Email' | translate}}:</div>
+                        <div class="col-lg-6">
+                            <input name="telPhone" ng-model="vm.model.emailAddress" type="text" ng-maxlength="50" class="form-control " placeholder="{{ 'Email' | translate}}">
+                            <div class="form-control-focus"></div>
+                        </div>
+                    </div>
+                    <div class="form-group form-md-line-input">
+                        <div class="col-lg-4 control-label">{{ 'JobNumber' | translate}}:</div>
+                        <div class="col-lg-6">
+                            <input name="employeeNumber" ng-model="vm.model.employeeNumber" type="text" ng-maxlength="50" class="form-control" placeholder="{{ 'JobNumber' | translate}}">
+                            <div class="form-control-focus"></div>
+                        </div>
+                    </div>
+                    <div class="form-group form-md-line-input">
+                        <div class="col-lg-4 control-label">{{ 'RealName' | translate}}:</div>
+                        <div class="col-lg-6">
+                            <ma-language name="langName" ma-required ng-model="vm.model.langName" language-list="vm.model.langNameList"></ma-language>
+                        </div>
+                    </div>
+                    <div class="form-group form-md-line-input">
+                        <div class="col-lg-4 control-label">启用:</div>
+                        <div class="col-lg-6">
+                            <ma-checkbox name="CheckBox" ng-model="vm.model.isActive"></ma-checkbox>
+                        </div>
+                    </div>
+                    <!--创建时间: {{i.creationTime | date:'yyyy-MM-dd hh:MM:ss'}}-->
+                </modal-body>
+                <modal-footer>
+                    <button class="btn btn-primary" type="submit" id="enterpriseUserEdit" ma-form-submit="vm.save()">{{ 'Save' | translate}}</button>
+                    <button type="button" class="btn btn-default" ng-click="$close()">{{ 'Cancel' | translate}}</button>
+                </modal-footer>
+            </ma-form>
+        </ma-panel>
+        <ma-panel name="job" data-title="{{ 'Job' | translate}}">
+            <ma-form name="jobGroup">
+                <modal-body>
+                    <div>
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>{{ 'Group' | translate}}</th>
+                                    <th>{{ 'Job' | translate}}</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="i in vm.jobGroups">
+                                    <td>{{i.groupChains}}</td>
+                                    <td>{{i.jobName}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </modal-body>
+            </ma-form>
+        </ma-panel>
+        <ma-panel name="group" data-title="{{ 'RoleJob' | translate}}">
+            <ma-form name="jobGroup">
+                <modal-body>
+                    <div>
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>{{ 'Role' | translate}}</th>
+                                    <th>{{ 'Job' | translate}}</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="i in vm.roleJobs">
+                                    <td>{{i.roleName}}</td>
+                                    <td>{{i.jobName}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </modal-body>
+            </ma-form>
+        </ma-panel>
+    </ma-tabs>
+</modal>
+

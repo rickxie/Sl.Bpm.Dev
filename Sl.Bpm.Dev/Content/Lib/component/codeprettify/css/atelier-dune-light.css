@@ -1,0 +1,440 @@
+/*! Color themes for Google Code Prettify | MIT License | github.com/jmblog/color-themes-for-google-code-prettify */
+.prettyprint {
+    background: #fefbec;
+    font-family: Menlo, "Bitstream Vera Sans Mono", "DejaVu Sans Mono", Monaco, Consolas, monospace;
+    border: 0 !important;
+}
+
+.pln {
+    color: #20201d;
+}
+
+/* Specify class=linenums on a pre to get line numbering */
+ol.linenums {
+    margin-top: 0;
+    margin-bottom: 0;
+    color: #999580;
+}
+
+pre li.L0,
+pre li.L1,
+pre li.L2,
+pre li.L3,
+pre li.L4,
+pre li.L5,
+pre li.L6,
+pre li.L7,
+pre li.L8,
+pre li.L9 {
+    /*padding-left: 1em;*/
+    /*background-color: #fefbec;*/
+    list-style-type: decimal-leading-zero;
+}
+
+@media screen {
+
+    .sql_tablename {
+        color: #008080;
+        /*border-bottom: 1px dotted #008080;*/
+    }
+
+    .sql_columnname {
+    }
+
+    .sql_variable {
+        color: #8464c4;
+        background-color: #ecf4ee;
+        border-radius: 4px;
+    }
+
+    /* string content */
+
+    .str {
+        color: #d14;
+    }
+
+    /* keyword */
+
+    .kwd {
+        color: #00F;
+    }
+
+    /* comment */
+
+    .com {
+        color: #008000;
+    }
+
+    /* type name */
+
+    .typ {
+        color: #6684e1;
+    }
+
+    /* literal value */
+
+    .lit {
+        color: #b65611;
+    }
+
+    /* punctuation */
+
+    .pun {
+        color: #20201d;
+    }
+
+    /* lisp open bracket */
+
+    .opn {
+        color: #20201d;
+    }
+
+    /* lisp close bracket */
+
+    .clo {
+        color: #20201d;
+    }
+
+    /* markup tag name */
+
+    .tag {
+        color: #d73737;
+    }
+
+    /* markup attribute name */
+
+    .atn {
+        color: #b65611;
+    }
+
+    /* markup attribute value */
+
+    .atv {
+        color: #1fad83;
+    }
+
+    /* declaration */
+
+    .dec {
+        color: #b65611;
+    }
+
+    /* variable name */
+
+    .var {
+        color: #d73737;
+    }
+
+    /* function name */
+
+    .fun {
+        color: #6684e1;
+    }
+}
+
+/*李典重写css*/
+.fm-code > .prettyprint {
+    font-family: "courier new",'Microsoft YaHei' !important;
+}
+
+.fm-code > .prettyprint {
+    white-space: pre-wrap; /* css-3 */
+    white-space: -moz-pre-wrap; /* Mozilla, since 1999 */
+    white-space: -pre-wrap; /* Opera 4-6 */
+    white-space: -o-pre-wrap; /* Opera 7 */
+    word-wrap: break-word; /* Internet Explorer 5.5+ */
+}
+
+.fm-code {
+    position: relative;
+    font-size: 12px;
+}
+
+    .fm-code > pre.prettyprint {
+        display: block;
+        position: relative;
+        cursor: text;
+        width: 100%;
+        box-shadow: inset 40px 0 0 #fbfbfc, inset 42px 0 0 #6ce26c;
+        border-radius: 0px !important;
+    }
+
+    .fm-code > pre li {
+        line-height: normal;
+        padding-left: 5px;
+        /*border-bottom: 1px dotted #EEE;*/
+    }
+
+        .fm-code > pre li:hover {
+            cursor: pointer;
+        }
+
+        .fm-code > pre li.active {
+            position: relative;
+            background-color: #fff0d5;
+        }
+
+            .fm-code > pre li.active:before {
+                position: absolute;
+                left: -36px;
+                top: 2px;
+                content: '\e63c';
+                color: #2a6597;
+                font-family: ZenIcon;
+                font-size: 13px;
+                font-style: normal;
+                font-weight: 400;
+                font-variant: normal;
+                line-height: 1;
+                text-transform: none;
+                speak: none;
+            }
+
+        .fm-code > pre li span {
+            font-family: "courier new",'Microsoft YaHei' !important;
+            vertical-align: middle;
+            line-height: 14px;
+        }
+
+    .fm-code > textarea {
+        position: absolute;
+        top: 0px;
+        left: 42px;
+        width: calc(100% - 43px);
+        height: 100%;
+        background-color: transparent;
+        border: none;
+        color: black;
+        -webkit-text-fill-color: transparent;
+        padding-left: 5px;
+        margin-top: 1px;
+        padding-right: 0px;
+        line-height: 17px;
+        font-family: "courier new",'Microsoft YaHei';
+        overflow-x: hidden;
+        overflow-y: hidden;
+        resize: none;
+        word-wrap: break-word;
+        word-break: break-all;
+        padding-top: 2px;
+    }
+
+        .w5c-form .fm-code > textarea:focus,
+        .fm-code > textarea:focus {
+            outline: none !important;
+            box-shadow: none !important;
+        }
+
+        .fm-code > input::-webkit-input-placeholder,
+        .fm-code > textarea::-webkit-input-placeholder {
+            color: black !important;
+            text-shadow: 1px 1px 1px black !important;
+        }
+
+        .fm-code > textarea::selection {
+            color: black;
+            -webkit-text-fill-color: black;
+        }
+
+        .fm-code > textarea::-moz-selection {
+            color: black !important;
+            -webkit-text-fill-color: black !important;
+        }
+
+.fm-code {
+    position: relative;
+}
+
+    .fm-code .fm-code-tooltext {
+        line-height: 0 !important;
+    }
+
+        .fm-code .fm-code-tooltext span {
+            font-size: 12px !important;
+            font-family: 'courier new', 'Microsoft YaHei';
+            line-height: 17px;
+            vertical-align: middle;
+        }
+
+        .fm-code .fm-code-tooltext br {
+            height: 1px;
+            margin-top: 1px;
+            margin-bottom: 1px;
+            line-height: 0 !important;
+        }
+
+    .fm-code > .option {
+        position: absolute;
+        background: #eee;
+        font-size: 13px;
+        max-width: 500px;
+        height: auto;
+        min-height: 22px;
+        max-height: 207px;
+        line-height: 22px;
+        border: 1px solid grey;
+        border-bottom-left-radius: 4px;
+        border-bottom-right-radius: 4px;
+        border-top-right-radius: 4px;
+        opacity: 1;
+        z-index: 9999;
+        padding-right: 12px;
+    }
+
+        .fm-code > .option > .option-item {
+            width: calc(100% + 12px);
+            height: auto;
+            max-height: 207px;
+            overflow-y: auto;
+            overflow-x: hidden;
+        }
+
+            .fm-code > .option > .option-item > ul.fm-code-menu {
+                padding-left: 0px;
+                margin-bottom: 0px;
+            }
+
+                .fm-code > .option > .option-item > ul.fm-code-menu > li {
+                    position: relative;
+                    border-bottom: 1px solid #DFDFDF;
+                    white-space: nowrap;
+                    text-overflow: ellipsis;
+                    list-style: none;
+                    cursor: pointer;
+                }
+
+                    .fm-code > .option > .option-item > ul.fm-code-menu > li.active {
+                        background: #337AB7;
+                        color: white;
+                        position: relative;
+                    }
+
+                    .fm-code > .option > .option-item > ul.fm-code-menu > li > .fm-code-menu-item-remark {
+                        position: absolute;
+                        bottom: -3px;
+                        right: 1px;
+                        line-height: 12px;
+                        font-size: 12px;
+                        color: rgba(0,0,255,0.3);
+                    }
+
+
+
+                    .fm-code > .option > .option-item > ul.fm-code-menu > li:last-child > .fm-code-menu-item-remark {
+                        bottom: 1px;
+                    }
+
+                    .fm-code > .option > .option-item > ul.fm-code-menu > li.active > .fm-code-menu-item-remark {
+                        color: #353535;
+                        bottom: -6px;
+                    }
+
+                    .fm-code > .option > .option-item > ul.fm-code-menu > li:last-child.active > .fm-code-menu-item-remark {
+                        display: none;
+                    }
+
+        .fm-code > .option > .menu-remark {
+            position: absolute;
+            display: inline-block;
+            width: 200px;
+            min-height: 23px;
+            border: 1px solid #EEE;
+            background-color: white;
+            top: -1px;
+            left: calc(100% + 3px);
+            max-height: 207px;
+            padding-left: 5px;
+            padding-right: 5px;
+            border-radius: 4px;
+            box-shadow: 2px 2px rgba(102,102,102,.1);
+        }
+
+        .fm-code > .option > .menu-remark.p-left {
+            left: -203px;
+        }
+
+        .fm-code > .option > .menu-remark > .menu-remark-type {
+            word-break: break-word;
+            color: #145CCD;
+        }
+
+        .fm-code > .option > .menu-remark > .menu-remark-title {
+            word-break: break-word;
+            color: #353535;
+        }
+
+        .fm-code > .option > .menu-remark > hr {
+            margin-top: 2px;
+            margin-bottom: 3px;
+        }
+
+        .fm-code > .option > .option-item > ul.fm-code-menu > li > .fm-code-menu-item-type {
+            color: #38b03f;
+            font-size: 12px;
+        }
+
+        .fm-code > .option > .option-item > ul.fm-code-menu > li.active > .fm-code-menu-item-type {
+            color: #ddf4df;
+        }
+
+        .fm-code > .option > .option-item > ul.fm-code-menu > li > i {
+            display: inline-block;
+            height: 19px;
+            width: 19px;
+            padding-top: 2px;
+            padding-left: 3px;
+            vertical-align: middle;
+            text-align: center;
+            font-size: 13px;
+        }
+
+        .fm-code > .option > .option-item > ul.fm-code-menu > li.active > i {
+            color: white;
+        }
+
+@-moz-document url-prefix() {
+    .fm-code > textarea {
+        color: transparent;
+        line-height: 17px;
+        margin-top: 1px;
+    }
+
+        .fm-code > textarea:focus {
+            color: transparent !important;
+        }
+
+    .fm-code .fm-code-tooltext span {
+        line-height: 17px;
+    }
+}
+
+@media all and (min-width:0\0) {
+    .fm-code > textarea {
+        color: transparent\9 !important;
+        line-height: 16.5px\9;
+    }
+
+        .fm-code > textarea:focus {
+            color: transparent\9;
+        }
+
+    .fm-code .fm-code-tooltext span {
+        line-height: 16.4px\9;
+    }
+}
+
+@media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {
+    .fm-code > textarea {
+        color: transparent !important;
+        line-height: 16.4px;
+        margin-top: 2px;
+    }
+
+        .fm-code > textarea:focus {
+            color: transparent !important;
+        }
+
+    .fm-code .fm-code-tooltext span {
+        line-height: 16.4px;
+    }
+}

@@ -1,0 +1,127 @@
+﻿<style type="text/css">
+    @media (min-width: 992px) {
+        .modal-xlg {
+            width: 900px;
+        }
+    }
+    .page-main>div{width:100%}
+
+</style>
+<div class="container-ui" ng-controller="syspages.views.my.dashboard as vm">
+    <div class="page-con">
+        <div class="main-head" style="display:none">
+            <h2>@ViewBag.Title</h2>
+            <div class="logo">
+                <img src="/Content/Images/new/logo.png">
+            </div>
+        </div>
+        <div class="workbench clear">
+            <div class="workbench-left">
+                <div class="w-top-img">
+                    <img src="/Content/Images/new/workbench_top.jpg" />
+                    <div class="user-info">
+                        <span>
+                            <img src="/Content/Images/new/user-face.jpg"/>
+                        </span>
+                        <dl>
+                            <dt>{{vm.userInfo.name}}, 上午好</dt>
+                            <dd>
+                                <p>剩余年假 : 8天</p>
+                                <p>入职时间 ：3年6个月</p>
+                                <p>工号：{{vm.userInfo.employeeNumber}}</p>
+                            </dd>
+                        </dl>
+                    </div>
+                </div>
+                <div class="flow-list-bd clear">
+                    <div class="flb-left">
+                       
+                        <div class="flow-list console-50vh">
+                            <h3><label>{{ 'MyPendingHandleWf' | translate}}</label></h3>
+                            <ul class="ul load_2 vh1">
+                                <li ng-repeat="item in vm.pendinghandleList track by $index">
+                                    <span class="item-label"><span class="">{{item.submitter}}</span> {{ 'Initiated' | translate}}<span class="link-label" ng-click="vm.approveWorkflow(item)">{{item.sn}}</span>{{item.workflowName}}<span ng-if="!!item.areaCode">({{item.areaCode}})</span></span>
+                                    <label class="footer-label text-muted">{{item.recvTime | moment}}</label>
+
+                                </li>
+                                <li ng-if="!vm.pendinghandleList || vm.pendinghandleList.length == 0"><span class="content-label">{{ 'Notasks' | translate}}</span></li>
+                            </ul>
+                        </div>
+                        <div class="flow-list console-50vh">
+                            <h3 style="height:2em;">
+                                <label style="display:inline-block;" class="pull-left">{{ 'MyRaisedWf' | translate}}</label>
+                                <span style="display:inline-block;width:120px;" class="pull-right">
+                                    <fm-select class="form-control input-sm" items="vm.taskStatus" fm-model="vm.currentStatus" fm-blur="vm.statusChange()"></fm-select>
+                                </span>
+                            </h3>
+
+                            <ul class="ul load_3 vh1" style="margin-top:-5px">
+                                <li ng-repeat="item in vm.myraisedList  track by $index">
+                                    <span class="item-label"><span class="">{{item.submitter}}</span> {{ 'Initiated' | translate}}<span class="link-label" ng-click="vm.approveWorkflow(item)">{{item.sn}}</span>{{item.workflowName}}<span ng-if="!!item.areaCode">({{item.areaCode}})</span></span>
+                                    <label class="footer-label text-muted">{{item.creationTime | moment}}</label>
+
+                                </li>
+                                <li ng-if="!vm.myraisedList || vm.myraisedList.length == 0"><span class="content-label">{{ 'Nolaunchtask' | translate}}</span></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="flb-right">
+                        <div class="flow-list console-50vh">
+                            <h3><label>{{ 'CommonWorkflow' | translate}}<i class="icon-cog" ng-click="vm.showEditMenu(true)"></i></label></h3>
+                            <ul class="raise-bar clear">
+                                <li ng-repeat="item in vm.favouriteList">
+                                    <a href="javascript:void(0)" ng-click="vm.openModule(item)"> <i class="{{item.iconClass}}"></i>{{item.name}}</a>
+                                </li>
+                            </ul>
+                            <div class="content-div" ng-if="!vm.favouriteList || vm.favouriteList.length == 0"><span class="content-label">{{ 'NoCommonTask' | translate}}</span></div>
+                        </div>
+                        <div class="flow-list console-50vh">
+                            <h3><label>{{ 'MyRaisedWf' | translate}}</label></h3>
+                            <ul class="flow-favorites clear load_4">
+                                <li ng-repeat="item in vm.myLastWorkflowList">
+
+                                    <i class="icon-angle-right"></i>
+                                    <span class="fave-ico"><i class="{{item.iconClass}}"></i></span>
+
+                                    <div class="ff-title">
+                                        <a href="javascript:void(0)" ng-click="vm.openModule(item)">
+                                            <h2>{{item.name}}</h2>
+                                        </a>
+                                        <h4>{{item.categoryName}}</h4>
+                                    </div>
+                                </li>
+                            </ul>
+                            <div class="content-div" ng-if="!vm.myLastWorkflowList || vm.myLastWorkflowList.length == 0"><span class="content-label">{{ 'NoRecentTask' | translate}}</span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="workbench-right">
+                <div class="flow-list console-50vh2">
+                    <h3><label>{{'CommonMenu'|translate}}<i class="icon-cog" ng-click="vm.showEditMenu(false)"></i></label></h3>
+                    <ul class="raise-bar raise-bar-l clear load_5">
+                        <li ng-repeat="item in vm.favouriteMenuList">
+                            <a href="javascript:void(0);" ng-click="vm.jump(item)">
+                                <i class="{{item.iconClass}}"></i>{{item.name}}
+                            </a>
+                        </li>
+                        <li>
+                        </li>
+                    </ul>
+                    <div class="content-div" ng-if="!vm.favouriteMenuList || vm.favouriteMenuList.length == 0"><span class="content-label">{{ 'NoCommonMenu' | translate}}</span></div>
+                </div>
+                <div class="flow-list console-50vh2">
+                    <h3><label>{{'RecentlyUsedMenu'|translate}}</label></h3>
+                    <ul class="raise-bar raise-bar-l clear load_6">
+                        <li ng-repeat="item in vm.lastMenuList">
+                            <a href="javascript:void(0);" ng-click="vm.jump(item)">
+                                <i class="{{item.iconClass}}"></i>{{item.name}}
+                            </a>
+                        </li>
+                    </ul>
+                    <div class="content-div" ng-if="!vm.lastMenuList || vm.lastMenuList.length == 0"><span class="content-label">{{ 'NoRecentMenu' | translate}}</span></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,179 @@
+﻿<modal size="lg">
+    <modal-header><span ng-if="vm.model.id == null" translate="Create"></span><span ng-if="vm.model.id != null" translate="Edit"></span>&nbsp;{{ 'Workflow' | translate}} {{vm.model.name}}</modal-header>
+    <ma-tabs>
+        <ma-panel data-title="{{ 'Basic' | translate}}" name="basic">
+            <ma-form name="workflowEdit">
+                <modal-body>
+                    <div class="form-group">
+                        <div class="col-lg-4 control-label">{{ 'Code' | translate}}:</div>
+                        <div class="col-lg-6">
+                            <input name="code" ng-model="vm.model.code" type="text" required maxlength="50" class="form-control" placeholder="{{ 'WorkflowCode' | translate}}" ng-disabled="true">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-lg-4 control-label">{{ 'Name' | translate}}:</div>
+                        <div class="col-lg-6">
+                            <ma-language name="langName" disabled ng-model="vm.model.langName" language-list="vm.model.langNameList"></ma-language>
+
+                            <!--<ma-lang name="langName" ng-model="vm.model.langName" display="vm.model.name" ng-disabled="true"></ma-lang>-->
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-lg-4 control-label">{{ 'Category' | translate}}:</div>
+                        <div class="col-lg-6">
+                            <button type="button" class="btn btn-default" maxlength="50" ng-model="vm.model.wfdCategoryId" data-html="1" bs-options="item.id as item.name for item in vm.categories" bs-select ng-disabled="true">
+                                <span class="caret"></span>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-lg-4 control-label">{{ 'Description' | translate}}:</div>
+                        <div class="col-lg-6">
+                            <textarea name="memo" rows="3" ng-model="vm.model.memo" type="text" maxlength="200" class="form-control input-sm" placeholder="{{ 'WorkflowDescription' | translate}}" ng-disabled="true"></textarea>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-lg-4 control-label">{{ 'SnFormat' | translate}}:</div>
+                        <div class="col-lg-6">
+                            <textarea name="snFormat" rows="3" ng-model="vm.model.snFormat" type="text" maxlength="200" class="form-control input-sm" placeholder="{{ 'snFormat' | translate}}" ng-disabled="true"></textarea>
+                        </div>
+                    </div>
+                    <!--<div class="form-group">
+                        <div class="col-lg-4 control-label">{{ 'SelectCompany' | translate}}:</div>
+                        <div class="col-lg-6">
+                            <ma-checkbox ng-model="vm.model.areaEnable"></ma-checkbox>
+                        </div>
+                    </div>-->
+                    <!--以下字段弃用，使用BpmAreaControl 表来控制权限配置-->
+<!--                    <div class="form-group">-->
+<!--                        <div class="col-lg-4 control-label">{{ 'CompanyList' | translate}}:</div>-->
+<!--                        <div class="col-lg-6">-->
+<!--                            <fm-select select-item="vm.selectedCompany" fm-model="vm.model.areaCodeList" view="Sys_GetAllCompany" ismulti="true"></fm-select>-->
+<!--                        </div>-->
+<!--                    </div>-->
+                </modal-body>
+                <modal-footer>
+                    <button class="btn btn-primary" type="submit" id="workflowedit" ma-form-submit="vm.save()">保存</button>
+                    <button type="button" class="btn btn-default" ng-click="$close()">{{ 'Close' | translate}}</button>
+                </modal-footer>
+            </ma-form>
+        </ma-panel>
+        <!--公司权限-->
+        <ma-panel data-title="公司权限" name="CompanyConfig">
+            <ma-form name="CompanyConfig">
+                <modal-body>
+                    <div class="form-group">
+                        <div class="col-lg-2 control-label">{{ 'SelectCompany' | translate}}:</div>
+                        <div class="col-lg-8">
+                            <ma-checkbox ng-model="vm.model.areaEnable" ng-change="vm.saveTitle()"></ma-checkbox>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-lg-2 control-label">权限配置:</div>
+                        <div class="col-lg-8">
+                            <table class="table table-striped table-hover table-condensed">
+                                <thead>
+                                    <tr>
+                                        <th>公司</th>
+                                        <th>允许权限</th>
+                                        <th>操作</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            <fm-select fm-model="vm.newControl.areaCode" view="Sys_GetAllCompany" ></fm-select>
+                                        </td>
+                                        <td>
+                                        </td>
+                                        <td>
+                                            <button class="btn btn-sm btn-success" ng-click="vm.saveControl()">保存</button>
+                                        </td>
+                                    </tr>
+                                    <tr ng-repeat="item in vm.controlGroups">
+                                        <td>
+                                            <fm-select fm-model="item.areaCode" select-item="item.$company" readonly view="Sys_GetAllCompany" ></fm-select>
+                                        </td>
+                                        <td>
+                                            <button class="btn btn-sm btn-default" ng-click="vm.setControlGroup(item)">权限</button>
+                                        </td>
+                                        <td>
+                                            <button class="btn btn-sm btn-danger" ng-click="vm.deleteControlGroup(item)">删除</button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                </modal-body>
+                <modal-footer>
+                    <button type="button" class="btn btn-default" ng-click="$close()">{{ 'Close' | translate}}</button>
+                </modal-footer>
+            </ma-form>
+        </ma-panel>
+        <!--通知配置-->
+        <ma-panel data-title="通知配置" name="inform">
+            <br />
+            <ma-form name="informEdit">
+                <modal-body>
+                    <div ng-include="'/App/_shared/component/inform/informconfig/informconfig.html'"></div>
+                </modal-body>
+                <modal-footer>
+                    <!--<button class="btn btn-primary" type="submit" id="workflowEdit" ma-form-submit="vm.save()">保存</button>-->
+                    <button type="button" class="btn btn-default" ng-click="$close()">{{ 'Close' | translate}}</button>
+                </modal-footer>
+            </ma-form>
+        <!--展示配置-->
+        </ma-panel>
+        <!--展示配置-->
+        <ma-panel data-title="展示配置" name="columnConfig">
+            <ma-form name="informEdit">
+                <modal-body>
+                    <div class="col-lg-12">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th width="10%">{{ 'FieldCode' | translate}}</th>
+                                    <th width="8%">{{ 'FieldName' | translate}}</th>
+                                    <th width="10%">{{'SourceType' | translate}}</th>
+                                    <th width="15%">{{ 'Content' | translate}}</th>
+                                    <th width="15%">{{ 'RequirementDescription' | translate}}</th>
+                                    <th width="5%">
+                                        <div>
+                                            <div class="btn btn-success btn-sm" ng-click="vm.addColumn()">+字段</div>
+                                            <div class="btn btn-success btn-sm" ng-click="vm.addViewColumn()">+视图字段</div>
+                                        </div>
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody ng-sortable="vm.barConfig">
+                                <tr ng-repeat="item in vm.columnConfigs">
+                                    <td>
+                                        {{item.schemaName}}
+                                    </td>
+                                    <td>{{item.name}}</td>
+                                    <td>
+                                        <fm-select readonly
+                                                   fm-model="item.whereInputType"
+                                                   items="vm.sourceTypes"></fm-select>
+                                    </td>
+                                    <td>{{item.whereInputContent}}</td>
+                                    <td>{{item.memo}}</td>
+                                    <td width="5%">
+                                        <i class="btn-link text-danger icon icon-times" message="{{ 'PleaseConfirmTheDeletionAgain' | translate}}" confirm-click="vm.deleteColumnConfig(item)" style="cursor: pointer;"></i>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </modal-body>
+                <modal-footer>
+                    <button type="button" class="btn btn-default" ng-click="$close()">{{ 'Close' | translate}}</button>
+                </modal-footer>
+            </ma-form>
+        </ma-panel>
+      
+    </ma-tabs>
+</modal>
+

@@ -1,0 +1,564 @@
+﻿
+@{
+    Layout = null;
+    ViewBag.Title = "复兴人员外包项目";
+}
+<link href="~/Content/Style/bootstrap.min.css" rel="stylesheet" />
+<link href="~/Content/Style/bpm_2.0.css" rel="stylesheet" />
+<link href="~/Content/Style/zui-icon.css" rel="stylesheet" />
+
+<div class="page-con">
+    <div class="main-con" style="margin-top:10px;height:calc(100vh - 25px);overflow:auto">
+        <div class="manage-menu">
+            <ul>
+                <li class="select"><a href="#">项目概述</a></li>
+                <li><a href="#">项目详情</a></li>
+                <li><a href="#">项目收支</a></li>
+                <li><a href="#">相关流程</a></li>
+                <li><a href="#">项目文档</a></li>
+                <li><a href="#">项目资产</a></li>
+                <li><a href="#">项目成员</a></li>
+            </ul>
+        </div>
+        <div class="clear" data-menu="0">
+            <div class="mc-left">
+                <h3 class="mcl-title">项目基本信息</h3>
+                <ul class="project-info">
+                    <li>
+                        <span>项目名称：</span>
+                        <p>复兴人员外包项目</p>
+                    </li>
+                    <li>
+                        <span>客户名称：</span>
+                        <p>复星集团</p>
+                    </li>
+                    <li>
+                        <span>客户联系人：</span>
+                        <p>Echo</p>
+                    </li>
+                    <li>
+                        <span>联系人电话：</span>
+                        <p>1349809072</p>
+                    </li>
+                    <li>
+                        <span>项目预计人数：</span>
+                        <p>20人</p>
+                    </li>
+                    <li>
+                        <span>项目预计金额：</span>
+                        <p>30w/月，共1000万</p>
+                    </li>
+                    <li>
+                        <span>成本中心编号：</span>
+                        <p>4323</p>
+                    </li>
+                </ul>
+                <h3 class="mcl-title">项目重要进展记录</h3>
+                <table class="project-table">
+                    <tr>
+                        <th>日期</th>
+                        <th>事件</th>
+                        <th>数量or金额</th>
+                        <th>经办人</th>
+                    </tr>
+                    <tbody>
+                        <tr>
+                            <td>2017/11/18</td>
+                            <td>签署销售合同</td>
+                            <td>300000</td>
+                            <td>Robin Sun</td>
+                        </tr>
+                        <tr>
+                            <td>2017/11/18</td>
+                            <td>开具首付款发票</td>
+                            <td>300000</td>
+                            <td>Robin Sun</td>
+                        </tr>
+                        <tr>
+                            <td>2017/11/18</td>
+                            <td>收到项目款</td>
+                            <td>300000</td>
+                            <td>Robin Sun</td>
+                        </tr>
+                        <tr>
+                            <td>2017/11/18</td>
+                            <td>收到供应商发票</td>
+                            <td>300000</td>
+                            <td>Robin Sun</td>
+                        </tr>
+                        <tr>
+                            <td>2017/11/18</td>
+                            <td>开具第二笔发票</td>
+                            <td>300000</td>
+                            <td>Robin Sun</td>
+                        </tr>
+                        <tr>
+                            <td>2017/11/18</td>
+                            <td>开具第二笔发票</td>
+                            <td>300000</td>
+                            <td>Robin Sun</td>
+                        </tr>
+                        <tr>
+                            <td>2017/11/18</td>
+                            <td>收到供应商发票</td>
+                            <td>300000</td>
+                            <td>Robin Sun</td>
+                        </tr>
+                        <tr>
+                            <td>2017/11/18</td>
+                            <td>开具第二笔发票</td>
+                            <td>300000</td>
+                            <td>Robin Sun</td>
+                        </tr>
+                        <tr>
+                            <td>2017/11/18</td>
+                            <td>开具第二笔发票</td>
+                            <td>300000</td>
+                            <td>Robin Sun</td>
+                        </tr>
+                        <tr>
+                            <td>2017/11/18</td>
+                            <td>收到供应商发票</td>
+                            <td>300000</td>
+                            <td>Robin Sun</td>
+                        </tr>
+                        <tr>
+                            <td>2017/11/18</td>
+                            <td>开具第二笔发票</td>
+                            <td>300000</td>
+                            <td>Robin Sun</td>
+                        </tr>
+                        <tr>
+                            <td>2017/11/18</td>
+                            <td>开具第二笔发票</td>
+                            <td>300000</td>
+                            <td>Robin Sun</td>
+                        </tr>
+                        <tr>
+                            <td>2017/11/18</td>
+                            <td>收到供应商发票</td>
+                            <td>300000</td>
+                            <td>Robin Sun</td>
+                        </tr>
+                        <tr>
+                            <td>2017/11/18</td>
+                            <td>开具第二笔发票</td>
+                            <td>300000</td>
+                            <td>Robin Sun</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="mc-right">
+                <div class="project-status clear">
+                    <div class="ps-ico">
+                        <img src="~/Content/Images/new/Manage_ps_ico.png" />
+                    </div>
+                    <ul>
+                        <li>项目周期：<span class="zq">2018/3/1 -- 2019/3/1</span><span class="p-status">项目目前状态：<label><i></i>实施阶段</label></span></li>
+                        <li>
+                            项目进度：
+                            <div class="progress-bd">
+                                <div class="progress">
+                                    <div class="progress-bar progress-bar-success" role="progressbar"
+                                         aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"
+                                         style="width: 60%;">
+                                        <span class="progress-txt">60%</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            预估费用：
+                            <div class="progress-bd">
+                                <div class="progress">
+                                    <div class="progress-bar progress-bar-warning" role="progressbar"
+                                         aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"
+                                         style="width: 70%;">
+                                        <span class="progress-txt">70%</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            实际费用：
+                            <div class="progress-bd">
+                                <div class="progress">
+                                    <div class="progress-bar progress-bar-danger" role="progressbar"
+                                         aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"
+                                         style="width: 80%;">
+                                        <span class="progress-txt">80%</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                    <div class="p-ts">请注意，项目已超预算 ！！</div>
+                </div>
+                <div class="project-pie-chart">
+                    <div class="pie-chart-l">
+                        <h4>项目人员</h4>
+                        <div id="costPie2" style="height: 200px;display:none"></div>
+                        <div style="padding:8px 12px">
+                            <table class="project-user">
+                                <tr>
+                                    <th>状态</th>
+                                    <th>人数</th>
+                                    <th>详情</th>
+                                </tr>
+                                <tr>
+                                    <td>实际在职人员</td>
+                                    <td>12</td>
+                                    <td><span class="detail">...</span></td>
+                                </tr>
+                                <tr>
+                                    <td>仍需招聘人数</td>
+                                    <td>9</td>
+                                    <td><span class="detail">...</span></td>
+                                </tr>
+                                <tr>
+                                    <td>离职人数</td>
+                                    <td>1</td>
+                                    <td><span class="detail">...</span></td>
+                                </tr>
+                                <tr>
+                                    <td>请假人数</td>
+                                    <td>2</td>
+                                    <td><span class="detail">...</span></td>
+                                </tr>
+                            </table>
+                        </div>
+
+                    </div>
+                    <div class="pie-chart-r">
+                        <h4>项目成本比例</h4>
+                        <div id="costPie" style="height: 200px"></div>
+                    </div>
+                </div>
+                <div class="project-cost">
+                    <h3>项目费用监控</h3>
+                    <div id="projectCost" style="width: 100%;height:200px;"></div>
+                </div>
+                <h3 class="mcl-title">招聘数据</h3>
+                <table class="project-table">
+                    <tr>
+                        <th>职位</th>
+                        <th>R值</th>
+                        <th>开放日期</th>
+                        <th>H/C数量</th>
+                        <th>H/C完成</th>
+                        <th>H/C取消</th>
+                        <th>剩余H/C</th>
+                        <th>建立推荐</th>
+                        <th>面试</th>
+                        <th>面试通过</th>
+                        <th>接受offer</th>
+                        <th>offer中</th>
+                        <th>拒绝offer</th>
+                        <th>取消offer</th>
+                    </tr>
+                    <tbody>
+                        <tr>
+                            <td>Engineer(.net )</td>
+                            <td></td>
+                            <td>2018/7/1</td>
+                            <td>5</td>
+                            <td>1</td>
+                            <td>1</td>
+                            <td>3</td>
+                            <td>40</td>
+                            <td>35</td>
+                            <td>5</td>
+                            <td>2</td>
+                            <td>1</td>
+                            <td>2</td>
+                            <td>0</td>
+                        </tr>
+                        <tr>
+                            <td>Engineer(.net )</td>
+                            <td></td>
+                            <td>2018/7/1</td>
+                            <td>5</td>
+                            <td>1</td>
+                            <td>1</td>
+                            <td>3</td>
+                            <td>40</td>
+                            <td>35</td>
+                            <td>5</td>
+                            <td>2</td>
+                            <td>1</td>
+                            <td>2</td>
+                            <td>0</td>
+                        </tr>
+                        <tr>
+                            <td><b>总计</b></td>
+                            <td></td>
+                            <td></td>
+                            <td>10</td>
+                            <td>2</td>
+                            <td>3</td>
+                            <td>3</td>
+                            <td>80</td>
+                            <td>35</td>
+                            <td>5</td>
+                            <td>2</td>
+                            <td>1</td>
+                            <td>4</td>
+                            <td>0</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="clear" data-menu="1" style="display:none">
+            <div class="mc-left pro-detail">
+                <h3 class="mcl-title">项目基本信息</h3>
+                <ul class="project-info pi-xs2 clear">
+                    <li>
+                        <span>项目名称：</span>
+                        <p>复兴人员外包项目</p>
+                    </li>
+                    <li>
+                        <span>实施城市：</span>
+                        <p>北京市</p>
+                    </li>
+                    <li>
+                        <span>陈本中心：</span>
+                        <p>3456</p>
+                    </li>
+                    <li>
+                        <span>CC Owner：</span>
+                        <p>Jason Chen</p>
+                    </li>
+                    <li>
+                        <span>事业部：</span>
+                        <p>ITO</p>
+                    </li>
+                    <li>
+                        <span>本门：</span>
+                        <p>ITO Southwest</p>
+                    </li>
+                    <li>
+                        <span>项目负责人：</span>
+                        <p>Ronglang Yu</p>
+                    </li>
+                    <li>
+                        <span>销售负责人：</span>
+                        <p>Ronglang Yu</p>
+                    </li>
+                    <li>
+                        <span>项目预计人数：</span>
+                        <p>20人</p>
+                    </li>
+                    <li>
+                        <span>项目预计金额：</span>
+                        <p>30w/月，共1000万</p>
+                    </li>
+                    <li>
+                        <span>成本中心编号：</span>
+                        <p>4323</p>
+                    </li>
+                    <li>
+                        <span>成本中心编号：</span>
+                        <p>4323</p>
+                    </li>
+                </ul>
+                <div class="pro-tab-bd">
+                    <ul class="pro-tab-s" style="margin-top:6px">
+                        <li class="select">项目主合同</li>
+                        <li>补充合同1</li>
+                        <li>补充合同2</li>
+                    </ul>
+                    <div class="pro-tab-con pro-tab-item">
+                        <ul class="project-info pi-xs2 clear">
+                            <li>
+                                <span>项目名称：</span>
+                                <p>复兴人员外包项目</p>
+                            </li>
+                            <li>
+                                <span>实施城市：</span>
+                                <p>北京市</p>
+                            </li>
+                            <li>
+                                <span>陈本中心：</span>
+                                <p>3456</p>
+                            </li>
+                            <li>
+                                <span>CC Owner：</span>
+                                <p>Jason Chen</p>
+                            </li>
+                            <li>
+                                <span>事业部：</span>
+                                <p>ITO</p>
+                            </li>
+                            <li>
+                                <span>本门：</span>
+                                <p>ITO Southwest</p>
+                            </li>
+                            <li class="li-l">
+                                <span>合同附件：</span>
+                                <p><i class="icon-file-word" style="color:#1d3e83"></i><span style="text-decoration:underline;float:none;padding-left:3px">成都农商银行人力外包项目合同下载</span></p>
+                            </li>
+                        </ul>
+                        <h4 class="mcl-title-s">关联开票信息</h4>
+                        <ul class="project-info pi-xs2 clear">
+                            <li>
+                                <span>开票日期：</span>
+                                <p>复兴人员外包项目</p>
+                            </li>
+                            <li>
+                                <span>发票类型：</span>
+                                <p>北京市</p>
+                            </li>
+                            <li>
+                                <span>开票号码：</span>
+                                <p><b>03734978</b></p>
+                            </li>
+                            <li>
+                                <span>发票币种：</span>
+                                <p>人民币</p>
+                            </li>
+                            <li>
+                                <span>发票金额：</span>
+                                <p><b>2,000,000 元</b></p>
+                            </li>
+                            <li></li>
+                        </ul>
+                    </div>
+                    <div class="pro-tab-con pro-tab-item" style="display:none">
+                        补充合同1
+                    </div>
+                    <div class="pro-tab-con pro-tab-item" style="display:none">
+                        补充合同2
+                    </div>
+                </div>                
+            </div>
+            <div class="mc-right pro-detail">
+                <div class="pro-tab-bd pro-tab-bd-grey">
+                    <ul class="pro-tab-s">
+                        <li class="select">签约客户</li>
+                        <li>开票客户1</li>
+                        <li>开票客户2</li>
+                    </ul>
+                    <div class="pro-tab-con pro-tab-item">
+                        <ul class="project-info pi-xs2 clear">
+                            <li>
+                                <span>客户全称：</span>
+                                <p>成都农商银行</p>
+                            </li>
+                            <li>
+                                <span>客户公司网址：</span>
+                                <p>www.cdrcb.com/index/</p>
+                            </li>
+                            <li class="li-l">
+                                <span>客户简介：</span>
+                                <p style="height: 22px; overflow: hidden;max-width: 82%;">成都农村商业银行股份有限公司2009年12月经中国银行业监督管理委员会批准设立，已发展成为中国最大的农村商业银行之一，总部设在成都。  成都农村商业银行股份有限公司注册...</p>
+                            </li>
+                            <li class="li-l">
+                                <span>客户地址：</span>
+                                <p>成都市武侯区科华中路88号</p>
+                            </li>
+                            <li>
+                                <span>事业部：</span>
+                                <p>ITO</p>
+                            </li>
+                            <li>
+                                <span>本门：</span>
+                                <p>ITO Southwest</p>
+                            </li>
+                            <li>
+                                <span>项目负责人：</span>
+                                <p>Ronglang Yu</p>
+                            </li>
+                            <li>
+                                <span>项目负责人：</span>
+                                <p>Ronglang Yu</p>
+                            </li>
+                            <li>
+                                <span>项目负责人：</span>
+                                <p>Ronglang Yu</p>
+                            </li>
+                            <li>
+                                <span>项目负责人：</span>
+                                <p>Ronglang Yu</p>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="pro-tab-con pro-tab-item" style="display:none">
+                        补充合同1
+                    </div>
+                    <div class="pro-tab-con pro-tab-item" style="display:none">
+                        补充合同2
+                    </div>
+                </div>
+                <h3 class="mcl-title" style="margin-top:6px">项目重要进展记录</h3>
+                <table class="project-table">
+                    <tr>
+                        <th>日期</th>
+                        <th>事件</th>
+                        <th>数量or金额</th>
+                        <th>经办人</th>
+                    </tr>
+                    <tbody>
+                        <tr>
+                            <td>2017/11/18</td>
+                            <td>签署销售合同</td>
+                            <td>300000</td>
+                            <td>Robin Sun</td>
+                        </tr>
+                        <tr>
+                            <td>2017/11/18</td>
+                            <td>开具首付款发票</td>
+                            <td>300000</td>
+                            <td>Robin Sun</td>
+                        </tr>
+                        <tr>
+                            <td>2017/11/18</td>
+                            <td>收到项目款</td>
+                            <td>300000</td>
+                            <td>Robin Sun</td>
+                        </tr>
+                        <tr>
+                            <td>2017/11/18</td>
+                            <td>收到供应商发票</td>
+                            <td>300000</td>
+                            <td>Robin Sun</td>
+                        </tr>
+                        <tr>
+                            <td>2017/11/18</td>
+                            <td>开具第二笔发票</td>
+                            <td>300000</td>
+                            <td>Robin Sun</td>
+                        </tr>
+                        <tr>
+                            <td>2017/11/18</td>
+                            <td>开具第二笔发票</td>
+                            <td>300000</td>
+                            <td>Robin Sun</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div data-menu="2" style="display:none">
+            <h4 style="padding-left:10px">项目收支</h4>
+        </div>
+        <div data-menu="3" style="display:none">
+            <h4 style="padding-left:10px">相关流程</h4>
+        </div>
+        <div data-menu="4" style="display:none">
+            <h4 style="padding-left:10px">项目文档</h4>
+        </div>
+        <div data-menu="5" style="display:none">
+            <h4 style="padding-left:10px">项目资产</h4>
+        </div>
+        <div data-menu="6" style="display:none">
+            <h4 style="padding-left:10px">项目成员</h4>
+        </div>
+    </div>
+</div>
+
+
+<script src="~/Content/Lib/jquery-1.10.2/jquery-1.10.2.min.js"></script>
+<script src="~/Content/Lib/ECharts/echarts.min.js"></script>
+<script src="~/Content/Scripts/manage.js"></script>
