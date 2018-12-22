@@ -2,3 +2,9 @@
 /Sl.Bpm.Backend
 /Sl.Bpm.Client
 /Sl.Bpm.Shared
+/Sl.Bpm.Dev/Web.config
+/Sl.Bpm.Dev/AppPages/Data
+/Sl.Bpm.Dev/AppPages/Function
+/Sl.Bpm.Dev/AppPages/Workflow
+/Sl.Bpm.Dev/Logs
+/Sl.Bpm.Dev/obj
