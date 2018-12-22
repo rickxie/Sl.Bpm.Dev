@@ -22,14 +22,14 @@ namespace Sl.Bpm.AppPages.Base
 
 
         /// <summary>
-        /// 保存组织快照
+        /// 保存组织快照,成功返回对应的快照Id，其他返回null
         /// </summary>
         /// <returns></returns>
         public string SaveOrgPathSnapshoot(string pmId)
         {
             //如果获取到多个组织架构,直接抛出异常
             string sql = @"
-select pj.ProjectNo,pj.id ProjectId,pj.ProjectCnName ProjectName,pj.ProjectEnName,pj.PmId PmUserId,pj.PmName PmUserName,
+select DISTINCT pj.ProjectNo,pj.id ProjectId,pj.ProjectCnName ProjectName,pj.ProjectEnName,pj.PmId PmUserId,pj.PmName PmUserName,
 Gro.CcName,Gro.CcLangName,Gro.CcId,Gro.CcNo,Gro.CcUname,Gro.CcULangName,Gro.CcUid,
 Gro.BuName,Gro.BuLangName,Gro.BuId,Gro.BuNo,Gro.BuUname,Gro.BuULangName,Gro.BuUid,
 Gro.CoName,Gro.CoLangName,Gro.CoId,Gro.CoNo,Gro.CoUname,Gro.CoULangName,Gro.CoUid,
@@ -56,19 +56,23 @@ where bg.EnumGroupLevel='3') Gro on Gro.CcNo=pj.CcNo
 where pj.id=@pmId
 
 ";
-           var model = _db.QueryFirst<OrgModel>(sql, new { pmId });
-            if (model != null) {
 
-                model.UniqueId = model.GetUniqueIdByMd5();
-                var orgSsId = _db.QueryFirst<string>("SELECT Id FROM [dbo].[t_org_snapshoot] WHERE UniqueId='" + model.UniqueId + "' ");
-
-                //判断是否存在
-                if (string.IsNullOrEmpty(orgSsId))
+            try
+            {
+                var model = _db.QueryFirst<OrgModel>(sql, new { pmId });
+                if (model != null)
                 {
-                    orgSsId = Guid.NewGuid().ToString();
-                   
-                    //执行新增
-                    sql = @"
+
+                    model.UniqueId = model.GetUniqueIdByMd5();
+                    var orgSsId = _db.QueryFirst<string>("SELECT Id FROM [dbo].[t_org_snapshoot] WHERE UniqueId='" + model.UniqueId + "' ");
+
+                    //判断是否存在
+                    if (string.IsNullOrEmpty(orgSsId))
+                    {
+                        orgSsId = Guid.NewGuid().ToString();
+
+                        //执行新增
+                        sql = @"
 INSERT INTO [dbo].[t_org_snapshoot]
            ([Id]
            ,[UniqueId]
@@ -134,76 +138,81 @@ INSERT INTO [dbo].[t_org_snapshoot]
            ,@AreaLangName
            ,@AreaCode
 )";
-                     _db.Execute(sql, new
-                    {
-                        Id = orgSsId,
-                        model.UniqueId
-                            ,
-                        model.ProjectId
-                            ,
-                        model.ProjectNo,
-                        model.ProjectName
-                            ,
-                        model.PmUserId
-                            ,
-                        model.PmUserName
-                            ,
-                        model.CcName
-                            ,
-                        model.CcLangName
-                            ,
-                        model.CcId
-                            ,
-                        model.CcNo
-                            ,
-                        model.CcUid
-                            ,
-                        model.CcUname
-                            ,
-                        model.CcULangName
-                            ,
-                        model.BuName
-                            ,
-                        model.BuLangName
-                            ,
-                        model.BuId
-                            ,
-                        model.BuNo
-                            ,
-                        model.BuUid
-                            ,
-                        model.BuUname
-                            ,
-                        model.BuULangName
-                            ,
-                        model.CoName
-                            ,
-                        model.CoLangName
-                            ,
-                        model.CoId
-                            ,
-                        model.CoNo
-                            ,
-                        model.CoUid
-                            ,
-                        model.CoUname
-                            ,
-                        model.CoULangName
-                            ,
-                        model.AreaName
-                            ,
-                        model.AreaLangName
-                            ,
-                        model.AreaCode
-                    });
+                        _db.Execute(sql, new
+                        {
+                            Id = orgSsId,
+                            model.UniqueId
+                               ,
+                            model.ProjectId
+                               ,
+                            model.ProjectNo,
+                            model.ProjectName
+                               ,
+                            model.PmUserId
+                               ,
+                            model.PmUserName
+                               ,
+                            model.CcName
+                               ,
+                            model.CcLangName
+                               ,
+                            model.CcId
+                               ,
+                            model.CcNo
+                               ,
+                            model.CcUid
+                               ,
+                            model.CcUname
+                               ,
+                            model.CcULangName
+                               ,
+                            model.BuName
+                               ,
+                            model.BuLangName
+                               ,
+                            model.BuId
+                               ,
+                            model.BuNo
+                               ,
+                            model.BuUid
+                               ,
+                            model.BuUname
+                               ,
+                            model.BuULangName
+                               ,
+                            model.CoName
+                               ,
+                            model.CoLangName
+                               ,
+                            model.CoId
+                               ,
+                            model.CoNo
+                               ,
+                            model.CoUid
+                               ,
+                            model.CoUname
+                               ,
+                            model.CoULangName
+                               ,
+                            model.AreaName
+                               ,
+                            model.AreaLangName
+                               ,
+                            model.AreaCode
+                        });
+
+                    }
+
+                    return orgSsId;
 
                 }
- 
-                    return orgSsId;
- 
-            }
 
-            throw new Exception("根据对应的项目Id获取不到对应的组织结构.");
+                throw new Exception("根据对应的项目Id获取不到对应的组织结构.");
+            }
+            catch
+            {
+                return null;
+            }
         }
 
 
@@ -225,7 +234,7 @@ INSERT INTO [dbo].[t_org_snapshoot]
 
             //如果获取到多个组织架构,直接抛出异常
             string sql = @"
-select pj.ProjectNo,pj.id ProjectId,pj.ProjectCnName ProjectName,pj.ProjectEnName,pj.PmId PmUserId,pj.PmName PmUserName,
+select DISTINCT pj.ProjectNo,pj.id ProjectId,pj.ProjectCnName ProjectName,pj.ProjectEnName,pj.PmId PmUserId,pj.PmName PmUserName,
 Gro.CcName,Gro.CcLangName,Gro.CcId,Gro.CcNo,Gro.CcUname,Gro.CcULangName,Gro.CcUid,
 Gro.BuName,Gro.BuLangName,Gro.BuId,Gro.BuNo,Gro.BuUname,Gro.BuULangName,Gro.BuUid,
 Gro.CoName,Gro.CoLangName,Gro.CoId,Gro.CoNo,Gro.CoUname,Gro.CoULangName,Gro.CoUid,
@@ -260,7 +269,7 @@ where pu.AppUserId=@userId
         {
             //如果获取到多个组织架构,直接抛出异常
             string sql = @"
-select pj.ProjectNo,pj.id ProjectId,pj.ProjectCnName ProjectName,pj.ProjectEnName,pj.PmId PmUserId,pj.PmName PmUserName,
+select DISTINCT pj.ProjectNo,pj.id ProjectId,pj.ProjectCnName ProjectName,pj.ProjectEnName,pj.PmId PmUserId,pj.PmName PmUserName,
 Gro.CcName,Gro.CcLangName,Gro.CcId,Gro.CcNo,Gro.CcUname,Gro.CcULangName,Gro.CcUid,
 Gro.BuName,Gro.BuLangName,Gro.BuId,Gro.BuNo,Gro.BuUname,Gro.BuULangName,Gro.BuUid,
 Gro.CoName,Gro.CoLangName,Gro.CoId,Gro.CoNo,Gro.CoUname,Gro.CoULangName,Gro.CoUid,
