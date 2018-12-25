@@ -18,31 +18,6 @@
     <script src="~/Content/Lib/jquery-1.10.2/jquery.cookie.js"></script>
 
     @Styles.Render("~/SysPages/Css")
-    <style type="text/css">
-
-        .no-submenu .left-menu {
-            width: 61px;
-        }
-
-            .no-submenu .left-menu .main-menu .menu-item.select dd {
-                display: none;
-            }
-
-        .no-submenu .menu-fold {
-            display: none;
-        }
-
-        .no-submenu .page-main {
-            left: 61px;
-        }
-        ul.pagination li.disabled a i {
-            color: #ddd;
-            cursor: default;
-        }
-        .txt-wrap i{
-            margin:0 3px;
-        }
-    </style>
 </head>
 <body class="@Html.Raw(ViewBag.hasSubMenu!=null&&ViewBag.hasSubMenu==true?"with-submenu":"no-submenu")">
     <div class="menu-fold">
@@ -70,12 +45,7 @@
         @RenderBody()
     </div>
     <script src="~/Content/Scripts/menu.js"></script>
-    <script type="text/javascript">
-        //调用页面级方法
-        if (typeof (loadMoudle) == "function") {
-            loadMoudle();
-        }
-    </script>
+    
 </body>
 </html>
 

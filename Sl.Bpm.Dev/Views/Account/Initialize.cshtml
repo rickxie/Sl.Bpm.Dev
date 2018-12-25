@@ -1,18 +1,14 @@
 ﻿@using System.Web.Optimization
 
 @{
-    Layout = null;
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
-<!DOCTYPE html>
-
-<html ng-app="initialize">
-<head>
-    <meta name="viewport" content="width=device-width" />
+@section head
+{
     <link rel="icon" type="image/gif" href="../../Content/Images/AppTitle.png">
     <title>沙鲁 - 流程设计平台 - 系统初始化</title>
     @Styles.Render("~/SysPages/Css")
-</head>
+}
 <body class="body-login" ng-controller="InitCtrl as vm" style="background-color: rgb(90,111,133)">
     <script>
         function ShowMessage(msg) {
@@ -90,67 +86,67 @@
     @Scripts.Render("~/SysPages/Js")
 
     <script type="text/javascript">
-        angular.module('initialize', ['mabp']).controller('InitCtrl', [
-                    '$scope', '$http', 'mabp.app.enterpriseInfoSync', function ($scope, $http, service) {
-                        var vm = this;
-                        vm.model = {};
-                        vm.model.enterpriseId = "";
-                        vm.model.usernameOrEmailAddress = "superadmin";
+        angular.module('app', ['mabp']).controller('InitCtrl', [
+            '$scope', '$http', 'mabp.app.enterpriseInfoSync', function ($scope, $http, service) {
+                var vm = this;
+                vm.model = {};
+                vm.model.enterpriseId = "";
+                vm.model.usernameOrEmailAddress = "superadmin";
 
-                        vm.validateAccessId = function () {
-                            vm.isValidate = false;
-                            service.initAccessIdValidate({
-                                EnterpriseAccessId: vm.model.enterpriseAccessId,
-                                UserAccessId: vm.model.userAccessId,
-                                SyncServiceAddress: vm.model.serviceAddress
-                            }).then(function (data) {
-                                if (!data.isSuccess) {
-                                    mabp.notify.error(data.errorMsg);
-                                    vm.validateMsg = data.errorMsg;
-                                }
-                                vm.model.enterpriseId = data.result;
-                                vm.isValidate = true;
-                            }, function () {
-                                //mabp.notify.error(data.result);
-                            });
-                        };
-
-                        vm.save = function () {
-                            if (vm.isValidate) {
-                                if (vm.model.password !== vm.model.passwordConfirm) {
-                                    mabp.notify.error("两次密码输入不一致");
-                                    return;
-                                }
-                                mabp.message.confirm("确定使用当前企业进行初始化？初始化后不能切换其他企业。", "确定", function (confirmed) {
-                                    if (confirmed) {
-                                        mabp.ui.setSaving('initializeData',
-                                        $http({
-                                            url: '/Account/Initialize',
-                                            method: "POST",
-                                            data: {
-                                                UsernameOrEmailAddress: vm.model.usernameOrEmailAddress,
-                                                Password: vm.model.password,
-                                                EnterpriseAccessId: vm.model.enterpriseAccessId,
-                                                UserAccessId: vm.model.userAccessId,
-                                                EnterpriseId: vm.model.enterpriseId,
-                                                SyncServiceAddress: vm.model.serviceAddress
-                                            }
-                                        }).success(function (result) {
-                                            if (!result.Success) {
-                                                mabp.notify.error(result.Error);
-                                            } else {
-                                                window.location.href = "/";
-                                            }
-                                        }));
-                                    }
-
-                                });
-
-                            }
+                vm.validateAccessId = function () {
+                    vm.isValidate = false;
+                    service.initAccessIdValidate({
+                        EnterpriseAccessId: vm.model.enterpriseAccessId,
+                        UserAccessId: vm.model.userAccessId,
+                        SyncServiceAddress: vm.model.serviceAddress
+                    }).then(function (data) {
+                        if (!data.isSuccess) {
+                            mabp.notify.error(data.errorMsg);
+                            vm.validateMsg = data.errorMsg;
                         }
+                        vm.model.enterpriseId = data.result;
+                        vm.isValidate = true;
+                    }, function () {
+                        //mabp.notify.error(data.result);
+                    });
+                };
+
+                vm.save = function () {
+                    if (vm.isValidate) {
+                        if (vm.model.password !== vm.model.passwordConfirm) {
+                            mabp.notify.error("两次密码输入不一致");
+                            return;
+                        }
+                        mabp.message.confirm("确定使用当前企业进行初始化？初始化后不能切换其他企业。", "确定", function (confirmed) {
+                            if (confirmed) {
+                                mabp.ui.setSaving('initializeData',
+                                    $http({
+                                        url: '/Account/Initialize',
+                                        method: "POST",
+                                        data: {
+                                            UsernameOrEmailAddress: vm.model.usernameOrEmailAddress,
+                                            Password: vm.model.password,
+                                            EnterpriseAccessId: vm.model.enterpriseAccessId,
+                                            UserAccessId: vm.model.userAccessId,
+                                            EnterpriseId: vm.model.enterpriseId,
+                                            SyncServiceAddress: vm.model.serviceAddress
+                                        }
+                                    }).success(function (result) {
+                                        if (!result.Success) {
+                                            mabp.notify.error(result.Error);
+                                        } else {
+                                            window.location.href = "/";
+                                        }
+                                    }));
+                            }
+
+                        });
+
                     }
+                }
+            }
         ]);
 
     </script>
 </body>
-</html>
+

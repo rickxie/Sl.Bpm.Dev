@@ -6,8 +6,16 @@
 }
 
 
-<div ng-controller="popup" style="margin:0 auto;">
-    <ng-include src="'/App/SysPages/views/my/popup/popup.html'"></ng-include>
+<div ng-controller="popup" style="margin:0 auto;"><modal size="md">
+        <modal-header>{{title}}</modal-header>
+        <modal-body>
+            <div class="modal-body" style="height:calc(100vh - 250px);overflow-y:auto;">
+                <div id="popupMenu" style="width:100%;"></div>
+            </div>
+        </modal-body>
+        <modal-footer>
+        </modal-footer>
+    </modal>
 </div>
 
 <script type="text/javascript">

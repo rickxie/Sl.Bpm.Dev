@@ -1,15 +1,10 @@
 ﻿@{
-    Layout = "~/Views/Home/_Layout.cshtml";
-    ViewBag.Title = "流程中心";
+    Layout = "~/Views/Home/Single.cshtml";
     ViewBag.hasSubMenu = true;
 }
+
 <div class="page-con">
-    <div class="main-head">
-        <h2>@ViewBag.Title</h2>
-        <div class="logo">
-            <img src="~/Content/Images/new/logo.png">
-        </div>
-    </div>
+    @Html.Partial("~/Views/Shared/_Header.cshtml")
     <iframe name="_main" class="imain"></iframe>
     <div class="loading"><div class="content-spinner-bar"><div class="bounce1"></div><div class="bounce2"></div><div class="bounce3"></div></div></div>
 </div>

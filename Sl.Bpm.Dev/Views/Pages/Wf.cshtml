@@ -2,16 +2,13 @@
 @using MiniAbp.Extension;
 
 @{
-    Layout = null;
-    var isPdf = ViewBag.isPdf == "1" || ViewBag.isPrint == "1";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var isPdf = Model.Input.IsPdf == "1" || Model.Input.IsPrint == "1";
     Func<object, string> format = (o) => { return o.SerializeJsonCamelCase(); };
 }
 @model Sl.Bpm.Repository.Dto.AppPageResultDto
-<!DOCTYPE html>
-<html ng-app="appPage">
-<head>
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <meta name="viewport" content="width=device-width" />
+@section head
+{
     <link rel="icon" type="image/gif" href="../../Content/Images/AppTitle.png">
     @if (!isPdf)
     {
@@ -22,7 +19,8 @@
         <title></title>
     }
     @Styles.Render("~/SysPages/Css")
-</head>
+    <script src="~/Shared/Permissions" type="text/javascript"></script>
+}
 <body class="@if (isPdf)
              { @Html.Raw("print-theme");}
              else
@@ -33,7 +31,6 @@
                 <!--此处会加载表单内容-->
             </div>
             <!--审批中时显示, 退回到发起人时显示, 不为自动发起的第一个节点时显示-->
-
             <div ng-if="(base.pageState == 2 || (!!base.taskId && base.pageState != 3)) && !base.isFromAutoPost">
                 <fm-Group-Head title="{{ 'TaskApproval' | translate}}"></fm-Group-Head><!--审批意见-->
                 <div class="form-group">
@@ -67,18 +64,19 @@
             <fm-Group-Head title="{{ 'ApprovalRecord' | translate }}" ng-if="base.pageState!=1 || !!base.taskId"></fm-Group-Head>
             <fm-approve-history task-id="base.taskId" ng-if="base.pageState!=1 || !!base.taskId" approve-history="base.formHistory" expect-approver="base.formExpectApprover"></fm-approve-history>
         </div>
+    </div>
+
     @Scripts.Render("~/SysPages/Js")
-    <script src="/Account/Permissions" type="text/javascript"></script>
     <script type="text/html" id="pcHtml">
         @Html.Raw(Model.Page.PcHtml)
     </script>
     <script type="text/javascript">
-        angular.module('appPage', ['mabp', 'app.shared', 'angularFileUpload', 'pascalprecht.translate'])
+        angular.module('app', ['mabp', 'app.shared', 'angularFileUpload', 'pascalprecht.translate'])
             .config([
                 '$translateProvider', function($translateProvider) {
                     $translateProvider.translations('en', mabp.localization['Bpm.en']);
                     $translateProvider.translations('zh-CN', mabp.localization['Bpm.zh-CN']);
-                    $translateProvider.preferredLanguage('zh-CN');
+                    $translateProvider.preferredLanguage(window.$currentUser.language);
                 }
             ]).controller('PageCtrl',
             ['mabp.app.module', 'mabp.app.task', '$compile', '$scope', '$timeout', 'formHelper', 'appSession', '$rootScope', '$pageDialog', 'mabp.app.bpm', '$modal', 'appSession',
@@ -89,7 +87,7 @@
                         var pa = !!_shared.escape2Html('@Model.Input.Param')?_shared.escape2Html('@Model.Input.Param'):null;
                         var param = JSON.parse(pa);
                         // 初始化 base对象
-                        vm.base = {
+                    vm.base = {
                             $queryString:  @(Html.Raw(format(Model.QueryString))),
                             $loaded: @(Html.Raw(format(Model.Loaded))),
                             refId:@Html.Raw(format(Model.RefId)),
@@ -158,20 +156,7 @@
                                 base.memo = memo;
                             },
                             $initial: [], //保存刚打开的数据，用于Callback-func 第一次调用使用.
-                            topicRequired: true,//是否要填写主题,默认为不填
-                            ApplicantInfoMore: function () {
-                                var objbt = $(event.target).parents(".open-more");
-                                if (objbt.hasClass("open")) {
-                                    objbt.prevAll(".fg-hide").hide();
-                                    objbt.removeClass("open");
-                                    objbt.find("label").html("更多<i class='icon-chevron-down'></i>");
-                                } else {
-                                    objbt.prevAll(".fg-hide").show();
-                                    objbt.addClass("open");
-                                    objbt.find("label").html("收起<i class='icon-chevron-up'></i>");
-                                }
-
-                            }
+                            topicRequired: false//是否要填写主题,默认为不填
                         }
                     // 检查岗位是否多个
                     function checkJobId() {
@@ -189,7 +174,7 @@
 
                         // 从哪个岗位打开页面
                         bpmService.getUserJobs().then(function (jobList) {
-                            if (jobList.length > 1||vm.base.topicRequired) {
+                            if (jobList.length > 1 || vm.base.topicRequired) {
                                 if (jobList == null || jobList.length === 0) {
                                     mabp.notify.error("没有身份,无法发起流程");
                                     d.resolve(false);
@@ -204,9 +189,7 @@
                                     templateUrl: info.templateUrl,
                                     scope: $modalScope,
                                     controller: '{0} as vm'.fill(info.controller),
-                                    size: info.size || "md",
-                                    backdrop: 'static',
-                                    keyboard: false
+                                    size: info.size || "md"
                                 });
                                 m.result.then(function (info) {
                                     vm.base.jobId = info.jobId;
@@ -315,11 +298,11 @@
                             } else {
                                 $rootScope.title = "新流程";
                             }
-}
+                        }
                         else if (!r1) {
                             showErrMsg("当前账号 [ <label class='text-danger'>"
                                 + $currentUser.account
-                                + "</label> ] 没有 [ <label class='text-danger'>岗位</label> ] 信息");
+                                + "</label> ] 没有 [ <label class='text-danger'>岗位</label> ] 信息,是否切换账号?", true);
 
                         } else if (!r2) {
                             showErrMsg("找不到当前流程的节点信息");
@@ -329,4 +312,3 @@
             ]);
     </script>
 </body>
-</html>

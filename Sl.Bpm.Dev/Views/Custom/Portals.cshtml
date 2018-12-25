@@ -1,0 +1,267 @@
+﻿
+@{
+
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section head
+{
+    <title ng-bind="$enterpriseName + ' BPM系统'"></title>
+    <link href="~/Content/Style/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Content/Style/bpm_2.0.css" rel="stylesheet" />
+    <link href="~/Content/Style/zui-icon.css" rel="stylesheet" />
+    <link href="~/Content/Lib/swiper-4.3.3/swiper-4.3.3.min.css" rel="stylesheet" />
+    <script src="~/Content/Lib/swiper-4.3.3/swiper-4.3.3.min.js"></script>
+}
+<body class="portals-body">
+
+    <div class="portals-head clear">
+        <span>
+            <img src="~/Content/Images/new/logo.png" />
+        </span>
+        <div class="ph-menu">
+            <a class="ph-in" href="~/Home/Index"><i class="icon-desktop"></i>进入工作台</a>
+            <span class="ph-in"><i class="icon-globe"></i><select><option> 中 文</option><option>English</option></select></span>
+            <img class="face" src="~/Content/Images/new/user-face.jpg" />
+        </div>
+    </div>
+    <div class="portals-banner">
+        <img src="~/Content/Images/new/portals_banner.png" />
+    </div>
+    <div class="portals-main portals-con clear">
+        <h2 class="portals-title">企业新闻<a href="#">更多<i class="icon-angle-right"></i></a></h2>
+        <ul class="portals-news">
+            <li>
+                <img src="~/Content/Images/new/pc-bd1.jpg" />
+                <h3>相聚日本，WSJP2016年会圆满落幕</h3>
+                <h4>2018-04-05</h4>
+            </li>
+            <li>
+                <img src="~/Content/Images/new/temp/pornews_02.png" />
+                <h3>相聚日本，WSJP2016年会圆满落幕</h3>
+                <h4>2018-04-05</h4>
+            </li>
+            <li>
+                <img src="~/Content/Images/new/temp/pornews_03.png" />
+                <h3>相聚日本，WSJP2016年会圆满落幕</h3>
+                <h4>2018-04-05</h4>
+            </li>
+            <li>
+                <img src="~/Content/Images/new/temp/pornews_04.png" />
+                <h3>相聚日本，WSJP2016年会圆满落幕</h3>
+                <h4>2018-04-05</h4>
+            </li>
+        </ul>
+        <h2 class="portals-title">公司公告<a href="#">更多<i class="icon-angle-right"></i></a></h2>
+        <ul class="portals-news">
+            <li>
+                <img src="~/Content/Images/new/temp/pornews_05.png" />
+                <h3>相聚日本，WSJP2016年会圆满落幕</h3>
+                <h4>2018-04-05</h4>
+            </li>
+            <li>
+                <img src="~/Content/Images/new/temp/pornews_06.png" />
+                <h3>相聚日本，WSJP2016年会圆满落幕</h3>
+                <h4>2018-04-05</h4>
+            </li>
+            <li>
+                <img src="~/Content/Images/new/temp/pornews_07.png" />
+                <h3>相聚日本，WSJP2016年会圆满落幕</h3>
+                <h4>2018-04-05</h4>
+            </li>
+            <li>
+                <img src="~/Content/Images/new/temp/pornews_08.png" />
+                <h3>相聚日本，WSJP2016年会圆满落幕</h3>
+                <h4>2018-04-05</h4>
+            </li>
+        </ul>
+        <h2 class="portals-title">员工活动<a href="#">更多<i class="icon-angle-right"></i></a></h2>
+        <ul class="portals-news">
+            <li>
+                <img src="~/Content/Images/new/temp/pornews_09.png" />
+                <h3>相聚日本，WSJP2016年会圆满落幕</h3>
+                <h4>2018-04-05</h4>
+            </li>
+            <li>
+                <img src="~/Content/Images/new/temp/pornews_10.png" />
+                <h3>相聚日本，WSJP2016年会圆满落幕</h3>
+                <h4>2018-04-05</h4>
+            </li>
+            <li>
+                <img src="~/Content/Images/new/temp/pornews_11.png" />
+                <h3>相聚日本，WSJP2016年会圆满落幕</h3>
+                <h4>2018-04-05</h4>
+            </li>
+            <li>
+                <img src="~/Content/Images/new/temp/pornews_12.png" />
+                <h3>相聚日本，WSJP2016年会圆满落幕</h3>
+                <h4>2018-04-05</h4>
+            </li>
+        </ul>
+        <h2 class="portals-title">伯乐计划<a href="#">更多<i class="icon-angle-right"></i></a></h2>
+        <ul class="recruit-list clear">
+            <li>
+                <h3>JAVA资深工程师</h3>
+                <h4>6人</h4>
+            </li>
+            <li>
+                <h3>交互设计师</h3>
+                <h4>6人</h4>
+            </li>
+            <li>
+                <h3>前端开发工程师</h3>
+                <h4>6人</h4>
+            </li>
+            <li>
+                <h3>UI设计师</h3>
+                <h4>6人</h4>
+            </li>
+            <li>
+                <h3>产品经理</h3>
+                <h4>6人</h4>
+            </li>
+            <li>
+                <h3>JAVA初级工程师</h3>
+                <h4>6人</h4>
+            </li>
+        </ul>
+        <h2 class="portals-title">新员工入职介绍<a href="#">更多<i class="icon-angle-right"></i></a></h2>
+        <ul class="new-employee clear">
+            <li>
+                <span class="img"><img src="~/Content/Images/new/user-face.jpg" /></span>
+                <div class="mess">
+                    <h3>Helen</h3>
+                    <h4>复旦大学 计算机学士</h4>
+                    <h5>java开发工程师</h5>
+                </div>
+            </li>
+            <li>
+                <span class="img"><img src="~/Content/Images/new/user-face.jpg" /></span>
+                <div class="mess">
+                    <h3>Helen</h3>
+                    <h4>复旦大学 计算机学士</h4>
+                    <h5>java开发工程师</h5>
+                </div>
+            </li>
+            <li>
+                <span class="img"><img src="~/Content/Images/new/user-face.jpg" /></span>
+                <div class="mess">
+                    <h3>Helen</h3>
+                    <h4>复旦大学 计算机学士</h4>
+                    <h5>java开发工程师</h5>
+                </div>
+            </li>
+            <li>
+                <span class="img"><img src="~/Content/Images/new/user-face.jpg" /></span>
+                <div class="mess">
+                    <h3>Helen</h3>
+                    <h4>复旦大学 计算机学士</h4>
+                    <h5>java开发工程师</h5>
+                </div>
+            </li>
+            <li>
+                <span class="img"><img src="~/Content/Images/new/user-face.jpg" /></span>
+                <div class="mess">
+                    <h3>Helen</h3>
+                    <h4>复旦大学 计算机学士</h4>
+                    <h5>java开发工程师</h5>
+                </div>
+            </li>
+            <li>
+                <span class="img"><img src="~/Content/Images/new/user-face.jpg" /></span>
+                <div class="mess">
+                    <h3>Helen</h3>
+                    <h4>复旦大学 计算机学士</h4>
+                    <h5>java开发工程师</h5>
+                </div>
+            </li>
+            <li>
+                <span class="img"><img src="~/Content/Images/new/user-face.jpg" /></span>
+                <div class="mess">
+                    <h3>Helen</h3>
+                    <h4>复旦大学 计算机学士</h4>
+                    <h5>java开发工程师</h5>
+                </div>
+            </li>
+            <li>
+                <span class="img"><img src="~/Content/Images/new/user-face.jpg" /></span>
+                <div class="mess">
+                    <h3>Helen</h3>
+                    <h4>复旦大学 计算机学士</h4>
+                    <h5>java开发工程师</h5>
+                </div>
+            </li>
+        </ul>
+    </div>
+    <div class="portals-foot2">
+        <div class="portals-main clear">
+            <div class="pf-left">
+                <h2>公司信息</h2>
+                <p><i class="icon icon-phone"></i>（+86 21）2023 8144</p>
+                <p><i class="icon icon-ie"></i>http://www.wicrenet</p>
+                <p><i class="icon icon-map-marker"></i>上海市徐汇区田林路200号华鑫天地C2座</p>
+            </div>
+            <div class="pf-right">
+                <h2>服务支持</h2>
+                <p>沙鲁科技</p>
+            </div>
+        </div>
+    </div>
+</body>
+
+@section foot
+{
+    <script src="~/Content/Lib/jquery-1.11.3/jquery-1.11.3.js"></script>
+    <!-- Initialize Swiper -->
+    <script>
+        var swiper9 = new Swiper('.sc9', {
+            direction: 'vertical',
+            slidesPerView: 5,
+            loop: true,
+            autoplay: true
+        });
+        $(".sc9").hover(function () {
+            swiper9.autoplay.stop();
+        }, function () {
+            swiper9.autoplay.start();
+        });
+    </script>
+}
+<style>
+    .portals-title { font-size: 18px; color: #666; font-weight: bold; border-bottom: 2px solid #F1F1F1; line-height: 42px; margin-bottom: 16px; }
+    .portals-title > a { float: right; font-size: 12px; color: #333 }
+    .portals-title > a i { margin-left: 4px }
+    .portals-body { background: #fff }
+    .portals-news { width: 1215px; height: 240px; }
+    .portals-news li { float: left; width: 25%; padding-right: 15px }
+    .portals-news li img { width: 100%; height: 180px }
+    .portals-news li h3 { font-size: 14px; line-height: 34px; padding-top: 3px }
+    .portals-news li h4 { font-size: 14px; color: #666 }
+    .recruit-list { width: 1220px; }
+    .recruit-list li { float: left; background: #F7F7F7; width: 183px; text-align: center; margin-right: 20px; height: 102px }
+    .recruit-list li h3 { font-size: 14px; padding-top: 28px; padding-bottom: 10px; }
+    .recruit-list li h4 { color: #666; font-size: 14px }
+    .new-employee { width: 1220px; }
+    .new-employee li { float: left; width: 285px; height: 100px; background: #F7F7F7; padding-top: 20px; padding-left: 20px; margin-right: 20px; margin-bottom: 10px; }
+    .new-employee li .img { float: left }
+    .new-employee li .img img { width: 60px; height: 60px; border-radius: 30px }
+    .new-employee li .mess { float: left; padding-left: 15px }
+    .new-employee li .mess h3 { font-size: 14px; font-weight: bold }
+    .new-employee li .mess h4 { font-size: 12px; padding-top: 10px; }
+    .new-employee li .mess h5 { font-size: 12px; margin-top: 8px }
+    .portals-foot2 { background: #666; color: #fff; padding: 20px; margin-top: 25px }
+    .portals-foot2 .pf-left { float: left }
+    .portals-foot2 .pf-left p { font-size: 16px; padding-top: 15px; color: rgba(255, 255, 255, .8) }
+    .portals-foot2 .pf-left p i { margin-right: 14px; font-size: 16px; color: #fff }
+    .portals-foot2 .pf-right { float: right }
+    .portals-foot2 h2 { font-size: 18px; font-weight: bold }
+    .portals-head { padding: 12px 20px }
+    .ph-menu { float: right; line-height: 40px }
+    .ph-menu .face { width: 30px; height: 30px; border-radius: 15px }
+    .ph-in { color: #333; margin-right: 16px }
+    .ph-in i { margin-right: 6px }
+    .ph-in select { vertical-align: middle; margin-top: -4px; height: 22px; width: 65px; border: 0; outline: none; cursor: pointer }
+</style>
+
+
+
+

@@ -1,57 +1,36 @@
 ﻿@using System.Web.Optimization
 
 @{
-    Layout = null;
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
-<!DOCTYPE html>
-
-<html ng-app="errorMessage">
-<head>
-    <meta name="viewport" content="width=device-width" />
+@section head
+{
     <title>错误信息</title>
     @Styles.Render("~/SysPages/Css")
-</head>
-<body class="body-login" ng-controller="ErrorMessageCtrl as vm">
+}
+<body class="" ng-controller="ErrorMessageCtrl as vm">
     <style>
-        html, body {
-            overflow: hidden;
-            height: 100%;
-        }
-
-        h3 {
-            margin-top: 20px;
-            margin-bottom: 10px;
-        }
-
-        ol {
-            margin-left: 100px;
-        }
-
-            ol li {
-                list-style: circle;
-            }
-
-        p {
-            text-align: center;
-            color: red;
-            font-size: 42px;
-        }
-
-        .login-content {
-            height: 100%;
-            overflow-y: scroll;
-            background: #EEE;
-            padding-left: 10px;
-            padding-top: 20px;
-            border-radius: 5px;
-        }
-
-        .bodyheight {
-            height: 100%;
-        }
+        .err-bg { width: 870px; margin: 0 auto; padding-top: 40px }
+        .err-bg > span { float: left }
+        .err-bg > span img { height: 450px }
+        .err-bg dl { float: right; width: 350px; padding-top: 50px }
+        .err-bg dl dt { font-size: 18px; padding-bottom: 24px; }
+        .err-bg dl dd { }
     </style>
-    <div class="user-login-5 bodyheight">
+    <div class="contenter-box">
+        <div class="main100">
+            <div class="err-bg">
+                <span>
+                    <img src="/Content/Images/Ico/err_bg.png" />
+                </span>
+                <dl>
+                    <dt>页面出错</dt>
+                    <dd>@ViewBag.Title</dd>
+                </dl>
+            </div>
+        </div>
+    </div>
+    <div class="user-login-5 bodyheight" style="display:none">
         <div class="row bs-reset bodyheight">
             <div class="col-md-6 bs-reset">
                 <div class="login-bg" style="cursor: pointer;" onclick="javascript: location.href = 'https://shalu.com';">
@@ -78,20 +57,19 @@
     </div>
     @Scripts.Render("~/SysPages/Js")
     <script type="text/javascript">
-    angular.module('errorMessage', ['mabp']).controller('ErrorMessageCtrl', [
-        function() {
-            var vm = this;
+        angular.module('app', ['mabp']).controller('ErrorMessageCtrl', [
+            function () {
+                var vm = this;
 
-            $(function() {
-                $(".login-bg").backstretch(["../../Content/Images/bg3.jpg", "../../Content/Images/bg3.jpg"], {
-                    fade: 1e3,
-                    duration: 8e3
+                $(function () {
+                    $(".login-bg").backstretch(["../../Content/Images/bg3.jpg", "../../Content/Images/bg3.jpg"], {
+                        fade: 1e3,
+                        duration: 8e3
+                    });
                 });
-            });
 
-        }
-    ]);
+            }
+        ]);
     </script>
 
 </body>
-</html>

@@ -10,17 +10,25 @@
     <meta name="viewport" content="width=device-width" />
     <title ng-bind="$enterpriseName + ' BPM系统'"></title>
     <base href="/" />
-    @Styles.Render("~/Layout/Css")
-    <link href="~/Content/Style/bootstrap.min.css" rel="stylesheet" />
-    <link href="~/Content/Style/bpm_2.0.css" rel="stylesheet" />
+    @Styles.Render("~/SysPages/Css")
     <link href="~/Content/Style/zui-icon.css" rel="stylesheet" />
     <script src="~/Account/Permissions" type="text/javascript"></script>
 </head>
 <body class="@Html.Raw(ViewBag.hasSubMenu!=null&&ViewBag.hasSubMenu==true?"with-submenu":"no-submenu")">
-    <div class="page-main"  style="left:0;">
+    <div class="menu-fold">
+        <label>
+            <i class="icon-angle-left"></i>
+            <i class="icon-angle-right"></i>
+        </label>
+    </div>
+    <div class="left-menu">
+        @Html.Action("RenderMenu", "Shared")
+    </div>
+    @Scripts.Render("~/SysPages/js")
+    <div class="page-main">
         @RenderBody()
     </div>
-    @Scripts.Render("~/layout/js")
+    <script src="/Account/Permissions" type="text/javascript"></script>
     <script src="~/Content/Scripts/menu.js"></script>
     <script type="text/javascript">
         if (typeof (loadModule) === "function") {

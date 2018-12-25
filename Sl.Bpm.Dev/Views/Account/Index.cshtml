@@ -1,23 +1,16 @@
 ﻿@using System.Web.Optimization
 
 @{
-    Layout = null;
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
-<!DOCTYPE html>
-
-<html ng-app="login">
-<head>
-    <meta name="viewport" content="width=device-width" />
-    @*<link rel="icon" type="image/gif" href="../../Content/Images/AppTitle.png">*@
+@section head
+{
     <title>@ViewBag.EnterpriseName BPM系统登陆</title>
     @Styles.Render("~/SysPages/Css")
     <style>
-        .content_on_load {
-            visibility: hidden;
-        }
+        .content_on_load { visibility: hidden; }
     </style>
-</head>
+}
 <body class="body-login" ng-controller="LoginCtrl as vm" style="background-color: rgb(90,111,133)">
     @*<script>
             function ShowMessage(msg) {
@@ -318,7 +311,7 @@
         });
     </script>
     <script type="text/javascript">
-        angular.module('login', ['mabp']).controller('LoginCtrl', [
+        angular.module('app', ['mabp']).controller('LoginCtrl', [
                 '$scope', '$http', 'mabp.app.system', '$timeout', function ($scope, $http, service, $timeout) {
                     var vm = this;
                     vm.isAdlogin = '@ViewBag.IsAdLogin' === 'True';
@@ -531,4 +524,3 @@
 
     </script>
 </body>
-</html>

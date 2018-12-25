@@ -90,7 +90,17 @@ var mabp = angular.module('mabp', ['w5c.validator',
 
 ]);
 
+function endsWith(str, suffix) {
+    if (suffix.length > str.length) {
+        return false;
+    }
+
+    return str.indexOf(suffix, str.length - suffix.length) !== -1;
+}
 mabp.appPath = window.appPath || '/';
+if (!endsWith(mabp.appPath, "/")) {
+    mabp.appPath += '/';
+}
 //alert
 (function () {
     PNotify.prototype.options.delay = 2000;
@@ -616,9 +626,7 @@ mabp && (function () {
                     'request': function (config) {
                         if (endsWith(config.url, '.cshtml')) {
                             config.url = mabp.appPath + 'AbpAppView/Load?viewUrl=' + config.url;
-                        } else if (endsWith(config.url, 'html')){
-                            config.url = mabp.appPath + config.url;
-                        }
+                        } 
 
                         return config;
                     },
@@ -646,13 +654,6 @@ mabp && (function () {
             }]);
         }
     ]);
-    function endsWith(str, suffix) {
-        if (suffix.length > str.length) {
-            return false;
-        }
-
-        return str.indexOf(suffix, str.length - suffix.length) !== -1;
-    }
     mabp.factory('httpS', [
         '$location', function ($location) {
             return function (method, param) {

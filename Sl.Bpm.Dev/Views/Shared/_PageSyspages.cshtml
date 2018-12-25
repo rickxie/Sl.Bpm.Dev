@@ -1,0 +1,38 @@
+﻿@using System.Web.Optimization
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section head
+{
+    <title ng-bind="$enterpriseName + ' BPM系统'"></title>
+    @Styles.Render("~/SysPages/Css")
+    <link href="~/Content/Style/zui-icon.css" rel="stylesheet" />
+    <script src="~/Shared/Permissions" type="text/javascript"></script>
+}
+@Scripts.Render("~/SysPages/js")
+<div class="@Html.Raw(ViewBag.hasSubMenu!=null&&ViewBag.hasSubMenu==true?"with-submenu":"no-submenu")">
+    <div class="menu-fold">
+        <label>
+            <i class="icon-angle-left"></i>
+            <i class="icon-angle-right"></i>
+        </label>
+    </div>
+    <div class="left-menu">
+        @Html.Action("RenderMenu", "Shared")
+    </div>
+    <div class="page-main">
+        <div class="page-con">
+            @Html.Partial("~/Views/Shared/_Header.cshtml")
+            @RenderBody()
+        </div>        
+    </div>
+</div>
+@section foot
+{
+    <script src="~/Content/Scripts/menu.js"></script>
+    <script type="text/javascript">
+        if (typeof (loadModule) === "function") {
+            loadModule();
+        }
+    </script>
+}

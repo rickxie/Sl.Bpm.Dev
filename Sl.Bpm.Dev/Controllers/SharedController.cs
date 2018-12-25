@@ -9,6 +9,8 @@ using MiniAbp.Web;
 using MiniAbp.Dependency;
 using Sl.Bpm.Application.Service.Interface;
 using System.Dynamic;
+using Sl.Bpm.Application.Service;
+using MiniAbp.Extension;
 
 namespace Sl.Bpm.Client.Controllers
 {
@@ -17,11 +19,15 @@ namespace Sl.Bpm.Client.Controllers
     {
         private MenuCache Menu = IocManager.Instance.Resolve<MenuCache>(new { code = "cRoot" });
         private IModuleSv _service;
-        public SharedController(IModuleSv sv)
+        private readonly PermissionSv _permissionSv;
+        private readonly SystemSv _systemSv;
+        public SharedController(IModuleSv sv, PermissionSv permissionSv, SystemSv system)
         {
             _service = sv;
-        }
+            _permissionSv = permissionSv;
+            _systemSv = system;
 
+        }
         private void BuildMenu(AppMenuDev menu, IEnumerable<AppPageShortDto> dt)
         {
             foreach (var d in dt)
@@ -60,7 +66,7 @@ namespace Sl.Bpm.Client.Controllers
                 Name = "数据",
                 IconClass = "icon-database",
                 OpenType = 1,
-                Link = "/home/workflow/1",
+                Link = "/home/double/1",
                 Children = new List<AppMenuDev>() {
                     sub1
                 },
@@ -80,7 +86,7 @@ namespace Sl.Bpm.Client.Controllers
                 Name = "功能",
                 IconClass = "icon-tasks",
                 OpenType = 1,
-                Link = "/home/workflow/4",
+                Link = "/home/double/4",
                 Children = new List<AppMenuDev>() {
                     sub2
                 },
@@ -101,7 +107,7 @@ namespace Sl.Bpm.Client.Controllers
                 Name = "报表",
                 IconClass = "icon-pie-chart",
                 OpenType = 1,
-                Link = "/home/workflow/2",
+                Link = "/home/double/2",
                 Children = new List<AppMenuDev>() { sub4 },
             };
             BuildMenu(sub4, gn4);
@@ -116,7 +122,7 @@ namespace Sl.Bpm.Client.Controllers
                          Name = "流程中心",
                          IconClass = "icon-sitemap",
                          OpenType = 1,
-                         Link = "/home/workflow/3",
+                         Link = "/home/double/3",
                          Children = new List<AppMenuDev>(){
                            new AppMenuDev()
                            {
@@ -180,6 +186,25 @@ namespace Sl.Bpm.Client.Controllers
 
 
             return "";
+        }
+
+
+        public ActionResult Permissions()
+        {
+            var html = string.Empty;
+            try
+
+            {
+                var permissions = _permissionSv.GetUserPermissions();
+                ViewBag.Permissions = permissions;
+                ViewBag.User = _systemSv.GetUserInfo().SerializeJsonCamelCase();
+                html = this.RenderView("~/Views/Shared/Permissions.cshtml", this.ViewData, this.TempData);
+            }
+            catch (Exception ex)
+            {
+                html = @"window.location.href='/Account/logout';";
+            }
+            return Content(html);
         }
     }
 

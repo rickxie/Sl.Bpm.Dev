@@ -2,18 +2,13 @@
 @using MiniAbp.Extension
 
 @{
-    Layout = null;
+    Layout = "~/Views/Shared/_Layout_m.cshtml";
     var isPdf = ViewBag.isPdf == "1" || ViewBag.isPrint == "1";
-    Func<object, string> format = (o) => { return o == null ? null : o.SerializeJsonCamelCase().Replace("\\", "\\\\"); };
+    Func<object, string> format = (o) => { return o.SerializeJsonCamelCase(); };
 }
-@model Sl.Bpm.Repository.Dto.AppPageResultDto
-<!DOCTYPE html>
-<html ng-app="appPage">
-<head>
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <meta name="viewport" content="width=device-width, initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no">
+@section head
+{
     <link rel="icon" type="image/gif" href="../../Content/Images/AppTitle.png">
-
     @if (!isPdf)
     {
         <title ng-bind="title"></title>
@@ -23,8 +18,25 @@
         <title></title>
     }
     @Styles.Render("~/MobilePages/Css")
+    <style>
+        #container {
+            position: absolute;
+            left: 0;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            overflow-x: hidden;
+            overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
+        }
 
-</head>
+            #container::-webkit-scrollbar {
+                display: none;
+            }
+    </style>
+    <script src="~/Shared/Permissions" type="text/javascript"></script>
+}
+@model Sl.Bpm.Repository.Dto.AppPageResultDto
 <body class="@if (isPdf)
              { @Html.Raw("print-theme");}
              else
@@ -87,14 +99,13 @@
     </div>
     @Scripts.Render("~/MobilePages/Js")
     <script src="http://res2.wx.qq.com/open/js/jweixin-1.4.0.js" type="text/javascript"></script>
-    <script src="/Account/Permissions" type="text/javascript"></script>
     <script type="text/javascript">
-        angular.module('appPage', ['mabp', 'app.shared', 'angularFileUpload', 'pascalprecht.translate'])
+        angular.module('app', ['mabp', 'app.shared', 'angularFileUpload', 'pascalprecht.translate'])
             .config([
                 '$translateProvider', function($translateProvider) {
                     $translateProvider.translations('en', mabp.localization['Bpm.en']);
                     $translateProvider.translations('zh-CN', mabp.localization['Bpm.zh-CN']);
-                    $translateProvider.preferredLanguage('zh-CN');
+                    $translateProvider.preferredLanguage(window.$currentUser.language);
                 }
             ]).controller('PageCtrl',
                 ['mabp.app.module', 'mabp.app.task', '$compile', '$scope', '$timeout', 'formHelper', 'appSession', '$rootScope', '$pageDialog', 'mabp.app.bpm', '$modal',
@@ -137,7 +148,7 @@
                             basicAndViewData: {}, //初始加载视图和基础数据
                             pageRight: JSON.parse(`@(Html.Raw(format(Model.PageRight)))` || null),
                             formAction: JSON.parse(`@(Html.Raw(format(Model.FormActions)))` || null),
-                            formBody: JSON.parse(`@(Html.Raw(format(Model.FormBody)))` || '[]'),
+                            formBody: @(Html.Raw(format(Model.FormBody))) || [],
                             formHeader: JSON.parse(`@(Html.Raw(format(Model.FormHeader)))` || null),
                             formHistory: JSON.parse(`@(Html.Raw(format(Model.FormHistory)))` || null),
                             formExpectApprover: JSON.parse(`@(Html.Raw(format(Model.FormExpectApprover)))` || null),
@@ -154,18 +165,18 @@
                             language: app.language, //页面当前语言
                             ruleL: _shared.languageSetting.defaultRules[app.language], //静态多语言设置 参考App/_shared/language/languageSetting.js
                             close: function () {
-                                  console.log('');
-                            setTimeout(function () {
-                                formHelper.postMessage.call(parent, "goBackMethod");
-                                wx.miniProgram.getEnv(function (res) {
-                                    if (res.miniprogram) {
-wx.miniProgram.navigateTo({url:'/pages/Message/index'});
-				wx.miniProgram.postMessage({ data: { id: '1234' } }); // 传的参数
-                                    }
- else{
-					alert("wx.miniProgram,不可用");
-				}                               });
-                            }, 1500);//时间好和后台弹窗的时间基本一致
+                                setTimeout(function () {
+                                    formHelper.postMessage.call(parent, "goBackMethod");
+                                    wx.miniProgram.getEnv(function (res) {
+                                        if (res.miniprogram) {
+                                            // alert("wx.miniProgram,可用");
+                                            wx.miniProgram.navigateBack({ delta: 1 });
+                                        }
+                                        else {
+                                            alert("wx.miniProgram,不可用");
+                                        }
+                                    });
+                                }, 1500);//时间好和后台弹窗的时间基本一致
                             }, //关闭当前窗体方法
                             nextProcId: '', //下一步处理人Id
                             getDateTimeNow: function (callBack) {
@@ -177,9 +188,6 @@ wx.miniProgram.navigateTo({url:'/pages/Message/index'});
                             },
                             $initial: [], //保存刚打开的数据，用于Callback-func 第一次调用使用.
                     }
-
-		    mabp.notify.error = function(a){alert(a);}
-
                         vm.base.basicAndViewData.showHeaderAndTitle='@ViewBag.showHeaderAndTitle'.toLowerCase()=='true'//手机端是否显示自定义的标题，不显示返回的html自带的标题
                     // 检查岗位是否多个
                     function checkJobId() {
@@ -211,7 +219,9 @@ wx.miniProgram.navigateTo({url:'/pages/Message/index'});
                                     templateUrl: info.templateUrl,
                                     scope: $modalScope,
                                     controller: '{0} as vm'.fill(info.controller),
-                                    size: info.size || "md"
+                                    size: info.size || "md",
+                                    backdrop: 'static',
+                                    keyboard: false
                                 });
                                 m.result.then(function (jobId) {
                                     vm.base.jobId = jobId;
@@ -252,7 +262,9 @@ wx.miniProgram.navigateTo({url:'/pages/Message/index'});
                                     templateUrl: info.templateUrl,
                                     scope: $modalScope,
                                     controller: '{0} as vm'.fill(info.controller),
-                                    size: info.size || "md"
+                                    size: info.size || "md",
+                                    backdrop: 'static',
+                                    keyboard: false
                                 });
                                 m.result.then(function (info) {
                                     vm.base.nodeId = info.id;
@@ -317,18 +329,7 @@ wx.miniProgram.navigateTo({url:'/pages/Message/index'});
                         $scope.myCallback = function (data) {
                             console.log(data);
                             setTimeout(function () {
-                                formHelper.postMessage.call(parent, "goBackMethod");
-				alert("wx.miniProgram是否存在："+!!wx.miniProgram);
-                                wx.miniProgram.getEnv(function (res) {
-                                    if (res.miniprogram) {
-
-				wx.miniProgram.navigateBack({detal:1});
-				alert("res.miniprogram");
-				wx.miniProgram.postMessage({ data: { id: '1234' } }); // 传的参数
-                                    }
- else{
-					alert("wx.miniProgram,不可用");
-				}                               });
+                                formHelper.postMessage.call(parent,"goBackMethod");
                             }, 1500);//时间好和后台弹窗的时间基本一致
                         }
                         $scope.moveToErrorEle = function (ele) {
@@ -346,4 +347,3 @@ wx.miniProgram.navigateTo({url:'/pages/Message/index'});
             ]);
     </script>
 </body>
-</html>

@@ -1,0 +1,302 @@
+﻿@{
+    Layout = "~/Views/Shared/_PageSyspages.cshtml";
+    ViewBag.Title = "消息中心";
+    ViewBag.hasSubMenu = false;
+    ViewBag.HeadTitle = "消息中心";
+}
+
+<style type="text/css">
+    .manage-menu a { cursor: pointer; }
+    .manage-menu .badge { background: #ff0000; color: #fff; font-weight: 500; padding: 1px 4px; }
+</style>
+
+<div class="mainer-right" id="MessageControl" ng-controller="MessageControl as vm">
+    <div class="manage-menu">
+        <ul>
+            <li class="select"><a onclick="ChangeKind(this,1)">催办<label class="badge">9</label></a></li>
+            <li><a onclick="ChangeKind(this,2)">待办<label class="badge">9</label></a></li>
+            <li><a onclick="ChangeKind(this,3)">待阅<label class="badge">9</label></a></li>
+        </ul>
+    </div>
+    <div class="table-bd">
+
+        <div class="form-group" style="display:none">
+            <div>
+                <ul class="flow-list-tab clear">
+                    <li>
+                        <label for="search" class="{{search==true?'open':''}}">
+                            <i class="icon-search"></i> 搜索<input ng-model="search" id="search" type="checkbox" />
+                        </label>
+                    </li>
+
+                </ul>
+            </div>
+            <div class="search-hide" ng-show="search">
+                <div class="form-search-group clear">
+                    <div class="col-xs-12">
+                        <div class="col-xs-4 row">
+                            <div class="col-xs-4 input-group-name">货币名称:</div>
+                            <div class="col-xs-8 input-group-value">
+                                <fm-select view="g_GetCurrencyCategory"
+                                           fm-model="form.filter.EnumId"
+                                           i-clear="true">
+                                </fm-select>
+                            </div>
+                        </div>
+                        <div class="col-xs-4 row">
+                            <div class="col-xs-4 input-group-name">发布时间:</div>
+                            <div class="col-xs-4 input-group-value">
+                                <fm-datetime date fm-model="form.filter.ReleaseStartTime"></fm-datetime>
+                            </div>
+                            <div class="col-xs-4 input-group-value">
+                                <fm-datetime date fm-model="form.filter.ReleaseEndTime"></fm-datetime>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-search-oper">
+                    <input type="button"
+                           value="查询"
+                           class="btn btn-sm btn-info"
+                           ng-click="form.gridOption.paging.currentPage=1;form.gridOption.load()" />
+                    <input type="button"
+                           value="清空"
+                           class="btn btn-sm btn-default"
+                           ng-click="form.gridOption.clear()" />
+                </div>
+            </div>
+        </div>
+
+
+        <fm-grid page-model="vm.form.gridOption"
+                 height="500"
+                 row-edit="false"
+                 row-remove="true"
+                 multiselect="true"
+                 row-handel="vm.form.handel"
+                 column-config="vm.form.gridOption.columns">
+        </fm-grid>
+        <div style="padding-left:100px;margin-top:-36px">
+            <input type="button" value="标记已读" class="btn btn-sm btn-info">&nbsp;
+            <input type="button" value="删除" ng-click="" class="btn btn-sm btn-info">
+        </div>
+
+    </div>
+</div>
+
+<script type="text/javascript">
+    Date.prototype.Format = function (fmt) {
+        var o = {
+            "M+": this.getMonth() + 1, //月份
+            "d+": this.getDate(), //日
+            "H+": this.getHours(), //小时
+            "m+": this.getMinutes(), //分
+            "s+": this.getSeconds(), //秒
+            "q+": Math.floor((this.getMonth() + 3) / 3), //季度
+            "S": this.getMilliseconds() //毫秒
+        };
+        if (/(y+)/.test(fmt)) fmt = fmt.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length));
+        for (var k in o)
+            if (new RegExp("(" + k + ")").test(fmt)) fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
+        return fmt;
+    }
+
+    //切换分类
+    function ChangeKind(e, kind) {
+
+        var node = $(e).parent();
+        node.siblings().removeClass("select");
+        node.addClass("select");
+
+        //通过DOM操作获取app对象
+        var element = angular.element(document.getElementById("MessageControl"));
+
+        //得到app对象，可以获取app的$scope
+        var scope = element.scope();
+        scope.vm.model.kind = kind;
+        //调用$scope中的方法
+        scope.vm.form.gridOption.load();
+        //调用方法后，可以重新绑定，在页面同步（可选）
+        scope.$apply();
+
+
+    }
+
+    var messageControl = angular.module('app').controller('MessageControl', [
+        '$scope', '$http', 'mabp.app.bpm', function ($scope, $http, service) {
+
+            var vm = this;
+
+
+            vm.model = {
+                userRouteIndex: 1, //用户路由分组
+                kind: 1, // 消息分类
+            };
+            if ($currentUser && $currentUser.userRouteIndex) {
+                vm.model.userRouteIndex = $currentUser.userRouteIndex;
+            }
+
+            vm.form = {};
+
+            var lodding = null;
+            vm.form.showLoading = function () {
+                lodding = layer.load(2, { shade: [0.3, '#000'] });
+            }
+
+            //隐藏加载
+            vm.form.hideLoading = function () {
+                layer.close(lodding);
+            }
+
+
+
+            // 基本数据数据
+            vm.form.gridOption = {
+                //Id, EnumId, CurrencyCode, CurrencyName, CurrencySymbol, UsdExchangeRate,RmbExchangeRate, ReleaseTime, AddTime
+                columns: [
+                    { displayName: '序号', name: '_$tmpRowNum', width: 30 },
+                    { displayName: 'Id', name: 'id', hidden: true },
+                    { displayName: '分类', name: 'kindName', width: 50 },
+                    { displayName: '发送人', name: 'creatorUserName', width: 100 },
+
+                    { displayName: '内容', name: 'content', width: 150 },
+                    {
+                        displayName: '发送时间', name: 'creationTime', width: 100, formatter: function (cellvalue, options, rowObject) {
+                            if (cellvalue) {
+                                var date = new Date(cellvalue);
+                                return date.Format("yyyy-MM-dd HH:mm:ss");
+                            }
+                            return "";
+                        }
+                    },
+                    {
+                        displayName: '是否已读', name: 'isRead', width: 50, formatter: function (cellvalue, options, rowObject) {
+                            return cellvalue ? "是" : "否";
+                        }
+                    },
+                    {
+                        displayName: '读取时间', name: 'readTime', width: 100, formatter: function (cellvalue, options, rowObject) {
+                            if (cellvalue) {
+                                var date = new Date(cellvalue);
+                                return date.Format("yyyy-MM-dd HH:mm:ss");
+                            }
+                            return "";
+                        }
+                    },
+
+                    { displayName: '操作', name: 'act', sortable: false, width: 100 /*frozen: true*/ },
+                ],
+                paging: {
+                    currentPage: 1,
+                    pageSize: 10,
+                    orderByProperty: 'Id ',
+                    ascending: false,
+                    totalPage: 0,
+                    totalCount: 0,
+                    params: {
+                        EnumId: 1,
+
+                    },
+                },
+                // 数据存放对象
+                datas: [],
+                // 加载数据，过滤数据方法
+                load: function () {
+
+                    vm.form.showLoading();
+                    var postData = {
+                        userRouteIndex: vm.model.userRouteIndex,
+                        kind: "" + vm.model.kind,
+                        input: JSON.stringify(vm.form.gridOption.paging)
+
+                    };
+
+                    service.getNotificationsByPaged(postData).then(function (res) {
+                        vm.form.hideLoading();
+
+                        if (res != null) {
+                            //new $.zui.Messager('更新成功!', {
+                            //    icon: 'bell',
+                            //    type: 'success'
+                            //}).show();
+                            vm.form.gridOption.paging.totalCount = res.totalCount;
+                            vm.form.gridOption.datas = res.data;
+                        }
+                        else {
+                            new $.zui.Messager('更新失败!', {
+                                icon: 'bell',
+                                type: 'warning'
+                            }).show();
+                        }
+
+                    });
+
+                },
+                // 清除过滤条件
+                clear: function () {
+                    paging.params = {
+                        EnumId: null,
+                        ReleaseStartTime: null,
+                        ReleaseEndTime: null
+                    }
+                },
+                // 编辑某行
+                edit: function (item) {
+                    form.$edit('data04d', item, { size: "xlg" });
+                },
+                // 新增某行
+                add: function () {
+                    form.$edit('data04d', {});
+                },
+                // 删除某行
+                delete: function (row) {
+                    if (window.confirm('你确定删除该数据？')) {
+                        var postData = {
+                            userId: $currentUser.id,
+                            userRouteIndex: vm.model.userRouteIndex,
+                            Id: row.id
+                        };
+                        service.setNotificationAsDelete(postData).then(function (res) {
+                            if (res) {
+                                vm.form.gridOption.load();
+                            }
+                        });
+                    }
+
+                },
+                //单击行
+                clickRow: function (row) {
+
+                    if (row.isRead == "否") {
+                        var postData = {
+                            userId: $currentUser.id,
+                            userRouteIndex: vm.model.userRouteIndex,
+                            Id: row.id
+                        };
+                        service.setNotificationAsRead(postData).then(function (res) {
+                            if (res) {
+                                vm.form.gridOption.load();
+                            }
+                        });
+                    }
+
+                },
+                //点击checkb事件 返回选中的数据id
+                getSelected: function (ids) {
+                    console.log(ids);
+                }
+            };
+            vm.form.filter = vm.form.gridOption.paging.params;
+            vm.form.gridOption.load();
+
+
+
+        }]);
+
+
+
+
+
+
+
+</script>

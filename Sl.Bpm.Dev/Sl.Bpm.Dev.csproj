@@ -3871,7 +3871,6 @@
     <Content Include="Views\Home\_Layout.cshtml" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Account\Permissions.cshtml" />
     <Content Include="Views\Home\_Menu.cshtml" />
     <Content Include="Views\Home\_ResourceDisplay.cshtml" />
     <Content Include="Views\Home\_ResourceApply.cshtml" />
@@ -3883,11 +3882,9 @@
     <Content Include="Views\Home\Business.cshtml" />
     <Content Include="Views\Home\Calendar.cshtml" />
     <Content Include="Views\Home\Manage.cshtml" />
-    <Content Include="Views\Home\ReportCenter.cshtml" />
     <Content Include="Views\Shared\_LayoutPopup.cshtml" />
     <Content Include="Views\Home\PersonalData.cshtml" />
     <Content Include="Views\Home\Popup.cshtml" />
-    <Content Include="Views\Home\Portals.cshtml" />
     <Content Include="Views\Pages\Wf.cshtml" />
     <Content Include="Views\Pages\Wft.cshtml" />
     <Content Include="Views\Home\SetUp.cshtml" />
@@ -3895,7 +3892,15 @@
     <Content Include="Views\Pages\WfMobile.cshtml" />
     <Content Include="Views\Home\_LayoutWorkflowCenter.cshtml" />
     <Content Include="Views\Home\_Raise.cshtml" />
-    <Content Include="Views\Home\Template1.cshtml" />
+    <Content Include="Views\Home\Double.cshtml" />
+    <Content Include="Views\Home\MessageCenter.cshtml" />
+    <Content Include="Views\Home\Single.cshtml" />
+    <Content Include="Views\Shared\_BaseLayout.cshtml" />
+    <Content Include="Views\Shared\_Header.cshtml" />
+    <Content Include="Views\Shared\Permissions.cshtml" />
+    <Content Include="Views\Shared\_LayoutSyspages.cshtml" />
+    <Content Include="Views\Shared\_Layout_m.cshtml" />
+    <Content Include="Views\Shared\_PageSyspages.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
       <SubType>Designer</SubType>

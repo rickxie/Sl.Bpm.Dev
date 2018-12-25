@@ -7,13 +7,13 @@
 }
 @*<script>*@
 window.$currentUserPermissions = {
-        @if (permissions != null)
-        {
-            for (int i = 0; i < permissions.Count; i++)
-            {
-                @(new HtmlString("'" + permissions[i].Name + "'" + ":" + (permissions[i].Value ? "true" : "false") + ","))
-            }
-        }
+@if (permissions != null)
+{
+    for (int i = 0; i < permissions.Count; i++)
+    {
+        @(new HtmlString("'" + permissions[i].Name + "'" + ":" + (permissions[i].Value ? "true" : "false") + ","))
+    }
+}
     }
 
 window.$currentUser = @(new HtmlString(user));

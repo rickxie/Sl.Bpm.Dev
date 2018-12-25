@@ -1,0 +1,41 @@
+﻿<div class="main-head" ng-controller="Message as vm">
+    <h2>@ViewBag.HeadTitle</h2>
+    <ul class="mh-menu">
+        <li>
+            <a href="/Home/MessageCenter"><i class="icon-bell-alt"></i>消息<span class="badge">{{vm.count}}</span></a>
+        </li>
+        <li class="dropdown">
+            <span class="dropdown-toggle" data-toggle="dropdown"><i class="icon-globe"></i>中文 <b class="caret"></b></span>
+            <ul class="dropdown-menu" role="menu">
+                <li><a href="your/nice/url">中文</a></li>
+                <li><a href="your/nice/url">English</a></li>
+            </ul>
+        </li>
+        <li class="dropdown">
+            <span class="dropdown-toggle" data-toggle="dropdown"><i class="icon-user"></i>{{$currentUser.account}} <b class="caret"></b></span>
+            <ul class="dropdown-menu dropdown-menu-right" role="menu">
+                <li><a href="/user/personaldata"><i class="icon icon-user"></i>个人中心</a></li>
+                <li><a href="/Home/SetUp"><i class="icon icon-cog"></i>设置</a></li>
+                <li><a href="/Account/Logout"><i class="icon icon-signout"></i>退出</a></li>
+            </ul>
+        </li>
+    </ul>
+</div>
+<script>
+    var messageControl = angular.module('app').controller('Message', [
+        '$scope', '$http', 'mabp.app.bpm', function ($scope, $http, service) {
+            $scope.$currentUser = window.$currentUser;
+                var vm = this;
+
+                vm.count = 0;
+                var data = {
+                    userRouteIndex: $currentUser.RouteIndex || 1,
+                    userId: $currentUser.id,
+                    kind:1
+                }
+                //service.getUnReadNotificationCount(data).then(function (res) {
+                    //debugger;
+                //});
+
+            }]);
+</script>
