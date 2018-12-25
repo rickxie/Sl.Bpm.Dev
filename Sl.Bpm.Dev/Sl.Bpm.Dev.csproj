@@ -2670,6 +2670,9 @@
     <Content Include="Content\Lib_mobile\mobileSelect\mobileSelect.min.js" />
     <Content Include="Content\Lib_mobile\percentDisplay\percentDisplay.css" />
     <Content Include="Content\Lib_mobile\percentDisplay\percentDisplay.js" />
+    <Content Include="Content\Scripts\jquery-treeMenu\jquery.treeMenu.css" />
+    <Content Include="Content\Scripts\jquery-treeMenu\jquery.treeMenu.js" />
+    <Content Include="Content\Scripts\layerConfig.js" />
     <Content Include="Content\Scripts\manage.js" />
     <Content Include="Content\Scripts\workCalendar.js" />
     <Content Include="Content\Site.css" />
@@ -3354,6 +3357,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AppPages\Base\BudgetSharedModuleBase.cs" />
+    <Compile Include="AppPages\Base\BusinessEntities.cs" />
     <Compile Include="AppPages\Base\SharedModuleBase.cs" />
     <Compile Include="AppPages\Data\data05\data05.cs" />
     <Compile Include="AppPages\Data\data08\data08.cs" />
