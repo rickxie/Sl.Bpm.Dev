@@ -1,7 +1,7 @@
 ﻿(function () {
     'use strict';
     var controllerId = "syspages.views.system.chart.infooverview";
-    angular.module('syspages').controller(controllerId, [
+    angular.module('app').controller(controllerId, [
         '$scope', 'mabp.app.chart',
         function ($scope, service) {
             var vm = this;

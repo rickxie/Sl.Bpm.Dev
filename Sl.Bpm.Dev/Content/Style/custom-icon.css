@@ -24,6 +24,39 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+.icon-yidong:before { content: "\ea57"; }
+.icon-anquanjinggao:before { content: "\ea58"; }
+.icon-anshiwancheng:before { content: "\ea59"; }
+.icon-baoxianyixiang:before { content: "\ea5a"; }
+.icon-ceshishili:before { content: "\ea5b"; }
+.icon-dengdai:before { content: "\ea5c"; }
+.icon-gongsiguanli:before { content: "\ea5d"; }
+.icon-lichengbei:before { content: "\ea5e"; }
+.icon-xiangmukongjian:before { content: "\ea5f"; }
+.icon-yanqiweiwancheng:before { content: "\ea60"; }
+.icon-yanqizengjia:before { content: "\ea61"; }
+.icon-zhongyingwen:before { content: "\ea62"; }
+.icon-daifukuan:before { content: "\ea63"; }
+.icon-dingdanchenggong:before { content: "\ea64"; }
+.icon-dingdanjianshao:before { content: "\ea65"; }
+.icon-dingdanquxiao:before { content: "\ea66"; }
+.icon-dingdanshanchu:before { content: "\ea67"; }
+.icon-dingdanshoucang:before { content: "\ea68"; }
+.icon-dingdanwancheng:before { content: "\ea69"; }
+.icon-dingdanwenti:before { content: "\ea6a"; }
+.icon-fukuanchenggong:before { content: "\ea6b"; }
+.icon-fukuancuowu:before { content: "\ea6c"; }
+.icon-fukuanjianshao:before { content: "\ea6d"; }
+.icon-fukuanshibai:before { content: "\ea6e"; }
+.icon-fukuansuoding:before { content: "\ea6f"; }
+.icon-fukuansuodingjiechu:before { content: "\ea70"; }
+.icon-fukuantongzhi:before { content: "\ea71"; }
+.icon-fukuanzengjia:before { content: "\ea72"; }
+.icon-huikuantixing:before { content: "\ea73"; }
+.icon-jingdantianjia:before { content: "\ea74"; }
+.icon-jingdanzengjia:before { content: "\ea75"; }
+.icon-shoufukuan:before { content: "\ea76"; }
+.icon-tuikuanguanhuai:before { content: "\ea77"; }
 .icon-anjianguanli:before { content: "\e900"; }
 .icon-anquan:before { content: "\e901"; }
 .icon-bangong:before { content: "\e902"; }

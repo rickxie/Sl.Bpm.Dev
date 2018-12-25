@@ -1,7 +1,7 @@
 ﻿(function () {
     'use strict';
     var controllerId = "syspages.views.user.agent";
-    angular.module('syspages').controller(controllerId, [
+    angular.module('app').controller(controllerId, [
         '$scope', 'mabp.app.bpm', 'asdialog', '$state', 'appSession', function ($scope, service, asdialog, $state, session) {
             CheckPermission("Menu_My_Outing");
             var vm = this;

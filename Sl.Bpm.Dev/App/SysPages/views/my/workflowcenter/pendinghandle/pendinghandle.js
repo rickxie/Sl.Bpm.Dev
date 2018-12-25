@@ -1,7 +1,7 @@
 ﻿(function () {
 	'use strict';
 	var controllerId = "syspages.views.my.workflowcenter.pendinghandle";
-	angular.module('syspages').controller(controllerId, [
+	angular.module('app').controller(controllerId, [
         '$scope', '$modal', 'dialog', 'asdialog', 'mabp.app.task', 'workflowModuleTransfer', '$interval', '$timeout', 'treeTool',
         function ($scope, $modal, dialog, asdialog, service, module, $interval, $timeout, treeTool) {
 			var vm = this;

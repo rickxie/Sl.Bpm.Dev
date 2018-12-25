@@ -1,0 +1,94 @@
+﻿<!-- 员工绩效详情 \\Report\\report24\\report24.det._m.html -->
+<!--表单标题-->
+<fm-form-title sn-number='{{base.snNumber}}' apply-date='{{base.applyDate}}' sub-title='base.title'></fm-form-title>
+
+<!--申请人信息-->
+<fm-Group-Head class='print-hide' title='{{ base.$pageLang.ApplicantInfo }}'></fm-Group-Head>
+
+<div class='row'>
+    <div class='form-group'>
+        <div class='col-xs-12'>
+            <!--申请人名字-->
+            <span class='col-xs-2 control-label'>{{ 'ApplicantName' | translate }}</span>
+            <div class='col-xs-4'>
+                <div class='input-group' style='width: 100%;'>
+                    <span class='form-label'>{{base.applicant.userName}}</span>
+                    <span class='input-group-btn' ng-if='!taskid'>
+                        <button class='btn btn-default' type='button' ng-click='base.$selectApplicant()'>{{ 'Choose' | translate }}</button>
+                    </span>
+                </div>
+            </div>
+            <!--申请人员工号-->
+            <span class='col-xs-2 control-label'>{{ 'ApplicantEmployeeNumber' | translate }}</span>
+            <div class='col-xs-4'><span class='form-label'>{{base.applicant.employeeNumber}}</span></div>
+        </div>
+    </div>
+    <div class='form-group'>
+        <!--申请人部门线-->
+        <div class='col-xs-12'>
+            <span class='col-xs-2 control-label'>{{ 'ApplicantDepartment' | translate }}</span>
+            <div class='col-xs-10'><span class='form-label'>{{base.applicant.departmentName}}</span></div>
+        </div>
+    </div>
+    <div class='form-group'>
+        <div class='col-xs-12'>
+            <!--申请人电话-->
+            <span class='col-xs-2 control-label'>{{ 'ApplicantContactNumber' | translate }}</span>
+            <div class='col-xs-4'><span class='form-label'>{{base.applicant.contactNumber}}</span></div>
+            <!--申请人邮箱-->
+            <span class='col-xs-2 control-label'>{{ 'ApplicantEmail' | translate }}</span>
+            <div class='col-xs-4'><span class='form-label'>{{base.applicant.emailAddress}}</span></div>
+        </div>
+    </div>
+    <div class='form-group'>
+        <div class='col-xs-12'>
+            <!--申请人手机-->
+            <span class='col-xs-2 control-label'>{{ 'ApplicantMobileNumber' | translate }}</span>
+            <div class='col-xs-4'><span class='form-label'>{{base.applicant.mobileNumber}}</span></div>
+            <!--申请人直属领导-->
+            <span class='col-xs-2 control-label'>{{ 'ApplicantDirectManager' | translate }}</span>
+            <div class='col-xs-4'><span class='form-label'>{{base.applicant.directManagerName}}</span></div>
+        </div>
+    </div>
+</div>
+<!--发起人信息-->
+<fm-Group-Head title='{{ base.$pageLang.InitiatorInfo }}'></fm-Group-Head>
+<div class='row'>
+    <div class='form-group'>
+        <div class='col-xs-12'>
+            <!--发起人名字-->
+            <span class='col-xs-2 control-label'>{{ 'InitiatorName' | translate }}</span>
+            <div class='col-xs-4'><span class='form-label'>{{base.initiator.userName}}</span></div>
+            <!--发起人员工号-->
+            <span class='col-xs-2 control-label'>{{ 'InitiatorEmployeeNumber' | translate }}</span>
+            <div class='col-xs-4'><span class='form-label'>{{base.initiator.employeeNumber}}</span></div>
+        </div>
+    </div>
+    <div class='form-group'>
+        <div class='col-xs-12'>
+            <!--发起人部门-->
+            <span class='col-xs-2 control-label'>{{ 'InitiatorDepartment' | translate }}</span>
+            <div class='col-xs-10'><span class='form-label'>{{base.initiator.departmentName}}</span></div>
+        </div>
+    </div>
+    <div class='form-group'>
+        <div class='col-xs-12'>
+            <!--发起人电话-->
+            <span class='col-xs-2 control-label'>{{ 'InitiatorContactNumber' | translate }}</span>
+            <div class='col-xs-4'><span class='form-label'>{{base.initiator.contactNumber}}</span></div>
+            <!--发起人邮件-->
+            <span class='col-xs-2 control-label'>{{ 'InitiatorEmail' | translate }}</span>
+            <div class='col-xs-4'><span class='form-label'>{{base.initiator.emailAddress}}</span></div>
+        </div>
+    </div>
+    <div class='form-group'>
+        <div class='col-xs-12'>
+            <!--发起人手机-->
+            <span class='col-xs-2 control-label'>{{ 'InitiatorMobileNumber' | translate }}</span>
+            <div class='col-xs-4'><span class='form-label'>{{base.initiator.mobileNumber}}</span></div>
+            <!--发起人直属主管-->
+            <span class='col-xs-2 control-label'>{{ 'InitiatorDirectManager' | translate }}</span>
+            <div class='col-xs-4'><span class='form-label'>{{base.initiator.directManagerName}}</span></div>
+        </div>
+    </div>
+</div>

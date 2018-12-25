@@ -1,7 +1,7 @@
 ﻿(function() {
     'use strict';
     var controllerId = app.dialogs.define('basicDataConfigEdit', '/App/SysPages/views/my/data/basicDataConfig/basicDataConfig.edit.html');
-    angular.module('syspages').controller(controllerId, [
+    angular.module('app').controller(controllerId, [
         '$scope', 'mabp.app.system', 'params',
         function ($scope, service, params) {
             var vm = this;

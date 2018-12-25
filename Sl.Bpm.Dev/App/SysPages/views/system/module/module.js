@@ -1,7 +1,7 @@
 ﻿(function () {
     'use strict';
     var controllerId = "syspages.views.enterprise.module";
-    angular.module('syspages').controller(controllerId, [
+    angular.module('app').controller(controllerId, [
         '$scope', 'mabp.app.module', 'mabp.app.permission', 'dialog', '$state', '$stateParams', function ($scope, service, permissonservice, dialog, $state, $stateParams) {
             CheckPermission("Menu_Sys_Module");
             var vm = this;

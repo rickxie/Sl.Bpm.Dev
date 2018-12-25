@@ -5,23 +5,23 @@
         }
     }
     .page-main>div{width:100%}
-
+    .main-head { display:none}
 </style>
 <div class="container-ui" ng-controller="syspages.views.my.dashboard as vm">
     <div class="page-con">
         <div class="main-head" style="display:none">
             <h2>@ViewBag.Title</h2>
             <div class="logo">
-                <img src="/Content/Images/new/logo.png">
+                <img src="Content/Images/new/logo.png">
             </div>
         </div>
         <div class="workbench clear">
             <div class="workbench-left">
                 <div class="w-top-img">
-                    <img src="/Content/Images/new/workbench_top.jpg" />
+                    <img src="Content/Images/new/workbench_top.jpg" />
                     <div class="user-info">
                         <span>
-                            <img src="/Content/Images/new/user-face.jpg"/>
+                            <img src="Content/Images/new/user-face.jpg"/>
                         </span>
                         <dl>
                             <dt>{{vm.userInfo.name}}, 上午好</dt>

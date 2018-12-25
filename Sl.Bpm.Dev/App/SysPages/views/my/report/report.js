@@ -1,7 +1,7 @@
 ﻿(function () {
     'use strict';
     var controllerId = "syspages.views.my.report";
-    angular.module('syspages').controller(controllerId, [
+    angular.module('app').controller(controllerId, [
         '$scope', 'asdialog', 'mabp.app.module', '$state', 'moduleHandler', 'appSession',
         function ($scope, asdialog, service, $state, module, session) {
             CheckPermission("Menu_My_Report");

@@ -10,14 +10,15 @@ $(function () {
     $(".menu-fold>label").click(function () {
         if ($(this).hasClass("mf-hide")) {
             $(this).removeClass("mf-hide");
-            $(".left-menu").animate({ width: "247px" });
-            $(".page-main").animate({ left: "247px" });
+            $(".page-main").removeClass("fold-up");
         } else {
             $(this).addClass("mf-hide");
-            $(".left-menu").animate({ width: "58px" });
-            $(".page-main").animate({left:"59px"});
+            $(".page-main").addClass("fold-up");
         }
     })
+    setTimeout(function () {
+        $(".menu-fold > label").animate({"opacity":1},2000);
+    }, 2000)
     $(".user-face img").click(function () {
         $(".user-down").toggle();
     })
@@ -93,16 +94,16 @@ $(function () {
     })
     $("[data-id]").each(function () {
         var id = $(this).data("id");
-        //if ($currentUserPermissions[id]) {
+        if ($currentUserPermissions[id]) {
             $(this).show();
-        //}
+        }
     })
 
     $("a[target=_main]").on("click", function (e) {
-        //if (!$currentUserPermissions[$(this).data("id")]) {
-            //alert("你没有权限");
-            //return false;
-        //}
+        if (!$currentUserPermissions[$(this).data("id")]) {
+            alert("你没有权限");
+            return false;
+        }
 		$("iframe[name=_main]").attr("src", $(this).attr("href"));
         $(".left-menu h4.select,.dl-menu li h3[target=_main]").removeClass("select");
         $(this).find("h4").addClass("select");
@@ -140,10 +141,10 @@ $(function () {
 
 	$("[data-id]").on("click", function () {
         var menuId = $(this).attr("data-id");
-        //if (!$currentUserPermissions[menuId]) {
-            //alert("你没有权限");
-            //return false;
-        //}
+        if (!$currentUserPermissions[menuId]) {
+            alert("你没有权限");
+            return false;
+        }
 		var href = $(this).attr("href");
 		var target = $(this).attr("target");
 		if (href && href != "javascript:void(0);") {
@@ -166,9 +167,9 @@ $(function () {
 
 	$("h3[data-id]").each(function () {
 		var dataId = $(this).attr("data-id")
-		//if ($currentUserPermissions[dataId]) {
+		if ($currentUserPermissions[dataId]) {
 			$(this).parent("li").show();
-		//}
+		}
 	});
 
 	////默认打开第一个菜单

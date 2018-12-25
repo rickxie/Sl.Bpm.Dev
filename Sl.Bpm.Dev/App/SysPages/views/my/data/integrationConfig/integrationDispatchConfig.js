@@ -1,7 +1,7 @@
 ﻿(function () {
     'use strict';
     var controllerId = "syspages.views.my.data.integrationDispatchConfig";
-    angular.module('syspages').controller(controllerId, [
+    angular.module('app').controller(controllerId, [
         '$scope', 'asdialog', 'mabp.app.bpm', '$stateParams', function ($scope, asdialog, service, $stateParams) {
             var vm = this;
             vm.models = [];

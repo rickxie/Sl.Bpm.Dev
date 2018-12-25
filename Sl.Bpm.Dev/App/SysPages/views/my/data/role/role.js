@@ -1,7 +1,7 @@
 ﻿(function () {
     'use strict';
     var controllerId = "syspages.views.my.data.role";
-    angular.module('syspages').controller(controllerId, [
+    angular.module('app').controller(controllerId, [
         '$scope', 'dialog', 'mabp.app.bpm', 'treeTool', function ($scope, dialog, service, treeTool) {
             CheckPermission("SysModule_Data_Role");
             var vm = this;

@@ -1,10 +1,9 @@
 ﻿(function () {
     'use strict';
     var controllerId = "syspages.views.my.dashboard";
-    angular.module('syspages').controller(controllerId, [
+    angular.module('app').controller(controllerId, [
 		'$scope', '$modal', 'dialog', 'asdialog', 'mabp.app.module', 'moduleHandler', 'mabp.app.bpm', 'mabp.app.task', '$interval','$filter',
-		function ($scope, $modal, dialog, asdialog, service, module, bpmService, taskService, $interval, $filter) {
-			
+        function ($scope, $modal, dialog, asdialog, service, module, bpmService, taskService, $interval, $filter) {
 			var vm = this;
 
 			vm.jump = function (menu) {

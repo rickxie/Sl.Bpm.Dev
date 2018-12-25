@@ -1,7 +1,7 @@
 ﻿(function () {
     'use strict';
     var controllerId = "syspages.views.my.data.groupExtension";
-    angular.module('syspages').controller(controllerId, [
+    angular.module('app').controller(controllerId, [
         '$scope', 'treeTool', 'mabp.app.bpm', 'asdialog', '$stateParams', 'dialog',
         function ($scope, treeTool, service, asdialog, $stateParams, dialog) {
             CheckPermission("SysModule_Data_GroupExtension");

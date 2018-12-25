@@ -1,7 +1,7 @@
 ﻿(function () {
     'use strict';
     var controllerId = "syspages.views.system.developer";
-    angular.module('syspages').controller(controllerId, [
+    angular.module('app').controller(controllerId, [
         '$scope', 'mabp.app.task', 'mabp.app.bpm', 'workflowModuleTransfer', 'dialog', 'mabp.app.file', 'mabp.app.data','asdialog',
         function ($scope, service, bpmservice, module, dialog, fileService, dataService, asdialog) {
             //CheckPermission("Menu_Sys_Developer");

@@ -1,4 +1,4 @@
-﻿var app = app || angular.module('syspages', [
+﻿var app = app || angular.module('app', [
     'ngSanitize',
     'ui.bootstrap',
     'ui.router',

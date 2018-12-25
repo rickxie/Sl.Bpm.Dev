@@ -2,18 +2,13 @@
 @using MiniAbp.Runtime
 @using MiniAbp.Web
 @{
-    Layout = null;
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<!DOCTYPE html>
-<html ng-app="syspages">
-<head>
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <meta name="viewport" content="width=device-width" />
-    @*<link rel="icon" type="image/gif" href="../../Content/Images/AppTitle.png">*@
+@section head
+{
     <title ng-bind="$enterpriseName + ' BPM系统'"></title>
-    <base href="/" />
     @Styles.Render("~/SysPages/Css")
-</head>
+}
 <body ng-controller="layoutController as vm" class="page-on-load my-theme-deep">
     <ng-spinner-bar></ng-spinner-bar>
     @*<div style="position: absolute; left: 5px; bottom: 0px;">@System.Reflection.Assembly.GetAssembly(typeof(Sl.Bpm.DesignerModule)).GetName().Version</div>*@
@@ -22,7 +17,7 @@
             <div class="container-fluid nav-main">
                 <div class="navbar-header">
                     <a style="padding: 6px;" class="navbar-brand" href="#">
-                        <img rel="icon" height="40" class="navbar-header-logo" src="../../Content/Images/logo.png" />
+                        <img rel="icon" height="40" class="navbar-header-logo" src="~/Content/Images/logo.png" />
                     </a>
                     @*<a style="padding-left: 5px;" class="navbar-brand" href="#">{{ 'SiteName' | translate}}</a>*@
                 </div>
@@ -97,6 +92,5 @@
         var currentLanguage = '@Session.GetUserLanguage()' || 'zh-CN';
     </script>
     @Scripts.Render("~/SysPages/Js")
-    <script src="/Account/Permissions" type="text/javascript"></script>
+    <script src="~/Shared/Permissions" type="text/javascript"></script>
 </body>
-</html>

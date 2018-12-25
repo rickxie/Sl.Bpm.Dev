@@ -1,7 +1,7 @@
 ﻿(function () {
     'use strict';
     var controllerId = "syspages.views.my.data.integration";
-    angular.module('syspages').controller(controllerId, [
+    angular.module('app').controller(controllerId, [
         '$scope', 'dialog', 'mabp.app.bpm', '$stateParams', function ($scope, dialog, service, $stateParams) {
             var vm = this;
             vm.menu = [{ id: 1, name: "接口配置" }, { id: 2, name: "服务器配置" }];

@@ -1,7 +1,7 @@
 ﻿(function () {
     'use strict';
     var controllerId = "syspages.views.system.config";
-    angular.module('syspages').controller(controllerId, [
+    angular.module('app').controller(controllerId, [
         '$scope', '$modal', 'dialog', 'asdialog', 'mabp.app.bpm', 'mabp.app.enterpriseInfoSync', '$rootScope',
         function ($scope, $modal, dialog, asdialog, service, syncService, $rootScope) {
             CheckPermission("Menu_Sys_Configuration");

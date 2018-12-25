@@ -1,6 +1,6 @@
 ﻿(function () {
     var controllerId = app.dialogs.define('wfProcessorChange', '/App/SysPages/views/system/developer/tabs/wfprocessorchange.html');
-    angular.module('syspages').controller(controllerId, ['params', 'mabp.app.task', 'dialog', 'mabp.app.taskRead', function (params, service, dialog, taskReadService) {
+    angular.module('app').controller(controllerId, ['params', 'mabp.app.task', 'dialog', 'mabp.app.taskRead', function (params, service, dialog, taskReadService) {
         var vm = this;
         vm.params = params;
 

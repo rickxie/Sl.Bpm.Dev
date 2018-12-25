@@ -1,7 +1,7 @@
 ﻿(function () {
     'use strict';
     var controllerId = "syspages.views.system.workflow";
-    angular.module('syspages').controller(controllerId, [
+    angular.module('app').controller(controllerId, [
         '$scope', '$rootScope', 'mabp.app.workflow', 'asdialog', 'dialog',  'mabp.app.enterpriseInfoSync', 'mabp.app.importExport', 'FileUploader',
         function ($scope, $rootScope, service, asdialog, dialog, syncServie, ieService, fileUploader) {
             CheckPermission("Menu_Sys_Workflow");

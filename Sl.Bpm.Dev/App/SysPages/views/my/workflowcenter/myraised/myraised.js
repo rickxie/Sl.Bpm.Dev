@@ -1,7 +1,7 @@
 ﻿(function () {
     'use strict';
     var controllerId = "syspages.views.my.workflowcenter.myraised";
-    angular.module('syspages').controller(controllerId, [
+    angular.module('app').controller(controllerId, [
         '$scope', 'workflowModuleTransfer', 'mabp.app.task', 'dialog',
         function ($scope, module, service, dialog) {
 			var vm = this;

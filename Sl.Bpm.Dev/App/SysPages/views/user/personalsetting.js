@@ -1,7 +1,7 @@
 ﻿(function () {
     'use strict';
     var controllerId = "syspages.views.user.personalsetting";
-    angular.module('syspages').controller(controllerId, [
+    angular.module('app').controller(controllerId, [
         '$scope', 'mabp.app.system', 'dialog', 'appSession', '$translate', '$state', '$http', '$rootScope', '$timeout',
         function ($scope, sysService, dialog, appSession, $translate, $state, $http, $rootScope, $timeout) {
             CheckPermission("Menu_My_Setting");

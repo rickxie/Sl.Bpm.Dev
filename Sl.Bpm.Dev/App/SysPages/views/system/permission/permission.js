@@ -1,7 +1,7 @@
 ﻿(function () {
     'use strict';
     var controllerId = "syspages.views.system.permission";
-    angular.module('syspages').controller(controllerId, [
+    angular.module('app').controller(controllerId, [
         '$scope', 'mabp.app.permission', 'dialog', '$state', '$stateParams', function ($scope, service, dialog, $state, $stateParams) {
             CheckPermission("Menu_Sys_Permission");
             var vm = this;

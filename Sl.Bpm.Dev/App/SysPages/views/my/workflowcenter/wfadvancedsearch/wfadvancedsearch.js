@@ -1,7 +1,7 @@
 ﻿(function () {
     'use strict';
     var controllerId = "syspages.views.my.workflowcenter.wfsearch";
-    angular.module('syspages').controller(controllerId, [
+    angular.module('app').controller(controllerId, [
         '$scope', 'mabp.app.task', 'mabp.app.workflow', 'workflowModuleTransfer',
         function ($scope, service, wfService, module) {
            

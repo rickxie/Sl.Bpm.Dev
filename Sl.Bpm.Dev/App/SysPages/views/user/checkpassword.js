@@ -1,7 +1,7 @@
 ﻿(function() {
     'use strict';
     var controllerId = app.dialogs.define('checkPassword', '/App/SysPages/views/user/checkPassword.html');
-    angular.module('syspages').controller(controllerId, [
+    angular.module('app').controller(controllerId, [
         '$scope', 'params', 'mabp.app.system', function ($scope, params, sysService) {
             var vm = this;
             vm.user = params;

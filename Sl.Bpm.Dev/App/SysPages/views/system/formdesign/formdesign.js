@@ -1,7 +1,7 @@
 ﻿(function () {
     'use strict';
     var controllerId = "syspages.views.system.formdesign";
-    angular.module('syspages').controller(controllerId, [
+    angular.module('app').controller(controllerId, [
         '$scope', '$rootScope', 'mabp.app.bpm', 'asdialog', 'dialog', '$state', '$stateParams',
         'mabp.app.enterpriseInfoSync', 'treeTool',
         function ($scope, $rootScope, service, asdialog, dialog, $state, $stateParams, syncServie, treeTool) {

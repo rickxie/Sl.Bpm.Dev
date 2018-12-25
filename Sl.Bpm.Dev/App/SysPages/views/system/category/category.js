@@ -1,7 +1,7 @@
 ﻿(function () {
     'use strict';
     var controllerId = "syspages.views.enterprise.category";
-    angular.module('syspages').controller(controllerId, [
+    angular.module('app').controller(controllerId, [
         '$scope', 'mabp.app.workflow', 'asdialog', '$state', '$stateParams',function ($scope, service, asdialog, $state, $stateParams) {
             var vm = this;
             vm.models = [];

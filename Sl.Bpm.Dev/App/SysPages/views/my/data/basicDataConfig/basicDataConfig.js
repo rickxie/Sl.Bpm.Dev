@@ -1,7 +1,7 @@
 ﻿(function () {
     'use strict';
     var controllerId = "syspages.views.my.data.basicDataConfig";
-    angular.module('syspages').controller(controllerId, [
+    angular.module('app').controller(controllerId, [
         '$scope', 'mabp.app.system', 'dialog', 'treeTool', '$stateParams', 'asdialog',
         function ($scope, service, dialog, treeTool, $stateParams, asdialog) {
             CheckPermission("SysModule_Data_BasicData");

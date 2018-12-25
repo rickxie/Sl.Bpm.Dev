@@ -90,7 +90,7 @@ var mabp = angular.module('mabp', ['w5c.validator',
 
 ]);
 
-mabp.appPath = '/';
+mabp.appPath = window.appPath || '/';
 //alert
 (function () {
     PNotify.prototype.options.delay = 2000;
@@ -616,6 +616,8 @@ mabp && (function () {
                     'request': function (config) {
                         if (endsWith(config.url, '.cshtml')) {
                             config.url = mabp.appPath + 'AbpAppView/Load?viewUrl=' + config.url;
+                        } else if (endsWith(config.url, 'html')){
+                            config.url = mabp.appPath + config.url;
                         }
 
                         return config;

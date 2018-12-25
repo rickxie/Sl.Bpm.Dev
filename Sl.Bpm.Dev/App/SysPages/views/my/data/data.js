@@ -1,7 +1,7 @@
 ﻿(function () {
     'use strict';
     var controllerId = "syspages.views.my.data";
-    angular.module('syspages').controller(controllerId, [
+    angular.module('app').controller(controllerId, [
         '$scope', 'mabp.app.module', '$state', 'moduleHandler', 'appSession',
         function ($scope, service, $state, module, session) {
             CheckPermission("Menu_My_DataMaintanance");

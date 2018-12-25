@@ -1,6 +1,6 @@
 ﻿(function () {
     var controllerId = app.dialogs.define('integrationEditMapping', '/App/SysPages/views/my/data/integrationConfig/integration.editmapping.html', 'lg');
-    angular.module('syspages').controller(controllerId,
+    angular.module('app').controller(controllerId,
         ['$scope', 'params', 'mabp.app.bpm', function ($scope, params, service) {
             var vm = this;
             vm.type = params.type;

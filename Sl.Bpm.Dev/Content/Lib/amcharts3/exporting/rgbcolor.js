@@ -131,7 +131,7 @@ function RGBColor(color_string)
         peachpuff: 'ffdab9',
         peru: 'cd853f',
         pink: 'ffc0cb',
-        plum: 'ddfma0dd',
+        plum: 'dda0dd',
         powderblue: 'b0e0e6',
         purple: '800080',
         red: 'ff0000',

@@ -1,7 +1,7 @@
 ﻿(function () {
     'use strict';
     var controllerId = "syspages.views.my.file";
-    angular.module('syspages').controller(controllerId, [
+    angular.module('app').controller(controllerId, [
         '$scope', 'asdialog', 'mabp.app.file', '$timeout',
         function ($scope, asdialog, service, $timeout) {
             CheckPermission("Menu_My_File");

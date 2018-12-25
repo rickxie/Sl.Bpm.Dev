@@ -58,7 +58,7 @@
    
    
     var controllerId = "syspages.views.my.workflowcenter";
-    angular.module('syspages').controller(controllerId, [
+    angular.module('app').controller(controllerId, [
         '$scope', '$modal', 'dialog', '$rootScope', '$timeout', '$state', 'appSession',
         function ($scope, $modal, dialog, $rootScope, $timeout, $state, appSession) {
             if (!location.hash) {

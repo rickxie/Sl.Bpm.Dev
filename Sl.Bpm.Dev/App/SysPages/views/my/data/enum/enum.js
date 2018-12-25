@@ -1,7 +1,7 @@
 ﻿(function() {
     'use strict';
     var controllerId = "syspages.views.my.data.enum";
-    angular.module('syspages').controller(controllerId, [
+    angular.module('app').controller(controllerId, [
         '$scope', 'asdialog', 'mabp.app.system', '$stateParams', function ($scope, asdialog, service, $stateParams) {
             CheckPermission("SysModule_Data_Enum");
             var vm = this;
