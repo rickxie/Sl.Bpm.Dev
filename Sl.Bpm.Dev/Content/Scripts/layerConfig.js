@@ -1,5 +1,5 @@
 ﻿window.$alert = function (msg, title) {
-    layer.alert(msg,{ title: title||"提示" });
+    layer.alert(msg, { title: title||"提示" });
 }
 window.$confirm = function (msg, callback1, callback2) {
     layer.confirm(msg, {
