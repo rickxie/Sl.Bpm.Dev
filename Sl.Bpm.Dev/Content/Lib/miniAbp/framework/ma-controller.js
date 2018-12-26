@@ -53,7 +53,7 @@
     };
 
     mcGrid.on = function (eventName, func) {
-        $eventStore[eventName] !== null && ($eventStore[eventName].push(func))
+        if ($eventStore[eventName] != null) { $eventStore[eventName].push(func); }
     };
 
 

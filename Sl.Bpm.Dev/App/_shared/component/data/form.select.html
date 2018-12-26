@@ -11,7 +11,7 @@
                 z-index: 9999;
             }
         </style>
-        <div class="form-group modal-user content-on-load" id="{{ vm.formGuid }}">
+        <div class="form-group modal-user" id="{{ vm.formGuid }}">
             <div class="col-lg-12">
                 <div class="panel">
                     <div ng-hide="vm.hasSearch" class="panel-heading">搜索<div class="selectTxt icon-search" style="width:calc(100% - 60px);"><input type="text" value="" placeholder="输入内容搜索" ng-model="vm.selectTxt" ng-blur="vm.searchData()" ng-keydown="vm.event_Keydown($event)" /></div></div>
