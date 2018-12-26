@@ -5,10 +5,14 @@
 <!DOCTYPE html>
 <html ng-app="app">
 <head>
-    <base href="@(((System.Web.HttpRequestWrapper)this.Request).ApplicationPath)" />
+    @{
+        var basePath = ((System.Web.HttpRequestWrapper)this.Request).ApplicationPath;
+        basePath = basePath == "/" ? "" : basePath;
+    }
+    <base href="@basePath" />
     @RenderSection("head", false)
     <script>
-        window.appPath = "@(((System.Web.HttpRequestWrapper)this.Request).ApplicationPath)";
+        window.appPath = "@basePath";
     </script>
 </head>
 <body>

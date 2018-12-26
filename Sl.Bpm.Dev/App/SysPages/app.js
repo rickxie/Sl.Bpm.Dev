@@ -39,7 +39,7 @@ app && (function () {
                     {
                         "abstract": true,
                         url: '/chart',
-                        templateUrl: _turl('App/SysPages/views/system/chart/chart.html'),
+                        templateUrl: _turl('/App/SysPages/views/system/chart/chart.html'),
                         parentMenu: 'system'
                     })
                 .state('system.chart.infooverview',
@@ -47,7 +47,7 @@ app && (function () {
                         url: '/infooverview',
                         views: {
                             'chart': {
-                                templateUrl: _turl('App/SysPages/views/system/chart/infooverview/infooverview.html')
+                                templateUrl: _turl('/App/SysPages/views/system/chart/infooverview/infooverview.html')
                             }
                         },
                         parentMenu: 'system.chart'
@@ -57,7 +57,7 @@ app && (function () {
                         url: '/wfoverview',
                         views: {
                             'chart': {
-                                templateUrl: _turl('App/SysPages/views/system/chart/wfoverview/wfoverview.html')
+                                templateUrl: _turl('/App/SysPages/views/system/chart/wfoverview/wfoverview.html')
                             }
                         },
                         parentMenu: 'system.chart'
@@ -67,7 +67,7 @@ app && (function () {
                         url: '/wfninfo',
                         views: {
                             'chart': {
-                                templateUrl: _turl('App/SysPages/views/system/chart/wfninfo/wfninfo.html')
+                                templateUrl: _turl('/App/SysPages/views/system/chart/wfninfo/wfninfo.html')
                             }
                         },
                         parentMenu: 'system.chart'
@@ -77,7 +77,7 @@ app && (function () {
                         url: '/userwfinfo',
                         views: {
                             'chart': {
-                                templateUrl: _turl('App/SysPages/views/system/chart/userwfinfo/userwfinfo.html')
+                                templateUrl: _turl('/App/SysPages/views/system/chart/userwfinfo/userwfinfo.html')
                             }
                         },
                         parentMenu: 'system.chart'
@@ -87,7 +87,7 @@ app && (function () {
                         url: '/wfprocess',
                         views: {
                             'chart': {
-                                templateUrl: _turl('App/SysPages/views/system/chart/wfprocess/wfprocess.html')
+                                templateUrl: _turl('/App/SysPages/views/system/chart/wfprocess/wfprocess.html')
                             }
                         },
                         parentMenu: 'system.chart'
@@ -98,7 +98,7 @@ app && (function () {
                         views: {
                             'chart': {
                                 templateUrl: _turl(
-                                    'App/SysPages/views/system/chart/standardptsetting/standardptsetting.html')
+                                    '/App/SysPages/views/system/chart/standardptsetting/standardptsetting.html')
                             }
                         },
                         parentMenu: 'system.chart'
@@ -106,15 +106,15 @@ app && (function () {
                 .state('system.workflow',
                     {
                         url: '/workflow',
-                        templateUrl: _turl('App/SysPages/views/system/workflow/workflow.html'),
+                        templateUrl: _turl('/App/SysPages/views/system/workflow/workflow.html'),
                         parentMenu: 'system'
                     })
                 .state('system.database',
                     {
                         "abstract": true,
                         url: '/businesstable',
-                        templateUrl: _turl('App/SysPages/views/system/database/db.html'),
-                        //templateUrl: '/App/SysPages/views/system/businesstable/businesstable.html',
+                        templateUrl: _turl('/App/SysPages/views/system/database/db.html'),
+                        //templateUrl: '//App/SysPages/views/system/businesstable/businesstable.html',
                         parentMenu: 'system'
 
                     })
@@ -123,7 +123,7 @@ app && (function () {
                         url: '/columns/:id',
                         views: {
                             'db_panel': {
-                                templateUrl: _turl('App/SysPages/views/system/database/businesstable.columns.html')
+                                templateUrl: _turl('/App/SysPages/views/system/database/businesstable.columns.html')
                             }
                         },
                         params: {
@@ -139,7 +139,7 @@ app && (function () {
                         url: '/viewcolumn/:id',
                         views: {
                             'db_panel': {
-                                templateUrl: _turl('App/SysPages/views/system/database/viewtable.columns.html')
+                                templateUrl: _turl('/App/SysPages/views/system/database/viewtable.columns.html')
                             }
                         },
                         params: {
@@ -153,7 +153,7 @@ app && (function () {
                         url: '/mappingcolumn/:id',
                         views: {
                             'db_panel': {
-                                templateUrl: _turl('App/SysPages/views/system/database/mapping.columns.html')
+                                templateUrl: _turl('/App/SysPages/views/system/database/mapping.columns.html')
                             }
                         },
                         params: {
@@ -167,7 +167,7 @@ app && (function () {
                         url: '/viewedit/:id',
                         views: {
                             'db_panel': {
-                                templateUrl: _turl('App/SysPages/views/system/database/viewtable.edit.html')
+                                templateUrl: _turl('/App/SysPages/views/system/database/viewtable.edit.html')
                             }
                         },
                         parentMenu: 'system'
@@ -177,7 +177,7 @@ app && (function () {
                         url: '/mappingedit/:id',
                         views: {
                             'db_panel': {
-                                templateUrl: _turl('App/SysPages/views/system/database/mapping.edit.html')
+                                templateUrl: _turl('/App/SysPages/views/system/database/mapping.edit.html')
                             }
                         },
                         parentMenu: 'system'
@@ -187,7 +187,7 @@ app && (function () {
                         url: '/tableedit/:id',
                         views: {
                             'db_panel': {
-                                templateUrl: _turl('App/SysPages/views/system/database/businesstable.edit.html')
+                                templateUrl: _turl('/App/SysPages/views/system/database/businesstable.edit.html')
                             }
                         },
                         parentMenu: 'system.database'
@@ -195,37 +195,37 @@ app && (function () {
                 .state('system.viewtable',
                     {
                         url: '/viewtable',
-                        templateUrl: _turl('App/SysPages/views/system/viewtable/viewtable.html'),
+                        templateUrl: _turl('/App/SysPages/views/system/viewtable/viewtable.html'),
                         parentMenu: 'system'
                     })
                 .state('system.formdesign',
                     {
                         url: '/formdesign',
-                        templateUrl: _turl('App/SysPages/views/system/formdesign/formdesign.html'),
+                        templateUrl: _turl('/App/SysPages/views/system/formdesign/formdesign.html'),
                         parentMenu: 'system'
                     })
                 .state('system.config',
                     {
                         url: '/config',
-                        templateUrl: _turl('App/SysPages/views/system/config/config.html'),
+                        templateUrl: _turl('/App/SysPages/views/system/config/config.html'),
                         parentMenu: 'system'
                     })
                 .state('system.module',
                     {
                         url: '/module',
-                        templateUrl: _turl('App/SysPages/views/system/module/module.html'),
+                        templateUrl: _turl('/App/SysPages/views/system/module/module.html'),
                         parentMenu: 'system'
                     })
                 .state('system.permission',
                     {
                         url: '/permission',
-                        templateUrl: _turl('App/SysPages/views/system/permission/permission.html'),
+                        templateUrl: _turl('/App/SysPages/views/system/permission/permission.html'),
                         parentMenu: 'system'
                     })
                 .state('system.developer',
                     {
                         url: '/developer',
-                        templateUrl: _turl('App/SysPages/views/system/developer/developer.html'),
+                        templateUrl: _turl('/App/SysPages/views/system/developer/developer.html'),
                         parentMenu: 'system'
                 })
                 //我的菜单
@@ -240,20 +240,20 @@ app && (function () {
                 })
                 .state('my.dashboard', {
                     url: '',
-                    templateUrl: _turl('App/SysPages/views/my/dashboard/dashboard.html'),
+                    templateUrl: _turl('/App/SysPages/views/my/dashboard/dashboard.html'),
                     parentMenu: 'my'
                 })
                 .state('my.workflowcenter', {
                     "abstract": true,
                     url: '/workflowcenter',
-                    templateUrl: _turl('App/SysPages/views/my/workflowcenter/workflowcenter.html'),
+                    templateUrl: _turl('/App/SysPages/views/my/workflowcenter/workflowcenter.html'),
                     parentMenu: 'my'
                 })
                 .state('my.workflowcenter.raise', {
                     url: '/raise',
                     views: {
                         'workflow': {
-                            templateUrl: _turl('App/SysPages/views/my/workflowcenter/raise/raise.html')
+                            templateUrl: _turl('/App/SysPages/views/my/workflowcenter/raise/raise.html')
                         }
                     },
                     parentMenu: 'my.workflowcenter'
@@ -262,7 +262,7 @@ app && (function () {
                     url: '/pendinghandle',
                     views: {
                         'workflow': {
-                            templateUrl: _turl('App/SysPages/views/my/workflowcenter/pendinghandle/pendinghandle.html')
+                            templateUrl: _turl('/App/SysPages/views/my/workflowcenter/pendinghandle/pendinghandle.html')
                         }
                     },
                     parentMenu: 'my.workflowcenter'
@@ -271,7 +271,7 @@ app && (function () {
                     url: '/mywaiting',
                     views: {
                         'workflow': {
-                            templateUrl: _turl('App/SysPages/views/my/workflowcenter/mywaiting/mywaiting.html')
+                            templateUrl: _turl('/App/SysPages/views/my/workflowcenter/mywaiting/mywaiting.html')
                         }
                     },
                     parentMenu: 'my.workflowcenter'
@@ -280,7 +280,7 @@ app && (function () {
                     url: '/pendingread',
                     views: {
                         'workflow': {
-                            templateUrl: _turl('App/SysPages/views/my/workflowcenter/pendingread/pendingread.html')
+                            templateUrl: _turl('/App/SysPages/views/my/workflowcenter/pendingread/pendingread.html')
                         }
                     },
                     parentMenu: 'my.workflowcenter'
@@ -289,7 +289,7 @@ app && (function () {
                     url: '/mymarked',
                     views: {
                         'workflow': {
-                            templateUrl: _turl('App/SysPages/views/my/workflowcenter/mymarked/mymarked.html')
+                            templateUrl: _turl('/App/SysPages/views/my/workflowcenter/mymarked/mymarked.html')
                         }
                     },
                     parentMenu: 'my.workflowcenter'
@@ -298,7 +298,7 @@ app && (function () {
                     url: '/mydraft',
                     views: {
                         'workflow': {
-                            templateUrl: _turl('App/SysPages/views/my/workflowcenter/mydraft/mydraft.html')
+                            templateUrl: _turl('/App/SysPages/views/my/workflowcenter/mydraft/mydraft.html')
                         }
                     },
                     parentMenu: 'my.workflowcenter'
@@ -307,7 +307,7 @@ app && (function () {
                     url: '/myraised',
                     views: {
                         'workflow': {
-                            templateUrl: _turl('App/SysPages/views/my/workflowcenter/myraised/myraised.html')
+                            templateUrl: _turl('/App/SysPages/views/my/workflowcenter/myraised/myraised.html')
                         }
                     },
                     parentMenu: 'my.workflowcenter'
@@ -316,7 +316,7 @@ app && (function () {
                     url: '/myhandled',
                     views: {
                         'workflow': {
-                            templateUrl: _turl('App/SysPages/views/my/workflowcenter/myhandled/myhandled.html')
+                            templateUrl: _turl('/App/SysPages/views/my/workflowcenter/myhandled/myhandled.html')
                         }
                     },
                     parentMenu: 'my.workflowcenter'
@@ -325,7 +325,7 @@ app && (function () {
                     url: '/mycopied',
                     views: {
                         'workflow': {
-                            templateUrl: _turl('App/SysPages/views/my/workflowcenter/mycopied/mycopied.html')
+                            templateUrl: _turl('/App/SysPages/views/my/workflowcenter/mycopied/mycopied.html')
                         }
                     },
                     parentMenu: 'my.workflowcenter'
@@ -334,7 +334,7 @@ app && (function () {
                     url: '/myauthorized',
                     views: {
                         'workflow': {
-                            templateUrl: _turl('App/SysPages/views/my/workflowcenter/myauthorized/myauthorized.html')
+                            templateUrl: _turl('/App/SysPages/views/my/workflowcenter/myauthorized/myauthorized.html')
                         }
                     },
                     parentMenu: 'my.workflowcenter'
@@ -343,7 +343,7 @@ app && (function () {
                     url: '/mydelegated',
                     views: {
                         'workflow': {
-                            templateUrl: _turl('App/SysPages/views/my/workflowcenter/mydelegated/mydelegated.html')
+                            templateUrl: _turl('/App/SysPages/views/my/workflowcenter/mydelegated/mydelegated.html')
                         }
                     },
                     parentMenu: 'my.workflowcenter'
@@ -352,32 +352,32 @@ app && (function () {
                     url: '/wfadvancedsearch',
                     views: {
                         'workflow': {
-                            templateUrl: _turl('App/SysPages/views/my/workflowcenter/wfadvancedsearch/wfadvancedsearch.html')
+                            templateUrl: _turl('/App/SysPages/views/my/workflowcenter/wfadvancedsearch/wfadvancedsearch.html')
                         }
                     },
                     parentMenu: 'my.workflowcenter'
                 })
                 .state('my.report', {
                     url: '/report',
-                    templateUrl: _turl('App/SysPages/views/my/report/report.html'),
+                    templateUrl: _turl('/App/SysPages/views/my/report/report.html'),
                     parentMenu: 'my'
                 })
                 .state('my.file', {
                     url: '/file',
-                    templateUrl: _turl('App/SysPages/views/my/file/file.html'),
+                    templateUrl: _turl('/App/SysPages/views/my/file/file.html'),
                     parentMenu: 'my'
                 })
                 .state('my.data', {
                     //"abstract": true,
                     url: '/data',
-                    templateUrl: _turl('App/SysPages/views/my/data/data.html'),
+                    templateUrl: _turl('/App/SysPages/views/my/data/data.html'),
                     parentMenu: 'my'
                 })
                 .state('my.user', {
                     url: '/user',
                     views: {
                         '': {
-                            templateUrl: _turl('App/SysPages/views/my/data/user/user.html')
+                            templateUrl: _turl('/App/SysPages/views/my/data/user/user.html')
                         }
                     },
                     parentMenu: 'my.data'
@@ -386,7 +386,7 @@ app && (function () {
                     url: '/group',
                     views: {
                         '': {
-                            templateUrl: _turl('App/SysPages/views/my/data/group/group.html')
+                            templateUrl: _turl('/App/SysPages/views/my/data/group/group.html')
                         }
                     },
                     parentMenu: 'my.data'
@@ -395,7 +395,7 @@ app && (function () {
                     url: '/groupExtension',
                     views: {
                         '': {
-                            templateUrl: _turl('App/SysPages/views/my/data/groupExtension/groupExtension.html')
+                            templateUrl: _turl('/App/SysPages/views/my/data/groupExtension/groupExtension.html')
                         }
                     },
                     parentMenu: 'my.data'
@@ -404,7 +404,7 @@ app && (function () {
                     url: '/enum',
                     views: {
                         '': {
-                            templateUrl: _turl('App/SysPages/views/my/data/enum/enum.html')
+                            templateUrl: _turl('/App/SysPages/views/my/data/enum/enum.html')
                         }
                     },
                     parentMenu: 'my.data'
@@ -437,7 +437,7 @@ app && (function () {
                     url: '/role',
                     views: {
                         '': {
-                            templateUrl: _turl('App/SysPages/views/my/data/role/role.html')
+                            templateUrl: _turl('/App/SysPages/views/my/data/role/role.html')
                         }
                     },
                     parentMenu: 'my.data'
@@ -446,7 +446,7 @@ app && (function () {
                     url: '/integrationConfig',
                     views: {
                         '': {
-                            templateUrl: _turl('App/SysPages/views/my/data/integrationConfig/integration.html')
+                            templateUrl: _turl('/App/SysPages/views/my/data/integrationConfig/integration.html')
                         }
                     },
                     parentMenu: 'my.data'
@@ -455,7 +455,7 @@ app && (function () {
                     url: '/basicDataConfig',
                     views: {
                         '': {
-                            templateUrl: _turl('App/SysPages/views/my/data/basicDataConfig/basicDataConfig.html')
+                            templateUrl: _turl('/App/SysPages/views/my/data/basicDataConfig/basicDataConfig.html')
                         }
                     },
                     parentMenu: 'my.data'
@@ -464,7 +464,7 @@ app && (function () {
                     url: '/personalsetting',
                     views: {
                         '': {
-                            templateUrl: _turl('App/SysPages/views/user/personalsetting.html')
+                            templateUrl: _turl('/App/SysPages/views/user/personalsetting.html')
                         }
                     },
                     parentMenu: 'my'
@@ -473,7 +473,7 @@ app && (function () {
                     url: '/agent',
                     views: {
                         '': {
-                            templateUrl: _turl('App/SysPages/views/user/agent.html')
+                            templateUrl: _turl('/App/SysPages/views/user/agent.html')
                         }
                     },
                     parentMenu: 'my'
