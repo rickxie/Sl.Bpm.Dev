@@ -8,12 +8,14 @@
  * 修改时间:
  * 版本： @version 1.0
  *===================================================*/
+using MiniAbp.Domain;
+using Sl.Bpm.AppPages.Base;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace Sl.Bpm.Client.AppPages.Base
+namespace Sl.Bpm.AppPages.Base
 {
 
     public class t_ticket
@@ -142,11 +144,12 @@ namespace Sl.Bpm.Client.AppPages.Base
         public string EmerContact2 { get; set; }
         public string EmerRelation2 { get; set; }
         public string EmerPhone2 { get; set; }
-        public string PersonalEmai { get; set; }
+        public string PersonalEmail { get; set; }
         public string AppUserId { get; set; }
         public string WorkType { get; set; }
         public string CompanyEmail { get; set; }
         public string SeatNo { get; set; }
+     	public string Speciality { get;set; }
         public string BusinessPhone { get; set; }
         public string JobLevel { get; set; }
         public float? DailySalary { get; set; }
@@ -208,5 +211,17 @@ namespace Sl.Bpm.Client.AppPages.Base
         public string Extend6 { get; set; }
     }
 
-
+    public class t_budget_fee: CreationEntity
+    {
+        public override string Id { get; set; }
+        public override DateTime? CreationTime { get; set; }
+        public BudgetType BudgetType { get; set; }
+        public BusinessType BusinessType { get; set; }
+        public string AssociateSn { get; set; }
+        public string AssociatedTaskId { get; set; }
+        public decimal Amount { get; set; }
+        public string CreatorName { get; set; }
+        public override string CreatorUserId { get; set; }
+        public string Note { get; set; }
+    }
 }

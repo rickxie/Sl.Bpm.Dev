@@ -1,0 +1,24 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "工作台";
+    ViewBag.hasSubMenu = false;
+}
+@{
+    var path = Request.Path.ToLower();
+    var code = "";
+    if (path.Contains("data"))
+    {
+        code = "data";
+    }
+    else if (path.Contains("func"))
+    {
+        code = "features";
+    }
+    else if (path.Contains("report"))
+    {
+        code = "report";
+    }
+}
+<div ng-include="'/App/SysPages/views/my/@(code)/@(code).html'" style="width:100%"></div>
+
+
