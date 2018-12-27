@@ -214,6 +214,8 @@ namespace Sl.Bpm.AppPages.Base
     public class t_budget_fee: CreationEntity
     {
         public override string Id { get; set; }
+        public  string ProjectId { get; set; }
+        public  string ProjectNo { get; set; }
         public override DateTime? CreationTime { get; set; }
         public BudgetType BudgetType { get; set; }
         public BusinessType BusinessType { get; set; }

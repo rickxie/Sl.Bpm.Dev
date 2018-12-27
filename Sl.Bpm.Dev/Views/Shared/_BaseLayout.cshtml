@@ -10,10 +10,10 @@
         basePath = basePath == "/" ? "" : basePath;
     }
     <base href="@basePath" />
-    @RenderSection("head", false)
     <script>
         window.appPath = "@basePath";
     </script>
+    @RenderSection("head", false)
 </head>
 <body>
     @RenderBody()
@@ -23,12 +23,11 @@
 <script>
     document.addEventListener("error", function (e) {
         var elem = e.target;
-        console.log(elem);
         if (elem.tagName.toLowerCase() === 'img') {
             var err = $(elem).attr("erred");
             if (err == 1) { return; }
-            elem.src = window.appPath+ $(elem).attr("src");
-            $(elem).attr("erred","1");
+            elem.src = window.appPath + $(elem).attr("src");
+            $(elem).attr("erred", "1");
         }
     }, true);
     //window.onerror = function () {
@@ -39,6 +38,6 @@
     //        $("#test").attr("src", window.appPath+$("#test").attr("src"))
     //    }
     //})
-    
+
 </script>
 

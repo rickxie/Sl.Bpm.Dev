@@ -108,18 +108,55 @@ namespace Sl.Bpm.AppPages.Base
         /// <param name="associatedSn"></param>
         /// <param name="associatedTaskId"></param>
         /// <param name="totalAmt"></param>
-        protected void AddBudgetFee(BudgetType budgetType, BusinessType businessType, string associatedSn, string associatedTaskId, decimal totalAmt, string note = null)
+        protected void AddBudgetFee(string projectId, BudgetType budgetType, BusinessType businessType, string associatedSn, string associatedTaskId, decimal totalAmt, string note = null)
         {
+            // 项目Id不许存在
+            if (string.IsNullOrWhiteSpace(projectId))
+            {
+                throw new NoNullAllowedException($"projectId: {projectId} can't be null");
+            }
+            var projectNo = _db.GetSingle("SELECT Id FROM t_project WHERE Id = @projectId");
+            if (string.IsNullOrWhiteSpace(projectNo))
+            {
+                throw new NoNullAllowedException($"error projectId: {projectId}");
+            }
             var newBudget = new t_budget_fee();
             newBudget.RefreshId();
             newBudget.BudgetType = budgetType;
             newBudget.BusinessType = businessType;
             newBudget.Amount = totalAmt;
+            newBudget.ProjectId = projectId;
+            newBudget.ProjectNo = projectNo;
             newBudget.AssociateSn = associatedSn;
             newBudget.AssociatedTaskId = associatedTaskId;
             newBudget.Note = note;
             newBudget.CreatorName = _db.GetSingle("SELECT dbo.L(LangName,'zh-CN') FROM dbo.AppUser WHERE Id = @userId", new { userId = newBudget.CreatorUserId });
             _db.Insert(newBudget);
+        }
+
+        /// <summary>
+        /// 范围某个预算类型的余额
+        /// </summary>
+        /// <param name="prjId"></param>
+        /// <param name="budgetType"></param>
+        /// <returns></returns>
+        protected decimal GetBudgetBalance(string prjId, BudgetType budgetType, string year = null)
+        {
+            // TODO: 尚未实现
+            return 1000000;
+        }
+
+        /// <summary>
+        /// 判断今年的预算余额是否够使用
+        /// </summary>
+        /// <param name="prjId"></param>
+        /// <param name="budget"></param>
+        /// <param name=""></param>
+        /// <returns></returns>
+        protected bool HasBudgetBalance(string prjId, BudgetType budgetType, decimal amount, string year = null)
+        {
+            // TODO: 待后续实现
+            return GetBudgetBalance(prjId, budgetType) > amount;
         }
     }
 

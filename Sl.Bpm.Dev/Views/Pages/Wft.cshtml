@@ -6,7 +6,7 @@
 @section head
 {
     @Styles.Render("~/SysPages/Css")
-    <script src="/Account/Permissions" type="text/javascript"></script>
+    <script src="/Shared/Permissions" type="text/javascript"></script>
     <script>
         var pageInfo = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model));
         function objectToQuerystring(obj) {

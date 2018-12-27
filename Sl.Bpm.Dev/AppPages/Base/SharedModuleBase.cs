@@ -370,6 +370,11 @@ where pj.id=@pmId
             return pwd;
         }
 
+        private void CreateProject(string projectNo, string projectLangName, string cCId)
+        {
+
+        }
+
     }
 
 
