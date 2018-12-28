@@ -3358,6 +3358,8 @@
   <ItemGroup>
     <Compile Include="AppPages\Base\BudgetSharedModuleBase.cs" />
     <Compile Include="AppPages\Base\BusinessEntities.cs" />
+    <Compile Include="AppPages\Base\Expert\BudgetExpert.cs" />
+    <Compile Include="AppPages\Base\Expert\OrganizeExpert.cs" />
     <Compile Include="AppPages\Base\SharedModuleBase.cs" />
     <Compile Include="AppPages\Data\data05\data05.cs" />
     <Compile Include="AppPages\Data\data08\data08.cs" />

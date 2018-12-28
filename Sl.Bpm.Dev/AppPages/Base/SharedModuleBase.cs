@@ -224,7 +224,7 @@ INSERT INTO [dbo].[t_org_snapshoot]
         protected string GetOrgPathSnapshoot(string orgSsId)
         {
             //根据快照Id返回一条数据
-            var model= _db.QueryFirst<OrgModel>("SELECT * FROM [dbo].[t_org_snapshoot] WHERE  Id=@Id ",new { Id = orgSsId });
+            var model = _db.QueryFirst<OrgModel>("SELECT * FROM [dbo].[t_org_snapshoot] WHERE  Id=@Id ", new { Id = orgSsId });
             return SerializeCamelCase(model);
         }
 
@@ -310,7 +310,7 @@ where pj.id=@pmId
         public string UniqueId { get; set; }
         public string ProjectId { get; set; }
         public string ProjectNo { get; set; }
-        
+
         public string ProjectName { get; set; }
         public string PmUserId { get; set; }
         public string PmUserName { get; set; }
@@ -340,8 +340,9 @@ where pj.id=@pmId
         public string AreaCode { get; set; }
         public DateTime? CreationTime { get; set; }
 
-        public string GetUniqueIdByMd5() {
-            string tempValue = "-"+ ProjectId + "-" + ProjectNo+ "-" + ProjectName + "-" + PmUserId + "-" + PmUserName + "-" + CcId + "-" + CcUid + "-" + CcULangName + "-" + BuId + "-" + BuLangName + "-" + BuUid + "-" + BuULangName + "-" + CoId + "-" + CoLangName + "-" + CoUid + "-" + CoULangName + "-" + AreaCode + "-" + AreaLangName;
+        public string GetUniqueIdByMd5()
+        {
+            string tempValue = "-" + ProjectId + "-" + ProjectNo + "-" + ProjectName + "-" + PmUserId + "-" + PmUserName + "-" + CcId + "-" + CcUid + "-" + CcULangName + "-" + BuId + "-" + BuLangName + "-" + BuUid + "-" + BuULangName + "-" + CoId + "-" + CoLangName + "-" + CoUid + "-" + CoULangName + "-" + AreaCode + "-" + AreaLangName;
             return GetMd5_32byte(tempValue);
         }
 
@@ -370,12 +371,42 @@ where pj.id=@pmId
             return pwd;
         }
 
-        private void CreateProject(string projectNo, string projectLangName, string cCId)
+        private void CreateProject(ProjectAddDto dto)
         {
 
         }
+        private void AddProjectMember()
+        {
 
+        }
+        private void ChangeProjectCc(string projectId)
+        {
+
+        }
     }
 
+    /// <summary>
+    /// 新增项目
+    /// </summary>
+    public class ProjectAddDto
+    {
+        public string ProjectId { get; set; }
+        public string ProjectNo { get; set; }
+        public string CcId { get; set; }
+        public string ProjectName { get; set; }
+        public string ProjectEnName { get; set; }
+        public string PmId { get; set; }
+    }
 
+    /// <summary>
+    /// 项目新增成员
+    /// </summary>
+    public class MemberAddDto
+    {
+        public string UserId { get; set; }
+        public string UserName { get; set; }
+        public string UserEnName { get; set; }
+        public string JobLevel { get; set; }
+        public string ProjectId { get; set; } 
+    }
 }
