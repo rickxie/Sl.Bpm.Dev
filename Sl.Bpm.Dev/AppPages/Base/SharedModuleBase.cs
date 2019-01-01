@@ -53,7 +53,7 @@ left join BpmJob bj3 on bg3.id=bj3.GroupId
 left join BpmJobUser bju3 on bju3.JobId=bj3.Id
 left join AppUser au3 on bju3.UserId=au3.Id
 where bg.EnumGroupLevel='3') Gro on Gro.CcNo=pj.CcNo
-where pj.id=@pmId
+where pj.id=@pmId OR pj.ProjectNo = @pmId
 
 ";
 
@@ -369,44 +369,7 @@ where pj.id=@pmId
             }
 
             return pwd;
-        }
-
-        private void CreateProject(ProjectAddDto dto)
-        {
-
-        }
-        private void AddProjectMember()
-        {
-
-        }
-        private void ChangeProjectCc(string projectId)
-        {
-
-        }
+        } 
     }
 
-    /// <summary>
-    /// 新增项目
-    /// </summary>
-    public class ProjectAddDto
-    {
-        public string ProjectId { get; set; }
-        public string ProjectNo { get; set; }
-        public string CcId { get; set; }
-        public string ProjectName { get; set; }
-        public string ProjectEnName { get; set; }
-        public string PmId { get; set; }
-    }
-
-    /// <summary>
-    /// 项目新增成员
-    /// </summary>
-    public class MemberAddDto
-    {
-        public string UserId { get; set; }
-        public string UserName { get; set; }
-        public string UserEnName { get; set; }
-        public string JobLevel { get; set; }
-        public string ProjectId { get; set; } 
-    }
 }

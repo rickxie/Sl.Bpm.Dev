@@ -450,6 +450,10 @@
     <Content Include="AppPages\Workflow\cos02\cos02.js" />
     <Content Include="AppPages\Workflow\cos02\cos02._m.html" />
     <Content Include="AppPages\Workflow\cos02\cos02._m.js" />
+    <Content Include="AppPages\Workflow\cos06\cos06.html" />
+    <Content Include="AppPages\Workflow\cos06\cos06.js" />
+    <Content Include="AppPages\Workflow\cos06\cos06._m.html" />
+    <Content Include="AppPages\Workflow\cos06\cos06._m.js" />
     <Content Include="AppPages\Workflow\cos07\cos07.html" />
     <Content Include="AppPages\Workflow\cos07\cos07.js" />
     <Content Include="AppPages\Workflow\cos07\cos07._m.html" />
@@ -3382,6 +3386,7 @@
     <Compile Include="AppPages\Workflow\adm07\adm07.cs" />
     <Compile Include="AppPages\Workflow\cos01\cos01.cs" />
     <Compile Include="AppPages\Workflow\cos02\cos02.cs" />
+    <Compile Include="AppPages\Workflow\cos06\cos06.cs" />
     <Compile Include="AppPages\Workflow\cos07\cos07.cs" />
     <Compile Include="AppPages\Workflow\cos08\cos08.cs" />
     <Compile Include="AppPages\Workflow\cos09\cos09.cs" />

@@ -110,12 +110,12 @@ namespace Sl.Bpm.AppPages.Base
         /// <param name="totalAmt"></param>
         protected void AddBudgetFee(string projectId, BudgetType budgetType, BusinessType businessType, string associatedSn, string associatedTaskId, decimal totalAmt, string note = null)
         {
-            // 项目Id不许存在
+            // 项目Id不存在
             if (string.IsNullOrWhiteSpace(projectId))
             {
                 throw new NoNullAllowedException($"projectId: {projectId} can't be null");
             }
-            var projectNo = _db.GetSingle("SELECT Id FROM t_project WHERE Id = @projectId");
+            var projectNo = _db.GetSingle("SELECT Id FROM t_project WHERE Id = @projectId",new {projectId });
             if (string.IsNullOrWhiteSpace(projectNo))
             {
                 throw new NoNullAllowedException($"error projectId: {projectId}");

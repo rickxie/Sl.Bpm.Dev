@@ -15,7 +15,7 @@ using System.Data;
 using System.Linq;
 using System.Web;
 
-namespace Sl.Bpm.AppPages.Schedule
+namespace Sl.Bpm.AppPages.Base
 {
     public class BudgetExpert : ScheduleModuleBase
     {
