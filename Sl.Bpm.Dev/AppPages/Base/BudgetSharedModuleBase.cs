@@ -115,7 +115,7 @@ namespace Sl.Bpm.AppPages.Base
             {
                 throw new NoNullAllowedException($"projectId: {projectId} can't be null");
             }
-            var projectNo = _db.GetSingle("SELECT Id FROM t_project WHERE Id = @projectId",new {projectId });
+            var projectNo = _db.GetSingle("SELECT ProjectNo FROM t_project WHERE Id = @projectId",new {projectId });
             if (string.IsNullOrWhiteSpace(projectNo))
             {
                 throw new NoNullAllowedException($"error projectId: {projectId}");
