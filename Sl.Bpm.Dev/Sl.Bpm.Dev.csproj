@@ -654,6 +654,14 @@
     <Content Include="AppPages\Workflow\prj11\prj11.js" />
     <Content Include="AppPages\Workflow\prj11\prj11._m.html" />
     <Content Include="AppPages\Workflow\prj11\prj11._m.js" />
+    <Content Include="AppPages\Workflow\prj12\prj12.html" />
+    <Content Include="AppPages\Workflow\prj12\prj12.js" />
+    <Content Include="AppPages\Workflow\prj12\prj12._m.html" />
+    <Content Include="AppPages\Workflow\prj12\prj12._m.js" />
+    <Content Include="AppPages\Workflow\prj13\prj13.html" />
+    <Content Include="AppPages\Workflow\prj13\prj13.js" />
+    <Content Include="AppPages\Workflow\prj13\prj13._m.html" />
+    <Content Include="AppPages\Workflow\prj13\prj13._m.js" />
     <Content Include="AppPages\Workflow\sup01\sup01.html" />
     <Content Include="AppPages\Workflow\sup01\sup01.js" />
     <Content Include="AppPages\Workflow\sup01\sup01._m.html" />
@@ -3437,6 +3445,8 @@
     <Compile Include="AppPages\Workflow\prj08\prj08.cs" />
     <Compile Include="AppPages\Workflow\prj09\prj09.cs" />
     <Compile Include="AppPages\Workflow\prj11\prj11.cs" />
+    <Compile Include="AppPages\Workflow\prj12\prj12.cs" />
+    <Compile Include="AppPages\Workflow\prj13\prj13.cs" />
     <Compile Include="AppPages\Workflow\sup01\sup01.cs" />
     <Compile Include="AppPages\Workflow\sup03\sup03.cs" />
     <Compile Include="AppPages\Workflow\tic01\tic01.cs" />

@@ -78,7 +78,8 @@
                     $translateProvider.translations('zh-CN', mabp.localization['Bpm.zh-CN']);
                     $translateProvider.preferredLanguage(window.$currentUser.language);
                 }
-            ]).controller('PageCtrl',
+            ]) 
+            .controller('PageCtrl',
             ['mabp.app.module', 'mabp.app.task', '$compile', '$scope', '$timeout', 'formHelper', 'appSession', '$rootScope', '$pageDialog', 'mabp.app.bpm', '$modal', 'appSession',
                 function (service, taskService, $compile, $scope, $timeout, formHelper, session, $rootScope, $pageDialog, bpmService, $modal,session) {
                         //formHelper.sessionEndload($rootScope, result);
@@ -309,6 +310,6 @@
                         }
                     });
                 }
-            ]);
+            ]); 
     </script>
 </body>

@@ -86,10 +86,9 @@ var mabp = angular.module('mabp', ['w5c.validator',
     'mgcrea.ngStrap',
     'mgcrea.ngStrap.modal',
     'mgcrea.ngStrap.aside',
-    'mgcrea.ngStrap.tooltip'
-
+    'mgcrea.ngStrap.tooltip',
+    'ngSanitize'
 ]);
-
 function endsWith(str, suffix) {
     if (suffix.length > str.length) {
         return false;
@@ -860,5 +859,5 @@ mabp && (function () {
         }
     }
     ]);
-
+    mabp.filter('trusthtml', function ($sce) { return $sce.trustAsHtml; });
 })();
