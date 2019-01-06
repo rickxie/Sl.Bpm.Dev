@@ -10,3 +10,6 @@
 /Sl.Bpm.Dev/obj
 /Sl.Bpm.Dev/bin
 .vs
+/Sl.Bpm.Dev/AppPages/Base
+/Sl.Bpm.Dev/AppPages/Report
+/Sl.Bpm.Dev/_runtime
