@@ -584,6 +584,8 @@ mabp && (function () {
                     } else {
                         var title = responseData.errors.isFriendlyError ? "" : '发生异常';
                         mabp.notify.error(responseData.errors.message, title);
+                        if (window.$environment != null && window.$environment.enableTest == true)
+                            console.error(responseData.exception);
                     }
 
                     defer.reject(responseData.result);

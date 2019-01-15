@@ -11,6 +11,8 @@ using Sl.Bpm.Application.Service.Interface;
 using System.Dynamic;
 using Sl.Bpm.Application.Service;
 using MiniAbp.Extension;
+using System.Configuration;
+using System.Web.Configuration;
 
 namespace Sl.Bpm.Client.Controllers
 {
@@ -198,7 +200,18 @@ namespace Sl.Bpm.Client.Controllers
                 var permissions = _permissionSv.GetUserPermissions();
                 ViewBag.Permissions = permissions;
                 ViewBag.User = _systemSv.GetUserInfo().SerializeJsonCamelCase();
+                dynamic environment = new ExpandoObject();
+                CompilationSection compilationSection = (CompilationSection)System.Configuration.ConfigurationManager.GetSection(@"system.web/compilation");
+                environment.compilationDebug = compilationSection.Debug;
+                environment.EnableTest = (ConfigurationManager.AppSettings["EnableTest"] ?? "").ToLower() == "true";
+#if DEBUG
+                environment.debug = true;
+#else
+                environment.debug = false;
+#endif
+                ViewBag.Environment = (environment as object).SerializeJsonCamelCase();
                 html = this.RenderView("~/Views/Shared/Permissions.cshtml", this.ViewData, this.TempData);
+
             }
             catch (Exception ex)
             {

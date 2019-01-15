@@ -410,6 +410,10 @@
     <Content Include="AppPages\Function\func32\func32.js" />
     <Content Include="AppPages\Function\func32\func32._m.html" />
     <Content Include="AppPages\Function\func32\func32._m.js" />
+    <Content Include="AppPages\Function\func70\func70.html" />
+    <Content Include="AppPages\Function\func70\func70.js" />
+    <Content Include="AppPages\Function\func70\func70._m.html" />
+    <Content Include="AppPages\Function\func70\func70._m.js" />
     <Content Include="AppPages\Function\prog04\prog04.html" />
     <Content Include="AppPages\Function\prog04\prog04.js" />
     <Content Include="AppPages\Function\prog04\prog04._m.html" />
@@ -3372,6 +3376,7 @@
     <Compile Include="AppPages\Base\BusinessEntities.cs" />
     <Compile Include="AppPages\Base\Expert\BudgetExpert.cs" />
     <Compile Include="AppPages\Base\Expert\OrganizeExpert.cs" />
+    <Compile Include="AppPages\Base\Expert\WebApiExpert.cs" />
     <Compile Include="AppPages\Base\SharedModuleBase.cs" />
     <Compile Include="AppPages\Data\data05\data05.cs" />
     <Compile Include="AppPages\Data\data08\data08.cs" />
@@ -3385,6 +3390,7 @@
     <Compile Include="AppPages\Function\func30\func30.cs" />
     <Compile Include="AppPages\Function\func31\func31.cs" />
     <Compile Include="AppPages\Function\func32\func32.cs" />
+    <Compile Include="AppPages\Function\func70\func70.cs" />
     <Compile Include="AppPages\Function\prog04\prog04.cs" />
     <Compile Include="AppPages\Workflow\adm01\adm01.cs" />
     <Compile Include="AppPages\Workflow\adm02\adm02.cs" />

@@ -4,6 +4,7 @@
     Layout = null;
     var permissions = ViewBag.Permissions as List<NameValue<string, bool>>;
     var user = ViewBag.User as string;
+    var environment = ViewBag.Environment as string;
 }
 @*<script>*@
 window.$currentUserPermissions = {
@@ -17,5 +18,5 @@ window.$currentUserPermissions = {
     }
 
 window.$currentUser = @(new HtmlString(user));
+window.$environment= @Html.Raw(environment);
 window.$errorUrl = '';
-@*</script>*@
