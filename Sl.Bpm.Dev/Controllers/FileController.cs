@@ -11,6 +11,7 @@ using Newtonsoft.Json;
 using Sl.Bpm.Application.Base;
 using Sl.Bpm.Application.Base.Excel;
 using Sl.Bpm.Application.Config;
+using Sl.Bpm.Application.Experts.FileService;
 using Sl.Bpm.Application.Service;
 using Sl.Bpm.Model.Tables;
 using Sl.Bpm.Repository;
@@ -27,7 +28,7 @@ namespace Sl.Bpm.Client.Controllers
         public TaskSv TaskSv { get; set; }
         public ColumnConfigRp ColumnConfigRp { get; set; }
         public ConfigCache CacheManager { get; set; }
-        public FileSv FileSv { get; set; }
+        public FileExpert fileExpert { get; set; }
 
         protected string FileAddress => CacheManager.Ftp.Host;
 
@@ -43,62 +44,44 @@ namespace Sl.Bpm.Client.Controllers
             HttpPostedFileBase fileSave = Request.Files[0];
             if (fileSave == null) return Json(new { success = false, message = "请选择文件" }, JsonRequestBehavior.AllowGet);
 
-            var instFile = new InstFile();
-            instFile.RefreshId();
-            instFile.ContentType = fileSave.ContentType;
 
-            var newName = instFile.Id + '.' +
-                          fileSave.FileName.Substring(fileSave.FileName.LastIndexOf('.') + 1).ToLower();
+            var savedFile = fileExpert.SaveFile(
+                new FileInfo()
+                {
+                    FileName = fileSave.FileName,
+                    ContentType = fileSave.ContentType,
+                    ContentLength = fileSave.ContentLength,
+                    ExtensionName = Path.GetExtension(fileSave.FileName),
+                    FileBytes = FileExpert.StreamToBytes(fileSave.InputStream)
+                });
 
-            var fileAddress = FileAddress.EndsWith("/") ? FileAddress : FileAddress.Substring(0, FileAddress.Length - 1);
-            string uri = $"{fileAddress}/{newName}";
-
-
-            instFile.Name = fileSave.FileName;
-            instFile.Path = uri;
-            // 根据uri创建FtpWebRequest对象
-            var reqFtp = (FtpWebRequest)WebRequest.Create(new Uri(uri));
-            // ftp用户名和密码
-            reqFtp.Credentials = new NetworkCredential(FileAccount, FilePassword);
-            // 默认为true，连接不会被关闭
-            // 在一个命令之后被执行
-            reqFtp.KeepAlive = false;
-            // 指定执行什么命令
-            reqFtp.Method = WebRequestMethods.Ftp.UploadFile;
-            // 指定数据传输类型
-            reqFtp.UseBinary = true;
-            // 上传文件时通知服务器文件的大小
-            reqFtp.ContentLength = fileSave.ContentLength;
-
-            byte[] buff = new byte[fileSave.ContentLength];
-
-            // 把上传的文件写入流
-            Stream strm = reqFtp.GetRequestStream();
-            strm.Write(buff, 0, buff.Length);
-
-            strm.Close();
-
-            InstFileRp.Insert(instFile);
-
-            return Json(new { type = true, fileId = instFile.Id }, JsonRequestBehavior.AllowGet);
+            return Json(new { type = true, fileId = savedFile.Id }, JsonRequestBehavior.AllowGet);
         }
 
+        /// <summary>
+        /// 下载文件
+        /// </summary>
+        /// <param name="fileId"></param>
+        /// <returns></returns>
         public ActionResult Download(string fileId)
         {
-            var file = InstFileRp.Get(fileId);
+            var fileInfo = fileExpert.GetFile(fileId);
+            return File(fileInfo.FileBytes, fileInfo.ContentType, fileInfo.FileName);
+        }
 
-            if (file == null)
-                return null;
-            var uri = (FileAddress.StartsWith("ftp://") ? FileAddress : "ftp://" + FileAddress) + "/" + file.Path;
-            var reqFtp = (FtpWebRequest)WebRequest.Create(new Uri(uri));
-            reqFtp.Method = WebRequestMethods.Ftp.DownloadFile;
-            reqFtp.UseBinary = true;
-            reqFtp.Credentials = new NetworkCredential(FileAccount, FilePassword);
-            FtpWebResponse response = (FtpWebResponse)reqFtp.GetResponse();
-
-            Stream ftpStream = response.GetResponseStream();
-
-            return File(ftpStream, file.ContentType, file.Name);
+        /// <summary>
+        /// 下载模版文件
+        /// </summary>
+        /// <param name="fileId"></param>
+        /// <returns></returns>
+        public ActionResult Template(string filePath)
+        {
+            // 模版文件存储于 EnterpriseId / Template
+            var path = Path.Combine(_globalCache.EnterpriseId, "Template", filePath);
+            var fileName = Path.GetFileName(filePath);
+            string contentType = MimeMapping.GetMimeMapping(fileName);
+            var stream = fileExpert.GetFileStreamByPath(path);
+            return File(stream, contentType, fileName);
         }
 
         public ActionResult DownloadViewData(string para)
@@ -132,7 +115,7 @@ namespace Sl.Bpm.Client.Controllers
         {
             PageInput dto = JsonConvert.DeserializeObject<PageInput>(HttpUtility.UrlDecode(para));
             var moduleType = dto["moduleType"] ?? "";
-            var moduleId = dto["moduleIds"] ?? "";
+            var workflowId = dto["workflowId"] ?? "";
 
             var dt = TaskSv.GetPageDataTableTasks(dto, moduleType);
             if (dt.TotalCount == 0) return null;
@@ -169,7 +152,7 @@ namespace Sl.Bpm.Client.Controllers
                 colNames.Add(column.Value);
             }
 
-            var columnConfigs = ColumnConfigRp.GetColumnConfigsByModuleId(moduleId);
+            var columnConfigs = ColumnConfigRp.GetColumnConfigsByModuleId(workflowId);
             foreach (var config in columnConfigs)
             {
                 dt.Data.Columns[config.ColumnKey].ColumnName = config.Name;
@@ -199,40 +182,39 @@ namespace Sl.Bpm.Client.Controllers
 
 
             HttpPostedFileBase fileSave = Request.Files[0];
+            var savedFile = fileExpert.SaveFile(
+                         new FileInfo()
+                         {
+                             FileName = fileSave.FileName,
+                             ContentType = fileSave.ContentType,
+                             ContentLength = fileSave.ContentLength,
+                             ExtensionName = Path.GetExtension(fileSave.FileName),
+                             FileBytes = FileExpert.StreamToBytes(fileSave.InputStream)
+                         }, "Temp");
 
-            var directoryPath = Server.MapPath("~/AppPages/File/Temp/");
-            string fileName = DateTime.Now.ToString("yyyyMMddHHmmss") + "_" + fileSave.FileName;
+            return Json(new { IsSuccess = true, FilePath = savedFile.Path, FileModel = savedFile });
+        }
 
-            //文件夹权限 FullControl
-            DirectorySecurity dirsecurity = new DirectorySecurity();
-            //dirsecurity.AddAccessRule(new FileSystemAccessRule("ASPNET", FileSystemRights.FullControl, InheritanceFlags.ContainerInherit, PropagationFlags.InheritOnly, AccessControlType.Allow));
+        public ActionResult UeditorFileUpload()
+        {
+            if (Request.Files == null || Request.Files.Count == 0)
+                return Json(new { isSuccess = false, message = "请选择上传文件" }, JsonRequestBehavior.AllowGet);
 
-            if (!Directory.Exists(directoryPath))
-                Directory.CreateDirectory(directoryPath, dirsecurity);
-            fileSave.SaveAs(directoryPath + fileName);
+            HttpPostedFileBase fileSave = Request.Files[0];
 
-            ////给Excel文件所在目录添加"Everyone,Users"用户组的完全控制权限  
-            //DirectoryInfo di = new DirectoryInfo(directoryPath);
-            //DirectorySecurity dirSecurity = di.GetAccessControl();
-            //dirSecurity.AddAccessRule(new FileSystemAccessRule("Everyone", FileSystemRights.FullControl, AccessControlType.Allow));
-            //dirSecurity.AddAccessRule(new FileSystemAccessRule("Users", FileSystemRights.FullControl, AccessControlType.Allow));
-            //di.SetAccessControl(dirSecurity);
-
-            //把文件保存到FTP
-            var fileInfo =
-                FileSv.UploadFiles(new FileInput()
-                {
-                    Files = new List<FileInfo> {
-                        new FileInfo {
-                            ContentType = fileSave.ContentType,
-                            ContentLength = fileSave.ContentLength,
-                            ExtensionName = fileSave.FileName.EndsWith(".xls")?".xls":"xlsx",
-                            FileName = fileSave.FileName,
-                            FileBytes = IOManager.StreamToBytes(fileSave.InputStream)
-                        } }
-                });
-
-            return Json(new { IsSuccess = true, FilePath = directoryPath + fileName, FileModel = fileInfo[0] });
+            string path = "/Editor/" + DateTime.Now.ToString("yyyyMM");
+            var savedFile = fileExpert.SaveFile(
+                         new FileInfo()
+                         {
+                             FileName = fileSave.FileName,
+                             ContentType = fileSave.ContentType,
+                             ContentLength = fileSave.ContentLength,
+                             ExtensionName = Path.GetExtension(fileSave.FileName),
+                             FileBytes = FileExpert.StreamToBytes(fileSave.InputStream)
+                         }, path);
+            //{"originalName":"ad_01.jpg","name":"201901161757534544157.jpg","url":"upload/20190116/201901161757534544157.jpg","size":50939,"state":"SUCCESS","type":".jpg"}
+            var img = new { originalName = fileSave.FileName, name = savedFile.FileName, url = "/File/GetImage?fileId=" + savedFile.Id, size = fileSave.ContentLength, state = "SUCCESS", type = savedFile.ExtensionName };
+            return Content(JsonConvert.SerializeObject(img));
         }
 
     }

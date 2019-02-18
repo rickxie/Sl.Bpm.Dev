@@ -556,3 +556,11 @@ D:\Code\ShaluTfs\Shalu\Sl.Bpm_1.7.26\Sl.Bpm\Presentation\Sl.Bpm.TestConsole\obj\
 D:\Code\ShaluTfs\Shalu\Sl.Bpm_1.7.26\Sl.Bpm\Presentation\Sl.Bpm.TestConsole\obj\Debug\Sl.Bpm.TestConsole.csproj.CoreCompileInputs.cache
 D:\Code\ShaluTfs\Shalu\Sl.Bpm_1.7.26\Sl.Bpm\Presentation\Sl.Bpm.TestConsole\obj\Debug\Sl.Bpm.TestConsole.exe
 D:\Code\ShaluTfs\Shalu\Sl.Bpm_1.7.26\Sl.Bpm\Presentation\Sl.Bpm.TestConsole\obj\Debug\Sl.Bpm.TestConsole.pdb
+D:\Code\ShaluTfs\Shalu\Sl.Bpm_1.7.26\Sl.Bpm\Presentation\Sl.Bpm.TestConsole\bin\Debug\MiniAbp.pdb
+D:\Code\ShaluTfs\Shalu\Sl.Bpm_1.7.26\Sl.Bpm\Presentation\Sl.Bpm.TestConsole\bin\Debug\MiniAbp.Ado.pdb
+D:\Code\ShaluTfs\Shalu\Sl.Bpm_1.7.26\Sl.Bpm\Presentation\Sl.Bpm.TestConsole\bin\Debug\MiniAbp.Identity.pdb
+D:\Code\ShaluTfs\Shalu\Sl.Bpm_1.7.26\Sl.Bpm\Presentation\Sl.Bpm.TestConsole\bin\Debug\MiniAbp.Web.pdb
+D:\Code\ShaluTfs\Shalu\Sl.Bpm_1.7.26\Sl.Bpm\Presentation\Sl.Bpm.TestConsole\bin\Debug\Sl.Bpm.Application.pdb
+D:\Code\ShaluTfs\Shalu\Sl.Bpm_1.7.26\Sl.Bpm\Presentation\Sl.Bpm.TestConsole\bin\Debug\Sl.Bpm.Engine.pdb
+D:\Code\ShaluTfs\Shalu\Sl.Bpm_1.7.26\Sl.Bpm\Presentation\Sl.Bpm.TestConsole\bin\Debug\Sl.Bpm.Model.pdb
+D:\Code\ShaluTfs\Shalu\Sl.Bpm_1.7.26\Sl.Bpm\Presentation\Sl.Bpm.TestConsole\bin\Debug\Sl.Bpm.Repository.pdb
