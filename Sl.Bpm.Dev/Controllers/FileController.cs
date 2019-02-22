@@ -1,17 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Drawing;
 using System.IO;
 using System.Net;
 using System.Security.AccessControl;
 using System.Web;
 using System.Web.Mvc;
 using MiniAbp.Domain.Entities;
+using MiniAbp.Runtime;
 using Newtonsoft.Json;
 using Sl.Bpm.Application.Base;
 using Sl.Bpm.Application.Base.Excel;
 using Sl.Bpm.Application.Config;
-using Sl.Bpm.Application.Experts.FileService;
+using Sl.Bpm.Application.Experts;
 using Sl.Bpm.Application.Service;
 using Sl.Bpm.Model.Tables;
 using Sl.Bpm.Repository;
@@ -20,7 +22,6 @@ using FileInfo = MiniAbp.Domain.Entities.FileInfo;
 
 namespace Sl.Bpm.Client.Controllers
 {
-    [Authorize]
     public class FileController : BaseController
     {
         public InstFileRp InstFileRp { get; set; }
@@ -36,6 +37,7 @@ namespace Sl.Bpm.Client.Controllers
 
         protected string FilePassword => CacheManager.Ftp.Password;
 
+        [Authorize]
         public ActionResult UploadDataNew()
         {
             if (Request.Files == null || Request.Files.Count == 0)
@@ -65,8 +67,32 @@ namespace Sl.Bpm.Client.Controllers
         /// <returns></returns>
         public ActionResult Download(string fileId)
         {
-            var fileInfo = fileExpert.GetFile(fileId);
-            return File(fileInfo.FileBytes, fileInfo.ContentType, fileInfo.FileName);
+            var fileInfo = InstFileRp.Get(fileId);
+            var fileStream = fileExpert.GetFileStream(fileId);
+            return File(fileStream, fileInfo.ContentType, fileInfo.Name);
+        }
+
+
+        /// <summary>
+        /// 获取图片两层缓存
+        /// </summary>
+        /// <param name="fileId"></param>
+        /// <returns></returns>
+        public ActionResult GetImage(string fileId)
+        {
+            var instFile = InstFileRp.Get(fileId);
+            string filePath = Server.MapPath("/_runtime/temp/" + instFile.Id + instFile.ExtensionName);
+            if (!System.IO.File.Exists(filePath))
+            {
+                AppPath.GetOrCreateFileDiretory(filePath);
+                var fileStream = fileExpert.GetFileStreamByPath(instFile.Path);
+                Image img = Image.FromStream(fileStream);
+                img.Save(filePath);
+            }
+            Response.AppendHeader("Cache-Control", "max-age=1000");
+            Response.AppendHeader("Expires", DateTime.Now.AddMilliseconds(30 * 1000).ToUniversalTime().ToString("r"));
+
+            return File(filePath, instFile.ContentType, instFile.Name);
         }
 
         /// <summary>
@@ -175,6 +201,7 @@ namespace Sl.Bpm.Client.Controllers
         }
 
 
+        [Authorize]
         public JsonResult AdvanceFileUpload()
         {
             if (Request.Files == null || Request.Files.Count == 0)
@@ -195,6 +222,7 @@ namespace Sl.Bpm.Client.Controllers
             return Json(new { IsSuccess = true, FilePath = savedFile.Path, FileModel = savedFile });
         }
 
+        [Authorize]
         public ActionResult UeditorFileUpload()
         {
             if (Request.Files == null || Request.Files.Count == 0)
@@ -202,7 +230,7 @@ namespace Sl.Bpm.Client.Controllers
 
             HttpPostedFileBase fileSave = Request.Files[0];
 
-            string path = "/Editor/" + DateTime.Now.ToString("yyyyMM");
+            string path = "Editor/" + DateTime.Now.ToString("yyyyMM");
             var savedFile = fileExpert.SaveFile(
                          new FileInfo()
                          {
@@ -213,7 +241,7 @@ namespace Sl.Bpm.Client.Controllers
                              FileBytes = FileExpert.StreamToBytes(fileSave.InputStream)
                          }, path);
             //{"originalName":"ad_01.jpg","name":"201901161757534544157.jpg","url":"upload/20190116/201901161757534544157.jpg","size":50939,"state":"SUCCESS","type":".jpg"}
-            var img = new { originalName = fileSave.FileName, name = savedFile.FileName, url = "/File/GetImage?fileId=" + savedFile.Id, size = fileSave.ContentLength, state = "SUCCESS", type = savedFile.ExtensionName };
+            var img = new { originalName = fileSave.FileName, name = savedFile.FileName, url = "/File/Download?fileId=" + savedFile.Id, size = fileSave.ContentLength, state = "SUCCESS", type = savedFile.ExtensionName };
             return Content(JsonConvert.SerializeObject(img));
         }
 
