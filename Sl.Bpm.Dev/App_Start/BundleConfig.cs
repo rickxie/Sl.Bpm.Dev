@@ -118,6 +118,7 @@ namespace Sl.Bpm.Client
                 new StaticResource(){ Group = 0x00001, Path = "~/Content/Lib/amcharts3/plugins/export/libs/jszip/jszip.js", SearchParttern = null, SubFolder = false },
                 new StaticResource(){ Group = 0x00001, Path = "~/Content/Lib/amcharts3/plugins/export/libs/xlsx/xlsx.js", SearchParttern = null, SubFolder = false },
                 new StaticResource(){ Group = 0x00001, Path = "~/Content/Lib/amcharts3/exporting", SearchParttern ="*.js", SubFolder = true , IsIncludeDirectory = true},
+                new StaticResource(){ Group = 0x01000, Path = "~/Content/Scripts/systemConfig.js", SearchParttern = null, SubFolder = false },
                 
                 //new StaticResource(){ Group = 0x0000, Path = "", SearchParttern = null, SubFolder = false },
             };
