@@ -30,8 +30,9 @@
 
 					angular.forEach(list, function (group) {
 						group.visibleLength = 0;
-						angular.forEach(group.data, function (item) {
-							item.visible = !!$currentUserPermissions[item.menuId];
+                        angular.forEach(group.data, function (item) {
+                            // D端所有菜单均可见
+							item.visible = true;
 							if (item.visible) {
 								group.visibleLength++;
 							}
