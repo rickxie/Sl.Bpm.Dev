@@ -31,7 +31,7 @@ namespace Sl.Bpm.Client
             Configuration.Database.ConnectionString = ConfigurationManager.ConnectionStrings["Default"].ConnectionString;
             Configuration.Database.Dialect = Dialect.SqlServer;
 
-            Configuration.Localization.Sources.Add(new LocalizationSource("Bpm", new LocalJsonProvider(AppPath.RootPath + "\\Content\\Custom\\Localization")));
+            Configuration.Localization.Sources.Add(new LocalizationSource("Bpm", new LocalJsonProvider(AppPath.RootPath + "\\App_Start\\Localization")));
             // #region 加载数据库层全局多语言
             var dbLanguage = new Dictionary<string, List<NameValue>>();
             IEnumerable<AppLanguage> languages = new List<AppLanguage>();
