@@ -196,12 +196,11 @@
                             d.resolve(true);
                             return d.promise();
                         }
-                        session.telephone = "111";
-                        if (!session.telephone || session.telephone == '0') {
-                            mabp.notify.error("请先完善个人中心的联系方式");
-                            d.resolve(false);
-                            return d.promise();
-                        }
+                        //if (!session.telephone || session.telephone == '0') {
+                        //    mabp.notify.error("请先完善个人中心的联系方式");
+                        //    d.resolve(false);
+                        //    return d.promise();
+                        //}
 
                         // 从哪个岗位打开页面
                         bpmService.getUserJobs().then(function (jobList) {

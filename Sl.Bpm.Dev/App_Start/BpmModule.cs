@@ -15,6 +15,9 @@ using MiniAbp;
 using Sl.Bpm.Application.Base;
 using MiniAbp.Localization;
 using MiniAbp.Runtime;
+using System.Collections.Generic;
+using MiniAbp.Domain.Entities;
+using System.Linq;
 
 namespace Sl.Bpm.Client
 {
@@ -24,9 +27,26 @@ namespace Sl.Bpm.Client
         public static string AuditingConn = ConfigurationManager.ConnectionStrings["AuditingConn"]?.ConnectionString;
         public override void PreInitialize()
         {
-            Configuration.Localization.Sources.Add(new LocalizationSource("Bpm", new LocalJsonProvider(AppPath.RootPath + "\\App_Start\\Localization")));
+            Configuration.UnitOfWork.IsTransactional = true;
             Configuration.Database.ConnectionString = ConfigurationManager.ConnectionStrings["Default"].ConnectionString;
             Configuration.Database.Dialect = Dialect.SqlServer;
+
+            Configuration.Localization.Sources.Add(new LocalizationSource("Bpm", new LocalJsonProvider(AppPath.RootPath + "\\Content\\Custom\\Localization")));
+            // #region 加载数据库层全局多语言
+            var dbLanguage = new Dictionary<string, List<NameValue>>();
+            IEnumerable<AppLanguage> languages = new List<AppLanguage>();
+            languages = DbDapper.Query<AppLanguage>("SELECT * FROM dbo.AppLanguage WHERE EntityId = 'GlobalLanguage'");
+
+
+            var langKeys = languages.GroupBy(r => r.LanguageCulture);
+            foreach (var item in langKeys)
+            {
+                var curKeyLangs = languages.Where(r => r.LanguageCulture == item.Key).Select(r => new NameValue() { Name = r.Key, Value = r.Value }).ToList();
+                dbLanguage.Add(item.Key, curKeyLangs);
+            }
+            Configuration.Localization.Sources.Add(new LocalizationSource("Bpm", new LocalNameValuesProvider(dbLanguage)));
+            // #endregion 结束数据库多语言
+
             //是否开启审计
             var enableAuditing = Convert.ToBoolean(ConfigurationManager.AppSettings["EnableAuditing"]);
             if (enableAuditing)
