@@ -1,10 +1,29 @@
 ﻿@{
+    /**/
+
     Layout = "~/Views/Home/Single.cshtml";
     ViewBag.hasSubMenu = true;
-}
+    var single = Request.QueryString["single"];
+    var title = "";
+    switch (single)
+    {
+        case "workflow":
+            title = "流程中心";
+            break;
+        case "management":
+            title = "管理";
+            break;
+        case "business":
+            title = "业务";
+            break;
+        case "reportCenter":
+            title = "报表中心";
+            break;
+    }
+    ViewBag.title = title;
+    }
 
-<div class="page-con">
-    @Html.Partial("~/Views/Shared/_Header.cshtml")
-    <iframe name="_main" class="imain"></iframe>
-    <div class="loading"><div class="content-spinner-bar"><div class="bounce1"></div><div class="bounce2"></div><div class="bounce3"></div></div></div>
+<div id="imainbd">
+    <iframe name="_main" class="imain" src="/App/SysPages/views/system/default/default.html"></iframe>
 </div>
+@*<div class="loading" style="text-align:center"><div class="content-spinner-bar" style="left:0"><div class="bounce1"></div><div class="bounce2"></div><div class="bounce3"></div></div></div>*@

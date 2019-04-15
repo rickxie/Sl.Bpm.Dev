@@ -1,20 +1,21 @@
-﻿using System.Collections.Generic;
+﻿using MiniAbp.Web;
+using System.Collections.Generic;
 using System.Linq;
 using System.Web.Optimization;
 
 namespace Sl.Bpm.Client
 {
     public static class BundleConfig
-    { 
-            public static void RegisterBundles(BundleCollection bundles)
-            {
-                bundles.IgnoreList.Clear();
+    {
+        public static void RegisterBundles(BundleCollection bundles)
+        {
+            bundles.IgnoreList.Clear();
 
 
-                var baseCss = new StyleBundle("~/base/css") { Orderer = new AsIsBundleOrderer() };
-                var bseJs = new ScriptBundle("~/base/js") { Orderer = new AsIsBundleOrderer() };
+            var baseCss = new StyleBundle("~/base/css") { Orderer = new AsIsBundleOrderer() };
+            var bseJs = new ScriptBundle("~/base/js") { Orderer = new AsIsBundleOrderer() };
 
-                List<StaticResource> js_Sources = new List<StaticResource>()
+            List<StaticResource> js_Sources = new List<StaticResource>()
             {
 
                 new StaticResource(){ Group = 0x00010, Path = "~/Content/Lib_mobile/ionic/dist/ionic.js", SearchParttern = null, SubFolder = false },
@@ -118,11 +119,11 @@ namespace Sl.Bpm.Client
                 new StaticResource(){ Group = 0x00001, Path = "~/Content/Lib/amcharts3/plugins/export/libs/jszip/jszip.js", SearchParttern = null, SubFolder = false },
                 new StaticResource(){ Group = 0x00001, Path = "~/Content/Lib/amcharts3/plugins/export/libs/xlsx/xlsx.js", SearchParttern = null, SubFolder = false },
                 new StaticResource(){ Group = 0x00001, Path = "~/Content/Lib/amcharts3/exporting", SearchParttern ="*.js", SubFolder = true , IsIncludeDirectory = true},
-                new StaticResource(){ Group = 0x01000, Path = "~/Content/Scripts/systemConfig.js", SearchParttern = null, SubFolder = false },
+                new StaticResource(){ Group = 0x11010, Path = "~/Content/Scripts/systemConfig.js", SearchParttern = null, SubFolder = false },
                 
                 //new StaticResource(){ Group = 0x0000, Path = "", SearchParttern = null, SubFolder = false },
             };
-                List<StaticResource> css_Sources = new List<StaticResource>()
+            List<StaticResource> css_Sources = new List<StaticResource>()
             {
                 //zui-1.8.1 component start
                 new StaticResource(){ Group = 0x10000, Path = "~/Content/Lib/zui-1.8.1/css/zui.min.css", SearchParttern = null, SubFolder = false, IsCssRewriteUrlTransform=true  },
@@ -191,60 +192,66 @@ namespace Sl.Bpm.Client
                 // new StaticResource(){ Group = 0x0000, Path = "", SearchParttern = null, SubFolder = false, IsCssRewriteUrlTransform=true },
 
             };
-                // 0x10000
-                var layoutCss = new StyleBundle("~/Layout/Css") { Orderer = new AsIsBundleOrderer() };
-                var layoutJs = new ScriptBundle("~/layout/js") { Orderer = new AsIsBundleOrderer() };
+            // 0x10000
+            var layoutCss = new StyleBundle("~/Layout/Css") { Orderer = new AsIsBundleOrderer() };
+            var layoutJs = new ScriptBundle("~/layout/js") { Orderer = new AsIsBundleOrderer() };
 
-                // 0x01000
-                var syspageCss = new StyleBundle("~/syspages/Css") { Orderer = new AsIsBundleOrderer() };
-                var syspageJs = new ScriptBundle("~/syspages/js") { Orderer = new AsIsBundleOrderer() };
+            // 0x01000
+            var syspageCss = new StyleBundle("~/syspages/Css") { Orderer = new AsIsBundleOrderer() };
+            var syspageJs = new ScriptBundle("~/syspages/js") { Orderer = new AsIsBundleOrderer() };
 
-                // 0x00100
-                var designerCss = new StyleBundle("~/SysDesinger/Css") { Orderer = new AsIsBundleOrderer() };
-                var designerJs = new ScriptBundle("~/SysDesinger/js") { Orderer = new AsIsBundleOrderer() };
+            // 0x00100
+            var designerCss = new StyleBundle("~/SysDesinger/Css") { Orderer = new AsIsBundleOrderer() };
+            var designerJs = new ScriptBundle("~/SysDesinger/js") { Orderer = new AsIsBundleOrderer() };
 
-                // 0x00010
-                var mobilePageCss = new StyleBundle("~/MobilePages/Css") { Orderer = new AsIsBundleOrderer() };
-                var mobileJs = new ScriptBundle("~/MobilePages/Js") { Orderer = new AsIsBundleOrderer() };
+            // 0x00010
+            var mobilePageCss = new StyleBundle("~/MobilePages/Css") { Orderer = new AsIsBundleOrderer() };
+            var mobileJs = new ScriptBundle("~/MobilePages/Js") { Orderer = new AsIsBundleOrderer() };
 
-                // 0x00001
-                var amchartsJs = new ScriptBundle("~/Bundles/App/Global/js/amcharts") { Orderer = new AsIsBundleOrderer() };
+            // 0x00001
+            var amchartsJs = new ScriptBundle("~/Bundles/App/Global/js/amcharts") { Orderer = new AsIsBundleOrderer() };
 
-                IncludeCss(layoutCss, css_Sources, 0x10000);
-                IncludeJs(layoutJs, js_Sources, 0x10000);
+            IncludeCss(layoutCss, css_Sources, 0x10000);
+            // 添加 \\AppPages\\Base中的Js
+            layoutJs.IncludeDynamicSharedJs();
+            IncludeJs(layoutJs, js_Sources, 0x10000);
 
-                IncludeCss(syspageCss, css_Sources, 0x01000);
-                IncludeJs(syspageJs, js_Sources, 0x01000);
+            IncludeCss(syspageCss, css_Sources, 0x01000);
+            // 添加 \\AppPages\\Base中的Js
+            syspageJs.IncludeDynamicSharedJs();
+            IncludeJs(syspageJs, js_Sources, 0x01000);
 
-                IncludeCss(designerCss, css_Sources, 0x00100);
-                IncludeJs(designerJs, js_Sources, 0x00100);
+            IncludeCss(designerCss, css_Sources, 0x00100);
+            IncludeJs(designerJs, js_Sources, 0x00100);
 
-                IncludeCss(mobilePageCss, css_Sources, 0x00010);
-                IncludeJs(mobileJs, js_Sources, 0x00010);
+            IncludeCss(mobilePageCss, css_Sources, 0x00010);
+            // 添加 \\AppPages\\Base中的Js
+            mobileJs.IncludeDynamicSharedJs();
+            IncludeJs(mobileJs, js_Sources, 0x00010);
 
-                IncludeJs(amchartsJs, js_Sources, 0x00001);
-
-
-                bundles.Add(layoutCss);
-                bundles.Add(layoutJs);
-
-                bundles.Add(syspageCss);
-                bundles.Add(syspageJs);
-
-
-                bundles.Add(designerJs);
-                bundles.Add(designerCss);
+            IncludeJs(amchartsJs, js_Sources, 0x00001);
 
 
-                bundles.Add(mobilePageCss);
-                bundles.Add(mobileJs);
+            bundles.Add(layoutCss);
+            bundles.Add(layoutJs);
 
-                bundles.Add(amchartsJs);
+            bundles.Add(syspageCss);
+            bundles.Add(syspageJs);
 
 
-            }
+            bundles.Add(designerJs);
+            bundles.Add(designerCss);
 
-            private static void IncludeCss(StyleBundle bundle, List<StaticResource> resource, int where)
+
+            bundles.Add(mobilePageCss);
+            bundles.Add(mobileJs);
+
+            bundles.Add(amchartsJs);
+
+
+        }
+
+        private static void IncludeCss(StyleBundle bundle, List<StaticResource> resource, int where)
             {
                 var list = resource.Where(r => (r.Group & where) == where).ToList();
                 var list2 = resource.Where(r => (r.Group & where) == where).Select(r => r.Path).ToList();

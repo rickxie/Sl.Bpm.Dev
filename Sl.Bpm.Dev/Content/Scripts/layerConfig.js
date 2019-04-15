@@ -1,4 +1,5 @@
-﻿window.$alert = function (msg, title) {
+﻿
+window.$alert = function (msg, title) {
     layer.alert(msg, { title: title || "提示" });
 }
 window.$confirm = function (msg, callback1, callback2) {
@@ -33,3 +34,22 @@ window.$load = function (type) {
         });
     }
 }
+
+// 强制关闭代码
+// 关闭窗口js无效.(window.close())
+window.$close = function () {
+    window.open('', '_self', '');
+    window.close();
+}
+
+$(function () {
+    $.fn.extend({
+        handleDelay: function (type) {            
+            if (type == false) {
+                this.removeClass("handle-delay");
+            } else {
+                this.addClass("handle-delay");
+            }
+        }
+    })
+})

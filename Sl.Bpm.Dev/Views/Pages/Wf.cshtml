@@ -92,6 +92,7 @@
                             $queryString:  @(Html.Raw(format(Model.QueryString))),
                             $loaded: @(Html.Raw(format(Model.Loaded))),
                             refId:@Html.Raw(format(Model.RefId)),
+                            $formVersion:'@Html.Raw(Model.FormVersion)',
                             pageId: '@Model.Input.PageId',
                             html:@(Html.Raw(format(Model.Page.PcHtml))),
                             js: @(Html.Raw(format(Model.Page.PcController))),

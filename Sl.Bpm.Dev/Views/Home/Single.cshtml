@@ -4,13 +4,13 @@
 }
 @section head
 {
-    <title ng-bind="$enterpriseName + ' BPM系统'"></title>
-    @Styles.Render("~/SysPages/Css")
+    <title>@ViewBag.title-BPM系统</title>
     <link href="~/Content/Style/zui-icon.css" rel="stylesheet" />
-    <script src="~/Shared/Permissions" type="text/javascript"></script>
+    @Styles.Render("~/SysPages/Css")
+    <script src="/Shared/Permissions" type="text/javascript"></script>
 }
 @Scripts.Render("~/SysPages/js")
-<div class="@Html.Raw(ViewBag.hasSubMenu!=null&&ViewBag.hasSubMenu==true?"with-submenu":"no-submenu")">
+<div class="@Html.Raw(ViewBag.hasSubMenu != null && ViewBag.hasSubMenu == true ? "with-submenu" : "no-submenu")">
     <div class="menu-fold">
         <label>
             <i class="icon-angle-left"></i>
@@ -23,8 +23,19 @@
     <div class="page-main">
         <div class="page-con">
             @Html.Partial("~/Views/Shared/_Header.cshtml")
-            @RenderBody()
-        </div>        
+            @{
+                if (ViewBag.SinglePage == true)
+                {
+                    <div id="imainbd">
+                        <iframe name="_main" class="imain" src="/App/SysPages/views/system/default/default.html"></iframe>
+                    </div>
+                }
+                else
+                {
+                    @RenderBody()
+                }
+            }
+        </div>
     </div>
 </div>
 @section foot
