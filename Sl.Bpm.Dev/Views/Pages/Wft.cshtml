@@ -48,23 +48,28 @@
                     }
                     taskService.getHandledNode({ Id: pageInfo.taskId }).then(function (nodeList) {
                         if (nodeList.length > 1) {
-                            var $modalScope = $scope.$new(true);
-                            $modalScope.models = nodeList;
-                            var info = _shared.dialogs["handledNodeSelect"];
+                            if ($systemConfig.workFlowConfig.showNodesInMyRaised) {
+                                var $modalScope = $scope.$new(true);
+                                $modalScope.models = nodeList;
+                                var info = _shared.dialogs["handledNodeSelect"];
 
-                            var m = $modal({
-                                templateUrl: info.templateUrl,
-                                scope: $modalScope,
-                                controller: '{0} as vm'.fill(info.controller),
-                                size: info.size || "md"
-                            });
-                            m.result.then(function (info) {
-                                if (info) {
-                                    toWf(info.id);
-                                } else {
-                                    window.close();
-                                }
-                            });
+                                var m = $modal({
+                                    templateUrl: info.templateUrl,
+                                    scope: $modalScope,
+                                    controller: '{0} as vm'.fill(info.controller),
+                                    size: info.size || "md"
+                                });
+                                m.result.then(function (info) {
+                                    if (info) {
+                                        toWf(info.id);
+                                    } else {
+                                        window.$close();
+                                    }
+                                });
+                            } else {
+                                var info = nodeList[0];
+                                toWf(info.id);
+                            }
                         }
                         else if (nodeList.length == 1) {
                             var info = nodeList[0];

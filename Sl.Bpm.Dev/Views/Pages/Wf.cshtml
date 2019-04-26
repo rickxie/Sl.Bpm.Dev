@@ -19,7 +19,6 @@
         <title></title>
     }
     @Styles.Render("~/SysPages/Css")
-    <script src="~/Shared/Permissions" type="text/javascript"></script>
 }
 <body class="@if (isPdf)
              { @Html.Raw("print-theme");}
@@ -67,6 +66,7 @@
     </div>
 
     @Scripts.Render("~/SysPages/Js")
+    <script src="~/Shared/Permissions" type="text/javascript"></script>
     <script type="text/html" id="pcHtml">
         @Html.Raw(Model.Page.PcHtml)
     </script>
@@ -78,8 +78,7 @@
                     $translateProvider.translations('zh-CN', mabp.localization['Bpm.zh-CN']);
                     $translateProvider.preferredLanguage(window.$currentUser.language);
                 }
-            ]) 
-            .controller('PageCtrl',
+            ]).controller('PageCtrl',
             ['mabp.app.module', 'mabp.app.task', '$compile', '$scope', '$timeout', 'formHelper', 'appSession', '$rootScope', '$pageDialog', 'mabp.app.bpm', '$modal', 'appSession',
                 function (service, taskService, $compile, $scope, $timeout, formHelper, session, $rootScope, $pageDialog, bpmService, $modal,session) {
                         //formHelper.sessionEndload($rootScope, result);
@@ -102,8 +101,8 @@
                             title: '@Model.Page.PageName',
                             nodeCode: '@Model.Input.NodeCode',
                             nodeId: '@Model.Input.NodeId',
-                            jobId: '@Model.Input.JobId',
-                            applicantJobId: '@Model.Input.JobId', // 申请人JobId
+                            jobId: '@Model.Input.JobId', // 发起流程时的发起人JobId
+                            applicantJobId: '@Model.Input.JobId', // 发起流程时的 申请人JobId
                             draftId: '@Model.Input.DraftId', //若为草稿打开则存在DraftId
                             procId: '@Model.Input.ProcId', //若为某一步打开则存在步骤Id
                             taskId: '@Model.Input.TaskId',
@@ -143,10 +142,10 @@
                                 //新窗体打开，延迟1.5秒
                                 if (!!this.isNewTab) {
                                     $timeout(function () {
-                                        window.close();
+                                        window.$close();
                                     }, 1500);
                                 } else {
-                                    window.close();
+                                    window.$close();
                                 }
                             }, //关闭当前窗体方法
                             nextProcId: '', //下一步处理人Id
@@ -157,8 +156,8 @@
                                 base.actionButtons.push({ type: btnType, name: btnName, id: btnId });
                                 base.memo = memo;
                             },
-                            $initial: [], //保存刚打开的数据，用于Callback-func 第一次调用使用.
-                            topicRequired: false//是否要填写主题,默认为不填
+                            $initial: [], //保存刚打开的数据，用于Callback-func 第一次调用使用. 
+                            $viewDialog: viewDialog, // 手动调用视图弹窗
                         }
                     // 检查岗位是否多个
                     function checkJobId() {
@@ -176,7 +175,7 @@
 
                         // 从哪个岗位打开页面
                         bpmService.getUserJobs().then(function (jobList) {
-                            if (jobList.length > 1 || vm.base.topicRequired) {
+                            if (jobList.length > 1 || $systemConfig.workFlowConfig.topicRequired) {
                                 if (jobList == null || jobList.length === 0) {
                                     mabp.notify.error("没有身份,无法发起流程");
                                     d.resolve(false);
@@ -184,7 +183,7 @@
                                 }
                                 var $modalScope = $scope.$new(true);
                                 $modalScope.models = jobList;
-                                $modalScope.topicRequired = vm.base.topicRequired;
+                                $modalScope.topic = vm.base.topic = vm.base.title + "-" + $currentUser.name + "-" + (new Date()).format("yyyy-MM-dd") ;
                                 var info = _shared.dialogs["jobSelect"];
 
                                 var m = $modal({
@@ -311,6 +310,6 @@
                         }
                     });
                 }
-            ]); 
+            ]);
     </script>
 </body>

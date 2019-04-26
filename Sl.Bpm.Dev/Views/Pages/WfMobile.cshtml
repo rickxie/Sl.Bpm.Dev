@@ -1,11 +1,12 @@
 ﻿@using System.Web.Optimization
-@using MiniAbp.Extension
+@using MiniAbp.Extension;
 
 @{
     Layout = "~/Views/Shared/_Layout_m.cshtml";
-    var isPdf = ViewBag.isPdf == "1" || ViewBag.isPrint == "1";
+    var isPdf = Model.Input.IsPdf == "1" || Model.Input.IsPrint == "1";
     Func<object, string> format = (o) => { return o.SerializeJsonCamelCase(); };
 }
+@model Sl.Bpm.Repository.Dto.AppPageResultDto
 @section head
 {
     <link rel="icon" type="image/gif" href="../../Content/Images/AppTitle.png">
@@ -20,11 +21,7 @@
     @Styles.Render("~/MobilePages/Css")
     <style>
         #container {
-            position: absolute;
-            left: 0;
-            right: 0;
-            top: 0;
-            bottom: 0;
+            
             overflow-x: hidden;
             overflow-y: auto;
             -webkit-overflow-scrolling: touch;
@@ -34,14 +31,12 @@
                 display: none;
             }
     </style>
-    <script src="~/Shared/Permissions" type="text/javascript"></script>
 }
-@model Sl.Bpm.Repository.Dto.AppPageResultDto
 <body class="@if (isPdf)
              { @Html.Raw("print-theme");}
              else
              { @Html.Raw("my-theme-deep");} print-preview" ng-controller="PageCtrl as vm">
-    <div class="container form-container" id="container">
+    <div class="container form-container" >
         @*style="height:500px;overflow-y:scroll;-webkit-overflow-scrolling: touch;"*@
         <div class="form-horizontal page_content fm-form-block entire-block content-on-load">
             <div class="fm-content" page-state="{{base.pageState}}" page-language="{{base.language}}">
@@ -99,6 +94,7 @@
     </div>
     @Scripts.Render("~/MobilePages/Js")
     <script src="http://res2.wx.qq.com/open/js/jweixin-1.4.0.js" type="text/javascript"></script>
+    <script src="~/Shared/Permissions" type="text/javascript"></script>
     <script type="text/javascript">
         angular.module('app', ['mabp', 'app.shared', 'angularFileUpload', 'pascalprecht.translate'])
             .config([
@@ -108,37 +104,36 @@
                     $translateProvider.preferredLanguage(window.$currentUser.language);
                 }
             ]).controller('PageCtrl',
-                ['mabp.app.module', 'mabp.app.task', '$compile', '$scope', '$timeout', 'formHelper', 'appSession', '$rootScope', '$pageDialog', 'mabp.app.bpm', '$modal',
-                    function (service, taskService, $compile, $scope, $timeout, formHelper, session, $rootScope, $pageDialog, bpmService, $modal) {
+                ['viewDialog', 'mabp.app.task', '$compile', '$scope', '$timeout', 'formHelper', 'viewDialog', '$rootScope', '$pageDialog', 'mabp.app.bpm', '$modal',
+                    function (viewDialog, taskService, $compile, $scope, $timeout, formHelper, viewDialog, $rootScope, $pageDialog, bpmService, $modal) {
                     var vm = this;
                     //debugger;
                         vm.isLoaded = false;
-                        var pa = !!_shared.escape2Html('@ViewBag.param')?_shared.escape2Html('@ViewBag.param'):null;
-                    var param = JSON.parse(pa);
-
-                           // 初始化 base对象
-                        vm.base = {
+                        var pa = !!_shared.escape2Html('@Model.Input.Param')?_shared.escape2Html('@Model.Input.Param'):null;
+                        var param = JSON.parse(pa);
+                        // 初始化 base对象
+                    vm.base = {
                             $queryString:  @(Html.Raw(format(Model.QueryString))),
                             $loaded: @(Html.Raw(format(Model.Loaded))),
                             refId:@Html.Raw(format(Model.RefId)),
                             $formVersion:'@Html.Raw(Model.FormVersion)',
                             pageId: '@Model.Input.PageId',
-                            html: `@(Html.Raw(Model.Page.MobileHtml))`,
-                            js: `@(Html.Raw(Model.Page.MobileController))`,
+                            html:@(Html.Raw(format(Model.Page.MobileHtml))),
+                            js: @(Html.Raw(format(Model.Page.MobileController))),
                             fileName: '@Model.Page.FileName',
                             workflowId: '@Model.Page.WfdWorkflowId',
-                            aliasTables:JSON.parse(`@(Html.Raw(Model.Page.AliasTables == null ? null : Model.Page.AliasTables.SerializeJsonCamelCase()))` || null), //页面涉及的表别名
+                            aliasTables:@Html.Raw(format(Model.Page.AliasTables)), //页面涉及的表别名
                             title: '@Model.Page.PageName',
                             nodeCode: '@Model.Input.NodeCode',
                             nodeId: '@Model.Input.NodeId',
-                            jobId: '@Model.Input.JobId',
-                            applicantJobId: '@Model.Input.JobId', // 申请人JobId
+                            jobId: '@Model.Input.JobId', // 发起流程时的发起人JobId
+                            applicantJobId: '@Model.Input.JobId', // 发起流程时的 申请人JobId
                             draftId: '@Model.Input.DraftId', //若为草稿打开则存在DraftId
                             procId: '@Model.Input.ProcId', //若为某一步打开则存在步骤Id
                             taskId: '@Model.Input.TaskId',
                             nodeType: @(Model.Input.NodeType==null? -1 : Model.Input.NodeType),
                             areaCode: '@Model.Input.AreaCode',
-                            areaEnable: '@Model.Page.AreaEnable',
+                            areaEnable: @Html.Raw(format(Model.Page.AreaEnable)),
                             areaCodeList:  '@Model.Page.AreaCodeList', //流程可选公司范围 [ text: '文本', areaCode: 'CompanyCode'] 只在发起时使用
                             displayLanguages: '@Model.Input.DisplayLanguages',
                             param: param,
@@ -147,15 +142,14 @@
                             isWaiting:'@Model.Input.IsWaiting',
                             isNewTab: true,  //是否新窗口打开
                             isPrint: '@Model.Input.IsPrint' === '1',
-                            basicAndViewData: {}, //初始加载视图和基础数据
-                            pageRight: JSON.parse(`@(Html.Raw(format(Model.PageRight)))` || null),
-                            formAction: JSON.parse(`@(Html.Raw(format(Model.FormActions)))` || null),
+                            pageRight: @(Html.Raw(format(Model.PageRight))),
+                            formAction: @(Html.Raw(format(Model.FormActions))),
                             formBody: @(Html.Raw(format(Model.FormBody))) || [],
-                            formHeader: JSON.parse(`@(Html.Raw(format(Model.FormHeader)))` || null),
-                            formHistory: JSON.parse(`@(Html.Raw(format(Model.FormHistory)))` || null),
-                            formExpectApprover: JSON.parse(`@(Html.Raw(format(Model.FormExpectApprover)))` || null),
-                            pageLanguages: JSON.parse('@(Html.Raw(format(Model.PageLang)))' || null),
-                            companyPermission: JSON.parse(`@(Html.Raw(format(Model.CompanyPermission)))` || null),
+                            formHeader: @(Html.Raw(format(Model.FormHeader))),
+                            formHistory: @(Html.Raw(format(Model.FormHistory))),
+                            formExpectApprover:@(Html.Raw(format(Model.FormExpectApprover))),
+                            pageLanguages:@(Html.Raw(format(Model.PageLang))),
+                            companyPermission: @(Html.Raw(format(Model.CompanyPermission))),
                             $rejectNeedMemo: true,
                             pageState: 3, //页面打开的状态 1 发起 / 2 审批 / 3 查看 默认3
                             snNumber: null,
@@ -188,9 +182,9 @@
                                 base.actionButtons.push({ type: btnType, name: btnName, id: btnId });
                                 base.memo = memo;
                             },
-                            $initial: [], //保存刚打开的数据，用于Callback-func 第一次调用使用.
-                    }
-                        vm.base.basicAndViewData.showHeaderAndTitle='@ViewBag.showHeaderAndTitle'.toLowerCase()=='true'//手机端是否显示自定义的标题，不显示返回的html自带的标题
+                            $initial: [], //保存刚打开的数据，用于Callback-func 第一次调用使用. 
+                            $viewDialog: viewDialog, // 手动调用视图弹窗
+                        }
                     // 检查岗位是否多个
                     function checkJobId() {
                         var d = $.Deferred();
@@ -198,6 +192,7 @@
                             d.resolve(true);
                             return d.promise();
                         }
+
                         //if (!session.telephone || session.telephone == '0') {
                         //    mabp.notify.error("请先完善个人中心的联系方式");
                         //    d.resolve(false);
@@ -206,7 +201,7 @@
 
                         // 从哪个岗位打开页面
                         bpmService.getUserJobs().then(function (jobList) {
-                            if (jobList.length > 1) {
+                            if (jobList.length > 1 || $systemConfig.workFlowConfig.topicRequired) {
                                 if (jobList == null || jobList.length === 0) {
                                     mabp.notify.error("没有身份,无法发起流程");
                                     d.resolve(false);
@@ -214,6 +209,7 @@
                                 }
                                 var $modalScope = $scope.$new(true);
                                 $modalScope.models = jobList;
+                                $modalScope.topic = vm.base.topic = vm.base.title + "-" + $currentUser.name + "-" + (new Date()).format("yyyy-MM-dd");
                                 var info = _shared.dialogs["jobSelect"];
 
                                 var m = $modal({
@@ -224,9 +220,10 @@
                                     backdrop: 'static',
                                     keyboard: false
                                 });
-                                m.result.then(function (jobId) {
-                                    vm.base.jobId = jobId;
-                                    vm.base.applicantJobId = jobId;
+                                m.result.then(function (info) {
+                                    vm.base.jobId = info.jobId;
+                                    vm.base.applicantJobId = info.jobId;
+                                    vm.base.topic = vm.base.topic || info.topic;
                                     d.resolve(true);
                                 });
                             }
@@ -284,7 +281,25 @@
                         });
                         return d.promise();
                     }
-
+                        function showErrMsg(msg, tf) {
+                            bootbox.confirm({
+                                title: '<span class="text-warning"><i class="icon icon-warning-sign"></i> 出错提示</span>',
+                                message: "<span class='text-primary'>" + msg + "</span>",
+                                buttons: {
+                                    cancel: {
+                                        label: '<i class="icon icon-times"></i> 取消'
+                                    },
+                                    confirm: {
+                                        label: '<i class="icon icon-check"></i> 确定'
+                                    }
+                                },
+                                callback: function (result) {
+                                    if (result && tf) {
+                                        window.location.href = "/Account/Logout";
+                                    }
+                                }
+                            });
+                        }
                     // 确保打开的岗位和节点都是确定的
                     $.when(checkJobId(), checkNodeId()).done(function (r1, r2) {
                         //只有检测jobId和nodeId都成功才执行操作
@@ -307,30 +322,42 @@
 
 
                             formHelper.pageStart(base, form, $scope, $rootScope);
+
+                            if (base.refId) {
+                                $rootScope.title = "任务号:" + base.refId + " 当前用户:" + $currentUser.nickName;
+                            } else {
+                                $rootScope.title = "新流程";
+                            }
                         }
-                    });
+                        else if (!r1) {
+                            showErrMsg("当前账号 [ <label class='text-danger'>"
+                                + $currentUser.account
+                                + "</label> ] 没有 [ <label class='text-danger'>岗位</label> ] 信息,是否切换账号?", true);
 
-
-                    $(function() {
-                        if (navigator.platform == "iPhone") {
-                            $("#container").css({
-                                height: window.innerHeight + "px",
-                                '-webkit-overflow-scrolling': "touch",
-                                'overflow-y': "scroll",
-                                position: 'fixed',
-                                top: 0,
-                                left: 0,
-                                right: 0,
-                                bottom: 0
-                            });
-                        };
-                    });
+                        } else if (!r2) {
+                            showErrMsg("找不到当前流程的节点信息");
+                        }
+                        });
+                        $(function () {
+                            if (navigator.platform == "iPhone") {
+                                $("#container").css({
+                                    height: window.innerHeight + "px",
+                                    '-webkit-overflow-scrolling': "touch",
+                                    'overflow-y': "scroll",
+                                    position: 'fixed',
+                                    top: 0,
+                                    left: 0,
+                                    right: 0,
+                                    bottom: 0
+                                });
+                            };
+                        });
 
 
                         $scope.myCallback = function (data) {
                             console.log(data);
                             setTimeout(function () {
-                                formHelper.postMessage.call(parent,"goBackMethod");
+                                formHelper.postMessage.call(parent, "goBackMethod");
                             }, 1500);//时间好和后台弹窗的时间基本一致
                         }
                         $scope.moveToErrorEle = function (ele) {
@@ -341,7 +368,7 @@
                                 scrollTop: Math.floor(jqLiteEle.offset().top) - 56 - window.innerHeight / 3//扣除标题和移动到屏幕1/3处
                             }, 100, "linear", function moveCompleted() {
                                 jqLiteEle.parents('dd').show();//打开所在的位置块
-                                $(":not(.readonly)",jqLiteEle).focus();
+                                $(":not(.readonly)", jqLiteEle).focus();
                             });
                         }
                 }

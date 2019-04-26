@@ -7,17 +7,17 @@
 @model Sl.Bpm.Repository.Dto.AppPageResultDto
 @section head
 {
-    <link rel="icon" type="image/gif" href="~/Content/Images/AppTitle.png">
+    <link rel="icon" type="image/gif" href="../../Content/Images/AppTitle.png">
     <title ng-bind="title"></title>
     @Styles.Render("~/SysPages/Css")
 }
 
 <body ng-controller="PageCtrl as vm">
-    <div class="form-container page_content entire-block content-on-load contenter-box-x">
+    <div class="form-container page_content entire-block contenter-box-x">
 
         <!--此处会加载表单内容-->
     </div>
-    <script src="~/Shared/Permissions" type="text/javascript"></script>
+    <script src="/Shared/Permissions " type="text/javascript"></script>
     @Scripts.Render("~/SysPages/Js")
     <script type="text/html" id="pcHtml">
         @Html.Raw(Model.Page.PcHtml)
@@ -32,8 +32,9 @@
                 }
             ]).controller('PageCtrl',
             [
-               '$scope', 'formHelper', 'appSession', '$rootScope', '$timeout', '$pageDialog', 'mabp.app.file','$interval',
-                function ($scope, formHelper, session, $rootScope, $timeout, $pageDialog, fileSv, $interval) {
+               '$scope', 'formHelper', 'viewDialog', '$rootScope', '$timeout', '$pageDialog', 'mabp.app.file','$interval',
+                function ($scope, formHelper, viewDialog, $rootScope, $timeout, $pageDialog, fileSv, $interval) {
+                    window.parent.postMessage({ message: "tryToLogin" }, "*");
                     var vm = this;
                     vm.isLoaded = false;
                     //初始化容器对象
@@ -53,7 +54,8 @@
                             $pageLang: mabp.localization['Bpm.' + app.language], //系统多语言信息 参考 /App_Start/Localization
                             language: app.language, //页面当前语言
                             ruleL: _shared.languageSetting.defaultRules[app.language],//静态多语言设置 参考App/_shared/language/languageSetting.js
-                            close: function () { window.close(); }
+                            close: function () { window.$close(); },
+                            $viewDialog: viewDialog, // 手动调用视图弹窗
                     };
 
                     var form = $scope.form =  {
@@ -87,8 +89,8 @@
                         $delete: function (item) {
                             formHelper.deleteBasicData(base,item, form);
                         },
-                        $edit: function (dialogName, item, callBack) {
-                            form.$openDialog(dialogName, item, callBack, { size: "lg" });
+                        $edit: function (dialogName, item,callBack,size) {
+                            form.$openDialog(dialogName, item, callBack, { size: size||"lg"});
                         },
                         $sort: function (col, asc, code) {
                             var _asc = form.paging.ascending === "true" ? "ASC" : "DESC";

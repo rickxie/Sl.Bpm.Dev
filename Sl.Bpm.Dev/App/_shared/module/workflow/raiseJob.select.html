@@ -2,8 +2,8 @@
     <div class="modal-header" style="cursor: default;">
         <h4 class="modal-title">
             <i class="icon-list"></i>
-            <span ng-if="!vm.topicRequired">&nbsp;{{'SelectRoles' | translate}}</span>
-            <span ng-if="vm.topicRequired">&nbsp;主题及身份</span>
+            <span ng-if="!vm.topicRequired">&nbsp;{{'ApplyTopicAndRole' | translate}}</span>
+            <span ng-if="vm.topicRequired">&nbsp;{{'ApplyTopicAndRole' | translate}}</span>
         </h4>
     </div>
     <modal-body>
@@ -20,20 +20,20 @@
         <div class="form-group">
             <div class="row" style="padding:0 10px">
 
-                <div class="panel"  ng-if="vm.topicRequired">
+                <div class="panel" ng-if="vm.topicRequired">
                     <div class="panel-heading">
-                        主题
+                        {{'ApplyTopic' | translate}}
                     </div>
                     <div class="col-lg-12" style="padding:15px 15px;">
                         <div class="input-control has-icon-left">
-                            <textarea id="topic" ng-model="vm.topic" type="text" class="form-control" placeholder="主题,用于查询请勿随意填写"></textarea>
+                            <textarea id="topic" ng-model="vm.topic" type="text" class="form-control" placeholder="{{ 'ApplyTopicPlaceholder ' | translate}}"></textarea>
                         </div>
                     </div>
                 </div>
 
                 <div class="panel">
                     <div class="panel-heading">
-                        {{'Roles'|translate}}
+                        {{'RoleInSystem'|translate}}
                     </div>
                     <div class="col-lg-12" style="padding:15px 15px;">
                         <div ng-repeat="i in vm.models">
