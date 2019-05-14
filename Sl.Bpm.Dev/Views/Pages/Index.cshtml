@@ -8,11 +8,12 @@
 @section head
 {
     <link rel="icon" type="image/gif" href="../../Content/Images/AppTitle.png">
-    <title ng-bind="title"></title>
+    <title>@Model.Page.PageName</title>
     @Styles.Render("~/SysPages/Css")
 }
 
 <body ng-controller="PageCtrl as vm">
+    <h2 id="pageTitle">@Model.Page.PageName</h2>
     <div class="form-container page_content entire-block contenter-box-x">
 
         <!--此处会加载表单内容-->
@@ -23,6 +24,10 @@
         @Html.Raw(Model.Page.PcHtml)
     </script>
     <script type="text/javascript">
+        //新页面中打开显示标题
+        if (self == top) {
+            $("#pageTitle").show();
+        }
         angular.module('app', ['mabp', 'app.shared', 'pascalprecht.translate'])
             .config([
                 '$translateProvider', function ($translateProvider) {

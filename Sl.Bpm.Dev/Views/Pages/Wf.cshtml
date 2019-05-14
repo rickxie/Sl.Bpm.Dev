@@ -23,7 +23,7 @@
 <body class="@if (isPdf)
              { @Html.Raw("print-theme");}
              else
-             { @Html.Raw("my-theme-deep");} print-preview body-login" ng-controller="PageCtrl as vm">
+             { @Html.Raw("my-theme-deep");} print-preview body-login  edit-caution" ng-controller="PageCtrl as vm">
     <div class="container form-container">
         <div class="form-horizontal container page_content fm-form-block entire-block content-on-load">
             <div class="fm-content" page-state="{{base.pageState}}" page-language="{{base.language}}">
@@ -79,8 +79,8 @@
                     $translateProvider.preferredLanguage(window.$currentUser.language);
                 }
             ]).controller('PageCtrl',
-            ['mabp.app.module', 'mabp.app.task', '$compile', '$scope', '$timeout', 'formHelper', 'appSession', '$rootScope', '$pageDialog', 'mabp.app.bpm', '$modal', 'appSession',
-                function (service, taskService, $compile, $scope, $timeout, formHelper, session, $rootScope, $pageDialog, bpmService, $modal,session) {
+            ['mabp.app.module', 'mabp.app.task', '$compile', '$scope', '$timeout', 'formHelper', 'viewDialog', '$rootScope', '$pageDialog', 'mabp.app.bpm', '$modal', 'appSession',
+                function (service, taskService, $compile, $scope, $timeout, formHelper, viewDialog, $rootScope, $pageDialog, bpmService, $modal,session) {
                         //formHelper.sessionEndload($rootScope, result);
                         var vm = this;
                         vm.isLoaded = false;
@@ -156,8 +156,11 @@
                                 base.actionButtons.push({ type: btnType, name: btnName, id: btnId });
                                 base.memo = memo;
                             },
-                            $initial: [], //保存刚打开的数据，用于Callback-func 第一次调用使用. 
+                            $initial: [], //保存刚打开的数据，用于Callback-func 第一次调用使用.
                             $viewDialog: viewDialog, // 手动调用视图弹窗
+                            $openDialog: function (fileName, fileInfo, param, callBack, size) {//打开其他子页面
+                                $pageDialog.open(fileName, fileInfo, {}, param, callBack, { size: size || "lg" });
+                            }
                         }
                     // 检查岗位是否多个
                     function checkJobId() {
@@ -166,7 +169,6 @@
                             d.resolve(true);
                             return d.promise();
                         }
-
                         //if (!session.telephone || session.telephone == '0') {
                         //    mabp.notify.error("请先完善个人中心的联系方式");
                         //    d.resolve(false);
@@ -174,7 +176,9 @@
                         //}
 
                         // 从哪个岗位打开页面
-                        bpmService.getUserJobs().then(function (jobList) {
+                        bpmService.getUserJobs().then(function (result) {
+                            // 可被选中的职位信息
+                            var jobList = result;
                             if (jobList.length > 1 || $systemConfig.workFlowConfig.topicRequired) {
                                 if (jobList == null || jobList.length === 0) {
                                     mabp.notify.error("没有身份,无法发起流程");
@@ -190,12 +194,14 @@
                                     templateUrl: info.templateUrl,
                                     scope: $modalScope,
                                     controller: '{0} as vm'.fill(info.controller),
-                                    size: info.size || "md"
+                                    size: info.size || "md",
+                                    backdrop: "static"
                                 });
                                 m.result.then(function (info) {
+                                    debugger;
                                     vm.base.jobId = info.jobId;
                                     vm.base.applicantJobId = info.jobId;
-                                    vm.base.topic = vm.base.topic || info.topic;
+                                    vm.base.topic = info.topic || vm.base.topic;
                                     d.resolve(true);
                                 });
                             }
@@ -310,6 +316,13 @@
                         }
                     });
                 }
-            ]);
+            ]).filter('toPercent', function () {
+                return function (num) {
+                    if (parseFloat(num).toString() === "NaN" || parseFloat(num) === 0) {
+                        return num;
+                    }
+                    return Number(num * 100).toFixed(2) + "%";
+                }
+            });
     </script>
 </body>

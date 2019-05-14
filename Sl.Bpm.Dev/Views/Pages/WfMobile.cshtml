@@ -21,7 +21,6 @@
     @Styles.Render("~/MobilePages/Css")
     <style>
         #container {
-            
             overflow-x: hidden;
             overflow-y: auto;
             -webkit-overflow-scrolling: touch;
@@ -30,13 +29,66 @@
             #container::-webkit-scrollbar {
                 display: none;
             }
+
+        nav {
+            position: fixed;
+            background-color: #2778be;
+            color: white;
+            z-index: 999;
+            width: 107%;
+            height: 40px;
+            margin-bottom: 0px
+        }
+
+        nav {
+            margin-bottom: 0px;
+        }
+
+            nav .container-fluid .navbar-header .btn {
+                background-color: transparent;
+                border: none;
+                z-index: 999;
+            }
+
+            nav span {
+                text-align: center;
+                width: 70%;
+                display: inline-block;
+            }
+
+            nav i {
+                font-size: 23px !important;
+                color: white;
+                margin-top: -5px;
+                display: inline-block;
+            }
     </style>
 }
 <body class="@if (isPdf)
              { @Html.Raw("print-theme");}
              else
              { @Html.Raw("my-theme-deep");} print-preview" ng-controller="PageCtrl as vm">
-    <div class="container form-container" >
+
+    @{
+        string isShowHeader = Request.QueryString["isShowHeader"];
+    }
+    @if (isShowHeader == "true")
+    {
+        <nav class="row container">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <button type="button" class="btn btn-lg btn-back" onclick="window.history.back()" style="background-color:transparent; border:none; z-index:999;height:40px;">
+                        <i class="icon icon-angle-left"></i>
+                    </button>
+                    <span style="text-align:center;">{{base.title}}</span>
+                </div>
+            </div>
+        </nav>
+        <div style="height:45px">
+
+        </div>
+    }
+    <div class="container form-container">
         @*style="height:500px;overflow-y:scroll;-webkit-overflow-scrolling: touch;"*@
         <div class="form-horizontal page_content fm-form-block entire-block content-on-load">
             <div class="fm-content" page-state="{{base.pageState}}" page-language="{{base.language}}">
@@ -182,7 +234,7 @@
                                 base.actionButtons.push({ type: btnType, name: btnName, id: btnId });
                                 base.memo = memo;
                             },
-                            $initial: [], //保存刚打开的数据，用于Callback-func 第一次调用使用. 
+                            $initial: [], //保存刚打开的数据，用于Callback-func 第一次调用使用.
                             $viewDialog: viewDialog, // 手动调用视图弹窗
                         }
                     // 检查岗位是否多个
@@ -218,7 +270,7 @@
                                     controller: '{0} as vm'.fill(info.controller),
                                     size: info.size || "md",
                                     backdrop: 'static',
-                                    keyboard: false
+                                    keyboard: false,
                                 });
                                 m.result.then(function (info) {
                                     vm.base.jobId = info.jobId;
