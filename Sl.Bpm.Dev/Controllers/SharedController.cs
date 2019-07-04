@@ -198,8 +198,11 @@ namespace Sl.Bpm.Client.Controllers
 
             {
                 var permissions = _permissionSv.GetUserPermissions();
-                ViewBag.Permissions = permissions;
-                ViewBag.User = _systemSv.GetUserInfo().SerializeJsonCamelCase();
+                ViewBag.Permissions = permissions;  
+                //ViewBag.Permissions = permissions;
+                var user = _systemSv.GetUserInfo();
+                user.Language = Session.GetUserLanguage();
+                ViewBag.User = user.GetUIInformation().SerializeJsonCamelCase();
                 dynamic environment = new ExpandoObject();
                 CompilationSection compilationSection = (CompilationSection)System.Configuration.ConfigurationManager.GetSection(@"system.web/compilation");
                 environment.compilationDebug = compilationSection.Debug;

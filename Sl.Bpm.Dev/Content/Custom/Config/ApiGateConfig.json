@@ -1,0 +1,30 @@
+﻿[
+
+  /* 本列表会记录所有需要记录的事件信息 */
+  // C端可访问白名单
+  // 工作台
+  "*",
+  "Bpm/GetUnReadNotificationCount",
+  "Task/GetPendingHandleTasksDataTable",
+  "Task/GetMyRaisedTasksDataTable",
+  "Module/GetAllFavouriteMenu",
+  "Module/GetLastWorkflow",
+  "Module/GetFavouriteMenu",
+  "Module/GetLastMenu",
+  // 流程中心
+  "Module/GetAllPagesEntriesByPermission",
+  "Bpm/GetSettings",
+  "Task/WorkFlowCountGroup",
+  "Task/GetMyDraftTasks",
+  // 流程页面
+  "Bpm/GetUserJobs",
+  "Module/GetBatchResult",
+  "Module/Invoke",
+  "Module/MenuLog",
+  "Module/GetViewTable",
+  "Task/GetExpectApprover",
+  "TaskRead/GetUserInfo",
+  // fileApi
+  "File/GetTaskLinkedFiles",
+  "File/UploadFiles"
+]

@@ -3,7 +3,7 @@
         function ($scope, service, $stateParams) {
             var vm = this;
             vm.model = $stateParams;
-            vm.paging = _shared.initialPage(vm, 1, 100, 'DisplayOrder', true);
+            vm.paging = _shared.initialPage(vm, 1, 200, 'DisplayOrder', true);
             vm.alignment = [
                 { text: "左", value: "L" },
                 { text: "中", value: "M" },

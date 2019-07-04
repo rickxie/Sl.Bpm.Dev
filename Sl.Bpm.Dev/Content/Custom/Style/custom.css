@@ -1,0 +1,2 @@
+﻿/*配置流程页面发起状态下可编辑控件背景颜色*/
+.edit-caution .normal, .edit-caution .fm-text.normal > .fm-text-input { background: #fbffbf }

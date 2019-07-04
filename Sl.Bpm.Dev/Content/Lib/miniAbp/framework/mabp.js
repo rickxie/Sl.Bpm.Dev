@@ -1,5 +1,12 @@
 ﻿/// <reference path="miniAbp.js" />
 
+function endsWith(str, suffix) {
+    if (suffix.length > str.length) {
+        return false;
+    }
+
+    return str.indexOf(suffix, str.length - suffix.length) !== -1;
+}
 //依赖 [zui组件, PNotify]
 // ReSharper disable once NativeTypePrototypeExtending
 //fill the string {0} , {1} with paramether[]
@@ -88,14 +95,9 @@ var mabp = angular.module('mabp', ['w5c.validator',
     'mgcrea.ngStrap.aside',
     'mgcrea.ngStrap.tooltip',
     'ngSanitize'
-]);
-function endsWith(str, suffix) {
-    if (suffix.length > str.length) {
-        return false;
-    }
 
-    return str.indexOf(suffix, str.length - suffix.length) !== -1;
-}
+]);
+
 mabp.appPath = window.appPath || '/';
 if (!endsWith(mabp.appPath, "/")) {
     mabp.appPath += '/';
@@ -349,9 +351,13 @@ if (!endsWith(mabp.appPath, "/")) {
             var lContent, lTitle;
             var _TL = injector.get("$filter")("translate");
 
+            if (content) {
+                lContent = typeof (content) === "string" ? content : content[lang];
+            }
+            if (title) {
+                lTitle = typeof (title) === "string" ? title : title[lang];
+            }
 
-            lContent = typeof (content) === "string" ? content : content[lang];
-            lTitle = typeof (title) === "string" ? title : title[lang];
             var m = modal({
                 templateUrl: 'modal/modal.confirm.tpl.html',
                 title: lTitle,
@@ -573,22 +579,34 @@ mabp && (function () {
                     defer.resolve();
                     return;
                 }
-                var responseData = response.data;
-                if (responseData.isSuccess) {
-                    defer.resolve(responseData.result);
-                } else {
-                    //如果未登陆 要求先登录
-                    if (!responseData.isAuthorized && !responseData.errors.isFriendlyError) {
-                        alert('未登录或者身份过期, 请重新登陆。');
-                        location.href = "/Account";
+                function handleResponse(responseData) {
+                    if (responseData.isSuccess) {
+                        defer.resolve(responseData.result);
                     } else {
-                        var title = responseData.errors.isFriendlyError ? "" : '发生异常';
-                        mabp.notify.error(responseData.errors.message, title);
-                        if (window.$environment != null && window.$environment.enableTest == true)
-                            console.error(responseData.exception);
-                    }
+                        //如果未登陆 要求先登录
+                        if (!responseData.isAuthorized && !responseData.errors.isFriendlyError) {
+                            alert('未登录或者身份过期, 请重新登陆。');
+                            location.href = "/Account";
+                        } else {
+                            var title = responseData.errors.isFriendlyError ? "" : '发生异常';
+                            mabp.notify.error(responseData.errors.message, title);
+                        }
 
-                    defer.reject(responseData.result);
+                        defer.reject(responseData.result);
+                    }
+                }
+
+                // 如果为NULL，说明是文件下载报异常
+                if (response.data.isSuccess == null && response.data instanceof Blob) {
+                    var blob = response.data;
+                    var fr = new FileReader();
+                    fr.readAsText(blob);
+                    fr.onloadend = fr.onerror = function (r) {
+                        var rs = JSON.parse(fr.result)
+                        handleResponse(rs);
+                    }
+                } else {
+                    handleResponse(response.data);
                 }
             },
             handleFileResponse: function (response) {
@@ -627,7 +645,7 @@ mabp && (function () {
                     'request': function (config) {
                         if (endsWith(config.url, '.cshtml')) {
                             config.url = mabp.appPath + 'AbpAppView/Load?viewUrl=' + config.url;
-                        } 
+                        }
 
                         return config;
                     },

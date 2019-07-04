@@ -3,7 +3,7 @@
 
     Layout = "~/Views/Home/Single.cshtml";
     ViewBag.hasSubMenu = true;
-    var single = Request.QueryString["single"];
+    var single = Request.QueryString["single"] ?? "workflow";
     var title = "";
     switch (single)
     {
@@ -24,6 +24,6 @@
     }
 
 <div id="imainbd">
-    <iframe name="_main" class="imain" src="/App/SysPages/views/system/default/default.html"></iframe>
+    <iframe name="_main" class="imain" src=""></iframe>
 </div>
 @*<div class="loading" style="text-align:center"><div class="content-spinner-bar" style="left:0"><div class="bounce1"></div><div class="bounce2"></div><div class="bounce3"></div></div></div>*@

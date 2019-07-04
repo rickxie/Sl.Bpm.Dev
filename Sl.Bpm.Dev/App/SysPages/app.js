@@ -17,7 +17,10 @@ app && (function () {
     app.config(['$translateProvider', function ($translateProvider) {
         $translateProvider.translations('en', mabp.localization['Bpm.en']);
         $translateProvider.translations('zh-CN', mabp.localization['Bpm.zh-CN']);
-        $translateProvider.preferredLanguage('zh-CN');
+        // 设置多语言标签生效
+        if ($currentUser == null) $currentUser = {};
+        $translateProvider.preferredLanguage($currentUser.language || 'zh-CN');
+        moment.locale($currentUser.language || 'zh-CN');
     }]);
 
     app.config([

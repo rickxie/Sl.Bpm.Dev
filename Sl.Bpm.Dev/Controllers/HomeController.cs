@@ -14,8 +14,7 @@ namespace Sl.Bpm.Client.Controllers
         // GET: Home
         public ActionResult Index()
         {
-            ViewBag.hasSubMenu = true;
-            return View();
+            return Redirect("/Home/Double/3");
         }
 
         [Authorize]
